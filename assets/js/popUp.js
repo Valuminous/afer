@@ -309,6 +309,7 @@ function loadFormAnimateurFonction(){
 }
 
 function loadFormAnimateurStatut(){
+    
     let statut = document.querySelector('#addStatutAnimateur');
 
     if(statut != null){
@@ -320,11 +321,11 @@ function loadFormAnimateurStatut(){
             if(reponse.length > 0){
                 document.querySelector('#modalCart6 .modal-body').innerHTML = reponse;
                 btn = document.querySelector('#modalCart6 .modal-body button');
+                
 
                 if(btn != null){
                     btn.addEventListener('click', function(e){
                         e.preventDefault();
-
                         if(document.querySelector('form[name="animateur_statut"] #animateur_statut_nom').value.length != 0){
                             
                             let statut = document.querySelector('form[name="animateur_statut"] #animateur_statut_nom');
@@ -339,7 +340,7 @@ function loadFormAnimateurStatut(){
                                 return resultat.json();
                             })
                             .then((resultat) => {
-
+               
                                 if(resultat.error != null){
                                     document.querySelector('#error6').innerHTML = "Le statut existe déjà";
 
@@ -365,4 +366,10 @@ function loadFormAnimateurStatut(){
             console.log(error);
         });
     }
+    document.querySelector('form[name="animateur_statut"] #animateur_statut_nom').value = "";
+
+}
+
+function loadFormTribunal(){
+
 }

@@ -8,15 +8,28 @@
     <h1>Ajouter un stage</h1>
     {% endif %}
 
-{{ form_start(formStage) }}
+    {{ form_start(formStage) }}
 
-<button type="submit" class="btn btn-primary">
-    {% if editMode %}
-    Modifier
-    {% else %}
-    Sauvegarder
-    {% endif %}
-</button>
+    {# <div class="d-flex">
+        {{ form_row(formStage.prefectureService, {'label': 'Service', 'attr': {'placeholder': 'Service'} }) }}
+        <button type="button" id="addServicePrefecture" class="btn btn-primary" data-toggle="modal" data-target="#modalCart3">
+            +
+        </button>
+    </div>
+    <div class="d-flex">
+        {{ form_row(formStage.prefectureAutorite, {'label': 'Autorité', 'attr': {'placeholder': 'Autorité'} }) }}
+        <button type="button" id="addAutoritePrefecture" class="btn btn-primary" data-toggle="modal" data-target="#modalCart4">
+            +
+        </button>
+    </div> #}
+
+    <button type="submit" class="btn btn-primary">
+        {% if editMode %}
+        Modifier
+        {% else %}
+        Sauvegarder
+        {% endif %}
+    </button>
 
 {{ form_end(formStage) }}
 
