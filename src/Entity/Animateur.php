@@ -37,7 +37,7 @@ class Animateur
     /**
      * @ORM\Column(type="boolean")
      */
-    private $gta_animateur;
+    private $gta_animateur = false;
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -146,7 +146,7 @@ class Animateur
         $this->status_animateur = $status_animateur;
         return $this;
     }
-    public function getGtaAnimateur(): ?string
+    public function getGtaAnimateur(): ?bool
     {
         return $this->gta_animateur;
     }
