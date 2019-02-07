@@ -28,7 +28,7 @@ class Tribunal
     private $adresse_tribunal;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $numero_adresse_tribunal;
 
@@ -85,12 +85,12 @@ class Tribunal
         return $this;
     }
 
-    public function getNumeroAdresseTribunal(): ?int
+    public function getNumeroAdresseTribunal(): ?string
     {
         return $this->numero_adresse_tribunal;
     }
 
-    public function setNumeroAdresseTribunal(int $numero_adresse_tribunal): self
+    public function setNumeroAdresseTribunal(string $numero_adresse_tribunal): self
     {
         $this->numero_adresse_tribunal = $numero_adresse_tribunal;
 
