@@ -30,6 +30,7 @@
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
+/node_modules/
 
 # PHPUnit
 /app/phpunit.xml
@@ -46,3 +47,18 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# env
+/.env.local
+/.env.local.php
+/.env.*.local
+.env
+
+# variés
+
+/public/bundles/
+/var/
+/src/Migrations/
+/public/build/
+npm-debug.log
+yarn-error.log

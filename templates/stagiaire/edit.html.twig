@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Stagiaire{% endblock %}
+
+{% block body %}
+<div class="container mt-4 text-center">
+    <h1>Modifier le Stagiaire</h1>
+
+    {{ include('stagiaire/form.html.twig', {'button_label': 'Modifier' }) }}
+
+    <a href="{{ path('stagiaire_index') }}" class="btn btn-dark">Retour</a>
+
+    {{ include('stagiaire/delete_form.html.twig') }}
+    </div>
+{% endblock %}

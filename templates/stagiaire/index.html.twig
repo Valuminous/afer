@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stagiaires{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mb-4">Stagiaires</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Numéro de portable</th>
+                <th>Numéro fixe</th>
+                <th>Adresse email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stagiaire in stagiaires %}
+            <tr>
+                
+                <td>{{ stagiaire.nomStagiaire }}</td>
+                <td>{{ stagiaire.prenomStagiaire }}</td> 
+                <td>{{ stagiaire.numeroPortableStagiaire }}</td>
+                <td>{{ stagiaire.numeroFixeStagiaire }}</td>
+                <td>{{ stagiaire.emailStagiaire }}</td>
+                <td>
+                    <a href="{{ path('stagiaire_afficher', {'id': stagiaire.id}) }}" class="btn btn-info">Afficher</a>
+                    <a href="{{ path('stagiaire_modifier', {'id': stagiaire.id}) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('stagiaire_afficher', {'id': stagiaire.id}) }}" class="btn btn-success">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18">Il n'y a aucun stagiaire</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('stagiaire_ajouter') }}" class="btn btn-danger">Ajouter un stagiaire</a>
+{% endblock %}
