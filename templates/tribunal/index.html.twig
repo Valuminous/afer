@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Tribunaux{% endblock %}
+
+{% block body %}
+
+    {% for tribunal in tribunals %}
+        <div>{{ tribunal.nomTribunal }}</div>
+        <div>{{ tribunal.adresseTribunal }}</div>
+        <div>{{ tribunal.numeroAdresseTribunal }}</div>
+        <div>{{ tribunal.communeTribunal }}</div>
+        <div>
+            <a href="{{path('tribunal_supprimer', {'id':tribunal.id})}}" class="btn btn-danger">Supprimer</a>
+            <a href="{{path('tribunal_modifier', {'id':tribunal.id})}}" class="btn btn-primary">Modifier</a>
+        </div>
+    {% endfor %}
+{% endblock %}

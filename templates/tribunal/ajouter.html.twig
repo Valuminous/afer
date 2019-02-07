@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter un tribunal{% endblock %}
+
+{% block body %}  
+
+    <div>
+        <h2>Ajouter un tribunal</h2>
+       
+        <div class="content">
+            
+            <div>
+                    {{ form_start(form) }}
+
+                        {{ form_row(form.nom_tribunal, {'label':"Nom du tribulal", 'attr': {'placeholder': "Nom du tribunal"}}) }}
+                        {{ form_row(form.adresse_tribunal, {'label':"Adresse", 'attr': {'placeholder': "adresse du tribunal"}}) }}
+                        {{ form_row(form.numero_adresse_tribunal, {'label':"Numéro de rue", 'attr': {'placeholder': "Numéro de rue du tribunal"}}) }}
+                        {{ form_row(form.commune_tribunal, {'label':"Commune", 'attr': {'placeholder': "Commune du tribunal"}}) }}
+        
+                        <button type="submit" class="btn btn-success">
+                            {% if  editMode %}
+                            Enregistrer les modifications
+                            {% else %}
+                                Ajouter le tribunal  
+                            {% endif %} 
+                        </button>
+
+                    {{ form_end(form) }}
+            </div>
+            
+        </div>
+    </div>
+
+
+{% endblock %}
