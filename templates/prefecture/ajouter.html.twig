@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préfecture{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formPrefecture) }}
+
+    {{ form_row(formPrefecture.nom_prefecture, {'label': 'Nom', 'attr': {'placeholder': 'Nom'} }) }}
+    {{ form_row(formPrefecture.adresse_prefecture, {'label': 'Adresse', 'attr': {'placeholder': 'Adresse'} }) }}
+    {{ form_row(formPrefecture.cp, {'label': 'Code postal', 'attr': {'placeholder': 'Code postal'} }) }}
+    {{ form_row(formPrefecture.commune, {'label': 'Commune', 'attr': {'placeholder': 'Commune'} }) }}
+
+    <button type="submit" class="btn btn-primary btn-link text-white mb-5 mt-3">
+        {% if editMode %}
+            Enregistrer
+        {% else %}
+            Valider
+        {% endif %}
+    </button>
+
+
+    {{ form_end(formPrefecture) }}
+
+{% endblock %}
