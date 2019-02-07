@@ -41,7 +41,7 @@ class StagiaireController extends AbstractController
             $entityManager->persist($stagiaire);
             $entityManager->flush();
             $this->addFlash('success', 'Stagiaire ajouté avec succès !');
-            return $this->redirectToRoute('stagiaire/index');
+            return $this->redirectToRoute('stagiaire_index');
         }
 
         return $this->render('stagiaire/new.html.twig', [
@@ -62,9 +62,9 @@ class StagiaireController extends AbstractController
 
     /**
      * @Route("/{id}/modifier", name="stagiaire_modifier", methods={"GET","POST"})
-     * @param Stagiaire $stagiaire
-     * @param Request $request
-     * @return Symfony\Component\HttpFoundation\Response
+    //  * @param Stagiaire $stagiaire
+    //  * @param Request $request
+    //  * @return Symfony\Component\HttpFoundation\Response
      */
     public function edit(Request $request, Stagiaire $stagiaire): Response
     {
@@ -74,7 +74,7 @@ class StagiaireController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('stagiaire/index', [
+            return $this->redirectToRoute('stagiaire_index', [
                 'id' => $stagiaire->getId(),
             ]);
         }
@@ -97,6 +97,6 @@ class StagiaireController extends AbstractController
             $this->addFlash('success', 'Stagiaire supprimé avec succès !');
         }
 
-        return $this->redirectToRoute('stagiaire/index');
+        return $this->redirectToRoute('stagiaire_index');
     }
 }
