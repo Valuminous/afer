@@ -13,10 +13,13 @@ class AnimateurController extends AbstractController
     /**
      * @Route("/animateur", name="animateur")
      */
-    public function index()
+    public function index(AnimateurRepository $repo)
     {
+        $animateurs = $repo->findAll();
+
         return $this->render('animateur/index.html.twig', [
             'controller_name' => 'AnimateurController',
+            'animateurs' => $animateurs
         ]);
     }
     /**
