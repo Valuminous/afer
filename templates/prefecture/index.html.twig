@@ -6,15 +6,30 @@
 
     {% for prefecture in prefectures %}
 
-        <p>Nom : {{ prefecture.nomPrefecture}}</p>
-        <p>Adresse : {{ prefecture.adressePrefecture}}</p>
-        <p>Code postal : {{ prefecture.cp}}</p>
-        <p>Commune : {{ prefecture.commune}}</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Code Postal</th>
+                <th scope="col">Commune</th>
+                <th scope="col">Réglages</th>
+            </tr>
+        </thead>
 
-        <div>
-            <a href="{{ path('prefecture_modifier', {'id': prefecture.id}) }}">Modifier</a>
-            <a href="{{ path('prefecture_supprimer', {'id': prefecture.id}) }}">Supprimer</a>
-        </div>
+        <tbody>
+            <tr>
+                <td>{{ prefecture.nomPrefecture}}</td>
+                <td>{{ prefecture.adressePrefecture}}</td>
+                <td>{{ prefecture.cp}}</td>
+                <td>{{ prefecture.commune}}</td>
+                <td>
+                    <a href="{{ path('prefecture_modifier', {'id': prefecture.id}) }}">Modifier</a>
+                    <a href="{{ path('prefecture_supprimer', {'id': prefecture.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
     {% endfor %}
 
