@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="animateur">
+    <a href="{{ path('animateurStatut_ajouter')}}" class="btn btn-success mt-5 mb-5">Ajouter un statut pour les animateurs</a>
+     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Nom du statut pour les animateurs</th>
+                <th scope="col" class="text-center">Options</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for animateurstatut in animateurstatuts %}
+            <tr>
+                <td class="text-center">{{ animateurstatut.nom }}</td>
+                <td class="text-center">
+                    <a href="{{  path('animateurStatut_afficher', {'id': animateurstatut.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{  path('animateurStatut_modifier', {'id': animateurstatut.id}) }}"><i class="fas fa-pen"></i></a>
+                    <a href="{{  path('animateurStatut_supprimer', {'id': animateurstatut.id}) }}" ><i class="far fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+{% endblock %}

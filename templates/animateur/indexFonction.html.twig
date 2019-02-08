@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="animateur">
+    <a href="{{ path('animateurFonction_ajouter')}}" class="btn btn-success mt-5 mb-5">Ajouter une fonction pour les animateurs</a>
+     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Nom de la fonction pour les animateurs</th>
+                <th scope="col" class="text-center">Options</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for animateurfonction in animateurfonctions %}
+            <tr>
+                <td class="text-center">{{ animateurfonction.nom }}</td>
+                <td class="text-center">
+                    <a href="{{  path('animateurFonction_afficher', {'id': animateurfonction.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{  path('animateurFonction_modifier', {'id': animateurfonction.id}) }}"><i class="fas fa-pen"></i></a>
+                    <a href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}" ><i class="far fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+{% endblock %}

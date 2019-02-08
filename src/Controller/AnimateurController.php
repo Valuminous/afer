@@ -7,7 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Animateur;
 use App\Form\AnimateurType;
+use App\Form\AnimateurStatutType;
+use App\Form\AnimateurFonctionType;
 use App\Repository\AnimateurRepository;
+use App\Entity\AnimateurFonction;
+use App\Repository\AnimateurFonctionRepository;
+use App\Repository\AnimateurStatutRepository;
+use App\Entity\AnimateurStatut;
 class AnimateurController extends AbstractController
 {
     /**
@@ -59,6 +65,118 @@ class AnimateurController extends AbstractController
     {
         return $this->render('animateur/afficher.html.twig', [
             'animateur' => $animateur
+        ]);
+    }
+
+    // ----- Affichage, ajout, modification et suppresion des fonctions pour les animateurs -----
+
+    /**
+     * @Route("/animateur/fonction", name="animateurFonction")
+     */
+    public function afficherFonction(AnimateurFonctionRepository $repo)
+    {
+        $animateurfonctions = $repo->findAll();
+
+        return $this->render('animateur/indexFonction.html.twig', [
+            'controller_name' => 'AnimateurController',
+            'animateurfonctions' => $animateurfonctions
+        ]);
+    }
+
+    /**
+     *  @Route("animateur/fonction/ajouter", name="animateurFonction_ajouter")
+     *  @Route("animateur/fonction/{id}/modifier", name="animateurFonction_modifier")
+     */
+    public function animateurFonctionForm(AnimateurFonction $animateurfonction = null, Request $request, ObjectManager $manager)
+    {
+        if(!$animateurfonction){
+        $animateurfonction = new AnimateurFonction();
+        }
+        $form = $this->createForm(AnimateurFonctionType::class, $animateurfonction);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($animateurfonction);
+            $manager->flush();
+            return $this->redirectToRoute('animateurFonction');
+        }
+        return $this->render('animateur/ajouterFonction.html.twig', [
+            'formAnimateurFonction' => $form->createView(),
+            'editMode' => $animateurfonction->getId() !== null
+        ]);
+    }
+
+    /**
+     *  @Route("animateur/fonction/{id}/supprimer", name="animateurFonction_supprimer")
+     */
+    public function supprimerAnimateurFonction(AnimateurFonction $animateurfonction, ObjectManager $manager)
+    {
+        $manager->remove($animateurfonction);
+        $manager->flush();
+        return $this->redirectToRoute('animateurFonction');
+    }
+    /**
+     * @Route("animateur/fonction/{id}/afficher", name="animateurFonction_afficher")
+     */
+    public function afficherUneAnimateurFonction(AnimateurFonction $animateurfonction)
+    {
+        return $this->render('animateur/afficherFonction.html.twig', [
+            'animateurfonction' => $animateurfonction
+        ]);
+    }
+
+    // ----- Affichage, ajout, modification et suppresion des statuts pour les animateurs -----
+
+    /**
+     * @Route("/animateur/statut", name="animateurStatut")
+     */
+    public function afficherStatut(AnimateurStatutRepository $repo)
+    {
+        $animateurstatuts = $repo->findAll();
+
+        return $this->render('animateur/indexStatut.html.twig', [
+            'controller_name' => 'AnimateurController',
+            'animateurstatuts' => $animateurstatuts
+        ]);
+    }
+
+    /**
+     *  @Route("animateur/statut/ajouter", name="animateurStatut_ajouter")
+     *  @Route("animateur/statut/{id}/modifier", name="animateurStatut_modifier")
+     */
+    public function animateurStatutForm(AnimateurStatut $animateurstatut = null, Request $request, ObjectManager $manager)
+    {
+        if(!$animateurstatut){
+        $animateurstatut = new AnimateurStatut();
+        }
+        $form = $this->createForm(AnimateurStatutType::class, $animateurstatut);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($animateurstatut);
+            $manager->flush();
+            return $this->redirectToRoute('animateurStatut');
+        }
+        return $this->render('animateur/ajouterStatut.html.twig', [
+            'formAnimateurStatut' => $form->createView(),
+            'editMode' => $animateurstatut->getId() !== null
+        ]);
+    }
+
+    /**
+     *  @Route("animateur/statut/{id}/supprimer", name="animateurStatut_supprimer")
+     */
+    public function supprimerAnimateurStatut(AnimateurStatut $animateurstatut, ObjectManager $manager)
+    {
+        $manager->remove($animateurstatut);
+        $manager->flush();
+        return $this->redirectToRoute('animateurStatut');
+    }
+    /**
+     * @Route("animateur/statut/{id}/afficher", name="animateurStatut_afficher")
+     */
+    public function afficherUneAnimateurStatut(AnimateurStatut $animateurstatut)
+    {
+        return $this->render('animateur/afficherStatut.html.twig', [
+            'animateurstatut' => $animateurstatut
         ]);
     }
 }
