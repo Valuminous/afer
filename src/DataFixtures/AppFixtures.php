@@ -9,9 +9,9 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $stagiaire = new Stagiaire();
-        $manager->persist($product);
+        // $stagiaire = new Stagiaire();
+        // $manager->persist($product);
 
-        $manager->flush();
+        // $manager->flush();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,6 +9,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Animateur;
 use App\Form\AnimateurType;
 use App\Repository\AnimateurRepository;
+
+
 class AnimateurController extends AbstractController
 {
     /**

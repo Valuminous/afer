@@ -47,13 +47,13 @@ class Tribunal
      */
     private $tribunalAutorite;
      /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="Tribunal")
+     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="tribunal")
      */
     private $stages;
 
     public function __construct()
     {
-        $this->stages = new ArrayCollection();
+        $this->stage = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,29 +133,32 @@ class Tribunal
         return $this;
     }
     
-    /**
+   /**
      * @return Collection|Stage[]
      */
-    public function getStages(): Collection
+    public function getStage(): Collection
     {
-        return $this->stages;
+        return $this->stage;
     }
 
     public function addStage(Stage $stage): self
     {
-        if (!$this->stages->contains($stage)) {
-            $this->stages[] = $stage;
-            $stages->addStage($this);
+        if (!$this->stage->contains($stage)) {
+            $this->stage[] = $stage;
+            $stage->addStage($this);
         }
         return $this;
     }
     public function removeStage(Stage $stage): self
     {
-        if ($this->stages->contains($stage)) {
-            $this->stages->removeElement($stage);
-            $stage->removeStage($this);
+        if ($this->stage->contains($stage)) {
+            $this->stage->removeElement($stage);
+             // set the owning side to null (unless already changed)
+             if ($relation->getTribunal() === $this) {
+                $relation->setTribunal(null);
            
         }
+    }
         return $this;
     }
 }

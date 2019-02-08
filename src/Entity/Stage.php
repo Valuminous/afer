@@ -1,5 +1,6 @@
 <?php
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,21 +34,25 @@ class Stage
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stages")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $prefecture;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stages")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $tribunal;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Animateur", inversedBy="stages")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $animateurs;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stagiaire", inversedBy="stages")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $stagiaires;
 
@@ -138,7 +143,7 @@ class Stage
     {
         if (!$this->animateurs->contains($animateur)) {
             $this->animateurs[] = $animateur;
-            $animateurs->addAnimateur($this);
+            $animateur->addAnimateur($this);
         }
 
         return $this;
@@ -166,7 +171,7 @@ class Stage
     {
         if (!$this->stagiaires->contains($stagiaire)) {
             $this->stagiaires[] = $stagiaire;
-            $stagiaires->addStagiaire($this);
+            $stagiaire->addStagiaire($this);
         }
         return $this;
     }

@@ -1,5 +1,6 @@
 <?php
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -90,7 +91,7 @@ class Animateur
      /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="animateurs")
      */
-    private $Stages;
+    private $stages;
 
     public function __construct()
     {
@@ -277,15 +278,15 @@ class Animateur
     {
         if (!$this->Stages->contains($stage)) {
             $this->Stages[] = $stage;
+            
         }
-
         return $this;
     }
-
     public function removeStage(Stage $stage): self
     {
-        if (!$this->Stages->contains($stage)) {
+        if ($this->Stages->contains($stage)) {
             $this->Stages->removeElement($stage);
+            
         }
 
         return $this;

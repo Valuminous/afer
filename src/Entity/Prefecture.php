@@ -48,13 +48,13 @@ class Prefecture
     private $prefectureAutorite;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="Prefecture")
+     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="prefecture")
      */
     private $stages;
 
     public function __construct()
     {
-        $this->stages = new ArrayCollection();
+        $this->Stages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -139,24 +139,27 @@ class Prefecture
      */
     public function getStages(): Collection
     {
-        return $this->stages;
+        return $this->Stages;
     }
 
     public function addStage(Stage $stage): self
     {
-        if (!$this->stages->contains($stage)) {
-            $this->stages[] = $stage;
-            $stages->addStage($this);
+        if (!$this->Stages->contains($stage)) {
+            $this->Stages[] = $stage;
+            // $stage->addStage($this);
         }
         return $this;
     }
     public function removeStage(Stage $stage): self
     {
-        if ($this->stages->contains($stage)) {
-            $this->stages->removeElement($stage);
-            $stage->removeStage($this);
+        if ($this->Stages->contains($stage)) {
+            $this->Stages->removeElement($stage);
+             // set the owning side to null (unless already changed)
+        //      if ($relation->getPrefecture() === $this) {
+        //         $relation->setPrefecture(null);
            
-        }
+        // }
+    }
         return $this;
     }
 }
