@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if editMode %}
+    <h1>Modifier une fonction</h1>
+    {% else %}
+    <h1>Ajouter une fonction</h1>
+    {% endif %}
+
+{{ form_start(formAnimateurFonction) }}
+
+<button type="submit" class="btn btn-primary">
+    {% if editMode %}
+    Modifier
+    {% else %}
+    Sauvegarder
+    {% endif %}
+</button>
+
+{{ form_end(formAnimateurFonction) }}
+
+{% endblock %}
