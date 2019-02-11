@@ -80,4 +80,12 @@ class TribunalAutorite
 
         return $this;
     }
+
+    /**
+    * toString
+    * 
+    */
+    public function __toString(){
+        return $this->getNom();
+    }
 }
