@@ -29,11 +29,6 @@ class AnimateurType extends AbstractType
             ->add('urssaf_animateur')
             ->add('siret_animateur')
             ->add('observations_animateur')
-<<<<<<< HEAD
-            ->add('animateurStatut')
-            ->add('animateurFonction')
-            // ->add('Stages')
-=======
             ->add('animateurStatut', EntityType::class, [
                 'class' => AnimateurStatut::class,
                 'choice_label' => 'nom'
@@ -42,8 +37,10 @@ class AnimateurType extends AbstractType
                 'class' => AnimateurFonction::class,
                 'choice_label' => 'nom'
             ])
-            ->add('Stages')
->>>>>>> origin/master
+            ->add('stages', EntityType::class, [
+                'class' => Stage::class,
+                'choice_label' => 'numero_stage'
+            ])
         ;
     }
 

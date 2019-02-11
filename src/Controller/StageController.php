@@ -14,7 +14,7 @@ use App\Repository\StageRepository;
 class StageController extends AbstractController
 {
     /**
-     * @Route("/stage", name="stage")
+     * @Route("/stage", name="stage_index")
      */
     public function index(StageRepository $repo)
     {
@@ -39,7 +39,7 @@ class StageController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($stage);
             $manager->flush();
-            return $this->redirectToRoute('stage');
+            return $this->redirectToRoute('stage_index');
         }
         return $this->render('stage/ajouter.html.twig', [
             'formStage' => $form->createView(),
@@ -53,7 +53,7 @@ class StageController extends AbstractController
     {
         $manager->remove($stage);
         $manager->flush();
-        return $this->redirectToRoute('stage');
+        return $this->redirectToRoute('stage_index');
     }
     /**
      * @Route("stage/{id}/afficher", name="stage_afficher")

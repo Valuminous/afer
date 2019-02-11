@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préfecture{% endblock %}
+
+{% block body %}
+
+<section class="info_animateur">
+<h2>Infos</h2>
+<div =class="d-flex justify-content-center">
+                <p>Numéro de stage :{{ stage.numeroStage }}</p>
+                <p Date de début:{{ stage.dateDebutStage }}</p>
+                <p Date de fin:{{ stage.dateFinStage }}</p>
+                <p Stage hors programme {{ stage.stageProgrammeOfficiel }} </p>
+                
+  </section>
+
+   <a href="{{ path('stage_index') }}">Retour</a>
+  
+
+{% endblock %}

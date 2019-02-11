@@ -82,12 +82,7 @@ class Animateur
      /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="animateurs")
      */
-<<<<<<< HEAD
-    private $stages;
-
-=======
     private $Stages;
->>>>>>> origin/master
     public function __construct()
     {
         $this->Stages = new ArrayCollection();
