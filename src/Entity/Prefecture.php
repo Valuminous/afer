@@ -20,12 +20,17 @@ class Prefecture
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_prefecture;
+    private $nomPrefecture;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $adresse_prefecture;
+    private $adressePrefecture;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $numeroAdressePrefecture;
 
     /**
      * @ORM\Column(type="integer")
@@ -64,24 +69,36 @@ class Prefecture
 
     public function getNomPrefecture(): ?string
     {
-        return $this->nom_prefecture;
+        return $this->nomPrefecture;
     }
 
-    public function setNomPrefecture(string $nom_prefecture): self
+    public function setNomPrefecture(string $nomPrefecture): self
     {
-        $this->nom_prefecture = $nom_prefecture;
+        $this->nomPrefecture = $nomPrefecture;
 
         return $this;
     }
 
     public function getAdressePrefecture(): ?string
     {
-        return $this->adresse_prefecture;
+        return $this->adressePrefecture;
     }
 
-    public function setAdressePrefecture(string $adresse_prefecture): self
+    public function setAdressePrefecture(string $adressePrefecture): self
     {
-        $this->adresse_prefecture = $adresse_prefecture;
+        $this->adressePrefecture = $adressePrefecture;
+
+        return $this;
+    }
+
+    public function getNumeroAdressePrefecture(): ?string
+    {
+        return $this->numeroAdressePrefecture;
+    }
+
+    public function setNumeroAdressePrefecture(string $numeroAdressePrefecture): self
+    {
+        $this->numeroAdressePrefecture = $numeroAdressePrefecture;
 
         return $this;
     }

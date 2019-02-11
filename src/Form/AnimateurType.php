@@ -6,6 +6,9 @@ use App\Entity\Animateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\AnimateurStatut;
+use App\Entity\AnimateurFonction;
 
 class AnimateurType extends AbstractType
 {
@@ -15,8 +18,6 @@ class AnimateurType extends AbstractType
             ->add('nom_animateur')
             ->add('prenom_animateur')
             ->add('raison_sociale_animateur')
-            ->add('fonction_animateur')
-            ->add('status_animateur')
             ->add('gta_animateur')
             ->add('cp_animateur')
             ->add('commune_animateur')
@@ -28,9 +29,21 @@ class AnimateurType extends AbstractType
             ->add('urssaf_animateur')
             ->add('siret_animateur')
             ->add('observations_animateur')
+<<<<<<< HEAD
             ->add('animateurStatut')
             ->add('animateurFonction')
             // ->add('Stages')
+=======
+            ->add('animateurStatut', EntityType::class, [
+                'class' => AnimateurStatut::class,
+                'choice_label' => 'nom'
+            ])
+            ->add('animateurFonction', EntityType::class, [
+                'class' => AnimateurFonction::class,
+                'choice_label' => 'nom'
+            ])
+            ->add('Stages')
+>>>>>>> origin/master
         ;
     }
 

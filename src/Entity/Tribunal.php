@@ -20,22 +20,22 @@ class Tribunal
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_tribunal;
+    private $nomTribunal;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $adresse_tribunal;
+    private $adresseTribunal;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numero_adresse_tribunal;
+    private $numeroAdresseTribunal;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $commune_tribunal;
+    private $communeTribunal;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TribunalService", inversedBy="relation")
@@ -63,48 +63,48 @@ class Tribunal
 
     public function getNomTribunal(): ?string
     {
-        return $this->nom_tribunal;
+        return $this->nomTribunal;
     }
 
-    public function setNomTribunal(string $nom_tribunal): self
+    public function setNomTribunal(string $nomTribunal): self
     {
-        $this->nom_tribunal = $nom_tribunal;
+        $this->nomTribunal = $nomTribunal;
 
         return $this;
     }
 
     public function getAdresseTribunal(): ?string
     {
-        return $this->adresse_tribunal;
+        return $this->adresseTribunal;
     }
 
-    public function setAdresseTribunal(string $adresse_tribunal): self
+    public function setAdresseTribunal(string $adresseTribunal): self
     {
-        $this->adresse_tribunal = $adresse_tribunal;
+        $this->adresseTribunal = $adresseTribunal;
 
         return $this;
     }
 
     public function getNumeroAdresseTribunal(): ?string
     {
-        return $this->numero_adresse_tribunal;
+        return $this->numeroAdresseTribunal;
     }
 
-    public function setNumeroAdresseTribunal(string $numero_adresse_tribunal): self
+    public function setNumeroAdresseTribunal(string $numeroAdresseTribunal): self
     {
-        $this->numero_adresse_tribunal = $numero_adresse_tribunal;
+        $this->numeroAdresseTribunal = $numeroAdresseTribunal;
 
         return $this;
     }
 
     public function getCommuneTribunal(): ?string
     {
-        return $this->commune_tribunal;
+        return $this->communeTribunal;
     }
 
-    public function setCommuneTribunal(string $commune_tribunal): self
+    public function setCommuneTribunal(string $communeTribunal): self
     {
-        $this->commune_tribunal = $commune_tribunal;
+        $this->communeTribunal = $communeTribunal;
 
         return $this;
     }
@@ -117,7 +117,6 @@ class Tribunal
     public function setTribunalService(?TribunalService $tribunalService): self
     {
         $this->tribunalService = $tribunalService;
-
         return $this;
     }
 
@@ -161,4 +160,5 @@ class Tribunal
     }
         return $this;
     }
+
 }

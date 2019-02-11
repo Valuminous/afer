@@ -28,14 +28,6 @@ class Animateur
      */
     private $raison_sociale_animateur;
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $fonction_animateur;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status_animateur;
-    /**
      * @ORM\Column(type="boolean")
      */
     private $gta_animateur = false;
@@ -87,17 +79,19 @@ class Animateur
      * @ORM\ManyToOne(targetEntity="App\Entity\AnimateurFonction", inversedBy="relation")
      */
     private $animateurFonction;
-
      /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="animateurs")
      */
+<<<<<<< HEAD
     private $stages;
 
+=======
+    private $Stages;
+>>>>>>> origin/master
     public function __construct()
     {
         $this->Stages = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -127,24 +121,6 @@ class Animateur
     public function setRaisonSocialeAnimateur(string $raison_sociale_animateur): self
     {
         $this->raison_sociale_animateur = $raison_sociale_animateur;
-        return $this;
-    }
-    public function getFonctionAnimateur(): ?string
-    {
-        return $this->fonction_animateur;
-    }
-    public function setFonctionAnimateur(string $fonction_animateur): self
-    {
-        $this->fonction_animateur = $fonction_animateur;
-        return $this;
-    }
-    public function getStatusAnimateur(): ?string
-    {
-        return $this->status_animateur;
-    }
-    public function setStatusAnimateur(string $status_animateur): self
-    {
-        $this->status_animateur = $status_animateur;
         return $this;
     }
     public function getGtaAnimateur(): ?bool
@@ -264,16 +240,13 @@ class Animateur
         $this->animateurFonction = $animateurFonction;
         return $this;
     }
-
      /**
     * @return Collection|Stage[]
     */
-
     public function getStages(): Collection
     {
         return $this->Stages;
     }
-
     public function addStage(Stage $stage): self
     {
         if (!$this->Stages->contains($stage)) {
@@ -288,7 +261,6 @@ class Animateur
             $this->Stages->removeElement($stage);
             
         }
-
         return $this;
     }
 }

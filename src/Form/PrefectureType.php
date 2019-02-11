@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Prefecture;
+use App\Entity\PrefectureService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PrefectureType extends AbstractType
@@ -13,10 +15,14 @@ class PrefectureType extends AbstractType
     {
         $builder
             ->add('nom_prefecture')
+            ->add('numero_adresse_prefecture')
             ->add('adresse_prefecture')
             ->add('cp')
             ->add('commune')
-            ->add('prefectureService')
+            ->add('prefectureService', EntityType::class, [
+                'class' => PrefectureService::class, 
+                'choice_label' => 'nom'
+            ])
             ->add('prefectureAutorite')
         ;
     }
