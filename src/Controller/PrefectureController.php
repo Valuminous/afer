@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Prefecture;
 use App\Form\PrefectureType;
 use App\Entity\PrefectureService;
+use App\Entity\PrefectureAutorite;
 use App\Form\PrefectureServiceType;
+use App\Form\PrefectureAutoriteType;
 use App\Repository\PrefectureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\PrefectureServiceRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\PrefectureAutoriteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -20,7 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PrefectureController extends AbstractController
 {
     /**
-     * @Route("/prefecture", name="prefecture")
+     * @Route("/prefecture", name="prefecture_index")
      */
     public function index(PrefectureRepository $repoPrefecture)
     {
@@ -33,7 +36,7 @@ class PrefectureController extends AbstractController
     }
 
     /**
-     * @Route("/prefecture/service", name="prefecture_service")
+     * @Route("/prefecture/service", name="prefecture_service_index")
      */
     public function indexService(PrefectureServiceRepository $repoPrefectureService)
     {
@@ -41,6 +44,18 @@ class PrefectureController extends AbstractController
 
         return $this->render('prefecture/service.html.twig', [
             'services' => $services
+        ]);
+    }
+
+    /**
+     * @Route("/prefecture/autorite", name="prefecture_autorite_index")
+     */
+    public function indexAutorite(PrefectureAutoriteRepository $repoPrefectureAutorite)
+    {
+        $autorites = $repoPrefectureAutorite->findAll();
+
+        return $this->render('prefecture/autorite.html.twig', [
+            'autorites' => $autorites
         ]);
     }
 
@@ -62,7 +77,7 @@ class PrefectureController extends AbstractController
             $manager->persist($prefectures);
             $manager->flush();
 
-            return $this->redirectToRoute('prefecture');
+            return $this->redirectToRoute('prefecture_index');
         }
 
         return $this->render('prefecture/ajouterPrefecture.html.twig', [
@@ -90,7 +105,7 @@ class PrefectureController extends AbstractController
         $manager->remove($prefectures);
         $manager->flush();
 
-        return $this->redirectToRoute('prefecture');
+        return $this->redirectToRoute('prefecture_index');
     }
 
     /**
@@ -111,7 +126,7 @@ class PrefectureController extends AbstractController
             $manager->persist($service);
             $manager->flush();
 
-            return $this->redirectToRoute('prefecture_service');
+            return $this->redirectToRoute('prefecture_service_index');
         }
 
         return $this->render('prefecture/ajouterService.html.twig', [
@@ -128,6 +143,45 @@ class PrefectureController extends AbstractController
         $manager->remove($service);
         $manager->flush();
 
-        return $this->redirectToRoute('prefecture_service');
+        return $this->redirectToRoute('prefecture_service_index');
     }
+
+    /**
+     * @Route("/prefecture/autorite/ajouter", name="prefecture_autorite_ajouter")
+     * @Route("/prefecture/autorite/{id}/modifier", name="prefecture_autorite_modifier")
+     */
+    public function ajoutPrefectureAutorite(PrefectureAutorite $autorite = null, Request $request, ObjectManager $manager) {
+
+        if(!$autorite) {
+            $autorite = new PrefectureAutorite();
+        }
+
+        $form = $this->createForm(PrefectureAutoriteType::class, $autorite);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($autorite);
+            $manager->flush();
+
+            return $this->redirectToRoute('prefecture_autorite_index');
+        }
+
+        return $this->render('prefecture/ajouterAutorite.html.twig', [
+            'formPrefectureAutorite' => $form->createView(),
+            'editMode' => $autorite->getId() !== null
+        ]);
+    }
+
+    /**
+     * @Route("/prefecture/autorite/{id}/supprimer", name="prefecture_autorite_supprimer")
+     */
+    public function deletePrefectureAutorite(PrefectureAutorite $autorite, Request $request, ObjectManager $manager) {
+
+        $manager->remove($autorite);
+        $manager->flush();
+
+        return $this->redirectToRoute('prefecture_autorite_index');
+    }
+
 }
