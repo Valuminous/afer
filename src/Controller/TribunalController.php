@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/tribunal")
+ * @Route("/admin/tribunal")
  */
 class TribunalController extends AbstractController
 {
