@@ -12,6 +12,7 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
         crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="icon" href="{{ asset('build/static/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     {% endblock %}
@@ -19,7 +20,52 @@
 </head>
 
 <body>
-    {% block body %}{% endblock %}
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 d-flex left_branding align-items-center">
+                    <img src="{{ asset('build/static/logo.png') }}" alt="" class="ml-4 mr-4">
+                    <h1>AFER</h1>
+                </div>
+                <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 top_logout"></div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 left_nav">
+                    <ul>
+                        <li class="mt-5 mb-5">
+                            <a href=""><i class="fab fa-microsoft"></i>A la une</a>
+                        </li>
+                        <li class="mb-5">
+                            <a href=""><i class="far fa-calendar-alt"></i>Stages</a>
+                        </li>
+                        <li class="mb-5">
+                            <a href=""><i class="fas fa-users"></i>Stagiaire</a>
+                        </li>
+                        <li class="mb-5">
+                            <a class="turn_arrow_blue"><i class="fas fa-balance-scale"></i>Tribunaux</a>
+                            <i class="fas fa-angle-right ml-4 angle_blue"></i>
+                        </li>
+                        <li class="mb-5">
+                            <a href="{{ path('animateur') }}" class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
+                            <i class="fas fa-angle-right ml-4 angle_orange"></i>
+                        </li>
+                        <li class="mb-5">
+                            <a class="turn_arrow_purple"><i class="fas fa-address-card"></i>Préfectures</a>
+                            <i class="fas fa-angle-right ml-4 angle_purple"></i>
+                        </li>
+                        <li>
+                            <a href=""><i class="fas fa-key"></i>Utilisateurs</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 main_content">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
     {% block javascripts %}{% endblock %}
     <script src="{{ asset('build/app.js') }}"></script>
 </body>
