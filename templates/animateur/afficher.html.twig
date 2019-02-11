@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="animateur">
+    <p>ID : {{ animateur.id }}</p>
+    <p>Nom : {{ animateur.nomAnimateur }}</p>
+    <p>Prenom : {{ animateur.prenomAnimateur }}</p>
+    <p>Raison sociale : {{ animateur.raisonSocialeAnimateur }}</p>
+    <p>Fonction : {{ animateur.animateurFonction }}</p>
+    <p>Status : {{ animateur.animateurStatut }}</p>
+    <p>Gestion technique administrative : {{ animateur.gtaAnimateur }}</p>
+    <p>Code postale : {{ animateur.cpAnimateur }}</p>
+    <p>Commune : {{ animateur.communeAnimateur }}</p>
+    <p>Region : {{ animateur.regionAnimateur }}</p>
+    <p>Rue : {{ animateur.rueAnimateur }}</p>
+    <p>N° Fixe : {{ animateur.numeroFixeAnimateur }}</p>
+    <p>N° Portable : {{ animateur.numeroPortableAnimateur }}</p>
+    <p>Email : {{ animateur.emailAnimateur }}</p>
+    <p>Urssaf : {{ animateur.urssafAnimateur }}</p>
+    <p>Siret : {{ animateur.siretAnimateur }}</p>
+    <p>Observations : {{ animateur.observationsAnimateur }}</p>
+</section>
+{% endblock %}
