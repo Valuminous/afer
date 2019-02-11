@@ -33,7 +33,7 @@ class Prefecture
     private $numeroAdressePrefecture;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $cp;
 
@@ -103,12 +103,12 @@ class Prefecture
         return $this;
     }
 
-    public function getCp(): ?int
+    public function getCp(): ?string
     {
         return $this->cp;
     }
 
-    public function setCp(int $cp): self
+    public function setCp(string $cp): self
     {
         $this->cp = $cp;
 
