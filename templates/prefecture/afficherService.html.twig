@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préfecture Service{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formPrefectureService) }}
+
+    {{ form_row(formPrefectureService.nom, {'label': 'Nom', 'attr': {'placeholder': 'Nom'} }) }}
+
+    <button type="submit" class="btn btn-primary btn-link text-white mb-5 mt-3">
+        {% if editMode %}
+            Enregistrer
+        {% else %}
+            Valider
+        {% endif %}
+    </button>
+
+    {{ form_end(formPrefectureService) }}
+
+{% endblock %}
