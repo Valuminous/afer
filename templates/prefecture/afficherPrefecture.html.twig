@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préfecture{% endblock %}
+
+{% block body %}
+
+<section class="animateur">
+
+    <p>Nom : {{ prefectures.nomPrefecture }}</p>
+    <p>Adresse : {{ prefectures.numeroAdressePrefecture }} {{ prefectures.adressePrefecture }}</p>
+    <p>Code postal : {{ prefectures.cp }}</p>
+    <p>Commune : {{ prefectures.commune }}</p>
+    <p>Préfecture service : {{ prefectures.prefectureService }}</p>
+
+</section>
+
+{% endblock %}

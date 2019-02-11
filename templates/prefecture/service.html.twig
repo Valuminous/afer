@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préfecture{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.nom }}</td>
+                    <td>
+                        <a href="{{ path('prefecture_service', {'id': service.id}) }}"><i class="fas fa-eye"></i></a>
+                        <a href="{{ path('prefecture_service_modifier', {'id': service.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="{{ path('prefecture_service_supprimer', {'id': service.id}) }}"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
