@@ -86,17 +86,14 @@ class Animateur
      * @ORM\ManyToOne(targetEntity="App\Entity\AnimateurFonction", inversedBy="relation")
      */
     private $animateurFonction;
-
      /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="animateurs")
      */
     private $Stages;
-
     public function __construct()
     {
         $this->Stages = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -263,31 +260,25 @@ class Animateur
         $this->animateurFonction = $animateurFonction;
         return $this;
     }
-
      /**
     * @return Collection|Stage[]
     */
-
     public function getStages(): Collection
     {
         return $this->Stages;
     }
-
     public function addStage(Stage $stage): self
     {
         if (!$this->Stages->contains($stage)) {
             $this->Stages[] = $stage;
         }
-
         return $this;
     }
-
     public function removeStage(Stage $stage): self
     {
         if (!$this->Stages->contains($stage)) {
             $this->Stages->removeElement($stage);
         }
-
         return $this;
     }
 }
