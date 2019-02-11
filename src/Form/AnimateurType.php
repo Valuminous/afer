@@ -18,8 +18,6 @@ class AnimateurType extends AbstractType
             ->add('nom_animateur')
             ->add('prenom_animateur')
             ->add('raison_sociale_animateur')
-            ->add('fonction_animateur')
-            ->add('status_animateur')
             ->add('gta_animateur')
             ->add('cp_animateur')
             ->add('commune_animateur')
@@ -31,8 +29,6 @@ class AnimateurType extends AbstractType
             ->add('urssaf_animateur')
             ->add('siret_animateur')
             ->add('observations_animateur')
-            // ->add('animateurStatut')
-            // ->add('animateurFonction')
             ->add('animateurStatut', EntityType::class, [
                 'class' => AnimateurStatut::class,
                 'choice_label' => 'nom'

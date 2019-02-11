@@ -27,14 +27,6 @@ class Animateur
      */
     private $raison_sociale_animateur;
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $fonction_animateur;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status_animateur;
-    /**
      * @ORM\Column(type="boolean")
      */
     private $gta_animateur = false;
@@ -123,24 +115,6 @@ class Animateur
     public function setRaisonSocialeAnimateur(string $raison_sociale_animateur): self
     {
         $this->raison_sociale_animateur = $raison_sociale_animateur;
-        return $this;
-    }
-    public function getFonctionAnimateur(): ?string
-    {
-        return $this->fonction_animateur;
-    }
-    public function setFonctionAnimateur(string $fonction_animateur): self
-    {
-        $this->fonction_animateur = $fonction_animateur;
-        return $this;
-    }
-    public function getStatusAnimateur(): ?string
-    {
-        return $this->status_animateur;
-    }
-    public function setStatusAnimateur(string $status_animateur): self
-    {
-        $this->status_animateur = $status_animateur;
         return $this;
     }
     public function getGtaAnimateur(): ?bool
