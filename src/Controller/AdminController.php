@@ -12,7 +12,7 @@ class AdminController extends AbstractController
 {
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/adm", name="admin")
      * @return Response
      */
 
