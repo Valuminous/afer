@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter un service de tribunal{% endblock %}
+
+{% block body %}  
+
+    <div>
+        <h2>Ajouter un service de tribunal</h2>
+       
+        <div class="content">
+            
+            <div>
+                    {{ form_start(form) }}
+
+                        {{ form_row(form.nom, {'label':"Nom du service du tribunal", 'attr': {'placeholder': "Nom du service du tribunal"}}) }}
+    
+                        <button type="submit" class="btn btn-success">
+                            {% if  editMode %}
+                            Enregistrer les modifications
+                            {% else %}
+                                Ajouter le service  
+                            {% endif %} 
+                        </button>
+
+                    {{ form_end(form) }}
+            </div>
+            
+        </div>
+    </div>
+
+
+{% endblock %}
