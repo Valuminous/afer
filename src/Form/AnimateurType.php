@@ -30,7 +30,7 @@ class AnimateurType extends AbstractType
             ->add('observations_animateur')
             ->add('animateurStatut')
             ->add('animateurFonction')
-            ->add('Stages')
+            // ->add('Stages')
         ;
     }
 

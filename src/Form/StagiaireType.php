@@ -28,7 +28,7 @@ class StagiaireType extends AbstractType
             ->add('partenaire_stagiaire')
             ->add('adherent_stagiaire')
             ->add('numero_adresse_stagiaire')
-            ->add('stages')
+            // ->add('stages')
         ;
     }
 

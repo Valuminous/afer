@@ -7,8 +7,12 @@
 <div class="container mt-4 text-center">
     <h1>Ajouter un stagiaire</h1>
   
+ {{ form_start(formStagiaire) }}
 
-    {{ include('stagiaire/form.html.twig', {form: form, button: 'Ajouter'})  }}
+            {{ form_widget(formStagiaire) }}
+ <button type="submit" class="btn btn-primary btn-link text-white mb-5 mt-3">
+
+                    {{ form_end(formStagiaire) }}
   <div class="row ">
     <a href="{{ path('stagiaire_index') }}" class="btn btn-dark">Retour</a>
 </div>
