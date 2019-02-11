@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class StageType extends AbstractType
 {
@@ -20,26 +21,24 @@ class StageType extends AbstractType
     {
         $builder
             ->add('numero_stage')
-            ->add('date_debut_stage')
-            ->add('date_fin_stage')
+            ->add('dated', DateTimeType::class, [
+                'date_label' => 'Starts On'])
+            ->add('datef', DateTimeType::class, [
+                'date_label' => 'Ends On'])
             ->add('stage_programme_officiel')
-            ->add('lieuStage', EntityType::class, [
-                'class' => LieuStage::class,
-                'choice_label' => 'name',
-                'multiple' => 'true',
-                'expanded' => 'true'
-            ])    
+            // ->add('lieuStage', EntityType::class, [
+            //     'class' => LieuStage::class,
+            //     'choice_label' => 'nom_etablissement',
+            //     'multiple' => 'true',
+            //     'expanded' => 'true'
+            // ])    
             ->add('prefecture', EntityType::class, [
                 'class' => Prefecture::class,
-                'choice_label' => 'name',
-                'multiple' => 'true',
-                'expanded' => 'true'
+                'choice_label' => 'nom_prefecture'
             ])    
             ->add('tribunal', EntityType::class, [
                 'class' => Tribunal::class,
-                'choice_label' => 'name',
-                'multiple' => 'true',
-                'expanded' => 'true'
+                'choice_label' => 'nom_tribunal'
             ])    
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,

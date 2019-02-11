@@ -59,7 +59,7 @@ class Prefecture
 
     public function __construct()
     {
-        $this->Stages = new ArrayCollection();
+        $this->stages = new ArrayCollection();
     }
 
     public function getId(): ?int

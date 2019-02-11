@@ -15,10 +15,14 @@ use App\Entity\AnimateurFonction;
 use App\Repository\AnimateurFonctionRepository;
 use App\Repository\AnimateurStatutRepository;
 use App\Entity\AnimateurStatut;
+
+/**
+ * @Route("/admin")
+ */
 class AnimateurController extends AbstractController
 {
     /**
-     * @Route("/animateur", name="animateur")
+     * @Route("/animateur", name="animateur_index")
      */
     public function index(AnimateurRepository $repo)
     {

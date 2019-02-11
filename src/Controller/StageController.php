@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\StageRepository;
 
+/**
+ * @Route("/admin")
+ */
 class StageController extends AbstractController
 {
     /**
@@ -26,8 +29,8 @@ class StageController extends AbstractController
         ]);
     }
  /**
-     *  @Route("stage/ajouter", name="stage_ajouter")
-     *  @Route("stage/{id}/modifier", name="stage_modifier")
+     *  @Route("/stage/ajouter", name="stage_ajouter")
+     *  @Route("/stage/{id}/modifier", name="stage_modifier")
      */
     public function stageForm(Stage $stage = null, Request $request, ObjectManager $manager)
     {
@@ -47,7 +50,7 @@ class StageController extends AbstractController
         ]);
     }
     /**
-     *  @Route("stage/{id}/supprimer", name="stage_supprimer")
+     *  @Route("/stage/{id}/supprimer", name="stage_supprimer")
      */
     public function delete(Stage $stage, ObjectManager $manager)
     {
@@ -56,7 +59,7 @@ class StageController extends AbstractController
         return $this->redirectToRoute('stage_index');
     }
     /**
-     * @Route("stage/{id}/afficher", name="stage_afficher")
+     * @Route("/stage/{id}/afficher", name="stage_afficher")
      */
     public function showOne(Stage $stage)
     {

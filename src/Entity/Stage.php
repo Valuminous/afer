@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\DateTimeInterface;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,11 +24,11 @@ class Stage
     /**
      * @ORM\Column(type="date")
      */
-    private $date_debut_stage;
+    private $dated;
     /**
      * @ORM\Column(type="date")
      */
-    private $date_fin_stage;
+    private $datef;
     /**
      * @ORM\Column(type="boolean")
      */
@@ -79,22 +81,22 @@ class Stage
         $this->numero_stage = $numero_stage;
         return $this;
     }
-    public function getDateDebutStage(): ?\DateTimeInterface
+    public function getDated(): ?\DateTimeInterface
     {
-        return $this->date_debut_stage;
+        return $this->dated;
     }
-    public function setDateDebutStage(\DateTimeInterface $date_debut_stage): self
+    public function setDated(\DateTimeInterface $dated): self
     {
-        $this->date_debut_stage = $date_debut_stage;
+        $this->dated = $dated;
         return $this;
     }
-    public function getDateFinStage(): ?\DateTimeInterface
+    public function getDatef(): ?\DateTimeInterface
     {
-        return $this->date_fin_stage;
+        return $this->datef;
     }
-    public function setDateFinStage(\DateTimeInterface $date_fin_stage): self
+    public function setDatef(\DateTimeInterface $datef): self
     {
-        $this->date_fin_stage = $date_fin_stage;
+        $this->datef = $datef;
         return $this;
     }
     public function getStageProgrammeOfficiel(): ?bool

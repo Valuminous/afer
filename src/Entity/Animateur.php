@@ -82,10 +82,11 @@ class Animateur
      /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="animateurs")
      */
-    private $Stages;
+    private $stages;
+
     public function __construct()
     {
-        $this->Stages = new ArrayCollection();
+        $this->stages = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -240,21 +241,21 @@ class Animateur
     */
     public function getStages(): Collection
     {
-        return $this->Stages;
+        return $this->stages;
     }
     public function addStage(Stage $stage): self
     {
-        if (!$this->Stages->contains($stage)) {
-            $this->Stages[] = $stage;
-            
+        if (!$this->stages->contains($stage)) {
+            $this->stages[] = $stage;
+            $stage->addStage($this);
         }
         return $this;
     }
     public function removeStage(Stage $stage): self
     {
-        if ($this->Stages->contains($stage)) {
-            $this->Stages->removeElement($stage);
-            
+        if ($this->stages->contains($stage)) {
+            $this->stages->removeElement($stage);
+            $stage->removeStage($this);
         }
         return $this;
     }
