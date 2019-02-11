@@ -4,17 +4,17 @@
 
 {% block body %}
 <div class="container mt-4">
-    <form method="post">
+    <form action="{{ path('login') }}" method="post">
         {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         <h1 class="h3 mb-4 font-weight-normal text-center">Se connecter</h1>
         <label class="mb-1" for="inputUsername" class="sr-only">Nom d'utilisateur</label>
-        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control"
+        <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control"
             placeholder="Username" required autofocus>
         <label class="mb-1" for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Password" required>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
