@@ -21,12 +21,12 @@ class Stagiaire
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_stagiaire;
+    private $nomStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $prenom_stagiaire;
+    private $prenomStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -42,62 +42,63 @@ class Stagiaire
      * @ORM\Column(type="string", length=255)
      *  string|null
      */
-    private $nom_naissance_stagiaire;
+    private $nomNaissanceStagiaire;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date_naissance_stagiaire;
+    private $dateNaissanceStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lieu_naissance_stagiaire;
+    private $lieuNaissanceStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $adresse_stagiaire;
+    private $adresseStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nationalite_stagiaire;
+    private $nationaliteStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numero_portable_stagiaire;
+    private $numeroPortableStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numero_fixe_stagiaire;
+    private $numeroFixeStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email_stagiaire;
+    private $emailStagiaire;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $carte_jeune_stagiaire;
+    private $carteJeuneStagiaire;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $partenaire_stagiaire;
+    private $partenaireStagiaire;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $adherent_stagiaire;
+    private $adherentStagiaire;
 
     /**
      * @ORM\Column(type="string", length=25)
      */
-    private $numero_adresse_stagiaire;
+    private $numeroAdresseStagiaire;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaires")
@@ -116,24 +117,24 @@ class Stagiaire
 
     public function getNomStagiaire(): ?string
     {
-        return $this->nom_stagiaire;
+        return $this->nomStagiaire;
     }
 
-    public function setNomStagiaire(string $nom_stagiaire): self
+    public function setNomStagiaire(string $nomStagiaire): self
     {
-        $this->nom_stagiaire = $nom_stagiaire;
+        $this->nomStagiaire = $nomStagiaire;
 
         return $this;
     }
 
     public function getPrenomStagiaire(): ?string
     {
-        return $this->prenom_stagiaire;
+        return $this->prenomStagiaire;
     }
 
-    public function setPrenomStagiaire(string $prenom_stagiaire): self
+    public function setPrenomStagiaire(string $prenomStagiaire): self
     {
-        $this->prenom_stagiaire = $prenom_stagiaire;
+        $this->prenomStagiaire = $prenomStagiaire;
 
         return $this;
     }
@@ -164,144 +165,144 @@ class Stagiaire
 
     public function getNomNaissanceStagiaire(): ?string
     {
-        return $this->nom_naissance_stagiaire;
+        return $this->nomNaissanceStagiaire;
     }
 
-    public function setNomNaissanceStagiaire(string $nom_naissance_stagiaire): self
+    public function setNomNaissanceStagiaire(string $nomNaissanceStagiaire): self
     {
-        $this->nom_naissance_stagiaire = $nom_naissance_stagiaire;
+        $this->nomNaissanceStagiaire = $nomNaissanceStagiaire;
 
         return $this;
     }
 
     public function getDateNaissanceStagiaire(): ?\DateTimeInterface
     {
-        return $this->date_naissance_stagiaire;
+        return $this->dateNaissanceStagiaire;
     }
 
-    public function setDateNaissanceStagiaire(\DateTimeInterface $date_naissance_stagiaire): self
+    public function setDateNaissanceStagiaire(\DateTimeInterface $dateNaissanceStagiaire): self
     {
-        $this->date_naissance_stagiaire = $date_naissance_stagiaire;
+        $this->dateNaissanceStagiaire = $dateNaissanceStagiaire;
 
         return $this;
     }
 
     public function getLieuNaissanceStagiaire(): ?string
     {
-        return $this->lieu_naissance_stagiaire;
+        return $this->lieuNaissanceStagiaire;
     }
 
-    public function setLieuNaissanceStagiaire(string $lieu_naissance_stagiaire): self
+    public function setLieuNaissanceStagiaire(string $lieuNaissanceStagiaire): self
     {
-        $this->lieu_naissance_stagiaire = $lieu_naissance_stagiaire;
+        $this->lieuNaissanceStagiaire = $lieuNaissanceStagiaire;
 
         return $this;
     }
 
     public function getAdresseStagiaire(): ?string
     {
-        return $this->adresse_stagiaire;
+        return $this->adresseStagiaire;
     }
 
-    public function setAdresseStagiaire(string $adresse_stagiaire): self
+    public function setAdresseStagiaire(string $adresseStagiaire): self
     {
-        $this->adresse_stagiaire = $adresse_stagiaire;
+        $this->adresseStagiaire = $adresseStagiaire;
 
         return $this;
     }
 
     public function getNationaliteStagiaire(): ?string
     {
-        return $this->nationalite_stagiaire;
+        return $this->nationaliteStagiaire;
     }
 
-    public function setNationaliteStagiaire(string $nationalite_stagiaire): self
+    public function setNationaliteStagiaire(string $nationaliteStagiaire): self
     {
-        $this->nationalite_stagiaire = $nationalite_stagiaire;
+        $this->nationaliteStagiaire = $nationaliteStagiaire;
 
         return $this;
     }
 
     public function getNumeroPortableStagiaire(): ?string
     {
-        return $this->numero_portable_stagiaire;
+        return $this->numeroPortableStagiaire;
     }
 
-    public function setNumeroPortableStagiaire(string $numero_portable_stagiaire): self
+    public function setNumeroPortableStagiaire(string $numeroPortableStagiaire): self
     {
-        $this->numero_portable_stagiaire = $numero_portable_stagiaire;
+        $this->numeroPortableStagiaire = $numeroPortableStagiaire;
 
         return $this;
     }
 
     public function getNumeroFixeStagiaire(): ?string
     {
-        return $this->numero_fixe_stagiaire;
+        return $this->numeroFixeStagiaire;
     }
 
-    public function setNumeroFixeStagiaire(string $numero_fixe_stagiaire): self
+    public function setNumeroFixeStagiaire(string $numeroFixeStagiaire): self
     {
-        $this->numero_fixe_stagiaire = $numero_fixe_stagiaire;
+        $this->numeroFixeStagiaire = $numeroFixeStagiaire;
 
         return $this;
     }
 
     public function getEmailStagiaire(): ?string
     {
-        return $this->email_stagiaire;
+        return $this->emailStagiaire;
     }
 
-    public function setEmailStagiaire(string $email_stagiaire): self
+    public function setEmailStagiaire(string $emailStagiaire): self
     {
-        $this->email_stagiaire = $email_stagiaire;
+        $this->emailStagiaire = $emailStagiaire;
 
         return $this;
     }
 
     public function getCarteJeuneStagiaire(): ?bool
     {
-        return $this->carte_jeune_stagiaire;
+        return $this->carteJeuneStagiaire;
     }
 
-    public function setCarteJeuneStagiaire(bool $carte_jeune_stagiaire): self
+    public function setCarteJeuneStagiaire(bool $carteJeuneStagiaire): self
     {
-        $this->carte_jeune_stagiaire = $carte_jeune_stagiaire;
+        $this->carteJeuneStagiaire = $carteJeuneStagiaire;
 
         return $this;
     }
 
     public function getPartenaireStagiaire(): ?bool
     {
-        return $this->partenaire_stagiaire;
+        return $this->partenaireStagiaire;
     }
 
-    public function setPartenaireStagiaire(bool $partenaire_stagiaire): self
+    public function setPartenaireStagiaire(bool $partenaireStagiaire): self
     {
-        $this->partenaire_stagiaire = $partenaire_stagiaire;
+        $this->partenaireStagiaire = $partenaireStagiaire;
 
         return $this;
     }
 
     public function getAdherentStagiaire(): ?bool
     {
-        return $this->adherent_stagiaire;
+        return $this->adherentStagiaire;
     }
 
-    public function setAdherentStagiaire(bool $adherent_stagiaire): self
+    public function setAdherentStagiaire(bool $adherentStagiaire): self
     {
-        $this->adherent_stagiaire = $adherent_stagiaire;
+        $this->adherentStagiaire = $adherentStagiaire;
 
         return $this;
     }
 
     public function getNumeroAdresseStagiaire(): ?int
     {
-        return $this->numero_adresse_stagiaire;
+        return $this->numeroAdresseStagiaire;
     }
 
-    public function setNumeroAdresseStagiaire(int $numero_adresse_stagiaire): self
+    public function setNumeroAdresseStagiaire(int $numeroAdresseStagiaire): self
     {
-        $this->numero_adresse_stagiaire = $numero_adresse_stagiaire;
+        $this->numeroAdresseStagiaire = $numeroAdresseStagiaire;
 
         return $this;
     }

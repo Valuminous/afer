@@ -19,7 +19,7 @@ class Civilite
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_civilite;
+    private $nomCivilite;
 
     public function getId(): ?int
     {
@@ -28,12 +28,12 @@ class Civilite
 
     public function getNomCivilite(): ?string
     {
-        return $this->nom_civilite;
+        return $this->nomCivilite;
     }
 
-    public function setNomCivilite(string $nom_civilite): self
+    public function setNomCivilite(string $nomCivilite): self
     {
-        $this->nom_civilite = $nom_civilite;
+        $this->nomCivilite = $nomCivilite;
 
         return $this;
     }

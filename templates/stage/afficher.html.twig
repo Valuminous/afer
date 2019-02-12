@@ -1,17 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Préfecture{% endblock %}
+{% block title %}Stages{% endblock %}
 
 {% block body %}
 
 <section class="info_animateur">
-<h2>Infos</h2>
+<h2>Stage</h2>
 <div =class="d-flex justify-content-center">
                 <p>Numéro de stage :{{ stage.numeroStage }}</p>
-                <p Date de début:{{ stage.dated }}</p>
-                <p Date de fin:{{ stage.datef }}</p>
-                <p Stage hors programme {{ stage.stageProgrammeOfficiel }} </p>
-                
+                <p> Date de début:{{ stage.dated|date('j F Y') }}</p>
+                <p> Date de fin:{{ stage.datef|date('j F Y') }}</p>
+                <p> Stage hors programme officiel{{ stage.stageProgrammeOfficiel }}</p>
+
+                 <td class="text-center">
+                 {% for animateur in stage.animateurs %}
+                <p>{{ animateur.nomAnimateur }}</p> 
+                 {% endfor %}
+                </td> 
+                 <td class="text-center">
+                 {% for stagiaire in stage.stagiaires %}
+                <p>{{ stagiaire.nomStagiaire }}</p> 
+                 {% endfor %}
+                </td> 
   </section>
 
    <a href="{{ path('stage_index') }}">Retour</a>

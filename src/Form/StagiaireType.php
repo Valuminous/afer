@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Stage;
 use App\Entity\Stagiaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StagiaireType extends AbstractType
@@ -27,9 +29,11 @@ class StagiaireType extends AbstractType
             ->add('carte_jeune_stagiaire')
             ->add('partenaire_stagiaire')
             ->add('adherent_stagiaire')
-            ->add('numero_adresse_stagiaire')
-            // ->add('stages')
-        ;
+            ->add('numero_adresse_stagiaire');
+            // ->add('stages', EntityType::class, [
+            //     'class' => Stage::class,
+            //     'label' => 'numeroStage'
+            // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

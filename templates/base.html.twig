@@ -65,7 +65,7 @@
                             </ul>
                         </li>
                         <li class="mb-5">
-                            <a href="{{ path('animateur') }}" class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
+                            <a href="{{ path('animateur_index') }}" class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
                             <i class="fas fa-angle-right ml-4 angle_orange"></i>
                             <ul class="ul_without_padding text-center list_animateurs">
                                 <li>
@@ -99,8 +99,7 @@
             </div>
         </div>
     </main>
-  
-    {% block body %}{% endblock %}
+
     {% block javascripts %}{% endblock %}
     <script src="{{ asset('build/app.js') }}"></script>
 </body>

@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Stage;
 use App\Entity\Animateur;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\AnimateurStatut;
 use App\Entity\AnimateurFonction;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnimateurType extends AbstractType
 {
