@@ -33,14 +33,14 @@ class Prefecture
     private $numeroAdressePrefecture;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $cp;
+    private $cpPrefecture;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $commune;
+    private $communePrefecture;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\PrefectureService", inversedBy="relation")
@@ -53,7 +53,7 @@ class Prefecture
     private $prefectureAutorite;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="Prefecture")
+     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="prefecture")
      */
     private $stages;
 
@@ -103,26 +103,26 @@ class Prefecture
         return $this;
     }
 
-    public function getCp(): ?int
+    public function getCpPrefecture(): ?string
     {
-        return $this->cp;
+        return $this->cpPrefecture;
     }
 
-    public function setCp(int $cp): self
+    public function setCpPrefecture(string $cpPrefecture): self
     {
-        $this->cp = $cp;
+        $this->cpPrefecture = $cpPrefecture;
 
         return $this;
     }
 
-    public function getCommune(): ?string
+    public function getCommunePrefecture(): ?string
     {
-        return $this->commune;
+        return $this->communePrefecture;
     }
 
-    public function setCommune(string $commune): self
+    public function setCommunePrefecture(string $communePrefecture): self
     {
-        $this->commune = $commune;
+        $this->communePrefecture = $communePrefecture;
 
         return $this;
     }
@@ -156,24 +156,27 @@ class Prefecture
      */
     public function getStages(): Collection
     {
-        return $this->stages;
+        return $this->Stages;
     }
 
     public function addStage(Stage $stage): self
     {
-        if (!$this->stages->contains($stage)) {
-            $this->stages[] = $stage;
-            $stages->addStage($this);
+        if (!$this->Stages->contains($stage)) {
+            $this->Stages[] = $stage;
+            // $stage->addStage($this);
         }
         return $this;
     }
     public function removeStage(Stage $stage): self
     {
-        if ($this->stages->contains($stage)) {
-            $this->stages->removeElement($stage);
-            $stage->removeStage($this);
+        if ($this->Stages->contains($stage)) {
+            $this->Stages->removeElement($stage);
+             // set the owning side to null (unless already changed)
+        //      if ($relation->getPrefecture() === $this) {
+        //         $relation->setPrefecture(null);
            
-        }
+        // }
+    }
         return $this;
     }
 }

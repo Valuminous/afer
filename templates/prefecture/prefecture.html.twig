@@ -4,6 +4,8 @@
 
 {% block body %}
 
+<a href="{{ path('prefecture_ajouter') }}" class="btn btn-primary btn-link text-white ml-2"><i class="fas fa-plus-circle pr-2"></i> Ajouter</a>
+
     <table class="table">
         <thead>
             <tr>
@@ -21,8 +23,8 @@
                 <tr>
                     <td>{{ prefecture.nomPrefecture }}</td>
                     <td>{{ prefecture.numeroAdressePrefecture }} {{ prefecture.adressePrefecture }}</td>
-                    <td>{{ prefecture.cp }}</td>
-                    <td>{{ prefecture.commune }}</td>
+                    <td>{{ prefecture.cpPrefecture }}</td>
+                    <td>{{ prefecture.communePrefecture }}</td>
                     <td>{{ prefecture.prefectureService }}</td>
                     <td>
                         <a href="{{ path('prefecture_afficher', {'id': prefecture.id}) }}"><i class="fas fa-eye"></i></a>

@@ -1,9 +1,9 @@
-{# <form method="post" action="{{ path('stagiaire_supprimer', {'id': stagiaire.id}) }}" onsubmit="return confirm('Ëtes-vous sûr de vouloir supprimer ce stagiaire ?');">
+<form method="post" action="{{ path('stagiaire_supprimer', {'id': stagiaire.id}) }}" onsubmit="return confirm('Ëtes-vous sûr de vouloir supprimer ce stagiaire ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ stagiaire.id) }}">
     <button class="btn btn-success">Supprimer</button>
-</form> #}
-{% extends 'base.html.twig' %}
+</form>
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Stagiaire{% endblock %}
 
@@ -84,9 +84,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('stagiaire_index') }}">Retour</a>
+    <a href="{{ path('stagiairestagiaire_index') }}">Retour</a>
 
     <a href="{{ path('stagiaire_modifier', {'id': stagiaire.id}) }}" class="btn btn-warning">Modifier</a>
 
     {{ include('stagiaire/delete_form.html.twig') }}
-{% endblock %}
+{% endblock %} #}

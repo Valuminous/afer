@@ -12,91 +12,59 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * @Route("/stagiaire")
+ * @Route("/admin")
  */
 class StagiaireController extends AbstractController
 {
     /**
-     * @Route("/", name="stagiaire_index", methods={"GET"})
+     * @Route("/stagiaire", name="stagiaire_index")
      */
-    public function index(StagiaireRepository $stagiaireRepository): Response
+    public function index(StagiaireRepository $repo)
     {
+        $stagiaires = $repo->findAll();
+
         return $this->render('stagiaire/index.html.twig', [
-            'stagiaires' => $stagiaireRepository->findAll()
-            ]);
-        
+            'controller_name' => 'stagiaireController',
+            'stagiaires' => $stagiaires
+        ]);
     }
-
     /**
-     * @Route("/ajouter", name="stagiaire_ajouter", methods={"GET","POST"})
+     *  @Route("/stagiaire/ajouter", name="stagiaire_ajouter")
+     *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
      */
-    public function new(Request $request): Response
+    public function stagiaireForm(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager)
     {
-        $stagiaire = new Stagiaire();
-        $form = $this->createForm(StagiaireType::class, $stagiaire);
+        if(!$stagiaire){
+        $stagiaire = new stagiaire();
+        }
+        $form = $this->createForm(stagiaireType::class, $stagiaire);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($stagiaire);
-            $entityManager->flush();
-            $this->addFlash('success', 'Stagiaire ajouté avec succès !');
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($stagiaire);
+            $manager->flush();
             return $this->redirectToRoute('stagiaire_index');
         }
-
-        return $this->render('stagiaire/new.html.twig', [
-            'stagiaire' => $stagiaire,
-            'form' => $form->createView(),
+        return $this->render('stagiaire/ajouter.html.twig', [
+            'formStagiaire' => $form->createView(),
+            'editMode' => $stagiaire->getId() !== null
         ]);
     }
-
     /**
-     * @Route("/{id}/afficher", name="stagiaire_afficher", methods={"GET"})
+     *  @Route("/stagiaire/{id}/supprimer", name="stagiaire_supprimer")
      */
-    public function show(Stagiaire $stagiaire): Response
+    public function delete(Stagiaire $stagiaire, ObjectManager $manager)
     {
-        return $this->render('stagiaire/show.html.twig', [
-            'stagiaire' => $stagiaire,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/modifier", name="stagiaire_modifier", methods={"GET","POST"})
-    //  * @param Stagiaire $stagiaire
-    //  * @param Request $request
-    //  * @return Symfony\Component\HttpFoundation\Response
-     */
-    public function edit(Request $request, Stagiaire $stagiaire): Response
-    {
-        $form = $this->createForm(StagiaireType::class, $stagiaire);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('stagiaire_index', [
-                'id' => $stagiaire->getId(),
-            ]);
-        }
-
-        return $this->render('stagiaire/edit.html.twig', [
-            'stagiaire' => $stagiaire,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/supprimer", name="stagiaire_supprimer", methods={"DELETE"})
-     */
-    public function delete(Request $request, Stagiaire $stagiaire): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$stagiaire->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($stagiaire);
-            $entityManager->flush();
-            $this->addFlash('success', 'Stagiaire supprimé avec succès !');
-        }
-
+        $manager->remove($stagiaire);
+        $manager->flush();
         return $this->redirectToRoute('stagiaire_index');
+    }
+    /**
+     * @Route("/stagiaire/{id}/afficher", name="stagiaire_afficher")
+     */
+    public function showOne(Stagiaire $stagiaire)
+    {
+        return $this->render('stagiaire/afficher.html.twig', [
+            'stagiaire' => $stagiaire
+        ]);
     }
 }

@@ -22,12 +22,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/tribunal")
+ * @Route("/admin")
  */
 class TribunalController extends AbstractController
 {
     /**
-     * @Route("/", name="tribunal_index")
+     * @Route("/tribunal", name="tribunal_index")
      */
     public function indexTribunal(TribunalRepository $repoTribunal)
     {
@@ -38,8 +38,8 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/ajouter", name="tribunal_ajouter")
-    * @Route("/{id}/modifier", name="tribunal_modifier")
+    * @Route("/tribunal/ajouter", name="tribunal_ajouter")
+    * @Route("/tribunal/{id}/modifier", name="tribunal_modifier")
     */
     public function ajouterTribunal(Tribunal $tribunals = null, Request $request, ObjectManager $manager)
     {
@@ -65,7 +65,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/{id}/supprimer", name="tribunal_supprimer")
+    * @Route("/tribunal/{id}/supprimer", name="tribunal_supprimer")
     */
     public function supprimerTribunal(Tribunal $tribunal, Request $request, ObjectManager $manager)
     {
@@ -76,8 +76,8 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/autorite/ajouter", name="tribunal_autorite_ajouter")
-    * @Route("/autorite/{id}/modifier", name="tribunal_autorite_modifier")
+    * @Route("/tribunal/autorite/ajouter", name="tribunal_autorite_ajouter")
+    * @Route("/tribunal/autorite/{id}/modifier", name="tribunal_autorite_modifier")
     */
     public function ajoutTribunalAutorite(TribunalAutorite $autorite = null, Request $request, ObjectManager $manager)
     {
@@ -103,7 +103,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/autorite/{id}/supprimer", name="tribunal_autorite_supprimer")
+    * @Route("/tribunal/autorite/{id}/supprimer", name="tribunal_autorite_supprimer")
     */
     public function supprimerAutorite(TribunalAutorite $autorite, Request $request, ObjectManager $manager)
     {
@@ -114,7 +114,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/autorite", name="autorite_index")
+    * @Route("/tribunal/autorite", name="autorite_index")
     */
     public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
     {
@@ -125,8 +125,8 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/service/ajouter", name="tribunal_service_ajouter")
-    * @Route("/service/{id}/modifier", name="tribunal_service_modifier")
+    * @Route("/tribunal/service/ajouter", name="tribunal_service_ajouter")
+    * @Route("/tribunal/service/{id}/modifier", name="tribunal_service_modifier")
     */
     public function ajoutTribunalService(TribunalService $service = null, Request $request, ObjectManager $manager)
     {
@@ -152,7 +152,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/service/{id}/supprimer", name="tribunal_service_supprimer")
+    * @Route("/tribunal/service/{id}/supprimer", name="tribunal_service_supprimer")
     */
     public function supprimerService(TribunalService $service, Request $request, ObjectManager $manager)
     {
@@ -163,7 +163,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/services", name="services_index")
+    * @Route("/tribunal/service", name="service_index")
     */
     public function indexService(TribunalServiceRepository $repoService)
     {

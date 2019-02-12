@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="stage">
+    <a href="{{ path('stage_ajouter')}}" class="btn btn-success mt-5 mb-5">Ajouter un stage</a>
+     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Numéro de stage</th>
+                <th scope="col" class="text-center">Dates</th>
+                <th scope="col" class="text-center">Lieu de stage</th>
+                <th scope="col" class="text-center">Animateurs</th>
+                <th scope="col" class="text-center">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stage in stages %}
+            <tr>
+                <td class="text-center">{{ stage.numeroStage }}</td>
+                <td class="text-center">
+                <p>Début : {{ stage.dated }}</p> 
+                <p>Fin :{{ stage.datef }}</p>
+                </td>
+                {# <td class="text-center">{{ stage.lieuStage }}</td>
+                <td class="text-center">
+                <p>Début : {{ stage.animateurs }}</p> 
+                <p>Fin :{{ stage.animateurs }}</p>
+                </td> #}
+             <td class="text-center"></th>
+                <td class="text-center">
+                    <a href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="fas fa-pen"></i></a>
+                    <a href="{{  path('stage_supprimer', {'id': stage.id}) }}" ><i class="far fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+{% endblock %}

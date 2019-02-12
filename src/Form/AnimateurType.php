@@ -37,7 +37,10 @@ class AnimateurType extends AbstractType
                 'class' => AnimateurFonction::class,
                 'choice_label' => 'nom'
             ])
-            ->add('Stages')
+            ->add('stages', EntityType::class, [
+                'class' => Stage::class,
+                'choice_label' => 'numero_stage'
+            ])
         ;
     }
 

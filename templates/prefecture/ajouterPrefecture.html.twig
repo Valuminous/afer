@@ -11,7 +11,8 @@
     {{ form_row(formPrefecture.adresse_prefecture, {'label': 'Adresse', 'attr': {'placeholder': 'Adresse'} }) }}
     {{ form_row(formPrefecture.cp, {'label': 'Code postal', 'attr': {'placeholder': 'Code postal'} }) }}
     {{ form_row(formPrefecture.commune, {'label': 'Commune', 'attr': {'placeholder': 'Commune'} }) }}
-    {{ form_row(formPrefecture.prefectureService, {'label': 'Commune', 'attr': {'placeholder': 'Commune'} }) }}
+    {{ form_row(formPrefecture.prefectureService, {'label': 'Service', 'attr': {'placeholder': 'Service'} }) }}
+    {{ form_row(formPrefecture.prefectureAutorite, {'label': 'Autorité', 'attr': {'placeholder': 'Autorité'} }) }}
 
     <button type="submit" class="btn btn-primary btn-link text-white mb-5 mt-3">
         {% if editMode %}
