@@ -76,8 +76,8 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/autorite/ajouter", name="tribunal_autorite_ajouter")
-    * @Route("/tribunal/autorite/{id}/modifier", name="tribunal_autorite_modifier")
+    * @Route("/tribunal/autorite/ajouter", name="tribunalAutorite_ajouter")
+    * @Route("/tribunal/autorite/{id}/modifier", name="tribunalAutorite_modifier")
     */
     public function ajoutTribunalAutorite(TribunalAutorite $autorite = null, Request $request, ObjectManager $manager)
     {
@@ -103,7 +103,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/autorite/{id}/supprimer", name="tribunal_autorite_supprimer")
+    * @Route("/tribunal/autorite/{id}/supprimer", name="tribunalAutorite_supprimer")
     */
     public function supprimerAutorite(TribunalAutorite $autorite, Request $request, ObjectManager $manager)
     {
@@ -114,7 +114,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/autorite", name="autorite_index")
+    * @Route("/tribunal/autorite", name="tribunalAutorite_index")
     */
     public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
     {
@@ -125,8 +125,8 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/service/ajouter", name="tribunal_service_ajouter")
-    * @Route("/tribunal/service/{id}/modifier", name="tribunal_service_modifier")
+    * @Route("/tribunal/service/ajouter", name="tribunalService_ajouter")
+    * @Route("/tribunal/service/{id}/modifier", name="tribunalService_modifier")
     */
     public function ajoutTribunalService(TribunalService $service = null, Request $request, ObjectManager $manager)
     {
@@ -152,7 +152,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/service/{id}/supprimer", name="tribunal_service_supprimer")
+    * @Route("/tribunal/service/{id}/supprimer", name="tribunalService_supprimer")
     */
     public function supprimerService(TribunalService $service, Request $request, ObjectManager $manager)
     {
@@ -163,7 +163,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/service", name="service_index")
+    * @Route("/tribunal/service", name="tribunalService_index")
     */
     public function indexService(TribunalServiceRepository $repoService)
     {
