@@ -54,6 +54,20 @@ html {
 
             .container-fluid {
 
+                .logout{
+                    margin: 0;
+                    font-family: 'Open Sans', sans-serif;
+                }
+
+                .fa-sign-out-alt{
+                    color: #dc3545;
+                    font-size: 1.5rem;
+                }
+
+                .fa-user-tie{
+                    font-size: 1.5rem;
+                }
+
                 ul {
 
                     hr {
