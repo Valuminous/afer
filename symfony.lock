@@ -80,6 +80,9 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
+    "fzaninotto/faker": {
+        "version": "v1.8.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

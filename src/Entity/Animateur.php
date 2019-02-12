@@ -18,59 +18,59 @@ class Animateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_animateur;
+    private $nomAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $prenom_animateur;
+    private $prenomAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $raison_sociale_animateur;
+    private $raisonSocialeAnimateur;
     /**
      * @ORM\Column(type="boolean")
      */
-    private $gta_animateur = false;
+    private $gtaAnimateur = false;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cp_animateur;
+    private $cpAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $commune_animateur;
+    private $communeAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $region_animateur;
+    private $regionAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $rue_animateur;
+    private $rueAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $numero_portable_animateur;
+    private $numeroPortableAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $numero_fixe_animateur;
+    private $numeroFixeAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $email_animateur;
+    private $emailAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $urssaf_animateur;
+    private $urssafAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $siret_animateur;
+    private $siretAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $observations_animateur;
+    private $observationsAnimateur;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\AnimateurStatut", inversedBy="relation")
      */
@@ -94,128 +94,128 @@ class Animateur
     }
     public function getNomAnimateur(): ?string
     {
-        return $this->nom_animateur;
+        return $this->nomAnimateur;
     }
-    public function setNomAnimateur(string $nom_animateur): self
+    public function setNomAnimateur(string $nomAnimateur): self
     {
-        $this->nom_animateur = $nom_animateur;
+        $this->nomAnimateur = $nomAnimateur;
         return $this;
     }
     public function getPrenomAnimateur(): ?string
     {
-        return $this->prenom_animateur;
+        return $this->prenomAnimateur;
     }
-    public function setPrenomAnimateur(string $prenom_animateur): self
+    public function setPrenomAnimateur(string $prenomAnimateur): self
     {
-        $this->prenom_animateur = $prenom_animateur;
+        $this->prenomAnimateur = $prenomAnimateur;
         return $this;
     }
     public function getRaisonSocialeAnimateur(): ?string
     {
-        return $this->raison_sociale_animateur;
+        return $this->raisonSocialeAnimateur;
     }
-    public function setRaisonSocialeAnimateur(string $raison_sociale_animateur): self
+    public function setRaisonSocialeAnimateur(string $raisonSocialeAnimateur): self
     {
-        $this->raison_sociale_animateur = $raison_sociale_animateur;
+        $this->raisonSocialeAnimateur = $raisonSocialeAnimateur;
         return $this;
     }
     public function getGtaAnimateur(): ?bool
     {
-        return $this->gta_animateur;
+        return $this->gtaAnimateur;
     }
-    public function setGtaAnimateur(string $gta_animateur): self
+    public function setGtaAnimateur(string $gtaAnimateur): self
     {
-        $this->gta_animateur = $gta_animateur;
+        $this->gtaAnimateur = $gtaAnimateur;
         return $this;
     }
     public function getCpAnimateur(): ?string
     {
-        return $this->cp_animateur;
+        return $this->cpAnimateur;
     }
-    public function setCpAnimateur(string $cp_animateur): self
+    public function setCpAnimateur(string $cpAnimateur): self
     {
-        $this->cp_animateur = $cp_animateur;
+        $this->cpAnimateur = $cpAnimateur;
         return $this;
     }
     public function getCommuneAnimateur(): ?string
     {
-        return $this->commune_animateur;
+        return $this->communeAnimateur;
     }
-    public function setCommuneAnimateur(string $commune_animateur): self
+    public function setCommuneAnimateur(string $communeAnimateur): self
     {
-        $this->commune_animateur = $commune_animateur;
+        $this->communeAnimateur = $communeAnimateur;
         return $this;
     }
     public function getRegionAnimateur(): ?string
     {
-        return $this->region_animateur;
+        return $this->regionAnimateur;
     }
-    public function setRegionAnimateur(string $region_animateur): self
+    public function setRegionAnimateur(string $regionAnimateur): self
     {
-        $this->region_animateur = $region_animateur;
+        $this->regionAnimateur = $regionAnimateur;
         return $this;
     }
     public function getRueAnimateur(): ?string
     {
-        return $this->rue_animateur;
+        return $this->rueAnimateur;
     }
-    public function setRueAnimateur(string $rue_animateur): self
+    public function setRueAnimateur(string $rueAnimateur): self
     {
-        $this->rue_animateur = $rue_animateur;
+        $this->rueAnimateur = $rueAnimateur;
         return $this;
     }
     public function getNumeroPortableAnimateur(): ?string
     {
-        return $this->numero_portable_animateur;
+        return $this->numeroPortableAnimateur;
     }
-    public function setNumeroPortableAnimateur(string $numero_portable_animateur): self
+    public function setNumeroPortableAnimateur(string $numeroPortableAnimateur): self
     {
-        $this->numero_portable_animateur = $numero_portable_animateur;
+        $this->numeroPortableAnimateur = $numeroPortableAnimateur;
         return $this;
     }
     public function getNumeroFixeAnimateur(): ?string
     {
-        return $this->numero_fixe_animateur;
+        return $this->numeroFixeAnimateur;
     }
-    public function setNumeroFixeAnimateur(string $numero_fixe_animateur): self
+    public function setNumeroFixeAnimateur(string $numeroFixeAnimateur): self
     {
-        $this->numero_fixe_animateur = $numero_fixe_animateur;
+        $this->numeroFixeAnimateur = $numeroFixeAnimateur;
         return $this;
     }
     public function getEmailAnimateur(): ?string
     {
-        return $this->email_animateur;
+        return $this->emailAnimateur;
     }
-    public function setEmailAnimateur(string $email_animateur): self
+    public function setEmailAnimateur(string $emailAnimateur): self
     {
-        $this->email_animateur = $email_animateur;
+        $this->emailAnimateur = $emailAnimateur;
         return $this;
     }
     public function getUrssafAnimateur(): ?string
     {
-        return $this->urssaf_animateur;
+        return $this->urssafAnimateur;
     }
-    public function setUrssafAnimateur(string $urssaf_animateur): self
+    public function setUrssafAnimateur(string $urssafAnimateur): self
     {
-        $this->urssaf_animateur = $urssaf_animateur;
+        $this->urssafAnimateur = $urssafAnimateur;
         return $this;
     }
     public function getSiretAnimateur(): ?string
     {
-        return $this->siret_animateur;
+        return $this->siretAnimateur;
     }
-    public function setSiretAnimateur(string $siret_animateur): self
+    public function setSiretAnimateur(string $siretAnimateur): self
     {
-        $this->siret_animateur = $siret_animateur;
+        $this->siretAnimateur = $siretAnimateur;
         return $this;
     }
     public function getObservationsAnimateur(): ?string
     {
-        return $this->observations_animateur;
+        return $this->observationsAnimateur;
     }
-    public function setObservationsAnimateur(string $observations_animateur): self
+    public function setObservationsAnimateur(string $observationsAnimateur): self
     {
-        $this->observations_animateur = $observations_animateur;
+        $this->observationsAnimateur = $observationsAnimateur;
         return $this;
     }
     public function getAnimateurStatut(): ?AnimateurStatut
