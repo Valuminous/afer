@@ -59,14 +59,16 @@ class Stage
     private $stagiaires;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\LieuStage", inversedBy="stages")
+     * @ORM\ManyToMany(targetEntity="App\Entity\LieuStage", inversedBy="stages")
+     * * @ORM\JoinColumn(nullable=false)
      */
-    private $lieuStage;
+    private $lieuStages;
 
-    public function OOconstruct()
+    public function __construct()
     {
         $this->animateurs = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
+        $this->lieuStages = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -187,15 +189,30 @@ class Stage
         return $this;
     }
 
-    public function getLieuStage(): ?lieuStage
+    /**
+     * @return Collection|LieuStage[]
+     */
+    public function getLieuStages(): Collection
     {
-        return $this->lieuStage;
+        return $this->lieuStages;
     }
 
-    public function setLieuStage(?lieuStage $lieuStage): self
+    public function addLieuStage(LieuStage $lieuStage): self
     {
-        $this->lieuStage = $lieuStage;
-
+        if (!$this->lieuStages->contains($lieuStage)) {
+            $this->lieuStages[] = $lieuStage;
+            $lieuStage->addLieuStage($this);
+        }
         return $this;
     }
+    public function removeLieuStage(LieuStage $lieuStage): self
+    {
+        if ($this->lieuStages->contains($lieuStage)) {
+            $this->lieuStages->removeElement($lieuStage);
+            $GLOBALSlieuStage->removeLieuStage($this);
+           
+        }
+        return $this;
+    }
+
 }

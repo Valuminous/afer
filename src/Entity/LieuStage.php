@@ -68,7 +68,7 @@ class LieuStage
     private $divers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStage")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStages")
      */
     private $stages;
 
@@ -214,7 +214,7 @@ class LieuStage
     {
         if (!$this->stages->contains($stage)) {
             $this->stages[] = $stage;
-            // $stage->addStage($this);
+          
         }
         return $this;
     }
@@ -222,11 +222,7 @@ class LieuStage
     {
         if ($this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-           // set the owning side to null (unless already changed)
-        //    if ($relation->getLieuStage() === $this) {
-        //     $relation->setLieuStage(null);
            
-        // }
     }
         return $this;
     }

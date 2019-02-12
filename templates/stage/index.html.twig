@@ -22,7 +22,11 @@
                 <p>Début : {{ stage.dated|date('j F Y') }}</p> 
                 <p>Fin :{{ stage.datef|date('j F Y') }}</p>
                 </td>
-                {# <td class="text-center">{{ stage.lieuStage }}</td> #}
+                <td class="text-center">
+                 {% for lieuStage in stage.lieuStages %}
+                <p>{{ lieuStage.nomEtablissement }}</p> 
+                 {% endfor %}
+                </td> 
                  <td class="text-center">
                  {% for animateur in stage.animateurs %}
                 <p>{{ animateur.nomAnimateur }}</p> 

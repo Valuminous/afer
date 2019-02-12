@@ -28,17 +28,20 @@ class StageType extends AbstractType
             ->add('stage_programme_officiel')
             ->add('lieuStage', EntityType::class, [
                 'class' => LieuStage::class,
-                'choice_label' => 'nom_etablissement',
-                'multiple' => 'true',
-                'expanded' => 'true'
+                'choice_label' => 'nomEtablissement',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('lieu')
+                        ->orderBy('lieu.nomEtablissement', 'ASC');
+                },
+            
             ])    
             ->add('prefecture', EntityType::class, [
                 'class' => Prefecture::class,
-                'choice_label' => 'nom_prefecture'
+                'choice_label' => 'nomPrefecture'
             ])    
             ->add('tribunal', EntityType::class, [
                 'class' => Tribunal::class,
-                'choice_label' => 'nom_tribunal'
+                'choice_label' => 'nomTribunal'
             ])    
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,
@@ -46,9 +49,7 @@ class StageType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
                         ->orderBy('anim.nomAnimateur', 'ASC');
-                },
-                'expanded' => 'true',
-                'multiple' => 'true'
+                }
             ])
             ->add('stagiaires', EntityType::class, [
                 'class' => Stagiaire::class,
