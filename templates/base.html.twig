@@ -20,9 +20,6 @@
 </head>
 
 <body>
-    {# <a href="{{ path('logout') }}">
-        Déconnexion
-    </a> #}
     <main>
         <div class="container-fluid">
             <div class="row">
@@ -32,7 +29,7 @@
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 top_logout position-fixed d-flex align-items-center justify-content-end">
                     <i class="fas fa-user-tie mr-2"></i>
                     <p class="logout">Bonjour {{ app.user }}</p>
-                    <a href=""><i class="fas fa-sign-out-alt ml-2"></i></a>
+                    <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt ml-2"></i></a>
                 </div>
             </div>
         </div>
@@ -48,11 +45,11 @@
                             <i class="fas fa-angle-right ml-4 angle_red"></i>
                             <ul class="ul_without_padding list_stages">
                                 <li class="background_stage pt-2 pb-2">
-                                    <a class="stage_hover">Liste des stages</a>
+                                    <a href="{{ path('stage_index') }}" class="stage_hover">Liste des stages</a>
                                 </li>
                                 <li><hr class="color_red"></li>
                                 <li class="background_stage pt-2 pb-2">
-                                    <a href="" class="stage_hover">Lieu de stage</a>
+                                    <a href="{{ path('lieuStage_index') }}" class="stage_hover">Lieu de stage</a>
                                 </li>
                             </ul>
                         </li>
@@ -64,15 +61,15 @@
                             <i class="fas fa-angle-right ml-4 angle_blue"></i>
                             <ul class="ul_without_padding list_tribunaux">
                                 <li class="background_tribunaux pb-2 pt-2">
-                                    <a class="tribunaux_hover">Liste des tribunaux</a>
+                                    <a href="{{ path('tribunal_index') }}" class="tribunaux_hover">Liste des tribunaux</a>
                                 </li>
                                 <li><hr class="color_blue"></li>
                                 <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="" class="tribunaux_hover">Autorité</a>
+                                    <a href="{{ path('autorite_index') }}" class="tribunaux_hover">Autorité</a>
                                 </li>
                                 <li><hr class="color_blue"></li>
                                 <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="" class="tribunaux_hover">Service</a>
+                                    <a href="{{ path('service_index') }}" class="tribunaux_hover">Service</a>
                                 </li>
                             </ul>
                         </li>
@@ -81,15 +78,15 @@
                             <i class="fas fa-angle-right ml-4 angle_orange"></i>
                             <ul class="ul_without_padding list_animateurs">
                                 <li class="background_animateur pb-2 pt-2">
-                                    <a class="animateur_hover">Liste des animateurs</a>
+                                    <a href="{{ path('animateur_index') }}" class="animateur_hover">Liste des animateurs</a>
                                 </li>
                                 <li><hr class="color_orange"></li>
                                 <li class="background_animateur pb-2 pt-2">
-                                    <a href="" class="animateur_hover">Fonction</a>
+                                    <a href="{{ path('animateurFonction_index') }}" class="animateur_hover">Fonction</a>
                                 </li>
                                 <li><hr class="color_orange"></li>
                                 <li class="background_animateur pb-2 pt-2">
-                                    <a href="" class="animateur_hover">Statut</a>
+                                    <a href="{{ path('animateurStatut_index') }}" class="animateur_hover">Statut</a>
                                 </li>
                             </ul>
                         </li>
@@ -98,20 +95,20 @@
                             <i class="fas fa-angle-right ml-4 angle_purple"></i>
                             <ul class="ul_without_padding list_prefectures">
                                 <li class="background_prefecture pb-2 pt-2">
-                                    <a class="prefecture_hover">Liste des préfectures</a>
+                                    <a href="{{ path('prefecture_index') }}" class="prefecture_hover">Liste des préfectures</a>
                                 </li>
                                 <li><hr class="color_purple"></li>
                                 <li class="background_prefecture pb-2 pt-2">
-                                    <a href="" class="prefecture_hover">Fonction</a>
+                                    <a href="{{ path('prefectureAutorite_index') }}" class="prefecture_hover">Autorité</a>
                                 </li>
                                 <li><hr class="color_purple"></li>
                                 <li class="background_prefecture pb-2 pt-2">
-                                    <a href="" class="prefecture_hover">Statut</a>
+                                    <a href="{{ path('prefectureService_index') }}" class="prefecture_hover">Service</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href=""><i class="fas fa-key"></i>Utilisateurs</a>
+                            <a href="{{ path('utilisateur_index') }}"><i class="fas fa-key"></i>Utilisateurs</a>
                         </li>
                     </ul>
                 </div>
@@ -121,11 +118,6 @@
             </div>
         </div>
     </main>
-<<<<<<< HEAD
-
-=======
->>>>>>> 90814a4930e46578a6f6d47e51a064b8ac579cb7
-    {% block javascripts %}{% endblock %}
     <script src="{{ asset('build/app.js') }}"></script>
 </body>
 
