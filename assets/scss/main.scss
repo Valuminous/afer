@@ -19,33 +19,50 @@ html {
                 border-right: solid 1px #cdcdcd;
                 border-bottom: solid 1px #cdcdcd;
                 height: 10vh;
+                top: 0;
             }
 
             .top_logout {
                 background-color: #ffffff;
                 border-bottom: solid 1px #cdcdcd;
                 height: 10vh;
+                top: 0;
+                right: 0;
+                z-index: 2;
             }
 
             .left_nav {
                 background-color: #ffffff;
                 border-right: solid 1px #cdcdcd;
                 height: 90vh;
+                bottom: 0;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; 
             }
 
             .main_content {
                 background-color: #f9f9fb;
                 height: 90vh;
                 padding: 0;
+                right: 0;
+                margin-top: 10vh;
             }
 
             .container-fluid {
 
                 ul {
 
+                    hr {
+                        margin: 0;
+                    }
+
                     li {
                         list-style: none;
-
+                        
                         .ul_without_padding {
                             padding: 0;
                             display: none;
@@ -55,7 +72,48 @@ html {
 
                                 a {
                                     font-size: 1rem;
+                                    margin-left: 5rem;
                                 }
+                            }
+
+                            .stage_hover {
+                                &:hover {
+                                    color: #ff5744;
+                                }
+                            }
+
+                            .tribunaux_hover {
+                                &:hover {
+                                    color: #4098f3;
+                                }
+                            }
+
+                            .animateur_hover {
+                                &:hover {
+                                    color: #ff9738;
+                                }
+                            }
+
+                            .prefecture_hover {
+                                &:hover {
+                                    color: #9c2db3;
+                                }
+                            }
+
+                            .background_stage {
+                                background-color: rgba(255, 87, 68, 0.1);
+                            }
+
+                            .background_tribunaux {
+                                background-color: rgba(64, 152, 243, 0.1);
+                            }
+
+                            .background_animateur {
+                                background-color: rgba(255, 151, 56, 0.1);
+                            }
+
+                            .background_prefecture {
+                                background-color: rgba(156, 45, 179, 0.1);
                             }
                         }
 
