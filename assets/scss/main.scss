@@ -55,6 +55,11 @@ html {
 
                                 a {
                                     font-size: 1rem;
+                                    &::before{
+                                        content: '■';
+                                        margin-left: 6rem;
+                                        margin-right: 1rem;
+                                    }
                                 }
                             }
                         }
