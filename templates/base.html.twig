@@ -38,7 +38,7 @@
                 <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 left_nav position-fixed">
                     <ul>
                         <li class="mt-5 mb-5">
-                            <a href=""><i class="fab fa-microsoft"></i>À la une</a>
+                            <a href="{{ path('admin') }}"><i class="fab fa-microsoft"></i>À la une</a>
                         </li>
                         <li class="mb-5 onclick_stage">
                             <a><i class="far fa-calendar-alt"></i>Stages</a>
@@ -54,7 +54,7 @@
                             </ul>
                         </li>
                         <li class="mb-5">
-                            <a href=""><i class="fas fa-users"></i>Stagiaires</a>
+                            <a href="{{ path('stagiaire_index') }}"><i class="fas fa-users"></i>Stagiaires</a>
                         </li>
                         <li class="mb-5 onclick_tribunaux">
                             <a class="turn_arrow_blue"><i class="fas fa-balance-scale"></i>Tribunaux</a>
@@ -65,11 +65,11 @@
                                 </li>
                                 <li><hr class="color_blue"></li>
                                 <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="{{ path('autorite_index') }}" class="tribunaux_hover">Autorité</a>
+                                    <a href="{{ path('tribunalAutorite_index') }}" class="tribunaux_hover">Autorité</a>
                                 </li>
                                 <li><hr class="color_blue"></li>
                                 <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="{{ path('service_index') }}" class="tribunaux_hover">Service</a>
+                                    <a href="{{ path('tribunalService_index') }}" class="tribunaux_hover">Service</a>
                                 </li>
                             </ul>
                         </li>

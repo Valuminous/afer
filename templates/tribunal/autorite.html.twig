@@ -8,8 +8,8 @@
     {% for autorite in autorites %}
         <div>{{ autorite.nom }}</div>
         <div>
-            <a href="{{path('tribunal_autorite_supprimer', {'id':autorite.id})}}" class="btn btn-danger">Supprimer</a>
-            <a href="{{path('tribunal_autorite_modifier', {'id':autorite.id})}}" class="btn btn-primary">Modifier</a>
+            <a href="{{path('tribunalAutorite_supprimer', {'id':autorite.id})}}" class="btn btn-danger">Supprimer</a>
+            <a href="{{path('tribunalAutorite_modifier', {'id':autorite.id})}}" class="btn btn-primary">Modifier</a>
         </div>
     {% endfor %}
     

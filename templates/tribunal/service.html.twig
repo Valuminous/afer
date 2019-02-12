@@ -8,8 +8,8 @@
     {% for service in services %}
         <div>{{ service.nom }}</div>
         <div>
-            <a href="{{path('tribunal_service_supprimer', {'id':service.id})}}" class="btn btn-danger">Supprimer</a>
-            <a href="{{path('tribunal_service_modifier', {'id':service.id})}}" class="btn btn-primary">Modifier</a>
+            <a href="{{path('tribunalService_supprimer', {'id':service.id})}}" class="btn btn-danger">Supprimer</a>
+            <a href="{{path('tribunalService_modifier', {'id':service.id})}}" class="btn btn-primary">Modifier</a>
         </div>
     {% endfor %}
     

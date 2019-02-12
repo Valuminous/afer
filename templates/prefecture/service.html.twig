@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<a href="{{ path('prefecture_service_ajouter') }}" class="btn btn-primary btn-link text-white ml-2"><i class="fas fa-plus-circle pr-2"></i> Ajouter</a>
+<a href="{{ path('prefectureService_ajouter') }}" class="btn btn-primary btn-link text-white ml-2"><i class="fas fa-plus-circle pr-2"></i> Ajouter</a>
 
     <table class="table">
         <thead>
@@ -19,8 +19,8 @@
                 <tr>
                     <td>{{ service.nom }}</td>
                     <td>
-                        <a href="{{ path('prefecture_service_modifier', {'id': service.id}) }}"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="{{ path('prefecture_service_supprimer', {'id': service.id}) }}"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{{ path('prefectureService_modifier', {'id': service.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="{{ path('prefectureService_supprimer', {'id': service.id}) }}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
             {% endfor %}
