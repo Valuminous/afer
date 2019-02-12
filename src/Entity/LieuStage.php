@@ -20,7 +20,7 @@ class LieuStage
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_etablissement;
+    private $nomEtablissement;
 
     /**
      * @ORM\Column(type="integer")
@@ -30,12 +30,12 @@ class LieuStage
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $adresse_stage;
+    private $adresseStage;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $numero_adresse_stage;
+    private $numeroAdresseStage;
 
     /**
      * @ORM\Column(type="integer")
@@ -50,7 +50,7 @@ class LieuStage
     /**
      * @ORM\Column(type="integer")
      */
-    private $telephone_stage;
+    private $telephoneStage;
 
     /**
      * @ORM\Column(type="integer")
@@ -84,12 +84,12 @@ class LieuStage
 
     public function getNomEtablissement(): ?string
     {
-        return $this->nom_etablissement;
+        return $this->nomEtablissement;
     }
 
-    public function setNomEtablissement(string $nom_etablissement): self
+    public function setNomEtablissement(string $nomEtablissement): self
     {
-        $this->nom_etablissement = $nom_etablissement;
+        $this->nomEtablissement = $nomEtablissement;
 
         return $this;
     }
@@ -108,24 +108,24 @@ class LieuStage
 
     public function getAdresseStage(): ?string
     {
-        return $this->adresse_stage;
+        return $this->adresseStage;
     }
 
-    public function setAdresseStage(string $adresse_stage): self
+    public function setAdresseStage(string $adresseStage): self
     {
-        $this->adresse_stage = $adresse_stage;
+        $this->adresseStage = $adresseStage;
 
         return $this;
     }
 
     public function getNumeroAdresseStage(): ?int
     {
-        return $this->numero_adresse_stage;
+        return $this->numeroAdresseStage;
     }
 
-    public function setNumeroAdresseStage(int $numero_adresse_stage): self
+    public function setNumeroAdresseStage(int $numeroAdresseStage): self
     {
-        $this->numero_adresse_stage = $numero_adresse_stage;
+        $this->numeroAdresseStage = $numeroAdresseStage;
 
         return $this;
     }
@@ -156,12 +156,12 @@ class LieuStage
 
     public function getTelephoneStage(): ?int
     {
-        return $this->telephone_stage;
+        return $this->telephoneStage;
     }
 
-    public function setTelephoneStage(int $telephone_stage): self
+    public function setTelephoneStage(int $telephoneStage): self
     {
-        $this->telephone_stage = $telephone_stage;
+        $this->telephoneStage = $telephoneStage;
 
         return $this;
     }

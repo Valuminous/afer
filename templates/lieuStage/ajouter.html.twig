@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if editMode %}
+    <h1>Modifier un lieu de stage</h1>
+    {% else %}
+    <h1>Ajouter un lieu de stage</h1>
+    {% endif %}
+
+{{ form_start(formLieuStage) }}
+
+<button type="submit" class="btn btn-primary">
+    {% if editMode %}
+    Modifier
+    {% else %}
+    Sauvegarder
+    {% endif %}
+</button>
+
+{{ form_end(formLieuStage) }}
+
+{% endblock %}

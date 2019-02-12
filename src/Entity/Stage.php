@@ -20,7 +20,7 @@ class Stage
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numero_stage;
+    private $numeroStage;
     /**
      * @ORM\Column(type="date")
      */
@@ -32,7 +32,7 @@ class Stage
     /**
      * @ORM\Column(type="boolean")
      */
-    private $stage_programme_officiel;
+    private $stageSrogrammeOofficiel;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stages")
@@ -63,7 +63,7 @@ class Stage
      */
     private $lieuStage;
 
-    public function __construct()
+    public function OOconstruct()
     {
         $this->animateurs = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
@@ -74,11 +74,11 @@ class Stage
     }
     public function getNumeroStage(): ?string
     {
-        return $this->numero_stage;
+        return $this->numeroStage;
     }
-    public function setNumeroStage(string $numero_stage): self
+    public function setNumeroStage(string $numeroStage): self
     {
-        $this->numero_stage = $numero_stage;
+        $this->numeroStage = $numeroStage;
         return $this;
     }
     public function getDated(): ?\DateTimeInterface
@@ -101,11 +101,11 @@ class Stage
     }
     public function getStageProgrammeOfficiel(): ?bool
     {
-        return $this->stage_programme_officiel;
+        return $this->stageSrogrammeOofficiel;
     }
-    public function setStageProgrammeOfficiel(bool $stage_programme_officiel): self
+    public function setStageProgrammeOfficiel(bool $stageSrogrammeOofficiel): self
     {
-        $this->stage_programme_officiel = $stage_programme_officiel;
+        $this->stageSrogrammeOofficiel = $stageSrogrammeOofficiel;
         return $this;
     }
 

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lieux de stage{% endblock %}
+
+{% block body %}
+
+<section class="info_lieuStage">
+<h2>Lieux de stage</h2>
+<div =class="d-flex justify-content-center">
+                <p>Nom de l'établissement :{{ lieuStage.nomEtablissement }}</p>
+                <p>Commune :{{ lieuStage.commune }}</p>
+                <p> Téléphone :{{ lieuStage.telephoneStage }}</p>
+                <p> C{{ lieuStage.stageProgrammeOfficiel }}</p>
+
+                
+  </section>
+
+   <a href="{{ path('lieuStage_index') }}">Retour</a>
+  
+
+{% endblock %}

@@ -37,7 +37,7 @@ class Utilisateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $mdp_utilisateur;
+    private $mdpUtilisateur;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="utilisateurs")
@@ -78,20 +78,20 @@ class Utilisateur
     }
 
     public
-    function setPrenomUtilisateur(string $prenom_utilisateur) : self {
-        $this->prenomUtilisateur = $prenom_utilisateur;
+    function setPrenomUtilisateur(string $prenomUtilisateur) : self {
+        $this->prenomUtilisateur = $prenomUtilisateur;
 
         return $this;
     }
 
     public
     function getMdpUtilisateur(): ? string {
-        return $this->mdp_utilisateur;
+        return $this->mdpUtilisateur;
     }
 
     public
     function setMdpUtilisateur(string $mdpUtilisateur) : self {
-        $this->mdp_utilisateur = $mdpUtilisateur;
+        $this->mdpUtilisateur = $mdpUtilisateur;
 
         return $this;
     }

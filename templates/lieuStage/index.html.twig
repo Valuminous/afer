@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="lieuStage">
+    <a href="{{ path('lieuStage_ajouter')}}" class="btn btn-success mt-5 mb-5">Ajouter un lieu de stage</a>
+     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Nom de l'établissement</th>
+                <th scope="col" class="text-center">Commune</th>
+                <th scope="col" class="text-center">N° de téléphone</th>
+                <th scope="col" class="text-center">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lieuStage in lieuStages %}
+            <tr>
+                <td class="text-center">{{ lieuStage.nomEtablissement }}</td>
+                <td class="text-center">{{ lieuStage.commune }}</td>
+                <td class="text-center">{{ lieuStage.telephoneStage }}</td>
+                                 
+                <td class="text-center">
+                    <a href="{{  path('lieuStage_afficher', {'id': lieuStage.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{  path('lieuStage_modifier', {'id': lieuStage.id}) }}"><i class="fas fa-pen"></i></a>
+                    <a href="{{  path('lieuStage_supprimer', {'id': lieuStage.id}) }}" ><i class="far fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+{% endblock %}

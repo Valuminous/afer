@@ -19,14 +19,15 @@
             <tr>
                 <td class="text-center">{{ stage.numeroStage }}</td>
                 <td class="text-center">
-                <p>Début : {{ stage.dated }}</p> 
-                <p>Fin :{{ stage.datef }}</p>
+                <p>Début : {{ stage.dated|date('j F Y') }}</p> 
+                <p>Fin :{{ stage.datef|date('j F Y') }}</p>
                 </td>
-                {# <td class="text-center">{{ stage.lieuStage }}</td>
-                <td class="text-center">
-                <p>Début : {{ stage.animateurs }}</p> 
-                <p>Fin :{{ stage.animateurs }}</p>
-                </td> #}
+                {# <td class="text-center">{{ stage.lieuStage }}</td> #}
+                 <td class="text-center">
+                 {% for animateur in stage.animateurs %}
+                <p>{{ animateur.nomAnimateur }}</p> 
+                 {% endfor %}
+                </td> 
              <td class="text-center"></th>
                 <td class="text-center">
                     <a href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye"></i></a>
