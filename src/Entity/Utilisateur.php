@@ -27,12 +27,12 @@ class Utilisateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_utilisateur;
+    private $nomUtilisateur;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $prenom_utilisateur;
+    private $prenomUtilisateur;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -46,73 +46,71 @@ class Utilisateur
 
     public
     function getId(): ? int {
-        return $this -> id;
+        return $this->id;
     }
 
     public
     function getIdentifiant() : ? string {
-        return $this -> identifiant;
+        return $this->identifiant;
     }
 
     public
     function setIdentifiant(string $identifiant) : self {
-        $this -> identifiant = $identifiant;
+        $this->identifiant = $identifiant;
 
         return $this;
     }
 
     public
     function getNomUtilisateur(): ? string {
-        return $this -> nom_utilisateur;
+        return $this->nomUtilisateur;
     }
 
     public
-    function setNomUtilisateur(string $nom_utilisateur) : self {
-        $this -> nom_utilisateur = $nom_utilisateur;
-
+    function setNomUtilisateur(string $nomUtilisateur) : self {
+        $this->nomUtilisateur = $nomUtilisateur;
         return $this;
     }
 
     public
     function getPrenomUtilisateur(): ? string {
-        return $this -> prenom_utilisateur;
+        return $this->prenomUtilisateur;
     }
 
     public
     function setPrenomUtilisateur(string $prenom_utilisateur) : self {
-        $this -> prenom_utilisateur = $prenom_utilisateur;
+        $this->prenomUtilisateur = $prenom_utilisateur;
 
         return $this;
     }
 
     public
     function getMdpUtilisateur(): ? string {
-        return $this -> mdp_utilisateur;
+        return $this->mdp_utilisateur;
     }
 
     public
-    function setMdpUtilisateur(string $mdp_utilisateur) : self {
-        $this -> mdp_utilisateur = $mdp_utilisateur;
+    function setMdpUtilisateur(string $mdpUtilisateur) : self {
+        $this->mdp_utilisateur = $mdpUtilisateur;
 
         return $this;
     }
 
     public
     function getRole(): ? Role {
-        return $this -> role;
+        return $this->role;
     }
 
     public
     function setRole( ? Role $role) : self {
-        $this -> role = $role;
+        $this->role = $role;
 
         return $this;
     }
     /**
      * @return (roll|string)[] The user roles
      */
-    public
-    function getRoles() {
+    public  function getRoles() {
         // $roles = $this->roles;
         // // guarantees that a user always has at least one role for security
         // if (empty($roles)) {

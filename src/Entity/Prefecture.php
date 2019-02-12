@@ -35,12 +35,12 @@ class Prefecture
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cp;
+    private $cpPrefecture;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $commune;
+    private $communePrefecture;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\PrefectureService", inversedBy="relation")
@@ -103,26 +103,26 @@ class Prefecture
         return $this;
     }
 
-    public function getCp(): ?string
+    public function getCpPrefecture(): ?string
     {
-        return $this->cp;
+        return $this->cpPrefecture;
     }
 
-    public function setCp(string $cp): self
+    public function setCpPrefecture(string $cpPrefecture): self
     {
-        $this->cp = $cp;
+        $this->cpPrefecture = $cpPrefecture;
 
         return $this;
     }
 
-    public function getCommune(): ?string
+    public function getCommunePrefecture(): ?string
     {
-        return $this->commune;
+        return $this->communePrefecture;
     }
 
-    public function setCommune(string $commune): self
+    public function setCommunePrefecture(string $communePrefecture): self
     {
-        $this->commune = $commune;
+        $this->communePrefecture = $communePrefecture;
 
         return $this;
     }
