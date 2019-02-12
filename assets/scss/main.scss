@@ -1,3 +1,144 @@
-body{
-    background-color:#8888be;
+html {
+
+    body {
+
+        main {
+
+            img {
+                width: 20%;
+            }
+
+            h1 {
+                font-family: 'Open Sans', sans-serif;
+                color: #313435;
+                font-weight: 200;
+            }
+
+            .left_branding {
+                background-color: #ffffff;
+                border-right: solid 1px #cdcdcd;
+                border-bottom: solid 1px #cdcdcd;
+                height: 10vh;
+            }
+
+            .top_logout {
+                background-color: #ffffff;
+                border-bottom: solid 1px #cdcdcd;
+                height: 10vh;
+            }
+
+            .left_nav {
+                background-color: #ffffff;
+                border-right: solid 1px #cdcdcd;
+                height: 90vh;
+            }
+
+            .main_content {
+                background-color: #f9f9fb;
+                height: 90vh;
+                padding: 0;
+            }
+
+            .container-fluid {
+
+                ul {
+
+                    li {
+                        list-style: none;
+
+                        .ul_without_padding {
+                            padding: 0;
+                            display: none;
+                            opacity: 0;
+
+                            li {
+
+                                a {
+                                    font-size: 1rem;
+                                }
+                            }
+                        }
+
+                        .angle_blue {
+                            color: #4098f3;
+                            font-size: 2rem;
+                            transition: .5s;
+                            cursor: pointer;
+                        }
+
+                        .angle_orange {
+                            color: #ff9738;
+                            font-size: 2rem;
+                            transition: .5s;
+                            cursor: pointer;
+                        }
+
+                        .angle_purple {
+                            color: #9c2db3;
+                            font-size: 2rem;
+                            transition: .5s;
+                            cursor: pointer;
+                        }
+
+                        .angle_red {
+                            color: #ff5744;
+                            font-size: 2rem;
+                            transition: .5s;
+                            cursor: pointer;
+                        }
+
+                        a {
+                            text-decoration: none;
+                            font-size: 1.5rem;
+                            font-family: 'Open Sans', sans-serif;
+                            color: #313435;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
+
+                            .fa-microsoft {
+                                color: #a1ceff;
+                                margin-right: 2.6rem;
+                                margin-left: 0.3rem;
+                            }
+
+                            .fa-calendar-alt {
+                                color: #ff5744;
+                                margin-right: 2.6rem;
+                                margin-left: 0.3rem;
+                            }
+
+                            .fa-users {
+                                color: #009688;
+                                margin-right: 2.3rem;
+                            }
+
+                            .fa-balance-scale {
+                                color: #4098f3;
+                                margin-right: 2.3rem;
+                            }
+
+                            .fa-graduation-cap {
+                                color: #ff9738;
+                                margin-right: 2.3rem;
+                            }
+
+                            .fa-address-card {
+                                color: #9c2db3;
+                                margin-right: 2.4rem;
+                            }
+
+                            .fa-key {
+                                color: #795548;
+                                margin-right: 2.6rem;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 }

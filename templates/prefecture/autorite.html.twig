@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préfecture{% endblock %}
+
+{% block body %}
+
+<a href="{{ path('prefecture_autorite_ajouter') }}" class="btn btn-primary btn-link text-white ml-2"><i class="fas fa-plus-circle pr-2"></i> Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Réglages</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for autorite in autorites %}
+                <tr>
+                    <td>{{ autorite.nom }}</td>
+                    <td>
+                        <a href="{{ path('prefecture_autorite_modifier', {'id': autorite.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="{{ path('prefecture_autorite_supprimer', {'id': autorite.id}) }}"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<section class="animateur">
+<section class="prefecture">
 
     <p>Nom : {{ prefectures.nomPrefecture }}</p>
     <p>Adresse : {{ prefectures.numeroAdressePrefecture }} {{ prefectures.adressePrefecture }}</p>
@@ -13,5 +13,6 @@
     <p>Préfecture service : {{ prefectures.prefectureService }}</p>
 
 </section>
+   <a href="{{ path('prefecture') }}">Retour</a>
 
 {% endblock %}

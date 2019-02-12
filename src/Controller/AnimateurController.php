@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,14 @@ use App\Entity\AnimateurFonction;
 use App\Repository\AnimateurFonctionRepository;
 use App\Repository\AnimateurStatutRepository;
 use App\Entity\AnimateurStatut;
+
+/**
+ * @Route("/admin")
+ */
 class AnimateurController extends AbstractController
 {
     /**
-     * @Route("/animateur", name="animateur")
+     * @Route("/animateur", name="animateur_index")
      */
     public function index(AnimateurRepository $repo)
     {
@@ -29,8 +34,8 @@ class AnimateurController extends AbstractController
         ]);
     }
     /**
-     *  @Route("animateur/ajouter", name="animateur_ajouter")
-     *  @Route("animateur/{id}/modifier", name="animateur_modifier")
+     *  @Route("/animateur/ajouter", name="animateur_ajouter")
+     *  @Route("/animateur/{id}/modifier", name="animateur_modifier")
      */
     public function animateurForm(Animateur $animateur = null, Request $request, ObjectManager $manager)
     {
@@ -50,7 +55,7 @@ class AnimateurController extends AbstractController
         ]);
     }
     /**
-     *  @Route("animateur/{id}/supprimer", name="animateur_supprimer")
+     *  @Route("/animateur/{id}/supprimer", name="animateur_supprimer")
      */
     public function delete(Animateur $animateur, ObjectManager $manager)
     {
@@ -59,7 +64,7 @@ class AnimateurController extends AbstractController
         return $this->redirectToRoute('animateur');
     }
     /**
-     * @Route("animateur/{id}/afficher", name="animateur_afficher")
+     * @Route("/animateur/{id}/afficher", name="animateur_afficher")
      */
     public function showOne(Animateur $animateur)
     {
@@ -84,8 +89,8 @@ class AnimateurController extends AbstractController
     }
 
     /**
-     *  @Route("animateur/fonction/ajouter", name="animateurFonction_ajouter")
-     *  @Route("animateur/fonction/{id}/modifier", name="animateurFonction_modifier")
+     *  @Route("/animateur/fonction/ajouter", name="animateurFonction_ajouter")
+     *  @Route("/animateur/fonction/{id}/modifier", name="animateurFonction_modifier")
      */
     public function animateurFonctionForm(AnimateurFonction $animateurfonction = null, Request $request, ObjectManager $manager)
     {
@@ -106,7 +111,7 @@ class AnimateurController extends AbstractController
     }
 
     /**
-     *  @Route("animateur/fonction/{id}/supprimer", name="animateurFonction_supprimer")
+     *  @Route("/animateur/fonction/{id}/supprimer", name="animateurFonction_supprimer")
      */
     public function supprimerAnimateurFonction(AnimateurFonction $animateurfonction, ObjectManager $manager)
     {
@@ -115,7 +120,7 @@ class AnimateurController extends AbstractController
         return $this->redirectToRoute('animateurFonction');
     }
     /**
-     * @Route("animateur/fonction/{id}/afficher", name="animateurFonction_afficher")
+     * @Route("/animateur/fonction/{id}/afficher", name="animateurFonction_afficher")
      */
     public function afficherUneAnimateurFonction(AnimateurFonction $animateurfonction)
     {
@@ -140,8 +145,8 @@ class AnimateurController extends AbstractController
     }
 
     /**
-     *  @Route("animateur/statut/ajouter", name="animateurStatut_ajouter")
-     *  @Route("animateur/statut/{id}/modifier", name="animateurStatut_modifier")
+     *  @Route("/animateur/statut/ajouter", name="animateurStatut_ajouter")
+     *  @Route("/animateur/statut/{id}/modifier", name="animateurStatut_modifier")
      */
     public function animateurStatutForm(AnimateurStatut $animateurstatut = null, Request $request, ObjectManager $manager)
     {
@@ -162,7 +167,7 @@ class AnimateurController extends AbstractController
     }
 
     /**
-     *  @Route("animateur/statut/{id}/supprimer", name="animateurStatut_supprimer")
+     *  @Route("/animateur/statut/{id}/supprimer", name="animateurStatut_supprimer")
      */
     public function supprimerAnimateurStatut(AnimateurStatut $animateurstatut, ObjectManager $manager)
     {
@@ -171,7 +176,7 @@ class AnimateurController extends AbstractController
         return $this->redirectToRoute('animateurStatut');
     }
     /**
-     * @Route("animateur/statut/{id}/afficher", name="animateurStatut_afficher")
+     * @Route("/animateur/statut/{id}/afficher", name="animateurStatut_afficher")
      */
     public function afficherUneAnimateurStatut(AnimateurStatut $animateurstatut)
     {

@@ -102,11 +102,11 @@ class Stagiaire
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaires")
      */
-    private $Stages;
+    private $stages;
 
     public function __construct()
     {
-        $this->Stages = new ArrayCollection();
+        $this->stages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -312,13 +312,14 @@ class Stagiaire
 
     public function getStages(): Collection
     {
-        return $this->Stages;
+        return $this->stages;
     }
 
     public function addStage(Stage $stage): self
     {
-        if (!$this->Stages->contains($stage)) {
-            $this->Stages[] = $stage;
+        if (!$this->stages->contains($stage)) {
+            $this->stages[] = $stage;
+            $stage->addStage($this);
         }
 
         return $this;
@@ -326,8 +327,12 @@ class Stagiaire
 
     public function removeStage(Stage $stage): self
     {
-        if (!$this->Stages->contains($stage)) {
-            $this->Stages->removeElement($stage);
+        if (!$this->stages->contains($stage)) {
+            $this->stages->removeElement($stage);
+            if ($relation->getStagiaire() === $this) {
+                $relation->setStagiaire(null);
+           
+        }
         }
 
         return $this;
