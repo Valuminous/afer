@@ -144,7 +144,7 @@ class Stagiaire
         return $this->cp;
     }
 
-    public function setCp(int $cp): self
+    public function setCp(string $cp): self
     {
         $this->cp = $cp;
 
@@ -295,12 +295,12 @@ class Stagiaire
         return $this;
     }
 
-    public function getNumeroAdresseStagiaire(): ?int
+    public function getNumeroAdresseStagiaire(): ?string
     {
         return $this->numeroAdresseStagiaire;
     }
 
-    public function setNumeroAdresseStagiaire(int $numeroAdresseStagiaire): self
+    public function setNumeroAdresseStagiaire(string $numeroAdresseStagiaire): self
     {
         $this->numeroAdresseStagiaire = $numeroAdresseStagiaire;
 

@@ -76,7 +76,7 @@ class AnimateurController extends AbstractController
     // ----- Affichage, ajout, modification et suppresion des fonctions pour les animateurs -----
 
     /**
-     * @Route("/animateur/fonction", name="animateurFonction")
+     * @Route("/animateur/fonction", name="animateurFonction_index")
      */
     public function afficherFonction(AnimateurFonctionRepository $repo)
     {
@@ -132,7 +132,7 @@ class AnimateurController extends AbstractController
     // ----- Affichage, ajout, modification et suppresion des statuts pour les animateurs -----
 
     /**
-     * @Route("/animateur/statut", name="animateurStatut")
+     * @Route("/animateur/statut", name="animateurStatut_index")
      */
     public function afficherStatut(AnimateurStatutRepository $repo)
     {
