@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="tribunal">
+    <p>ID : {{ tribunal.id }}</p>
+    <p>Nom tribunal : {{ tribunal.nomTribunal }}</p>
+    <p>Service : {{ tribunal.tribunalService }}</p> 
+    <p>Autorité : {{ tribunal.tribunalAutorite }}</p>
+    <p>N° rue : {{ tribunal.numeroAdresseTribunal }}</p>
+    <p>Adresse : {{ tribunal.adresseTribunal}}</p>
+    <p>Commune : {{ tribunal.communeTribunal}}</p>
+</section>
+{% endblock %}
