@@ -78,6 +78,16 @@ class TribunalController extends AbstractController
     }
 
     /**
+     * @Route("/tribunal{id}/afficher", name="tribunal_afficher")
+     */
+    public function showOne(Tribunal $tribunal)
+    {
+        return $this->render('tribunal/afficher.html.twig', [
+            'tribunal' => $tribunal
+        ]);
+    }
+
+    /**
     * @Route("/tribunal/autorite/ajouter", name="tribunalAutorite_ajouter")
     * @Route("/tribunal/autorite/{id}/modifier", name="tribunalAutorite_modifier")
     */
