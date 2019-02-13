@@ -12,7 +12,7 @@
     <p>Code postal : {{ stagiaire.cp }}</p>
     <p>Commune : {{ stagiaire.commune }}</p>
     <p>Nom de naissance : {{ stagiaire.nomNaissanceStagiaire }}</p>
-    <p>Date de naissance_stagiaire : {{ stagiaire.dateNaissanceStagiaire ? stagiaire.dateNaissanceStagiaire|date('Y-m-d') : ''  }}</p>
+    <p>Date de naissance_stagiaire : {{ stagiaire.dateNaissanceStagiaire|date('j F Y')}</p>
     <p>Lieu_naissance_stagiaire : {{ stagiaire.lieuNaissanceStagiaire }}</p>
     <p>Adresse : {{ stagiaire.numeroAdresseStagiaire }}</p>
     <p>N° Fixe : {{ stagiaire.numeroFixeStagiaire }}</p>
