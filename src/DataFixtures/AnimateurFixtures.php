@@ -42,7 +42,7 @@ class AnimateurFixtures extends Fixture
                 $animateur->setNumeroFixeAnimateur($faker->phoneNumber);
                 $animateur->setEmailAnimateur($faker->email);
                 $animateur->setUrssafAnimateur($faker->numberBetween($min = 1000, $max = 9000));
-                $animateur->setSiretAnimateur($faker->randomNumber($nbDigits = NULL, $strict = false));
+                $animateur->setSiretAnimateur($faker->siret);
                 $animateur->setObservationsAnimateur($faker->sentence());
                 $animateur->setAnimateurFonction($fonction);
                 $animateur->setAnimateurStatut($statut);

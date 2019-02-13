@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StagiaireRepository")
@@ -31,12 +32,12 @@ class Stagiaire
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cp;
+    private $cpStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $commune;
+    private $communeStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -45,7 +46,7 @@ class Stagiaire
     private $nomNaissanceStagiaire;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateNaissanceStagiaire;
 
@@ -99,7 +100,6 @@ class Stagiaire
      */
     private $numeroAdresseStagiaire;
 
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaires")
      */
@@ -147,26 +147,30 @@ class Stagiaire
         return $this;
     }
 
-    public function getCp(): ?string
+    public function getCpStagiaire(): ?string
     {
-        return $this->cp;
+        return $this->cpStagiaire;
     }
 
+<<<<<<< HEAD
     public function setCp(string $cp): self
+=======
+    public function setCpStagiaire(string $cpStagiaire): self
+>>>>>>> a21cb61a19cf98291ac70daa048e63a2a5e45566
     {
-        $this->cp = $cp;
+        $this->cpStagiaire = $cpStagiaire;
 
         return $this;
     }
 
-    public function getCommune(): ?string
+    public function getCommuneStagiaire(): ?string
     {
-        return $this->commune;
+        return $this->communeStagiaire;
     }
 
-    public function setCommune(string $commune): self
+    public function setCommuneStagiaire(string $communeStagiaire): self
     {
-        $this->commune = $commune;
+        $this->communeStagiaire = $communeStagiaire;
 
         return $this;
     }
@@ -183,12 +187,16 @@ class Stagiaire
         return $this;
     }
 
-    public function getDateNaissanceStagiaire(): ?\DateTimeInterface
+    public function getDateNaissanceStagiaire(): ?DateTimeInterface
     {
         return $this->dateNaissanceStagiaire;
     }
 
+<<<<<<< HEAD
     public function setDateNaissanceStagiaire(\DateTimeInterface $dateNaissanceStagiaire): self
+=======
+    public function setDateNaissanceStagiaire(DateTimeInterface $dateNaissanceStagiaire): self
+>>>>>>> a21cb61a19cf98291ac70daa048e63a2a5e45566
     {
         $this->dateNaissanceStagiaire = $dateNaissanceStagiaire;
 
