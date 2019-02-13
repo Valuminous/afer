@@ -1,87 +1,33 @@
+{% endblock %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Stagiaire{% endblock %}
-
 {% block body %}
-    <h1>Stagiaire</h1>
 
-    <table class="table stagiaire">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ stagiaire.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom_stagiaire</th>
-                <td>{{ stagiaire.nomStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Prenom_stagiaire</th>
-                <td>{{ stagiaire.prenomStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Cp</th>
-                <td>{{ stagiaire.cpStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Commune</th>
-                <td>{{ stagiaire.communeStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Nom_naissance_stagiaire</th>
-                <td>{{ stagiaire.nomNaissanceStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Date_naissance_stagiaire</th>
-                <td>{{ stagiaire.dateNaissanceStagiaire ? stagiaire.dateNaissanceStagiaire|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Lieu_naissance_stagiaire</th>
-                <td>{{ stagiaire.lieuNaissanceStagiaire }}</td>
-            </tr>
-             <tr>
-                <th>Numero_adresse_stagiaire</th>
-                <td>{{ stagiaire.numeroAdresseStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Adresse_stagiaire</th>
-                <td>{{ stagiaire.adresseStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Nationalite_stagiaire</th>
-                <td>{{ stagiaire.nationaliteStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Numero_portable_stagiaire</th>
-                <td>{{ stagiaire.numeroPortableStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Numero_fixe_stagiaire</th>
-                <td>{{ stagiaire.numeroFixeStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Email_stagiaire</th>
-                <td>{{ stagiaire.emailStagiaire }}</td>
-            </tr>
-            <tr>
-                <th>Carte_jeune_stagiaire</th>
-                <td>{{ stagiaire.carteJeuneStagiaire ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Partenaire_stagiaire</th>
-                <td>{{ stagiaire.partenaireStagiaire ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Adherent_stagiaire</th>
-                <td>{{ stagiaire.adherentStagiaire ? 'Yes' : 'No' }}</td>
-            </tr>
+<section class="stagiaire">
+    <p>ID : {{ stagiaire.id }}</p>
+    <p>Civilité :{{ stagiaire.civilite.nomCivilite }}</p> 
+    <p>Nom : {{ stagiaire.nomStagiaire }}</p>
+    <p>Prénom : {{ stagiaire.prenomStagiaire }}</p>
+    <p>N° adresse : {{ stagiaire.numeroAdresseStagiaire  }}</p>
+    <p>Code postal : {{ stagiaire.cp }}</p>
+    <p>Commune : {{ stagiaire.commune }}</p>
+    <p>Nom de naissance : {{ stagiaire.nomNaissanceStagiaire }}</p>
+    <p>Date de naissance_stagiaire : {{ stagiaire.dateNaissanceStagiaire ? stagiaire.dateNaissanceStagiaire|date('Y-m-d') : ''  }}</p>
+    <p>Lieu_naissance_stagiaire : {{ stagiaire.lieuNaissanceStagiaire }}</p>
+    <p>Adresse : {{ stagiaire.numeroAdresseStagiaire }}</p>
+    <p>N° Fixe : {{ stagiaire.numeroFixeStagiaire }}</p>
+    <p>N° Portable : {{ stagiaire.numeroPortableStagiaire }}</p>
+    <p>Email : {{ stagiaire.emailStagiaire }}</p>
+    <p>Nationalité : {{ stagiaire.nationaliteStagiaire }}</p>
+    <p>Carte jeune : {{ stagiairecarteJeuneStagiaire ? 'Yes' : 'No' }}</p>
+     <p>Partenaire : {{ stagiaire.partenaireStagiaire ? 'Yes' : 'No' }}</p>
+    <p>Adhérent : {{ stagiaire.adherentStagiaire ? 'Yes' : 'No'  }}</p>
+</section>
+
+             
            
-        </tbody>
-    </table>
+          
 
     <a href="{{ path('stagiaire_index') }}">Retour</a>
 
-    <a href="{{ path('stagiaire_modifier', {'id': stagiaire.id}) }}" class="btn btn-warning">Modifier</a>
-
-    {{ include('stagiaire/delete_form.html.twig') }}
-{% endblock %}
+    

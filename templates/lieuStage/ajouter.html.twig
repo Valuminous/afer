@@ -3,12 +3,12 @@
 {% block body %}
 
     {% if editMode %}
-    <h1>Modifier un stagiaire</h1>
+    <h1>Modifier un lieu de stage</h1>
     {% else %}
-    <h1>Ajouter un stagiaire</h1>
+    <h1>Ajouter un lieu de stage</h1>
     {% endif %}
 
-{{ form_start(formStagiaire) }}
+{{ form_start(formLieuStage) }}
 
 <button type="submit" class="btn btn-primary">
     {% if editMode %}
@@ -18,6 +18,6 @@
     {% endif %}
 </button>
 
-{{ form_end(formStagiaire) }}
+{{ form_end(formLieuStage) }}
 
 {% endblock %}

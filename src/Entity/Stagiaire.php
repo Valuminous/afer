@@ -99,15 +99,27 @@ class Stagiaire
      * @ORM\Column(type="string", length=25)
      */
     private $numeroAdresseStagiaire;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6bfc30230dbbacd8d4650cd85950c3f7173d63a8
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaires")
      */
     private $stages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="stagiaire")
+     */
+    private $civilite;
+
+    
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -144,7 +156,11 @@ class Stagiaire
         return $this->cpStagiaire;
     }
 
+<<<<<<< HEAD
     public function setCpStagiaire(string $cpStagiaire): self
+=======
+    public function setCp(string $cp): self
+>>>>>>> 6bfc30230dbbacd8d4650cd85950c3f7173d63a8
     {
         $this->cpStagiaire = $cpStagiaire;
 
@@ -180,7 +196,11 @@ class Stagiaire
         return $this->dateNaissanceStagiaire;
     }
 
+<<<<<<< HEAD
     public function setDateNaissanceStagiaire(DateTimeInterface $dateNaissanceStagiaire): self
+=======
+    public function setDateNaissanceStagiaire(\DateTimeInterface $dateNaissanceStagiaire): self
+>>>>>>> 6bfc30230dbbacd8d4650cd85950c3f7173d63a8
     {
         $this->dateNaissanceStagiaire = $dateNaissanceStagiaire;
 
@@ -338,5 +358,19 @@ class Stagiaire
 
         return $this;
     }
+
+    public function getCivilite(): ?Civilite
+    {
+        return $this->civilite;
+    }
+
+    public function setCivilite(?Civilite $civilite): self
+    {
+        $this->civilite = $civilite;
+
+        return $this;
+    }
+
+   
 }
 

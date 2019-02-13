@@ -9,7 +9,7 @@ class UtilisateurController extends AbstractController
 {
     /**
      * controlleur pour créer et gérer les utilisateurs
-     * @Route("/utilisateur", name="utilisateur")
+     * @Route("/utilisateur", name="utilisateur_index")
      */
     public function index()
     {

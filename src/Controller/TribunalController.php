@@ -78,8 +78,8 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/autorite/ajouter", name="tribunal_autorite_ajouter")
-    * @Route("/tribunal/autorite/{id}/modifier", name="tribunal_autorite_modifier")
+    * @Route("/tribunal/autorite/ajouter", name="tribunalAutorite_ajouter")
+    * @Route("/tribunal/autorite/{id}/modifier", name="tribunalAutorite_modifier")
     */
     public function ajoutTribunalAutorite(TribunalAutorite $autorite = null, Request $request, ObjectManager $manager)
     {
@@ -105,7 +105,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-    * @Route("/tribunal/autorite/{id}/supprimer", name="tribunal_autorite_supprimer")
+    * @Route("/tribunal/autorite/{id}/supprimer", name="tribunalAutorite_supprimer")
     */
     public function supprimerAutorite(TribunalAutorite $autorite, Request $request, ObjectManager $manager)
     {

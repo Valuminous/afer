@@ -1,6 +1,30 @@
+@import'stage';
+@import'tribunal';
+@import'animateur';
+@import'prefecture';
+
 html {
 
     body {
+
+        .add_icon{
+            border: solid;
+            border-width: 1px;
+            border-color: rgba(40, 167, 69, 0.3);
+            background-color: rgba(40, 167, 70, 0.116);
+
+            &:hover{
+                background-color: rgba(40, 167, 69, 0.3);
+            }
+            &::before{
+                font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
+                font-size: 1.5rem;
+                margin-right: 0.5rem;
+                color: #28a745;
+            }
+        }
+
+        font-family: 'Open Sans', sans-serif;
 
         main {
 
@@ -9,7 +33,7 @@ html {
             }
 
             h1 {
-                font-family: 'Open Sans', sans-serif;
+
                 color: #313435;
                 font-weight: 200;
             }
@@ -19,29 +43,65 @@ html {
                 border-right: solid 1px #cdcdcd;
                 border-bottom: solid 1px #cdcdcd;
                 height: 10vh;
+                top: 0;
             }
 
             .top_logout {
                 background-color: #ffffff;
                 border-bottom: solid 1px #cdcdcd;
                 height: 10vh;
+                top: 0;
+                right: 0;
+                z-index: 2;
             }
 
             .left_nav {
                 background-color: #ffffff;
                 border-right: solid 1px #cdcdcd;
                 height: 90vh;
+                bottom: 0;
+                -webkit-touch-callout: none;
+                /* iOS Safari */
+                -webkit-user-select: none;
+                /* Safari */
+                -khtml-user-select: none;
+                /* Konqueror HTML */
+                -moz-user-select: none;
+                /* Firefox */
+                -ms-user-select: none;
+                /* Internet Explorer/Edge */
+                user-select: none;
             }
 
             .main_content {
                 background-color: #f9f9fb;
                 height: 90vh;
                 padding: 0;
+                right: 0;
+                margin-top: 10vh;
             }
 
             .container-fluid {
 
+                .logout {
+                    margin: 0;
+
+                }
+
+                .fa-sign-out-alt {
+                    color: #dc3545;
+                    font-size: 1.5rem;
+                }
+
+                .fa-user-tie {
+                    font-size: 1.5rem;
+                }
+
                 ul {
+
+                    hr {
+                        margin: 0;
+                    }
 
                     li {
                         list-style: none;
@@ -55,7 +115,48 @@ html {
 
                                 a {
                                     font-size: 1rem;
+                                    margin-left: 5rem;
                                 }
+                            }
+
+                            .stage_hover {
+                                &:hover {
+                                    color: #ff5744;
+                                }
+                            }
+
+                            .tribunaux_hover {
+                                &:hover {
+                                    color: #4098f3;
+                                }
+                            }
+
+                            .animateur_hover {
+                                &:hover {
+                                    color: #ff9738;
+                                }
+                            }
+
+                            .prefecture_hover {
+                                &:hover {
+                                    color: #9c2db3;
+                                }
+                            }
+
+                            .background_stage {
+                                background-color: rgba(255, 87, 68, 0.1);
+                            }
+
+                            .background_tribunaux {
+                                background-color: rgba(64, 152, 243, 0.1);
+                            }
+
+                            .background_animateur {
+                                background-color: rgba(255, 151, 56, 0.1);
+                            }
+
+                            .background_prefecture {
+                                background-color: rgba(156, 45, 179, 0.1);
                             }
                         }
 
@@ -64,6 +165,9 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         .angle_orange {
@@ -71,6 +175,9 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         .angle_purple {
@@ -78,6 +185,9 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         .angle_red {
@@ -85,12 +195,15 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         a {
                             text-decoration: none;
                             font-size: 1.5rem;
-                            font-family: 'Open Sans', sans-serif;
+
                             color: #313435;
 
                             &:hover {

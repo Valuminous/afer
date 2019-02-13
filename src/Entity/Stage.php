@@ -20,7 +20,7 @@ class Stage
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numero_stage;
+    private $numeroStage;
     /**
      * @ORM\Column(type="date")
      */
@@ -32,17 +32,17 @@ class Stage
     /**
      * @ORM\Column(type="boolean")
      */
-    private $stage_programme_officiel;
+    private $stageProgrammeOfficiel;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $prefecture;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $tribunal;
 
@@ -59,14 +59,16 @@ class Stage
     private $stagiaires;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\LieuStage", inversedBy="stages")
+     * @ORM\ManyToMany(targetEntity="App\Entity\LieuStage", inversedBy="stages")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $lieuStage;
+    private $lieuStages;
 
     public function __construct()
     {
         $this->animateurs = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
+        $this->lieuStages = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -74,11 +76,11 @@ class Stage
     }
     public function getNumeroStage(): ?string
     {
-        return $this->numero_stage;
+        return $this->numeroStage;
     }
-    public function setNumeroStage(string $numero_stage): self
+    public function setNumeroStage(string $numeroStage): self
     {
-        $this->numero_stage = $numero_stage;
+        $this->numeroStage = $numeroStage;
         return $this;
     }
     public function getDated(): ?\DateTimeInterface
@@ -101,11 +103,11 @@ class Stage
     }
     public function getStageProgrammeOfficiel(): ?bool
     {
-        return $this->stage_programme_officiel;
+        return $this->stageProgrammeOfficiel;
     }
-    public function setStageProgrammeOfficiel(bool $stage_programme_officiel): self
+    public function setStageProgrammeOfficiel(bool $stageProgrammeOfficiel): self
     {
-        $this->stage_programme_officiel = $stage_programme_officiel;
+        $this->stageProgrammeOfficiel = $stageProgrammeOfficiel;
         return $this;
     }
 
@@ -187,15 +189,30 @@ class Stage
         return $this;
     }
 
-    public function getLieuStage(): ?lieuStage
+    /**
+     * @return Collection|LieuStage[]
+     */
+    public function getLieuStages(): Collection
     {
-        return $this->lieuStage;
+        return $this->lieuStages;
     }
 
-    public function setLieuStage(?lieuStage $lieuStage): self
+    public function addLieuStage(LieuStage $lieuStage): self
     {
-        $this->lieuStage = $lieuStage;
-
+        if (!$this->lieuStages->contains($lieuStage)) {
+            $this->lieuStages[] = $lieuStage;
+            $lieuStage->addLieuStage($this);
+        }
         return $this;
     }
+    public function removeLieuStage(LieuStage $lieuStage): self
+    {
+        if ($this->lieuStages->contains($lieuStage)) {
+            $this->lieuStages->removeElement($lieuStage);
+            $lieuStage->removeLieuStage($this);
+           
+        }
+        return $this;
+    }
+
 }

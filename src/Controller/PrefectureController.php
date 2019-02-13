@@ -42,7 +42,7 @@ class PrefectureController extends AbstractController
     }
 
     /**
-     * @Route("/prefecture/service", name="prefecture_service_index")
+     * @Route("/prefecture/service", name="prefectureService_index")
      */
     public function indexService(PrefectureServiceRepository $repoPrefectureService)
     {
@@ -54,7 +54,7 @@ class PrefectureController extends AbstractController
     }
 
     /**
-     * @Route("/prefecture/autorite", name="prefecture_autorite_index")
+     * @Route("/prefecture/autorite", name="prefectureAutorite_index")
      */
     public function indexAutorite(PrefectureAutoriteRepository $repoPrefectureAutorite)
     {
@@ -115,8 +115,8 @@ class PrefectureController extends AbstractController
     }
 
     /**
-     * @Route("/prefecture/service/ajouter", name="prefecture_service_ajouter")
-     * @Route("/prefecture/service/{id}/modifier", name="prefecture_service_modifier")
+     * @Route("/prefecture/service/ajouter", name="prefectureService_ajouter")
+     * @Route("/prefecture/service/{id}/modifier", name="prefectureService_modifier")
      */
     public function ajoutPrefectureService(PrefectureService $service = null, Request $request, ObjectManager $manager) {
 
@@ -142,7 +142,7 @@ class PrefectureController extends AbstractController
     }
 
     /**
-     * @Route("/prefecture/service/{id}/supprimer", name="prefecture_service_supprimer")
+     * @Route("/prefecture/service/{id}/supprimer", name="prefectureService_supprimer")
      */
     public function deletePrefectureService(PrefectureService $service, Request $request, ObjectManager $manager) {
 
@@ -153,8 +153,8 @@ class PrefectureController extends AbstractController
     }
 
     /**
-     * @Route("/prefecture/autorite/ajouter", name="prefecture_autorite_ajouter")
-     * @Route("/prefecture/autorite/{id}/modifier", name="prefecture_autorite_modifier")
+     * @Route("/prefecture/autorite/ajouter", name="prefectureAutorite_ajouter")
+     * @Route("/prefecture/autorite/{id}/modifier", name="prefectureAutorite_modifier")
      */
     public function ajoutPrefectureAutorite(PrefectureAutorite $autorite = null, Request $request, ObjectManager $manager) {
 
@@ -180,7 +180,7 @@ class PrefectureController extends AbstractController
     }
 
     /**
-     * @Route("/prefecture/autorite/{id}/supprimer", name="prefecture_autorite_supprimer")
+     * @Route("/prefecture/autorite/{id}/supprimer", name="prefectureAutorite_supprimer")
      */
     public function deletePrefectureAutorite(PrefectureAutorite $autorite, Request $request, ObjectManager $manager) {
 

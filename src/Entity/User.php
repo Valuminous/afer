@@ -3,10 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="L'email que vous avez indiqué est déjà utilisé !"
+ * )
  */
 class User implements UserInterface
 {
@@ -19,8 +25,27 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * Assert\Email()
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nomUser;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenomUser;
+
+
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,6 +55,42 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getNomUser(): ?string
+    {
+        return $this->nomUser;
+    }
+
+    public function setNomUser(string $nomUser): self
+    {
+        $this->nomUser = $nomUser;
+
+        return $this;
+    }
+
+    public function getPrenomUser(): ?string
+    {
+        return $this->prenomUser;
+    }
+
+    public function setPrenomUser(string $prenomUser): self
+    {
+        $this->prenomUser = $prenomUser;
+
+        return $this;
     }
 
     public function getUsername(): ?string
@@ -92,6 +153,11 @@ class User implements UserInterface
     {
         // if you had a plainPassword property, you'd nullify it here
         // $this->plainPassword = null;
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername();
     }
 }
 

@@ -20,25 +20,25 @@ class LieuStage
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_etablissement;
+    private $nomEtablissement;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $agrement;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $adresse_stage;
+    private $adresseStage;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $numero_adresse_stage;
+    private $numeroAdresseStage;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $cp;
 
@@ -48,17 +48,17 @@ class LieuStage
     private $commune;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $telephone_stage;
+    private $telephoneStage;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $latitude;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $longitude;
 
@@ -68,7 +68,7 @@ class LieuStage
     private $divers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStage")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStages")
      */
     private $stages;
 
@@ -84,22 +84,22 @@ class LieuStage
 
     public function getNomEtablissement(): ?string
     {
-        return $this->nom_etablissement;
+        return $this->nomEtablissement;
     }
 
-    public function setNomEtablissement(string $nom_etablissement): self
+    public function setNomEtablissement(string $nomEtablissement): self
     {
-        $this->nom_etablissement = $nom_etablissement;
+        $this->nomEtablissement = $nomEtablissement;
 
         return $this;
     }
 
-    public function getAgrement(): ?int
+    public function getAgrement(): ?string
     {
         return $this->agrement;
     }
 
-    public function setAgrement(int $agrement): self
+    public function setAgrement(string $agrement): self
     {
         $this->agrement = $agrement;
 
@@ -108,34 +108,34 @@ class LieuStage
 
     public function getAdresseStage(): ?string
     {
-        return $this->adresse_stage;
+        return $this->adresseStage;
     }
 
-    public function setAdresseStage(string $adresse_stage): self
+    public function setAdresseStage(string $adresseStage): self
     {
-        $this->adresse_stage = $adresse_stage;
+        $this->adresseStage = $adresseStage;
 
         return $this;
     }
 
-    public function getNumeroAdresseStage(): ?int
+    public function getNumeroAdresseStage(): ?string
     {
-        return $this->numero_adresse_stage;
+        return $this->numeroAdresseStage;
     }
 
-    public function setNumeroAdresseStage(int $numero_adresse_stage): self
+    public function setNumeroAdresseStage(string $numeroAdresseStage): self
     {
-        $this->numero_adresse_stage = $numero_adresse_stage;
+        $this->numeroAdresseStage = $numeroAdresseStage;
 
         return $this;
     }
 
-    public function getCp(): ?int
+    public function getCp(): ?string
     {
         return $this->cp;
     }
 
-    public function setCp(int $cp): self
+    public function setCp(string $cp): self
     {
         $this->cp = $cp;
 
@@ -154,36 +154,36 @@ class LieuStage
         return $this;
     }
 
-    public function getTelephoneStage(): ?int
+    public function getTelephoneStage(): ?string
     {
-        return $this->telephone_stage;
+        return $this->telephoneStage;
     }
 
-    public function setTelephoneStage(int $telephone_stage): self
+    public function setTelephoneStage(string $telephoneStage): self
     {
-        $this->telephone_stage = $telephone_stage;
+        $this->telephoneStage = $telephoneStage;
 
         return $this;
     }
 
-    public function getLatitude(): ?int
+    public function getLatitude(): ?string
     {
         return $this->latitude;
     }
 
-    public function setLatitude(int $latitude): self
+    public function setLatitude(string $latitude): self
     {
         $this->latitude = $latitude;
 
         return $this;
     }
 
-    public function getLongitude(): ?int
+    public function getLongitude(): ?string
     {
         return $this->longitude;
     }
 
-    public function setLongitude(int $longitude): self
+    public function setLongitude(string $longitude): self
     {
         $this->longitude = $longitude;
 
@@ -214,7 +214,7 @@ class LieuStage
     {
         if (!$this->stages->contains($stage)) {
             $this->stages[] = $stage;
-            // $stage->addStage($this);
+          
         }
         return $this;
     }
@@ -222,11 +222,7 @@ class LieuStage
     {
         if ($this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-           // set the owning side to null (unless already changed)
-        //    if ($relation->getLieuStage() === $this) {
-        //     $relation->setLieuStage(null);
            
-        // }
     }
         return $this;
     }

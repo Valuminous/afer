@@ -47,7 +47,7 @@ class AnimateurController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($animateur);
             $manager->flush();
-            return $this->redirectToRoute('animateur');
+            return $this->redirectToRoute('animateur_index');
         }
         return $this->render('animateur/ajouter.html.twig', [
             'formAnimateur' => $form->createView(),
@@ -61,7 +61,7 @@ class AnimateurController extends AbstractController
     {
         $manager->remove($animateur);
         $manager->flush();
-        return $this->redirectToRoute('animateur');
+        return $this->redirectToRoute('animateur_index');
     }
     /**
      * @Route("/animateur/{id}/afficher", name="animateur_afficher")
@@ -76,7 +76,7 @@ class AnimateurController extends AbstractController
     // ----- Affichage, ajout, modification et suppresion des fonctions pour les animateurs -----
 
     /**
-     * @Route("/animateur/fonction", name="animateurFonction")
+     * @Route("/animateur/fonction", name="animateurFonction_index")
      */
     public function afficherFonction(AnimateurFonctionRepository $repo)
     {
@@ -132,7 +132,7 @@ class AnimateurController extends AbstractController
     // ----- Affichage, ajout, modification et suppresion des statuts pour les animateurs -----
 
     /**
-     * @Route("/animateur/statut", name="animateurStatut")
+     * @Route("/animateur/statut", name="animateurStatut_index")
      */
     public function afficherStatut(AnimateurStatutRepository $repo)
     {

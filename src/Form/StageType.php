@@ -7,7 +7,7 @@ use App\Entity\Tribunal;
 use App\Entity\Animateur;
 use App\Entity\LieuStage;
 use App\Entity\Prefecture;
-use App\Entity\Stagiaires;
+use App\Entity\Stagiaire;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,36 +28,38 @@ class StageType extends AbstractType
             ->add('stage_programme_officiel')
             // ->add('lieuStage', EntityType::class, [
             //     'class' => LieuStage::class,
-            //     'choice_label' => 'nom_etablissement',
-            //     'multiple' => 'true',
-            //     'expanded' => 'true'
+            //     'choice_label' => 'nomEtablissement',
+            //     'query_builder' => function (EntityRepository $er) {
+            //         return $er->createQueryBuilder('lieu')
+            //             ->orderBy('lieu.nomEtablissement', 'ASC');
+            //     },
+            
             // ])    
             ->add('prefecture', EntityType::class, [
                 'class' => Prefecture::class,
-                'choice_label' => 'nom_prefecture'
+                'choice_label' => 'nomPrefecture'
             ])    
             ->add('tribunal', EntityType::class, [
                 'class' => Tribunal::class,
-                'choice_label' => 'nom_tribunal'
+                'choice_label' => 'nomTribunal'
             ])    
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,
-                'choice_label' => 'nom_animateur',
+                'choice_label' => 'nomAnimateur',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
-                        ->orderBy('anim.nom_animateur', 'ASC');
+                        ->orderBy('anim.nomAnimateur', 'ASC');
+                }
+            ])
+            ->add('stagiaires', EntityType::class, [
+                'class' => Stagiaire::class,
+                'choice_label' => 'nomStagiaire',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('stag')
+                        ->orderBy('stag.nomStagiaire', 'ASC');
                 },
                 'multiple' => 'true',
             ])
-            // ->add('stagiaires', EntityType::class, [
-            //     'class' => Stagiaire::class,
-            //     'choice_label' => 'nom',
-            //     'query_builder' => function (EntityRepository $er) {
-            //         return $er->createQueryBuilder('stag')
-            //             ->orderBy('stag.Nom', 'ASC');
-            //     },
-            //     'multiple' => 'true',
-            // ])
           
         ;
     }
