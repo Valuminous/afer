@@ -241,7 +241,7 @@ function changeActiveButton(){
     }
 
 }
-})
+
 
 
 document.onreadystatechange = function () {
