@@ -8,24 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\CiviliteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CiviliteController extends AbstractController
 {
-    public function ajoutCivilite(Civilite $civilite = null, Request $request, ObjectManager $manager)
+    public function index(CiviliteRepository $repo)
     {
-        if(!$civilite){
-            $civilite = new Civilite();
-        }
+        $civilites = $repo->findAll();
 
-        $formCivilite = $this->createForm( CiviliteType::class, $civilite );
-        
-        $formCivilite->handleRequest( $request );
-        
-        if( $formCivilite->isSubmitted() && $formCivilite->isValid() ){
-            
-            $manager->persist( $civilite );
-            $manager->flush();
-           
-        }
-}}
+}}  

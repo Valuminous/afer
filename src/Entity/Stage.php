@@ -32,17 +32,17 @@ class Stage
     /**
      * @ORM\Column(type="boolean")
      */
-    private $stageSrogrammeOofficiel;
+    private $stageProgrammeOfficiel;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $prefecture;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $tribunal;
 
@@ -60,7 +60,7 @@ class Stage
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\LieuStage", inversedBy="stages")
-     * * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $lieuStages;
 
@@ -103,11 +103,11 @@ class Stage
     }
     public function getStageProgrammeOfficiel(): ?bool
     {
-        return $this->stageSrogrammeOofficiel;
+        return $this->stageProgrammeOfficiel;
     }
-    public function setStageProgrammeOfficiel(bool $stageSrogrammeOofficiel): self
+    public function setStageProgrammeOfficiel(bool $stageProgrammeOfficiel): self
     {
-        $this->stageSrogrammeOofficiel = $stageSrogrammeOofficiel;
+        $this->stageProgrammeOfficiel = $stageProgrammeOfficiel;
         return $this;
     }
 
@@ -209,7 +209,7 @@ class Stage
     {
         if ($this->lieuStages->contains($lieuStage)) {
             $this->lieuStages->removeElement($lieuStage);
-            $GLOBALSlieuStage->removeLieuStage($this);
+            $lieuStage->removeLieuStage($this);
            
         }
         return $this;

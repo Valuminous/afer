@@ -47,7 +47,7 @@ class AnimateurController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($animateur);
             $manager->flush();
-            return $this->redirectToRoute('animateur');
+            return $this->redirectToRoute('animateur_index');
         }
         return $this->render('animateur/ajouter.html.twig', [
             'formAnimateur' => $form->createView(),
@@ -61,7 +61,7 @@ class AnimateurController extends AbstractController
     {
         $manager->remove($animateur);
         $manager->flush();
-        return $this->redirectToRoute('animateur');
+        return $this->redirectToRoute('animateur_index');
     }
     /**
      * @Route("/animateur/{id}/afficher", name="animateur_afficher")

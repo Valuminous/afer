@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Stage;
+use App\Entity\Civilite;
 use App\Entity\Animateur;
 use App\Entity\AnimateurStatut;
 use App\Entity\AnimateurFonction;
@@ -16,6 +17,10 @@ class AnimateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('civilite', EntityType::class, [
+            'class' => Civilite::class,
+            'choice_label' => 'nomCivilite'
+            ])
             ->add('nom_animateur')
             ->add('prenom_animateur')
             ->add('raison_sociale_animateur')
@@ -38,10 +43,10 @@ class AnimateurType extends AbstractType
                 'class' => AnimateurFonction::class,
                 'choice_label' => 'nom'
             ])
-            ->add('stages', EntityType::class, [
-                'class' => Stage::class,
-                'choice_label' => 'numero_stage'
-            ])
+            // ->add('stages', EntityType::class, [
+            //     'class' => Stage::class,
+            //     'choice_label' => 'numero_stage'
+            // ])
         ;
     }
 

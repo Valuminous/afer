@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Stage;
+use App\Entity\Civilite;
 use App\Entity\Stagiaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +15,10 @@ class StagiaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('civilite', EntityType::class, [
+            'class' => Civilite::class,
+            'choice_label' => 'nomCivilite'
+            ])
             ->add('nom_stagiaire')
             ->add('prenom_stagiaire')
             ->add('cp')

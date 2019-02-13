@@ -26,15 +26,15 @@ class StageType extends AbstractType
             ->add('datef', DateTimeType::class, [
                 'date_label' => 'Ends On'])
             ->add('stage_programme_officiel')
-            ->add('lieuStage', EntityType::class, [
-                'class' => LieuStage::class,
-                'choice_label' => 'nomEtablissement',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('lieu')
-                        ->orderBy('lieu.nomEtablissement', 'ASC');
-                },
+            // ->add('lieuStage', EntityType::class, [
+            //     'class' => LieuStage::class,
+            //     'choice_label' => 'nomEtablissement',
+            //     'query_builder' => function (EntityRepository $er) {
+            //         return $er->createQueryBuilder('lieu')
+            //             ->orderBy('lieu.nomEtablissement', 'ASC');
+            //     },
             
-            ])    
+            // ])    
             ->add('prefecture', EntityType::class, [
                 'class' => Prefecture::class,
                 'choice_label' => 'nomPrefecture'

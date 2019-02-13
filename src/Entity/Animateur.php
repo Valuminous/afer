@@ -84,6 +84,13 @@ class Animateur
      */
     private $stages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="animateur")
+     */
+    private $civilite;
+
+
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
@@ -259,4 +266,18 @@ class Animateur
         }
         return $this;
     }
+
+    public function getCivilite(): ?Civilite
+    {
+        return $this->civilite;
+    }
+
+    public function setCivilite(?Civilite $civilite): self
+    {
+        $this->civilite = $civilite;
+
+        return $this;
+    }
+
+   
 }

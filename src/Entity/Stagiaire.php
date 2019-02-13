@@ -105,9 +105,17 @@ class Stagiaire
      */
     private $stages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="stagiaire")
+     */
+    private $civilite;
+
+    
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -338,5 +346,19 @@ class Stagiaire
 
         return $this;
     }
+
+    public function getCivilite(): ?Civilite
+    {
+        return $this->civilite;
+    }
+
+    public function setCivilite(?Civilite $civilite): self
+    {
+        $this->civilite = $civilite;
+
+        return $this;
+    }
+
+   
 }
 

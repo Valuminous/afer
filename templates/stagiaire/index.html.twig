@@ -1,43 +1,44 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Stagiaires{% endblock %}
-
 {% block body %}
-    <h1 class="text-center mb-4">Stagiaires</h1>
 
+<section class="stagiaire">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="ml-5 h2_stagiaire">Liste des stagiaires</h2>
+        <a href="{{ path('stagiaire_ajouter')}}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+    </div>
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Numéro de portable</th>
-                <th>Numéro fixe</th>
-                <th>Adresse email</th>
-                <th>Actions</th>
+            <tr class="stagiaire">
+                <th scope="col" class="text-center">Nom</th>
+                <th scope="col" class="text-center">Prénom</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">N° de portable</th>
+                <th scope="col" class="text-center">N° fixe</th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
-        {% for stagiaire in stagiaires %}
+            {% for stagiaire in stagiaires %}
             <tr>
-                
-                <td>{{ stagiaire.nomStagiaire }}</td>
-                <td>{{ stagiaire.prenomStagiaire }}</td> 
-                <td>{{ stagiaire.numeroPortableStagiaire }}</td>
-                <td>{{ stagiaire.numeroFixeStagiaire }}</td>
-                <td>{{ stagiaire.emailStagiaire }}</td>
-                <td>
-                    <a href="{{ path('stagiaire_afficher', {'id': stagiaire.id}) }}" class="btn btn-info">Afficher</a>
-                    <a href="{{ path('stagiaire_modifier', {'id': stagiaire.id}) }}" class="btn btn-warning">Modifier</a>
-                    <a href="{{ path('stagiaire_supprimer', {'id': stagiaire.id}) }}" class="btn btn-success">Supprimer</a>
+                <td class="text-center">{{ stagiaire.nomStagiaire }}</td>
+                <td class="text-center">{{ stagiaire.prenomStagiaire }}</td>
+                <td class="text-center">{{ stagiaire.emailStagiaire }}</td>
+                <td class="text-center">{{ stagiaire.numeroPortableStagiaire }}</p>
+                <td class="text-center">{{ stagiaire.numeroFixeStagiaire}}</p>
+                </td>
+                <td class="text-center">
+                    <a href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i class="fas fa-pen"></i></a>
+                    <a href="{{  path('stagiaire_supprimer', {'id': stagiaire.id}) }}"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
+             {% else %}
+           
                 <td colspan="18">Il n'y a aucun stagiaire</td>
-            </tr>
-        {% endfor %}
+        
+            {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('stagiaire_ajouter') }}" class="btn btn-danger">Ajouter un stagiaire</a>
+</section>
 {% endblock %}
