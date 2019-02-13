@@ -73,8 +73,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="mb-5 onclick_animateur">
-                            <a class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
+                        <li class="mb-5">
+                            <a href="{{ path('animateur_index') }}" class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
                             <i class="fas fa-angle-right ml-4 angle_orange"></i>
                             <ul class="ul_without_padding list_animateurs">
                                 <li class="background_animateur pb-2 pt-2">
@@ -118,6 +118,8 @@
             </div>
         </div>
     </main>
+  
+    {% block javascripts %}{% endblock %}
     <script src="{{ asset('build/app.js') }}"></script>
 </body>
 
