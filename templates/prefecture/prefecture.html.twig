@@ -1,32 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Préfecture{% endblock %}
-
 {% block body %}
 
+<<<<<<< HEAD
 <a href="{{ path('prefecture_ajouter') }}" class="btn text-white ml-2 add_icon d-flex align-items-center">Ajouter</a>
+=======
+<section class="prefecture">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="ml-5 h2_animateur">Liste des préfectures</h2>
+            <a href="{{ path('prefecture_ajouter') }}" class="btn btn-success mt-5 mb-5 mr-5">Ajouter une préfecture</a>
+        </div>
+>>>>>>> 5801d4a5f4959a317baca3b41c4281cdc0591419
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Adresse</th>
-                <th scope="col">Code postal</th>
-                <th scope="col">Commune</th>
-                <th scope="col">Service</th>
-                <th scope="col">Réglages</th>
+            <tr class="background_prefecture">
+                <th scope="col" class="text-center">Nom</th>
+                <th scope="col" class="text-center">Adresse</th>
+                <th scope="col" class="text-center">Code postal</th>
+                <th scope="col" class="text-center">Commune</th>
+                <th scope="col" class="text-center">Service</th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
 
         <tbody>
             {% for prefecture in prefectures %}
                 <tr>
-                    <td>{{ prefecture.nomPrefecture }}</td>
-                    <td>{{ prefecture.numeroAdressePrefecture }} {{ prefecture.adressePrefecture }}</td>
-                    <td>{{ prefecture.cpPrefecture }}</td>
-                    <td>{{ prefecture.communePrefecture }}</td>
-                    <td>{{ prefecture.prefectureService }}</td>
-                    <td>
+                    <td class="text-center">{{ prefecture.nomPrefecture }}</td>
+                    <td class="text-center">{{ prefecture.numeroAdressePrefecture }} {{ prefecture.adressePrefecture }}</td>
+                    <td class="text-center">{{ prefecture.cpPrefecture }}</td>
+                    <td class="text-center">{{ prefecture.communePrefecture }}</td>
+                    <td class="text-center">{{ prefecture.prefectureService }}</td>
+                    <td class="text-center">
                         <a href="{{ path('prefecture_afficher', {'id': prefecture.id}) }}"><i class="fas fa-eye"></i></a>
                         <a href="{{ path('prefecture_modifier', {'id': prefecture.id}) }}"><i class="fas fa-pencil-alt"></i></a>
                         <a href="{{ path('prefecture_supprimer', {'id': prefecture.id}) }}"><i class="fas fa-trash-alt"></i></a>
@@ -42,5 +48,6 @@
             {% endfor %}
         </tbody>
     </table>
+</section>
 
 {% endblock %}

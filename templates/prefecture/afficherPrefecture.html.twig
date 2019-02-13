@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Préfecture{% endblock %}
-
 {% block body %}
 
 <section class="prefecture">
@@ -13,6 +11,6 @@
     <p>Préfecture service : {{ prefectures.prefectureService }}</p>
 
 </section>
-   <a href="{{ path('prefecture') }}">Retour</a>
+   <a href="{{ path('prefecture_index') }}">Retour</a>
 
 {% endblock %}
