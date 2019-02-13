@@ -11,9 +11,10 @@
         <thead>
             <tr class="background_animateur">
                 <th scope="col" class="text-center">Nom</th>
-                <th scope="col" class="text-center">Prenom</th>
+                <th scope="col" class="text-center">Prénom</th>
                 <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">N°</th>
+                <th scope="col" class="text-center">N° de portable</th>
+                <th scope="col" class="text-center">N° fixe</th>
                 <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
@@ -23,10 +24,8 @@
                 <td class="text-center">{{ animateur.nomAnimateur }}</td>
                 <td class="text-center">{{ animateur.prenomAnimateur }}</td>
                 <td class="text-center">{{ animateur.emailAnimateur }}</td>
-                <td class="text-center">
-                    <p>N° fixe : {{ animateur.numeroFixeAnimateur }}</p>
-                    <p>N° portable : {{ animateur.numeroPortableAnimateur }}</p>
-                </td>
+                <td class="text-center">{{ animateur.numeroPortableAnimateur }}</td>
+                <td class="text-center">{{ animateur.numeroFixeAnimateur }}</td>
                 <td class="text-center">
                     <a href="{{  path('animateur_afficher', {'id': animateur.id}) }}"><i class="far fa-eye"></i></a>
                     <a href="{{  path('animateur_modifier', {'id': animateur.id}) }}"><i class="fas fa-pen"></i></a>
