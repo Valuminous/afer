@@ -14,11 +14,11 @@ class PrefectureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom_prefecture')
-            ->add('numero_adresse_prefecture')
-            ->add('adresse_prefecture')
-            ->add('cp')
-            ->add('commune')
+            ->add('nomPrefecture')
+            ->add('numeroAdressePrefecture')
+            ->add('adressePrefecture')
+            ->add('cpPrefecture')
+            ->add('communePrefecture')
             ->add('prefectureService', EntityType::class, [
                 'class' => PrefectureService::class, 
                 'choice_label' => 'nom'
