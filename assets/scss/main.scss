@@ -1,5 +1,6 @@
 @import'stage';
 @import'tribunal';
+@import'prefecture';
 
 html {
 
@@ -139,6 +140,9 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         .angle_orange {
@@ -146,6 +150,9 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         .angle_purple {
@@ -153,6 +160,9 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         .angle_red {
@@ -160,6 +170,9 @@ html {
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
                         }
 
                         a {
