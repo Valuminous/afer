@@ -1,16 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des services des tribunaux{% endblock %}
-
 {% block body %}
 
-    <h2>Liste des services des tribunaux</h2>
-    {% for service in services %}
-        <div>{{ service.nom }}</div>
-        <div>
-            <a href="{{path('tribunalService_supprimer', {'id':service.id})}}" class="btn btn-danger">Supprimer</a>
-            <a href="{{path('tribunalService_modifier', {'id':service.id})}}" class="btn btn-primary">Modifier</a>
-        </div>
-    {% endfor %}
-    
+<section class="tribunal">
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="ml-5 h2_tribunal">Liste des services pour les tribunaux</h2>
+    <a href="{{ path('tribunalService_ajouter')}}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+</div>
+     <table class="table table-striped">
+        <thead>
+            <tr class="background_tribunal">
+                <th scope="col" class="text-center">Nom du service</th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in services %}
+            <tr>
+                <td class="text-center">{{ service.nom }}</td>
+                <td class="text-center">
+                    {# <a href="{{  path('tribunal_afficher', {'id': tribunal.id}) }}"><i class="far fa-eye"></i></a> #}
+                    <a href="{{  path('tribunalService_modifier', {'id': service.id}) }}"><i class="fas fa-pen"></i></a>
+                    <a href="{{  path('tribunalService_supprimer', {'id': service.id}) }}" ><i class="far fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% else %}
+                <td class="text-center">Il n'y a aucun service</td>
+                <td class="text-center">...</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
 {% endblock %}

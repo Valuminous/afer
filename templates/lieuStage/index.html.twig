@@ -3,14 +3,17 @@
 {% block body %}
 
 <section class="lieuStage">
-    <a href="{{ path('lieuStage_ajouter')}}" class="btn btn-success mt-5 mb-5">Ajouter un lieu de stage</a>
-     <table class="table table-striped">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="ml-5 h2_stage">Liste des lieux de stages</h2>
+        <a href="{{ path('lieuStage_ajouter')}}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+    </div>
+    <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="background_stage">
                 <th scope="col" class="text-center">Nom de l'établissement</th>
                 <th scope="col" class="text-center">Commune</th>
                 <th scope="col" class="text-center">N° de téléphone</th>
-                <th scope="col" class="text-center">Options</th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -19,13 +22,18 @@
                 <td class="text-center">{{ lieuStage.nomEtablissement }}</td>
                 <td class="text-center">{{ lieuStage.commune }}</td>
                 <td class="text-center">{{ lieuStage.telephoneStage }}</td>
-                                 
+
                 <td class="text-center">
                     <a href="{{  path('lieuStage_afficher', {'id': lieuStage.id}) }}"><i class="far fa-eye"></i></a>
                     <a href="{{  path('lieuStage_modifier', {'id': lieuStage.id}) }}"><i class="fas fa-pen"></i></a>
-                    <a href="{{  path('lieuStage_supprimer', {'id': lieuStage.id}) }}" ><i class="far fa-trash-alt"></i></a>
+                    <a href="{{  path('lieuStage_supprimer', {'id': lieuStage.id}) }}"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
+            {% else %}
+                <td class="text-center">Il n'y a aucun lieu de stage</td>
+                <td class="text-center">...</td>
+                <td class="text-center">...</td>
+                <td class="text-center">...</td>
             {% endfor %}
         </tbody>
     </table>

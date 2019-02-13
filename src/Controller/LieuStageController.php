@@ -18,7 +18,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class LieuStageController extends AbstractController { 
 
     /**
-     * @Route("/lieuStage", name="lieuStage_index")
+     * @Route("/stage/lieuStage", name="lieuStage_index")
      */
     public function index(LieuStageRepository $repo)
     {
@@ -30,8 +30,8 @@ class LieuStageController extends AbstractController {
         ]);
     }
     /**
-     *  @Route("/lieuStage/ajouter", name="lieuStage_ajouter")
-     *  @Route("/lieuStage/{id}/modifier", name="lieuStage_modifier")
+     *  @Route("/stage/lieuStage/ajouter", name="lieuStage_ajouter")
+     *  @Route("/stage/lieuStage/{id}/modifier", name="lieuStage_modifier")
      */
     public function lieuStageForm(LieuStage $lieuStage = null, Request $request, ObjectManager $manager)
     {
@@ -51,7 +51,7 @@ class LieuStageController extends AbstractController {
         ]);
     }
     /**
-     *  @Route("/lieuStage/{id}/supprimer", name="lieuStage_supprimer")
+     *  @Route("/stage/lieuStage/{id}/supprimer", name="lieuStage_supprimer")
      */
     public function delete(LieuStage $lieuStage, ObjectManager $manager)
     {
@@ -60,7 +60,7 @@ class LieuStageController extends AbstractController {
         return $this->redirectToRoute('lieuStage_index');
     }
     /**
-     * @Route("/lieuStage/{id}/afficher", name="lieuStage_afficher")
+     * @Route("/stage/lieuStage/{id}/afficher", name="lieuStage_afficher")
      */
     public function showOne(LieuStage $lieuStage)
     {
