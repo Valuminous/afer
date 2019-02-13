@@ -2,10 +2,15 @@
 @import'tribunal';
 @import'animateur';
 @import'prefecture';
+@import'stagiaire';
 
 html {
 
     body {
+
+        .trash_color{
+            color: #dc3545;
+        }
 
         .add_icon{
             border: solid;
@@ -18,7 +23,7 @@ html {
             }
             &::before{
                 font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
-                font-size: 1.5rem;
+                font-size: 1rem;
                 margin-right: 0.5rem;
                 color: #28a745;
             }
