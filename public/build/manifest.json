@@ -1,8 +1,7 @@
 {
-  "build/app.js": "/build/app.js",
-  "build/static/favicon.ico": "/build/static/favicon.ico",
-  "build/static/logo.png": "/build/static/logo.png",
   "build/app.css": "/build/app.css",
-  "build/static/DOC_CSA_DETAILLE.pdf.crdownload": "/build/static/DOC_CSA_DETAILLE.pdf.crdownload",
-  "build/static/DOC_CSA_DETAILLE.pdf": "/build/static/DOC_CSA_DETAILLE.pdf"
+  "build/app.js": "/build/app.js",
+  "build/static/DOC_CSA_DETAILLE.pdf": "/build/static/DOC_CSA_DETAILLE.pdf",
+  "build/static/favicon.ico": "/build/static/favicon.ico",
+  "build/static/logo.png": "/build/static/logo.png"
 }
