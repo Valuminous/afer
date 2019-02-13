@@ -152,11 +152,7 @@ class Stagiaire
         return $this->cpStagiaire;
     }
 
-<<<<<<< HEAD
-    public function setCp(string $cp): self
-=======
     public function setCpStagiaire(string $cpStagiaire): self
->>>>>>> a21cb61a19cf98291ac70daa048e63a2a5e45566
     {
         $this->cpStagiaire = $cpStagiaire;
 
@@ -192,11 +188,7 @@ class Stagiaire
         return $this->dateNaissanceStagiaire;
     }
 
-<<<<<<< HEAD
     public function setDateNaissanceStagiaire(\DateTimeInterface $dateNaissanceStagiaire): self
-=======
-    public function setDateNaissanceStagiaire(DateTimeInterface $dateNaissanceStagiaire): self
->>>>>>> a21cb61a19cf98291ac70daa048e63a2a5e45566
     {
         $this->dateNaissanceStagiaire = $dateNaissanceStagiaire;
 
