@@ -3,12 +3,15 @@
 {% block body %}
 
 <section class="animateur">
-    <a href="{{ path('animateurFonction_ajouter')}}" class="btn btn-success mt-5 mb-5">Ajouter une fonction pour les animateurs</a>
-     <table class="table table-striped">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="ml-5 h2_animateur">Liste des fonctions pour les animateurs</h2>
+        <a href="{{ path('animateurFonction_ajouter')}}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+    </div>
+    <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="background_animateur">
                 <th scope="col" class="text-center">Nom de la fonction pour les animateurs</th>
-                <th scope="col" class="text-center">Options</th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
 
             </tr>
         </thead>
@@ -19,9 +22,12 @@
                 <td class="text-center">
                     <a href="{{  path('animateurFonction_afficher', {'id': animateurfonction.id}) }}"><i class="far fa-eye"></i></a>
                     <a href="{{  path('animateurFonction_modifier', {'id': animateurfonction.id}) }}"><i class="fas fa-pen"></i></a>
-                    <a href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}" ><i class="far fa-trash-alt"></i></a>
+                    <a href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
+                {% else %}
+                <td class="text-center">Il n'y a aucune fonction</td>
+                <td class="text-center">...</td>
             {% endfor %}
         </tbody>
     </table>
