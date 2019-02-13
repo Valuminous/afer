@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin")
@@ -113,27 +115,28 @@ class TribunalController extends AbstractController
         return $this->redirectToRoute('autorite_index');
     }
 
+    
     /**
-    * @Route("/tribunal/autorite", name="autorite_index")
-    */
+     * @Route("/tribunal/autorite", name="autorite_index")
+     */
     public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
     {
         $autorites = $repoAutorites->findAll();
         return $this->render('tribunal/autorite.html.twig', [
             'autorites'=> $autorites
-        ]); 
+            ]); 
     }
-
+        
     /**
-    * @Route("/tribunal/service/ajouter", name="tribunal_service_ajouter")
-    * @Route("/tribunal/service/{id}/modifier", name="tribunal_service_modifier")
-    */
+     * @Route("/tribunal/service/ajouter", name="tribunal_service_ajouter")
+     * @Route("/tribunal/service/{id}/modifier", name="tribunal_service_modifier")
+     */
     public function ajoutTribunalService(TribunalService $service = null, Request $request, ObjectManager $manager)
     {
         if(!$service){
             $service = new TribunalService();
         }
-
+        
         $formService = $this->createForm( TribunalServiceType::class, $service );
         
         $formService->handleRequest( $request );
@@ -146,30 +149,91 @@ class TribunalController extends AbstractController
         }
         
         return $this->render('tribunal/ajouterService.html.twig', 
-            ['form' => $formService->createView(),
-            'editMode' => $service->getId() !== null
-            ]);
+        ['form' => $formService->createView(),
+        'editMode' => $service->getId() !== null
+        ]);
     }
-
+        
     /**
-    * @Route("/tribunal/service/{id}/supprimer", name="tribunal_service_supprimer")
-    */
+     * @Route("/tribunal/service/{id}/supprimer", name="tribunal_service_supprimer")
+     */
     public function supprimerService(TribunalService $service, Request $request, ObjectManager $manager)
     {
         $manager->remove($service);
         $manager->flush();
-
+        
         return $this->redirectToRoute('service_index');
     }
-
+        
     /**
-    * @Route("/tribunal/service", name="service_index")
-    */
+     * @Route("/tribunal/service", name="service_index")
+     */
     public function indexService(TribunalServiceRepository $repoService)
     {
         $services = $repoService->findAll();
         return $this->render('tribunal/service.html.twig', [
             'services'=> $services
-        ]); 
+            ]); 
+    }
+        
+    /**
+    * @Route("/tribunal/autorite/loadFormAutoriteTribunal", name="tribunal_autorite_test")
+    */
+    public function popAutorite(TribunalAutorite $autorite = null, Request $request, ObjectManager $manager)
+    {
+        if(!$autorite){
+            $autorite = new TribunalAutorite();
+        }
+         $formAutorite = $this->createForm( TribunalAutoriteType::class, $autorite, array('method'=>'POST') );
+        
+        $formAutorite->handleRequest( $request );
+      
+        if($request->isMethod('POST')){
+            $tribunalAutorite = $request->request->get('tribunal_autorite_nom');
+    
+            if(strlen($tribunalAutorite) > 0){
+                 $autorite->setNom($tribunalAutorite);
+                $manager->persist( $autorite );
+                $manager->flush();
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$autorite->getId().', "value":"'.$autorite->getNom().'"}');
+            }
+             return $response;
+        }
+        
+        return $this->render('tribunal/popAutorite.html.twig', 
+            ['form' => $formAutorite->createView()
+            ]);
+    }
+
+
+    /**
+    * @Route("/tribunal/service/loadFormServiceTribunal", name="tribunal_service_test")
+    */
+    public function popService(TribunalService $service = null, Request $request, ObjectManager $manager)
+    {
+        if(!$service){
+            $service = new TribunalService();
+        }
+         $formService = $this->createForm( TribunalServiceType::class, $service, array('method'=>'POST') );
+        
+        $formService->handleRequest( $request );
+      
+        if($request->isMethod('POST')){
+            $tribunalService = $request->request->get('tribunal_service_nom');
+    
+            if(strlen($tribunalService) > 0){
+                 $service->setNom($tribunalService);
+                $manager->persist( $service );
+                $manager->flush();
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$service->getId().', "value":"'.$service->getNom().'"}');
+            }
+             return $response;
+        }
+        
+        return $this->render('tribunal/popService.html.twig', 
+            ['form' => $formService->createView()
+            ]);
     }
 }

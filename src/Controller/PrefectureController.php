@@ -6,14 +6,20 @@ use App\Entity\Prefecture;
 use App\Form\PrefectureType;
 use App\Entity\PrefectureService;
 use App\Entity\PrefectureAutorite;
+
 use App\Form\PrefectureServiceType;
 use App\Form\PrefectureAutoriteType;
+
 use App\Repository\PrefectureRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\PrefectureServiceRepository;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PrefectureAutoriteRepository;
+
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -184,4 +190,63 @@ class PrefectureController extends AbstractController
         return $this->redirectToRoute('prefecture_autorite_index');
     }
 
+    /**
+    * @Route("/prefecture/service/loadFormServicePrefecture", name="prefecture_service_pop")
+    */
+    public function popService(PrefectureService $service = null, Request $request, ObjectManager $manager)
+    {
+        if(!$service){
+            $service = new PrefectureService();
+        }
+         $formService = $this->createForm( PrefectureServiceType::class, $service, array('method'=>'POST') );
+        
+        $formService->handleRequest( $request );
+      
+        if($request->isMethod('POST')){
+            $prefectureService = $request->request->get('prefecture_service_nom');
+    
+            if(strlen($prefectureService) > 0){
+                 $service->setNom($prefectureService);
+                $manager->persist( $service );
+                $manager->flush();
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$service->getId().', "value":"'.$service->getNom().'"}');
+            }
+             return $response;
+        }
+        
+        return $this->render('prefecture/popService.html.twig', 
+            ['form' => $formService->createView()
+            ]);
+    }
+
+    /**
+    * @Route("/prefecture/autorite/loadFormAutoritePrefecture", name="prefecture_autorite_pop")
+    */
+    public function popAutorite(PrefectureAutorite $autorite = null, Request $request, ObjectManager $manager)
+    {
+        if(!$autorite){
+            $autorite = new PrefectureAutorite();
+        }
+         $formAutorite = $this->createForm( PrefectureAutoriteType::class, $autorite, array('method'=>'POST') );
+        
+        $formAutorite->handleRequest( $request );
+      
+        if($request->isMethod('POST')){
+            $prefectureAutorite = $request->request->get('prefecture_autorite_nom');
+    
+            if(strlen($prefectureAutorite) > 0){
+                $autorite->setNom($prefectureAutorite);
+                $manager->persist( $autorite );
+                $manager->flush();
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$autorite->getId().', "value":"'.$autorite->getNom().'"}');
+            }
+             return $response;
+        }
+        
+        return $this->render('prefecture/popAutorite.html.twig', 
+            ['form' => $formAutorite->createView()
+            ]);
+    }
 }

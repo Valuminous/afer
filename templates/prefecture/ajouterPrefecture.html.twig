@@ -4,24 +4,80 @@
 
 {% block body %}
 
-    {{ form_start(formPrefecture) }}
+{{ form_start(formPrefecture) }}
 
-    {{ form_row(formPrefecture.nom_prefecture, {'label': 'Nom', 'attr': {'placeholder': 'Nom'} }) }}
-    {{ form_row(formPrefecture.numero_adresse_prefecture, {'label': 'Numéro adresse', 'attr': {'placeholder': 'Numéro adresse'} }) }}
-    {{ form_row(formPrefecture.adresse_prefecture, {'label': 'Adresse', 'attr': {'placeholder': 'Adresse'} }) }}
-    {{ form_row(formPrefecture.cp, {'label': 'Code postal', 'attr': {'placeholder': 'Code postal'} }) }}
-    {{ form_row(formPrefecture.commune, {'label': 'Commune', 'attr': {'placeholder': 'Commune'} }) }}
+{{ form_row(formPrefecture.nomPrefecture, {'label': 'Nom', 'attr': {'placeholder': 'Nom'} }) }}
+{{ form_row(formPrefecture.numeroAdressePrefecture, {'label': 'Numéro adresse', 'attr': {'placeholder': 'Numéro
+adresse'} }) }}
+{{ form_row(formPrefecture.adressePrefecture, {'label': 'Adresse', 'attr': {'placeholder': 'Adresse'} }) }}
+{{ form_row(formPrefecture.cpPrefecture, {'label': 'Code postal', 'attr': {'placeholder': 'Code postal'} }) }}
+{{ form_row(formPrefecture.communePrefecture, {'label': 'Commune', 'attr': {'placeholder': 'Commune'} }) }}
+
+<div class="d-flex">
     {{ form_row(formPrefecture.prefectureService, {'label': 'Service', 'attr': {'placeholder': 'Service'} }) }}
-    {{ form_row(formPrefecture.prefectureAutorite, {'label': 'Autorité', 'attr': {'placeholder': 'Autorité'} }) }}
-
-    <button type="submit" class="btn btn-primary btn-link text-white mb-5 mt-3">
-        {% if editMode %}
-            Enregistrer
-        {% else %}
-            Valider
-        {% endif %}
+    <button type="button" id="addServicePrefecture" class="btn btn-primary" data-toggle="modal" data-target="#modalCart3">
+        +
     </button>
+</div>
+<div class="d-flex">
+    {{ form_row(formPrefecture.prefectureAutorite, {'label': 'Autorité', 'attr': {'placeholder': 'Autorité'} }) }}
+    <button type="button" id="addAutoritePrefecture" class="btn btn-primary" data-toggle="modal" data-target="#modalCart4">
+        +
+    </button>
+</div>
 
-    {{ form_end(formPrefecture) }}
+
+<button type="submit" class="btn btn-primary btn-link text-white mb-5 mt-3">
+    {% if editMode %}
+    Enregistrer
+    {% else %}
+    Valider
+    {% endif %}
+</button>
+
+{{ form_end(formPrefecture) }}
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCart3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter un service</h4>
+                <button type="button" class="close3" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCart4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter une autorité</h4>
+                <button type="button" class="close4" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
+
 
 {% endblock %}

@@ -2,34 +2,88 @@
 
 {% block title %}Ajouter un tribunal{% endblock %}
 
-{% block body %}  
+{% block body %}
 
-    <div>
-        <h2>Ajouter un tribunal</h2>
-       
-        <div class="content">
-            
-            <div>
-                    {{ form_start(form) }}
+<div>
+    <h2>Ajouter un tribunal</h2>
 
-                        {{ form_row(form.nom_tribunal, {'label':"Nom du tribulal", 'attr': {'placeholder': "Nom du tribunal"}}) }}
-                        {{ form_row(form.adresse_tribunal, {'label':"Adresse", 'attr': {'placeholder': "adresse du tribunal"}}) }}
-                        {{ form_row(form.numero_adresse_tribunal, {'label':"Numéro de rue", 'attr': {'placeholder': "Numéro de rue du tribunal"}}) }}
-                        {{ form_row(form.commune_tribunal, {'label':"Commune", 'attr': {'placeholder': "Commune du tribunal"}}) }}
-                        
-                        <button type="submit" class="btn btn-success">
-                            {% if  editMode %}
-                            Enregistrer les modifications
-                            {% else %}
-                                Ajouter le tribunal  
-                            {% endif %} 
-                        </button>
+    <div class="content">
 
-                    {{ form_end(form) }}
+        <div>
+            {{ form_start(form) }}
+
+            {{ form_row(form.nom_tribunal, {'label':"Nom du tribulal", 'attr': {'placeholder': "Nom du tribunal"}}) }}
+            {{ form_row(form.adresse_tribunal, {'label':"Adresse", 'attr': {'placeholder': "adresse du tribunal"}}) }}
+            {{ form_row(form.numero_adresse_tribunal, {'label':"Numéro de rue", 'attr': {'placeholder': "Numéro de rue
+            du tribunal"}}) }}
+            {{ form_row(form.commune_tribunal, {'label':"Commune", 'attr': {'placeholder': "Commune du tribunal"}}) }}
+            <div class="d-flex">
+                {{ form_row(form.tribunal_autorite, {'label':"Autoritée du tribunal", 'attr': {'placeholder':
+                "Autoritée du tribunal"}}) }}
+                <button type="button" id="addAutoriteTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart">
+                    +
+                </button>
             </div>
-            
+            <div class="d-flex">
+                {{ form_row(form.tribunal_service, {'label':"Service du tribunal", 'attr': {'placeholder': "Service du
+                tribunal"}}) }}
+                <button type="button" id="addServiceTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart2">
+                    +
+                </button>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                {% if editMode %}
+                Enregistrer les modifications
+                {% else %}
+                Ajouter le tribunal
+                {% endif %}
+            </button>
+
+            {{ form_end(form) }}
         </div>
     </div>
+</div>
 
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter une autorité</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCart2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter un Service</h4>
+                <button type="button" class="close2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
 
 {% endblock %}
