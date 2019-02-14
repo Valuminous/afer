@@ -20,18 +20,10 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 d-flex left_branding align-items-center">
-=======
     <main>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 d-flex left_branding align-items-center justify-content-center position-fixed">
->>>>>>> 6bfc30230dbbacd8d4650cd85950c3f7173d63a8
                     <h1>AFER</h1>
                 </div>
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 top_logout position-fixed d-flex align-items-center justify-content-end">
@@ -73,11 +65,11 @@
                                 </li>
                                 <li><hr class="color_blue"></li>
                                 <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="{{ path('tribunalAutorite_index') }}" class="tribunaux_hover active_tribunal_autorite">Autorité</a>
+                                    {# <a href="{{ path('tribunalAutorite_index') }}" class="tribunaux_hover active_tribunal_autorite">Autorité</a> #}
                                 </li>
                                 <li><hr class="color_blue"></li>
                                 <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="{{ path('tribunalService_index') }}" class="tribunaux_hover active_tribunal_service">Service</a>
+                                    {# <a href="{{ path('tribunalService_index') }}" class="tribunaux_hover active_tribunal_service">Service</a> #}
                                 </li>
                             </ul>
                         </li>
@@ -120,24 +112,13 @@
                         </li>
                     </ul>
                 </div>
-<<<<<<< HEAD
-                <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 main_content">
-                    <div class="container">
-                        {% block body %}{% endblock %}
-                    </div>
-=======
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 main_content position-absolute">
                     {% block body %}{% endblock %}
->>>>>>> 6bfc30230dbbacd8d4650cd85950c3f7173d63a8
                 </div>
             </div>
         </div>
     </main>
-<<<<<<< HEAD
-
-=======
   
->>>>>>> 6bfc30230dbbacd8d4650cd85950c3f7173d63a8
     {% block javascripts %}{% endblock %}
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

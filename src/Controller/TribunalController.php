@@ -184,7 +184,7 @@ class TribunalController extends AbstractController
         if(!$autorite){
             $autorite = new TribunalAutorite();
         }
-         $formAutorite = $this->createForm( TribunalAutoriteType::class, $autorite, array('method'=>'POST') );
+         $formAutorite = $this->createForm( TribunalAutoriteType::class, $autorite, array('method'=>'POST'));
         
         $formAutorite->handleRequest( $request );
       
@@ -192,7 +192,7 @@ class TribunalController extends AbstractController
             $tribunalAutorite = $request->request->get('tribunal_autorite_nom');
     
             if(strlen($tribunalAutorite) > 0){
-                 $autorite->setNom($tribunalAutorite);
+                $autorite->setNom($tribunalAutorite);
                 $manager->persist( $autorite );
                 $manager->flush();
                 $response = new Response();
@@ -223,7 +223,7 @@ class TribunalController extends AbstractController
             $tribunalService = $request->request->get('tribunal_service_nom');
     
             if(strlen($tribunalService) > 0){
-                 $service->setNom($tribunalService);
+                $service->setNom($tribunalService);
                 $manager->persist( $service );
                 $manager->flush();
                 $response = new Response();

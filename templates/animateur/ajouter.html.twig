@@ -17,7 +17,62 @@
     Sauvegarder
     {% endif %}
 </button>
+<div class="d-flex">
+        {{ form_row(formAnimateur.animateurFonction, {'label':"Fonction de l'animateur", 'attr': {'placeholder':
+        "Fonction animateur"}}) }}
+        <button type="button" id="addFonctionAnimateur" class="btn btn-primary" data-toggle="modal" data-target="#modalCart5">
+            +
+        </button>
+    </div>
+    <div class="d-flex">
+        {{ form_row(formAnimateur.animateurStatut, {'label':"Statut de l'animateur", 'attr': {'placeholder': "Statut animateur"}}) }}
+        <button type="button" id="addStatutAnimateur" class="btn btn-primary" data-toggle="modal" data-target="#modalCart6">
+            +
+        </button>
+    </div>
 
 {{ form_end(formAnimateur) }}
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCart5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Ajouter une fonction</h4>
+                    <button type="button" class="close5" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal: modalCart -->
+    
+    
+    <!-- Modal: modalCart -->
+    <div class="modal fade" id="modalCart6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un Statut</h4>
+                    <button type="button" class="close6" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+    
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <!-- Modal: modalCart -->
+    
 
 {% endblock %}
