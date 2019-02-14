@@ -1,8 +1,5 @@
 require('../scss/main.scss');
 
-const autorite = document.getElementById('autoriteInput');
-
-const button = document.querySelector('.ajouter');
 const close = document.querySelector('.close');
 const close2 = document.querySelector('.close2');
 const close3 = document.querySelector('.close3');

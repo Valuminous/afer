@@ -78,6 +78,16 @@ class TribunalController extends AbstractController
     }
 
     /**
+     * @Route("/tribunal{id}/afficher", name="tribunal_afficher")
+     */
+    public function showOne(Tribunal $tribunal)
+    {
+        return $this->render('tribunal/afficher.html.twig', [
+            'tribunal' => $tribunal
+        ]);
+    }
+
+    /**
     * @Route("/tribunal/autorite/ajouter", name="tribunalAutorite_ajouter")
     * @Route("/tribunal/autorite/{id}/modifier", name="tribunalAutorite_modifier")
     */
@@ -117,8 +127,8 @@ class TribunalController extends AbstractController
 
     
     /**
-     * @Route("/tribunal/autorite", name="autorite_index")
-     */
+    * @Route("/tribunal/autorite", name="tribunalAutorite_index")
+    */
     public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
     {
         $autorites = $repoAutorites->findAll();
@@ -128,9 +138,9 @@ class TribunalController extends AbstractController
     }
         
     /**
-     * @Route("/tribunal/service/ajouter", name="tribunal_service_ajouter")
-     * @Route("/tribunal/service/{id}/modifier", name="tribunal_service_modifier")
-     */
+    * @Route("/tribunal/service/ajouter", name="tribunalService_ajouter")
+    * @Route("/tribunal/service/{id}/modifier", name="tribunalService_modifier")
+    */
     public function ajoutTribunalService(TribunalService $service = null, Request $request, ObjectManager $manager)
     {
         if(!$service){
@@ -155,8 +165,8 @@ class TribunalController extends AbstractController
     }
         
     /**
-     * @Route("/tribunal/service/{id}/supprimer", name="tribunal_service_supprimer")
-     */
+    * @Route("/tribunal/service/{id}/supprimer", name="tribunalService_supprimer")
+    */
     public function supprimerService(TribunalService $service, Request $request, ObjectManager $manager)
     {
         $manager->remove($service);
@@ -166,8 +176,8 @@ class TribunalController extends AbstractController
     }
         
     /**
-     * @Route("/tribunal/service", name="service_index")
-     */
+    * @Route("/tribunal/service", name="tribunalService_index")
+    */
     public function indexService(TribunalServiceRepository $repoService)
     {
         $services = $repoService->findAll();

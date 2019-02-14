@@ -21,7 +21,7 @@ class StagiaireType extends AbstractType
             ])
             ->add('nom_stagiaire')
             ->add('prenom_stagiaire')
-            ->add('cp')
+            ->add('cp_stagiaire')
             ->add('commune')
             ->add('nom_naissance_stagiaire')
             ->add('date_naissance_stagiaire')

@@ -124,15 +124,6 @@ class AnimateurController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('animateurFonction');
     }
-    /**
-     * @Route("/animateur/fonction/{id}/afficher", name="animateurFonction_afficher")
-     */
-    public function afficherUneAnimateurFonction(AnimateurFonction $animateurfonction)
-    {
-        return $this->render('animateur/afficherFonction.html.twig', [
-            'animateurfonction' => $animateurfonction
-        ]);
-    }
 
     // ----- Affichage, ajout, modification et suppresion des statuts pour les animateurs -----
 

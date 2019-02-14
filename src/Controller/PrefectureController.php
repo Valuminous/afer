@@ -132,7 +132,7 @@ class PrefectureController extends AbstractController
             $manager->persist($service);
             $manager->flush();
 
-            return $this->redirectToRoute('prefecture_service_index');
+            return $this->redirectToRoute('prefectureService_index');
         }
 
         return $this->render('prefecture/ajouterService.html.twig', [
@@ -149,7 +149,7 @@ class PrefectureController extends AbstractController
         $manager->remove($service);
         $manager->flush();
 
-        return $this->redirectToRoute('prefecture_service_index');
+        return $this->redirectToRoute('prefectureService_index');
     }
 
     /**
@@ -170,7 +170,7 @@ class PrefectureController extends AbstractController
             $manager->persist($autorite);
             $manager->flush();
 
-            return $this->redirectToRoute('prefecture_autorite_index');
+            return $this->redirectToRoute('prefectureAutorite_index');
         }
 
         return $this->render('prefecture/ajouterAutorite.html.twig', [
