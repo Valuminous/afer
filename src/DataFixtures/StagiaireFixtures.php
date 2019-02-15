@@ -19,6 +19,7 @@ class StagiaireFixtures extends Fixture
             for($i = 1; $i < 7; $i++){
                 $stagiaire = new Stagiaire();
                 
+                
                 $stagiaire->setNomStagiaire($faker->firstName);
                 $stagiaire->setPrenomStagiaire($faker->lastName);
                 $stagiaire->setCpStagiaire($faker->postcode);
