@@ -86,6 +86,7 @@ class Animateur
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="animateur")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $civilite;
 

@@ -25,11 +25,13 @@ class Civilite
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Animateur", mappedBy="civilite")
+     * @ORM\JoinColumn
      */
     private $Animateur;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="civilite")
+     * @ORM\JoinColumn
      */
     private $Stagiaire;
 
