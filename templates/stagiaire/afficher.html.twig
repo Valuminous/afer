@@ -4,23 +4,24 @@
 
 <section class="stagiaire">
     <p>ID : {{ stagiaire.id }}</p>
-    <p>Civilité :{{ stagiaire.civilite }}</p> 
+    <p>Civilité : {{ stagiaire.civilite.nomCivilite }}</p> 
     <p>Nom : {{ stagiaire.nomStagiaire }}</p>
     <p>Prénom : {{ stagiaire.prenomStagiaire }}</p>
-    <p>N° adresse : {{ stagiaire.numeroAdresseStagiaire  }}</p>
-    <p>Code postal : {{ stagiaire.cpStagiaire }}</p>
-    <p>Commune : {{ stagiaire.communeStagiaire }}</p>
     <p>Nom de naissance : {{ stagiaire.nomNaissanceStagiaire }}</p>
     <p>Date de naissance_stagiaire : {{ stagiaire.dateNaissanceStagiaire|date('j F Y')}}</p>
     <p>Lieu_naissance_stagiaire : {{ stagiaire.lieuNaissanceStagiaire }}</p>
+    <p>Nationalité : {{ stagiaire.nationaliteStagiaire }}</p>
+    <p>N° adresse : {{ stagiaire.numeroAdresseStagiaire  }}</p>
     <p>Adresse : {{ stagiaire.numeroAdresseStagiaire }}</p>
+    <p>Code postal : {{ stagiaire.cpStagiaire }}</p>
+    <p>Commune : {{ stagiaire.communeStagiaire }}</p>
     <p>N° Fixe : {{ stagiaire.numeroFixeStagiaire }}</p>
     <p>N° Portable : {{ stagiaire.numeroPortableStagiaire }}</p>
     <p>Email : {{ stagiaire.emailStagiaire }}</p>
-    <p>Nationalité : {{ stagiaire.nationaliteStagiaire }}</p>
-    <p>Carte jeune : {{ stagiaire.carteJeuneStagiaire ? 'Yes' : 'No' }}</p>
-     <p>Partenaire : {{ stagiaire.partenaireStagiaire ? 'Yes' : 'No' }}</p>
-    <p>Adhérent : {{ stagiaire.adherentStagiaire ? 'Yes' : 'No'  }}</p>
+  
+    <p>Carte jeune : {{ stagiaire.carteJeuneStagiaire ? 'Oui' : 'Non' }}</p>
+     <p>Partenaire : {{ stagiaire.partenaireStagiaire ? 'Oui' : 'Non' }}</p>
+    <p>Adhérent : {{ stagiaire.adherentStagiaire ? 'Oui' : 'Non'  }}</p>
 </section>
 
              
