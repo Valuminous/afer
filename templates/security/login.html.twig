@@ -1,32 +1,68 @@
-{% block title %}Connexion{% endblock %}
+<!DOCTYPE html>
+<html lang="fr">
 
-{% block body %}
-<div class="container mt-4">
-    <form action="{{ path('login') }}" method="post">
-        {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="#">
+    <title>{% block title %}AFER{% endblock %}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="icon" href="{{ asset('build/static/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Caveat|Signika|Viga" rel="stylesheet">
+</head>
 
-        <h1 class="h3 mb-4 font-weight-normal text-center">Se connecter</h1>
-        <label class="mb-1" for="inputUsername" class="sr-only">Nom d'utilisateur</label>
-        <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control"
-            placeholder="Username" required autofocus>
-        <label class="mb-1" for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Password" required>
+<body>
+    <main>
+        <div class="container-fluid">
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {% block body %}
+            <div class="container mt-4">
 
-        {# Uncomment this section and add a remember_me option below your firewall to activate remember me
-        functionality.
-        See https://symfony.com/doc/current/security/remember_me.html #}
+                <img src="/build/static/logo.png" alt="logo" />
 
-        <div class="checkbox mt-1 mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me">Se souvenir de moi</label>
+                <form action="{{ path('login') }}" method="post">
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <h1 class="h3 mb-4 font-weight-normal text-center">Se connecter</h1>
+                    <label class="mb-1" for="inputUsername" class="sr-only">Nom d'utilisateur</label>
+                    <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control"
+                        placeholder="Nom d'utilisateur" required autofocus>
+                    <label class="mb-1" for="inputPassword" class="sr-only">Mot de passe</label>
+                    <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Mot de passe"
+                        required>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <button class="btn btn-lg btn-primary" type="submit">
+                        Connexion
+                    </button>
+                </form>
+            </div>
+            {% endblock %}
+
         </div>
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
-</div>
-{% endblock %}
+    </main>
+
+    {% block javascripts %}{% endblock %}
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/js/mdb.min.js"></script>
+    <script src="{{ asset('build/app.js') }}"></script>
+</body>
+
+</html>
