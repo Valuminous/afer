@@ -39,6 +39,13 @@
                 Ajouter le tribunal
                 {% endif %}
             </button>
+            {% if error is defined %}
+                <p>L'autorité existe déjà</p>
+            {% endif %}
+
+            {% if error is defined %}
+                    <p class="text-danger text-error-identifiant pt-3 envoi">Veuillez renseigner tous les champs!</p>
+            {% endif %}
 
             {{ form_end(form) }}
         </div>
@@ -59,6 +66,7 @@
             <!--Body-->
             <div class="modal-body">
             </div>
+            <div class="text-danger" id="error"></div>
         </div>
     </div>
 </div>
@@ -77,10 +85,8 @@
                 </button>
             </div>
             <!--Body-->
-            <div class="modal-body">
-
-            </div>
-
+            <div class="modal-body"></div>
+            <div class="text-danger" id="error2"></div>
         </div>
     </div>
 </div>

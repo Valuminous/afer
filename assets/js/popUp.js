@@ -48,7 +48,10 @@ function loadFormAutoriteTribunal(){
                             })
                             .then((resultat) => { 
 
-                                if(resultat.value != null){
+                                if(resultat.error != null){
+                                document.querySelector('#error').innerHTML = "L'autorité existe déjà";
+                                
+                                }else if(resultat.value != null){
                                     const selectTribunalAutorite = document.querySelector('#tribunal_tribunal_autorite');
                                     const option = document.createElement("option");
                                     option.setAttribute('value', resultat.id )
@@ -102,8 +105,10 @@ function loadFormTribunalService(){
                                 return resultat.json();
                             })
                             .then((resultat) => {
+                                if(resultat.error != null){
+                                    document.querySelector('#error2').innerHTML = "Le service existe déjà";
 
-                                if(resultat.value != null){
+                                }else if(resultat.value != null){
                                     const selectTribunalService = document.querySelector('#tribunal_tribunal_service');
                                     const option = document.createElement("option");
                                     option.setAttribute('value', resultat.id )
@@ -158,7 +163,10 @@ function loadFormPrefectureService(){
                             })
                             .then((resultat) => {
 
-                                if(resultat.value != null){
+                                if(resultat.error != null){
+                                    document.querySelector('#error4').innerHTML = "Le service existe déjà";
+
+                                }else if(resultat.value != null){
                                     const selectPrefectureService = document.querySelector('#prefecture_prefectureService');
                                     const option = document.createElement("option");
                                     option.setAttribute('value', resultat.id )
@@ -214,7 +222,10 @@ function loadFormPrefectureAutorite(){
                             })
                             .then((resultat) => {
 
-                                if(resultat.value != null){
+                                if(resultat.error != null){
+                                    document.querySelector('#error3').innerHTML = "L'autorité existe déjà";
+
+                                }else if(resultat.value != null){
                                     const selectPrefectureAutorite = document.querySelector('#prefecture_prefectureAutorite');
                                     const option = document.createElement("option");
                                     option.setAttribute('value', resultat.id )
@@ -270,7 +281,10 @@ function loadFormAnimateurFonction(){
                             })
                             .then((resultat) => {
 
-                                if(resultat.value != null){
+                                if(resultat.error != null){
+                                    document.querySelector('#error5').innerHTML = "La fonction existe déjà";
+
+                                }else if(resultat.value != null){
                                     const selectAnimateurFonction = document.querySelector('#animateur_animateurFonction');
                                     const option = document.createElement("option");
                                     option.setAttribute('value', resultat.id )
@@ -326,7 +340,10 @@ function loadFormAnimateurStatut(){
                             })
                             .then((resultat) => {
 
-                                if(resultat.value != null){
+                                if(resultat.error != null){
+                                    document.querySelector('#error6').innerHTML = "Le statut existe déjà";
+
+                                }else if(resultat.value != null){
                                     const selectAnimateurStatut = document.querySelector('#animateur_animateurStatut');
                                     const option = document.createElement("option");
                                     option.setAttribute('value', resultat.id )

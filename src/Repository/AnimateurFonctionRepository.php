@@ -15,6 +15,18 @@ class AnimateurFonctionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, AnimateurFonction::class);
     }
+
+    public function counter($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nom = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return AnimateurFonction[] Returns an array of AnimateurFonction objects
     //  */
