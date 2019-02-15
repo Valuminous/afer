@@ -27,6 +27,7 @@ class StageFixtures extends Fixture
 
             for($i = 1; $i < 7; $i++){
                 $stage = new Stage();
+                
                 $stage->setNumeroStage($faker->firstName);
                 $stage->setStageProgrammeOfficiel($faker->boolean());
                 $stage->setDated($faker->datetime);
@@ -44,6 +45,7 @@ class StageFixtures extends Fixture
 
             for($i = 1; $i < 7; $i++){
                 $lieustage = new lieuStage();
+
                 $lieustage->setNomEtablissement($faker->word);
                 $lieustage->setAgrement($faker->randomDigit);
                 $lieustage->setAdresseStage($faker->streetName);
