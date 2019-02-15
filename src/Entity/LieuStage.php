@@ -68,7 +68,7 @@ class LieuStage
     private $divers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStages")
+     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStage")
      */
     private $stages;
 
@@ -76,6 +76,9 @@ class LieuStage
     {
         $this->stages = new ArrayCollection();
     }
+
+
+    
 
     public function getId(): ?int
     {
@@ -202,7 +205,7 @@ class LieuStage
         return $this;
     }
 
-     /**
+    /**
      * @return Collection|Stage[]
      */
     public function getStages(): Collection
@@ -214,16 +217,24 @@ class LieuStage
     {
         if (!$this->stages->contains($stage)) {
             $this->stages[] = $stage;
-          
+            $stage->setLieuStage($this);
         }
+
         return $this;
     }
+
     public function removeStage(Stage $stage): self
     {
         if ($this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-           
-    }
+            // set the owning side to null (unless already changed)
+            if ($stage->getLieuStage() === $this) {
+                $stage->setLieuStage(null);
+            }
+        }
+
         return $this;
     }
+
+     
 }

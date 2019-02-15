@@ -11,22 +11,22 @@
     <table class="table table-striped">
         <thead>
             <tr class="background_prefecture">
-                <th scope="col" class="text-center">Nom</th>
-                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                <th scope="col" class="pl-5 text-left">Nom de l'autorité</th>
+                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
 
         <tbody>
             {% for autorite in autorites %}
                 <tr>
-                    <td class="text-center">{{ autorite.nom }}</td>
+                    <td class="pl-5 text-left">{{ autorite.nom }}</td>
                     <td class="text-center">
-                        <a href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                        <a href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
+                        <a href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="ml-3 fas fa-pen pen_color "></i></a>
+                        <a href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
                     </td>
                 </tr>
             {% else %}
-                <td class="text-center">Il n'y a aucune autorité</td>
+                <td class="pl-5 text-left">Il n'y a aucune autorité</td>
                 <td class="text-center">...</td>
             {% endfor %}
         </tbody>

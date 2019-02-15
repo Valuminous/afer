@@ -11,42 +11,42 @@
     <table class="table table-striped">
         <thead>
             <tr class="background_stage">
-                <th scope="col" class="text-center">Numéro de stage</th>
-                <th scope="col" class="text-center">Date de début</th>
-                <th scope="col" class="text-center">Date de fin</th>
-                <th scope="col" class="text-center">Lieu de stage</th>
-                <th scope="col" class="text-center">Animateurs</th>
-                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                <th scope="col" class="pl-5 text-left">Numéro de stage</th>
+                <th scope="col" class="text-left">Date de début</th>
+                <th scope="col" class="text-left">Date de fin</th>
+                <th scope="col" class="text-left">Lieu de stage</th>
+                <th scope="col" class="text-left">Animateurs</th>
+                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
             {% for stage in stages %}
             <tr>
-                <td class="text-center">{{ stage.numeroStage }}</td>
-                <td class="text-center">
+                <td class="pl-5 text-left">{{ stage.numeroStage }}</td>
+                <td class="text-left">
                     {{ stage.dated|date('j F Y') }}
                 </td>
-                <td class="text-center">
+                <td class="text-left">
                     {{ stage.datef|date('j F Y') }}
                 </td>
-                <td class="text-center">
-                    {% for lieuStage in stage.lieuStages %}
-                    {{ lieuStage.nomEtablissement }}
-                    {% endfor %}
+                <td class="text-left">
+                   
+                    {{ stage.lieuStage.nomEtablissement }}
+                
                 </td>
-                <td class="text-center">
+                <td class="text-left">
                     {% for animateur in stage.animateurs %}
                     {{ animateur.nomAnimateur }}
                     {% endfor %}
                 </td>
                 <td class="text-center">
-                    <a href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye eye_color"></i></a>
-                    <a href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('stage_supprimer', {'id': stage.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
+                    <a href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
+                    <a href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
+                    <a href="{{  path('stage_supprimer', {'id': stage.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5 "></i></a>
                 </td>
             </tr>
             {% else %}
-            <td class="text-center">Il n'y a aucun stage</td>
+            <td class="pl-5 text-left">Il n'y a aucun stage</td>
             <td class="text-center">...</td>
             <td class="text-center">...</td>
             <td class="text-center">...</td>
