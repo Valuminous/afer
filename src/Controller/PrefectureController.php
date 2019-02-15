@@ -193,7 +193,7 @@ class PrefectureController extends AbstractController
     /**
     * @Route("/prefecture/service/loadFormServicePrefecture", name="prefecture_service_pop")
     */
-    public function popService(PrefectureService $service = null, Request $request, ObjectManager $manager)
+    public function popService(PrefectureService $service = null, Request $request,PrefectureServiceRepository $repoService, ObjectManager $manager)
     {
         if(!$service){
             $service = new PrefectureService();
@@ -204,13 +204,19 @@ class PrefectureController extends AbstractController
       
         if($request->isMethod('POST')){
             $prefectureService = $request->request->get('prefecture_service_nom');
+
+            $nbrs = $repoService->counter($prefectureService);
+            $nbr = $nbrs[0][1];
     
-            if(strlen($prefectureService) > 0){
+            if(strlen($prefectureService) > 0 && $nbr === "0"){
                  $service->setNom($prefectureService);
                 $manager->persist( $service );
                 $manager->flush();
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"id":'.$service->getId().', "value":"'.$service->getNom().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
             }
              return $response;
         }
@@ -223,7 +229,7 @@ class PrefectureController extends AbstractController
     /**
     * @Route("/prefecture/autorite/loadFormAutoritePrefecture", name="prefecture_autorite_pop")
     */
-    public function popAutorite(PrefectureAutorite $autorite = null, Request $request, ObjectManager $manager)
+    public function popAutorite(PrefectureAutorite $autorite = null,PrefectureAutoriteRepository $repoAutorite, Request $request, ObjectManager $manager)
     {
         if(!$autorite){
             $autorite = new PrefectureAutorite();
@@ -234,13 +240,19 @@ class PrefectureController extends AbstractController
       
         if($request->isMethod('POST')){
             $prefectureAutorite = $request->request->get('prefecture_autorite_nom');
-    
-            if(strlen($prefectureAutorite) > 0){
+
+            $nbrs = $repoAutorite->counter($prefectureAutorite);
+            $nbr = $nbrs[0][1];
+
+            if(strlen($prefectureAutorite) > 0 && $nbr === "0"){
                 $autorite->setNom($prefectureAutorite);
                 $manager->persist( $autorite );
                 $manager->flush();
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"id":'.$autorite->getId().', "value":"'.$autorite->getNom().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
             }
              return $response;
         }
