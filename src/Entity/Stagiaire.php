@@ -102,11 +102,13 @@ class Stagiaire
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaires")
+     * 
      */
     private $stages;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="stagiaire")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $civilite;
 
