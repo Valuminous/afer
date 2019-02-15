@@ -1,20 +1,25 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Animateur;
+use App\Entity\AnimateurStatut;
+use App\Entity\AnimateurFonction;
+
 use App\Form\AnimateurType;
 use App\Form\AnimateurStatutType;
 use App\Form\AnimateurFonctionType;
+
 use App\Repository\AnimateurRepository;
-use App\Entity\AnimateurFonction;
-use App\Repository\AnimateurFonctionRepository;
 use App\Repository\AnimateurStatutRepository;
-use App\Entity\AnimateurStatut;
+use App\Repository\AnimateurFonctionRepository;
+
+use Doctrine\Common\Persistence\ObjectManager;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin")
@@ -165,5 +170,70 @@ class AnimateurController extends AbstractController
         $manager->remove($animateurstatut);
         $manager->flush();
         return $this->redirectToRoute('animateurStatut');
+    }
+    /**
+     * @Route("/animateur/statut/{id}/afficher", name="animateurStatut_afficher")
+     */
+    public function afficherUneAnimateurStatut(AnimateurStatut $animateurstatut)
+    {
+        return $this->render('animateur/afficherStatut.html.twig', [
+            'animateurstatut' => $animateurstatut
+        ]);
+    }
+
+     /**
+     *  @Route("/animateur/fonction/loadFormAnimateurFonction", name="animateurFonction_pop")
+     */
+    public function popAnimateurFonction(AnimateurFonction $fonction = null, Request $request, ObjectManager $manager)
+    {
+        if(!$fonction){
+        $fonction = new AnimateurFonction();
+        }
+        $form = $this->createForm(AnimateurFonctionType::class, $fonction, array('method'=>'POST'));
+        $form->handleRequest($request);
+
+        if($request->isMethod('POST')){
+            $animateurfonction = $request->request->get('animateur_fonction_nom');
+    
+            if(strlen($animateurfonction) > 0){
+                $fonction->setNom($animateurfonction);
+                $manager->persist( $fonction );
+                $manager->flush();
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$fonction->getId().', "value":"'.$fonction->getNom().'"}');
+            }
+             return $response;
+        }
+        return $this->render('animateur/popFonction.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+     /**
+     *  @Route("/animateur/statut/loadFormAnimateurStatut", name="animateurStatut_pop")
+     */
+    public function popAnimateurStatut(AnimateurStatut $statut = null, Request $request, ObjectManager $manager)
+    {
+        if(!$statut){
+            $statut = new AnimateurStatut();
+        }
+        $form = $this->createForm(AnimateurStatutType::class, $statut, array('method'=>'POST'));
+        $form->handleRequest($request);
+
+        if($request->isMethod('POST')){
+            $animateurstatut = $request->request->get('animateur_statut_nom');
+    
+            if(strlen($animateurstatut) > 0){
+                $statut->setNom($animateurstatut);
+                $manager->persist( $statut );
+                $manager->flush();
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$statut->getId().', "value":"'.$statut->getNom().'"}');
+            }
+             return $response;
+        }
+        return $this->render('animateur/popStatut.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

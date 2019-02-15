@@ -21,8 +21,8 @@ class StagiaireFixtures extends Fixture
                 
                 $stagiaire->setNomStagiaire($faker->firstName);
                 $stagiaire->setPrenomStagiaire($faker->lastName);
-                $stagiaire->setCp($faker->postcode);
-                $stagiaire->setCommune($faker->DepartmentName);
+                $stagiaire->setCpStagiaire($faker->postcode);
+                $stagiaire->setCommuneStagiaire($faker->DepartmentName);
                 $stagiaire->setNomNaissanceStagiaire($faker->lastname);
                 $stagiaire->setDateNaissanceStagiaire($faker->datetime);
                 $stagiaire->setLieuNaissanceStagiaire($faker->region);

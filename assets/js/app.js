@@ -1,16 +1,17 @@
 require('../scss/main.scss');
 
-const onclickStage = document.querySelector('.onclick_stage');
-const onclickTribunaux = document.querySelector('.onclick_tribunaux');
-const onclickAnimateur = document.querySelector('.onclick_animateur');
-const onclickPrefecture = document.querySelector('.onclick_prefecture');
-const autorite = document.getElementById('autoriteInput');
-
-const button = document.querySelector('.ajouter');
 const close = document.querySelector('.close');
 const close2 = document.querySelector('.close2');
 const close3 = document.querySelector('.close3');
 const close4 = document.querySelector('.close4');
+const close5 = document.querySelector('.close5');
+const close6 = document.querySelector('.close6');
+
+
+const onclickStage = document.querySelector('.onclick_stage');
+const onclickTribunaux = document.querySelector('.onclick_tribunaux');
+const onclickAnimateur = document.querySelector('.onclick_animateur');
+const onclickPrefecture = document.querySelector('.onclick_prefecture');
 
 const blueArrow = document.querySelector('.angle_blue');
 const orangeArrow = document.querySelector('.angle_orange');
@@ -230,25 +231,25 @@ function changeActiveButton(){
         activePrefectureAutorite.style.fontWeight = 'bold';
         purpleArrowValue = 1;
     }
-
-    if (pathname == '/admin/prefecture/service') {
-        purpleArrow.style.transform = 'rotate(90deg)';
-        myDropdownMenu4.style.display = 'block';
-        myDropdownMenu4.style.opacity = '1';
-        activePrefectureService.style.color = '#9c2db3';
-        activePrefectureService.style.fontWeight = 'bold';
-        purpleArrowValue = 1;
-    }
-
 }
 
+if (pathname == '/admin/prefecture/service') {
+    purpleArrow.style.transform = 'rotate(90deg)';
+    myDropdownMenu4.style.display = 'block';
+    myDropdownMenu4.style.opacity = '1';
+    activePrefectureService.style.color = '#9c2db3';
+    activePrefectureService.style.fontWeight = 'bold';
+    purpleArrowValue = 1;
+}
 
-
+// pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 document.onreadystatechange = function () {
     loadFormAutoriteTribunal();
     loadFormTribunalService();
     loadFormPrefectureService();
     loadFormPrefectureAutorite();
+    loadFormAnimateurFonction();
+    loadFormAnimateurStatut();
 }
 
 function loadFormAutoriteTribunal(){
@@ -270,8 +271,6 @@ function loadFormAutoriteTribunal(){
 
                         if(document.querySelector('form[name="tribunal_autorite"] #tribunal_autorite_nom').value.length != 0){
 
-                            console.log('coucou');
-
                             let autorite = document.querySelector('form[name="tribunal_autorite"] #tribunal_autorite_nom');
                             let token = document.querySelector('form[name="tribunal_autorite"] #tribunal_autorite__token');
                             let data = new FormData();
@@ -281,17 +280,15 @@ function loadFormAutoriteTribunal(){
                             fetch("/admin/tribunal/autorite/loadFormAutoriteTribunal", {method: "POST", body: data, credentials:'include'})
 
                             .then((resultat) => {
-                                return resultat.text();
+                                return resultat.json();
                             })
-                            .then((resultat) => {
+                            .then((resultat) => { 
 
-                                let resultatJson = JSON.parse(resultat);
-
-                                if(resultatJson.value != null){
+                                if(resultat.value != null){
                                     const selectTribunalAutorite = document.querySelector('#tribunal_tribunal_autorite');
                                     const option = document.createElement("option");
-                                    option.setAttribute('value', resultatJson.id )
-                                    option.text = resultatJson.value;
+                                    option.setAttribute('value', resultat.id )
+                                    option.text = resultat.value;
                                     selectTribunalAutorite.add(option);
                                     selectTribunalAutorite.selectedIndex = selectTribunalAutorite.length - 1 ;
                                     close.click(); 
@@ -337,19 +334,16 @@ function loadFormTribunalService(){
                             data.append("tribunal_service_token", token.value);
 
                             fetch("/admin/tribunal/service/loadFormServiceTribunal", {method: "POST", body: data, credentials:'include'})
-
                             .then((resultat) => {
-                                return resultat.text();
+                                return resultat.json();
                             })
                             .then((resultat) => {
 
-                                let resultatJson = JSON.parse(resultat);
-
-                                if(resultatJson.value != null){
+                                if(resultat.value != null){
                                     const selectTribunalService = document.querySelector('#tribunal_tribunal_service');
                                     const option = document.createElement("option");
-                                    option.setAttribute('value', resultatJson.id )
-                                    option.text = resultatJson.value;
+                                    option.setAttribute('value', resultat.id )
+                                    option.text = resultat.value;
                                     selectTribunalService.add(option);
                                     selectTribunalService.selectedIndex = selectTribunalService.length - 1 ;
                                     close2.click(); 
@@ -395,18 +389,16 @@ function loadFormPrefectureService(){
                             data.append("prefecture_service__token", token.value);
 
                             fetch("/admin/prefecture/service/loadFormServicePrefecture", {method: "POST", body: data, credentials:'include'})
-
                             .then((resultat) => {
-                                return resultat.text();
+                                return resultat.json();
                             })
                             .then((resultat) => {
-                                let resultatJson = JSON.parse(resultat);
 
-                                if(resultatJson.value != null){
+                                if(resultat.value != null){
                                     const selectPrefectureService = document.querySelector('#prefecture_prefectureService');
                                     const option = document.createElement("option");
-                                    option.setAttribute('value', resultatJson.id )
-                                    option.text = resultatJson.value;
+                                    option.setAttribute('value', resultat.id )
+                                    option.text = resultat.value;
                                     selectPrefectureService.add(option);
                                     selectPrefectureService.selectedIndex = selectPrefectureService.length - 1 ;
                                     close3.click(); 
@@ -453,19 +445,16 @@ function loadFormPrefectureAutorite(){
                             data.append("prefecture_autorite__token", token.value);
 
                             fetch("/admin/prefecture/autorite/loadFormAutoritePrefecture", {method: "POST", body: data, credentials:'include'})
-
                             .then((resultat) => {
-                                return resultat.text();
+                                return resultat.json();
                             })
                             .then((resultat) => {
 
-                                let resultatJson = JSON.parse(resultat);
-
-                                if(resultatJson.value != null){
+                                if(resultat.value != null){
                                     const selectPrefectureAutorite = document.querySelector('#prefecture_prefectureAutorite');
                                     const option = document.createElement("option");
-                                    option.setAttribute('value', resultatJson.id )
-                                    option.text = resultatJson.value;
+                                    option.setAttribute('value', resultat.id )
+                                    option.text = resultat.value;
                                     selectPrefectureAutorite.add(option);
                                     selectPrefectureAutorite.selectedIndex = selectPrefectureAutorite.length - 1 ;
                                     close4.click(); 
@@ -475,6 +464,118 @@ function loadFormPrefectureAutorite(){
                             });
                         }else{
                             document.querySelector('form[name="prefecture_autorite"] #prefecture_autorite_nom').classList.add('error')
+                        }
+                    })
+                }
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+}
+
+function loadFormAnimateurFonction(){
+    let fonction = document.querySelector('#addFonctionAnimateur');
+
+    if(fonction != null){
+        fetch("/admin/animateur/fonction/loadFormAnimateurFonction", {credentials:'include'})
+        .then((reponse) => {
+            return reponse.text();
+        })
+        .then((reponse) => {
+            if(reponse.length > 0){
+                document.querySelector('#modalCart5 .modal-body').innerHTML = reponse;
+                btn = document.querySelector('#modalCart5 .modal-body button');
+
+                if(btn != null){
+                    btn.addEventListener('click', function(e){
+                        e.preventDefault();
+
+                        if(document.querySelector('form[name="animateur_fonction"] #animateur_fonction_nom').value.length != 0){
+
+                            let fonction = document.querySelector('form[name="animateur_fonction"] #animateur_fonction_nom');
+                            let token = document.querySelector('form[name="animateur_fonction"] #animateur_fonction__token');
+                            let data = new FormData();
+
+                            data.append("animateur_fonction_nom", fonction.value);
+                            data.append("animateur_fonction__token", token.value);
+                            
+                            fetch("/admin/animateur/fonction/loadFormAnimateurFonction", {method: "POST", body: data, credentials:'include'})
+                            .then((resultat) => {
+                                return resultat.json();
+                            })
+                            .then((resultat) => {
+
+                                if(resultat.value != null){
+                                    const selectAnimateurFonction = document.querySelector('#animateur_animateurFonction');
+                                    const option = document.createElement("option");
+                                    option.setAttribute('value', resultat.id )
+                                    option.text = resultat.value;
+                                    selectAnimateurFonction.add(option);
+                                    selectAnimateurFonction.selectedIndex = selectAnimateurFonction.length - 1 ;
+                                    close5.click(); 
+                                }
+                            }).catch((error) => {
+                                console.log(error);
+                            });
+                        }else{
+                            document.querySelector('form[name="animateur_fonction"] #animateur_fonction_nom').classList.add('error')
+                        }
+                    })
+                }
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+}
+
+function loadFormAnimateurStatut(){
+    let statut = document.querySelector('#addStatutAnimateur');
+
+    if(statut != null){
+        fetch("/admin/animateur/statut/loadFormAnimateurStatut", {credentials:'include'})
+        .then((reponse) => {
+            return reponse.text();
+        })
+        .then((reponse) => {
+            if(reponse.length > 0){
+                document.querySelector('#modalCart6 .modal-body').innerHTML = reponse;
+                btn = document.querySelector('#modalCart6 .modal-body button');
+
+                if(btn != null){
+                    btn.addEventListener('click', function(e){
+                        e.preventDefault();
+
+                        if(document.querySelector('form[name="animateur_statut"] #animateur_statut_nom').value.length != 0){
+                            
+                            let statut = document.querySelector('form[name="animateur_statut"] #animateur_statut_nom');
+                            let token = document.querySelector('form[name="animateur_statut"] #animateur_statut__token');
+                            let data = new FormData();
+                            
+
+                            data.append("animateur_statut_nom", statut.value);
+                            data.append("animateur_statut__token", token.value);
+                            fetch("/admin/animateur/statut/loadFormAnimateurStatut", {method: "POST", body: data, credentials:'include'})
+                            .then((resultat) => {
+                                return resultat.json();
+                            })
+                            .then((resultat) => {
+
+                                if(resultat.value != null){
+                                    const selectAnimateurStatut = document.querySelector('#animateur_animateurStatut');
+                                    const option = document.createElement("option");
+                                    option.setAttribute('value', resultat.id )
+                                    option.text = resultat.value;
+                                    selectAnimateurStatut.add(option);
+                                    selectAnimateurStatut.selectedIndex = selectAnimateurStatut.length - 1 ;
+                                    close6.click(); 
+                                }
+                            }).catch((error) => {
+                                console.log(error);
+                            });
+                        }else{
+                            document.querySelector('form[name="animateur_statut"] #animateur_statut_nom').classList.add('error')
                         }
                     })
                 }
