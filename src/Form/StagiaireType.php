@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class StagiaireType extends AbstractType
@@ -25,8 +26,14 @@ class StagiaireType extends AbstractType
             ->add('cp_stagiaire')
             ->add('commune_stagiaire')
             ->add('nom_naissance_stagiaire')
-            ->add('date_naissance_stagiaire',DateTimeType::class, [
-                'date_label' => 'Starts On'])
+            ->add('date_naissance_stagiaire',BirthdayType::class, ['placeholder' => [
+                'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année'
+            ],
+
+                'format' => 'd M y'
+                
+               
+                ])
             ->add('lieu_naissance_stagiaire')
             ->add('adresse_stagiaire')
             ->add('nationalite_stagiaire')
