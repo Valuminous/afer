@@ -184,7 +184,7 @@ class AnimateurController extends AbstractController
      /**
      *  @Route("/animateur/fonction/loadFormAnimateurFonction", name="animateurFonction_pop")
      */
-    public function popAnimateurFonction(AnimateurFonction $fonction = null, Request $request, ObjectManager $manager)
+    public function popAnimateurFonction(AnimateurFonction $fonction = null,AnimateurFonctionRepository $repoAnimateur, Request $request, ObjectManager $manager)
     {
         if(!$fonction){
         $fonction = new AnimateurFonction();
@@ -194,13 +194,19 @@ class AnimateurController extends AbstractController
 
         if($request->isMethod('POST')){
             $animateurfonction = $request->request->get('animateur_fonction_nom');
+
+            $nbrs = $repoAnimateur->counter($animateurfonction);
+            $nbr = $nbrs[0][1];
     
-            if(strlen($animateurfonction) > 0){
+            if(strlen($animateurfonction) > 0 && $nbr === "0"){
                 $fonction->setNom($animateurfonction);
                 $manager->persist( $fonction );
                 $manager->flush();
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"id":'.$fonction->getId().', "value":"'.$fonction->getNom().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
             }
              return $response;
         }
@@ -212,7 +218,7 @@ class AnimateurController extends AbstractController
      /**
      *  @Route("/animateur/statut/loadFormAnimateurStatut", name="animateurStatut_pop")
      */
-    public function popAnimateurStatut(AnimateurStatut $statut = null, Request $request, ObjectManager $manager)
+    public function popAnimateurStatut(AnimateurStatut $statut = null,AnimateurStatutRepository $repoAnimateur, Request $request, ObjectManager $manager)
     {
         if(!$statut){
             $statut = new AnimateurStatut();
@@ -222,13 +228,19 @@ class AnimateurController extends AbstractController
 
         if($request->isMethod('POST')){
             $animateurstatut = $request->request->get('animateur_statut_nom');
+
+            $nbrs = $repoAnimateur->counter($animateurstatut);
+            $nbr = $nbrs[0][1];
     
-            if(strlen($animateurstatut) > 0){
+            if(strlen($animateurstatut) > 0 && $nbr === "0"){
                 $statut->setNom($animateurstatut);
                 $manager->persist( $statut );
                 $manager->flush();
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"id":'.$statut->getId().', "value":"'.$statut->getNom().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
             }
              return $response;
         }

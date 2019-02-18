@@ -1,37 +1,32 @@
 <?php
-
 namespace App\DataFixtures;
-
 use Faker\Factory;
-
 use App\Entity\Stage;
 use App\Entity\LieuStage;
+use App\Entity\Animateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-
 class StageFixtures extends Fixture
 { 
     public function load(ObjectManager $manager)
 {
     $this->loadStage( $manager );
-    $this->loadLieuStage($manager);
    
 }
-
     public function loadStage(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('fr_FR');
-
        
-
-
             for($i = 1; $i < 7; $i++){
                 $stage = new Stage();
-                
+                $lieuStage = $this->loadLieuStage($manager);
+                $manager->persist($lieuStage);
                 $stage->setNumeroStage($faker->firstName);
                 $stage->setStageProgrammeOfficiel($faker->boolean());
                 $stage->setDated($faker->datetime);
                 $stage->setDatef($faker->datetime);
+                $stage->setLieuStage($lieuStage);
+               
                 $manager->persist($stage);
             
         }
@@ -39,13 +34,11 @@ class StageFixtures extends Fixture
     }
         
     
-    public function loadLieuStage(ObjectManager $manager)
+    public function loadLieuStage()
         {   
             $faker = \Faker\Factory::create('fr_FR');
-
-            for($i = 1; $i < 7; $i++){
+            
                 $lieustage = new lieuStage();
-
                 $lieustage->setNomEtablissement($faker->word);
                 $lieustage->setAgrement($faker->randomDigit);
                 $lieustage->setAdresseStage($faker->streetName);
@@ -53,10 +46,10 @@ class StageFixtures extends Fixture
                 $lieustage->setCp($faker->postcode);
                 $lieustage->setCommune($faker->City);
                 $lieustage->setTelephoneStage($faker->phoneNumber);
-                $manager->persist($lieustage);
-                }
-
+               
+                return $lieustage;
+             
         $manager->flush();
-
     }
+    
 }

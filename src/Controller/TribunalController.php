@@ -23,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Doctrine\ORM\EntityManager;
 /**
  * @Route("/admin")
  */
@@ -189,26 +190,31 @@ class TribunalController extends AbstractController
     /**
     * @Route("/tribunal/autorite/loadFormAutoriteTribunal", name="tribunal_autorite_test")
     */
-    public function popAutorite(TribunalAutorite $autorite = null, Request $request, ObjectManager $manager)
+    public function popAutorite(TribunalAutorite $autorite = null,TribunalAutoriteRepository $repoAutorite, Request $request, ObjectManager $manager)
     {
         if(!$autorite){
             $autorite = new TribunalAutorite();
         }
          $formAutorite = $this->createForm( TribunalAutoriteType::class, $autorite, array('method'=>'POST'));
-        
         $formAutorite->handleRequest( $request );
       
         if($request->isMethod('POST')){
             $tribunalAutorite = $request->request->get('tribunal_autorite_nom');
     
-            if(strlen($tribunalAutorite) > 0){
+            $nbrs = $repoAutorite->counter($tribunalAutorite);
+            $nbr = $nbrs[0][1];
+
+            if(strlen($tribunalAutorite) > 0 && $nbr === "0"){
                 $autorite->setNom($tribunalAutorite);
                 $manager->persist( $autorite );
                 $manager->flush();
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"id":'.$autorite->getId().', "value":"'.$autorite->getNom().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
             }
-             return $response;
+            return $response;
         }
         
         return $this->render('tribunal/popAutorite.html.twig', 
@@ -220,7 +226,7 @@ class TribunalController extends AbstractController
     /**
     * @Route("/tribunal/service/loadFormServiceTribunal", name="tribunal_service_test")
     */
-    public function popService(TribunalService $service = null, Request $request, ObjectManager $manager)
+    public function popService(TribunalService $service = null,TribunalServiceRepository $repoService, Request $request, ObjectManager $manager)
     {
         if(!$service){
             $service = new TribunalService();
@@ -231,13 +237,19 @@ class TribunalController extends AbstractController
       
         if($request->isMethod('POST')){
             $tribunalService = $request->request->get('tribunal_service_nom');
-    
-            if(strlen($tribunalService) > 0){
+
+            $nbrs = $repoService->counter($tribunalService);
+            $nbr = $nbrs[0][1];
+
+            if(strlen($tribunalService) > 0 && $nbr === "0"){
                 $service->setNom($tribunalService);
                 $manager->persist( $service );
                 $manager->flush();
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"id":'.$service->getId().', "value":"'.$service->getNom().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
             }
              return $response;
         }

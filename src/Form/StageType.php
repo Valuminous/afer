@@ -6,14 +6,15 @@ use App\Entity\Stage;
 use App\Entity\Tribunal;
 use App\Entity\Animateur;
 use App\Entity\LieuStage;
-use App\Entity\Prefecture;
 use App\Entity\Stagiaire;
+use App\Entity\Prefecture;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class StageType extends AbstractType
 {
@@ -21,20 +22,31 @@ class StageType extends AbstractType
     {
         $builder
             ->add('numero_stage')
-            ->add('dated', DateTimeType::class, [
-                'date_label' => 'Starts On'])
-            ->add('datef', DateTimeType::class, [
-                'date_label' => 'Ends On'])
-            ->add('stage_programme_officiel')
-            // ->add('lieuStage', EntityType::class, [
-            //     'class' => LieuStage::class,
-            //     'choice_label' => 'nomEtablissement',
-            //     'query_builder' => function (EntityRepository $er) {
-            //         return $er->createQueryBuilder('lieu')
-            //             ->orderBy('lieu.nomEtablissement', 'ASC');
-            //     },
+            ->add('dated', DateType::class, [
+                'widget' => 'single_text',
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],
+            ])
+            ->add('datef', DateType::class, [
+                'widget' => 'single_text',
+    'html5' => false,
+    'attr' => ['class' => 'js-datepicker'],
+])
+            ->add('stage_programme_officiel', ChoiceType::class, [
+                'choices'  => [
+                    'Oui' => true,
+                    'Non' => false,
+                ],
+            ])
+
+            ->add('lieuStage', EntityType::class, [
+                'class' => LieuStage::class,
+                'choice_label' => 'nomEtablissement',
+        
             
-            // ])    
+            ])    
             ->add('prefecture', EntityType::class, [
                 'class' => Prefecture::class,
                 'choice_label' => 'nomPrefecture'
@@ -46,6 +58,8 @@ class StageType extends AbstractType
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,
                 'choice_label' => 'nomAnimateur',
+                'multiple' => 'true',
+                'expanded' => 'true',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
                         ->orderBy('anim.nomAnimateur', 'ASC');
@@ -59,6 +73,7 @@ class StageType extends AbstractType
                         ->orderBy('stag.nomStagiaire', 'ASC');
                 },
                 'multiple' => 'true',
+                'expanded' => 'true'
             ])
           
         ;

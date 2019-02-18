@@ -9,33 +9,37 @@
     <table class="table table-striped">
         <thead>
             <tr class="background_stagiaire">
-                <th scope="col" class="text-center">Nom</th>
-                <th scope="col" class="text-center">Prénom</th>
-                <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">N° de portable</th>
-                <th scope="col" class="text-center">N° fixe</th>
-                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                <th scope="col" class="pl-5 text-left">Nom</th>
+                <th scope="col" class="text-left">Prénom</th>
+                <th scope="col" class="text-left">Email</th>
+                <th scope="col" class="text-left">N° de portable</th>
+                <th scope="col" class="text-left">N° fixe</th>
+                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
             {% for stagiaire in stagiaires %}
             <tr>
-                <td class="text-center">{{ stagiaire.nomStagiaire }}</td>
-                <td class="text-center">{{ stagiaire.prenomStagiaire }}</td>
-                <td class="text-center">{{ stagiaire.emailStagiaire }}</td>
-                <td class="text-center">{{ stagiaire.numeroPortableStagiaire }}</p>
-                <td class="text-center">{{ stagiaire.numeroFixeStagiaire}}</p>
+                <td class="pl-5 text-left">{{ stagiaire.nomStagiaire }}</td>
+                <td class="text-left">{{ stagiaire.prenomStagiaire }}</td>
+                <td class="text-left">{{ stagiaire.emailStagiaire }}</td>
+                <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</p>
+                <td class="text-left">{{ stagiaire.numeroFixeStagiaire}}</p>
                 </td>
                 <td class="text-center">
-                    <a href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i class="far fa-eye eye_color"></i></a>
-                    <a href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('stagiaire_supprimer', {'id': stagiaire.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
+                    <a href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
+                    <a href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
+                    <a href="{{  path('stagiaire_supprimer', {'id': stagiaire.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
                 </td>
             </tr>
              {% else %}
            
-                <td colspan="18">Il n'y a aucun stagiaire</td>
-        
+               
+        <td class="pl-5 text-center">Il n'y a aucun stagiaire</td>
+            <td class="text-center">...</td>
+            <td class="text-center">...</td>
+            <td class="text-center">...</td>
+            <td class="text-center">...</td>
             {% endfor %}
         </tbody>
     </table>

@@ -19,6 +19,17 @@ class PrefectureAutoriteRepository extends ServiceEntityRepository
         parent::__construct($registry, PrefectureAutorite::class);
     }
 
+    public function counter($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nom = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return PrefectureAutorite[] Returns an array of PrefectureAutorite objects
     //  */

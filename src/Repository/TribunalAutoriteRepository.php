@@ -19,9 +19,23 @@ class TribunalAutoriteRepository extends ServiceEntityRepository
         parent::__construct($registry, TribunalAutorite::class);
     }
 
-    // /**
-    //  * @return TribunalAutorite[] Returns an array of TribunalAutorite objects
-    //  */
+    /**
+    * @return TribunalAutorite[] Returns an array of TribunalAutorite objects
+    */
+
+    public function counter($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nom = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
     /*
     public function findByExampleField($value)
     {
