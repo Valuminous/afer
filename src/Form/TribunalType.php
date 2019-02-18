@@ -18,16 +18,19 @@ class TribunalType extends AbstractType
     {
         $builder
             ->add('nom_tribunal')
+           
             ->add('adresse_tribunal')
             ->add('numero_adresse_tribunal')
             ->add('commune_tribunal')
             ->add('tribunal_service', EntityType::class, [
                 'class' => TribunalService::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir un service '
             ])
             ->add('tribunal_autorite', EntityType::class, [
                 'class' => TribunalAutorite::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir une autorité'
             ])
         ;
     }

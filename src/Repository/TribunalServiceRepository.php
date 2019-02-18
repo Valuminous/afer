@@ -19,6 +19,17 @@ class TribunalServiceRepository extends ServiceEntityRepository
         parent::__construct($registry, TribunalService::class);
     }
 
+    public function counter($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nom = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return TribunalService[] Returns an array of TribunalService objects
     //  */

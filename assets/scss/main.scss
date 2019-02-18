@@ -4,6 +4,7 @@
 @import'prefecture';
 @import'stagiaire';
 @import'login';
+@import'tooltip';
 
 html {
 
@@ -17,6 +18,10 @@ html {
         }
         .eye_color {
             color: #17a2b8;
+        }
+        .back-color{
+            color:black;
+            
         }
 
         .add_icon{

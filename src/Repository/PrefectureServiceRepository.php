@@ -18,7 +18,17 @@ class PrefectureServiceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PrefectureService::class);
     }
-
+    
+    public function counter($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nom = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return PrefectureService[] Returns an array of PrefectureService objects
     //  */
