@@ -1,32 +1,35 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Ajouter une autoritée de tribunal{% endblock %}
+{% block body %}
 
-{% block body %}  
+<div class="container">
+
+    {{ form_start(form) }}
 
     <div>
-        <h2>Ajouter une autoritée de tribunal</h2>
-       
-        <div class="content">
-            
-            <div>
-                    {{ form_start(form) }}
+        {% if editMode %}
+        <h2 class="mt-5 mb-5 h2_tribunal">Modifier une autorité</h2>
+        {% else %}
+        <h2 class="mt-5 mb-5 h2_tribunal">Ajouter une autorité</h2>
+        {% endif %}
+    </div>
 
-                        {{ form_row(form.nom, {'label':"Nom de l'autoritée du tribunal", 'attr': {'placeholder': "Nom de l'autoritée"}}) }}
-    
-                        <button type="submit" class="btn btn-success">
-                            {% if  editMode %}
-                            Enregistrer les modifications
-                            {% else %}
-                                Ajouter l'autoritée  
-                            {% endif %} 
-                        </button>
-
-                    {{ form_end(form) }}
-            </div>
-            
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.nom, {'label': "Nom de l'autorité :", 'attr': {'placeholder': "Nom de l'autorité"}}) }}
         </div>
     </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if editMode %}
+        Modifier
+        {% else %}
+        Sauvegarder
+        {% endif %}
+    </button>
+
+    {{ form_end(form) }}
+</div>
 
 
 {% endblock %}

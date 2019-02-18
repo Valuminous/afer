@@ -42,7 +42,7 @@
             "Autorité du tribunal"}}) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addAutoriteTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart">
+            <button type="button" id="addAutoriteTribunal" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart">
                 +
             </button>
         </div>
@@ -51,35 +51,21 @@
             tribunal"}}) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addServiceTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart2">
+            <button type="button" id="addServiceTribunal" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart2">
                 +
             </button>
         </div>
     </div>
 
-    {# <div class="d-flex">
-        {{ form_row(form.tribunal_autorite, {'label':"Autorité du tribunal", 'attr': {'placeholder':
-        "Autorité du tribunal"}}) }}
-        <button type="button" id="addAutoriteTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart">
-            +
-        </button>
-    </div>
-    <div class="d-flex">
-        {{ form_row(form.tribunal_service, {'label':"Service du tribunal", 'attr': {'placeholder': "Service du
-        tribunal"}}) }}
-        <button type="button" id="addServiceTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart2">
-            +
-        </button>
-    </div> #}
-
-    <button type="submit" class="btn btn-success">
         {% if editMode %}
-        Enregistrer les modifications
+        <button type="submit" class="btn btn-warning">
+        Modifier
+        </button>
         {% else %}
-        Ajouter le tribunal
+        <button type="submit" class="btn btn-primary">
+        Sauvegarder
+        </button>
         {% endif %}
-    </button>
-
     {{ form_end(form) }}
 </div>
 
@@ -97,7 +83,6 @@
             <!--Body-->
             <div class="modal-body">
             </div>
-            <div class="text-danger" id="error"></div>
         </div>
     </div>
 </div>
@@ -116,8 +101,10 @@
                 </button>
             </div>
             <!--Body-->
-            <div class="modal-body"></div>
-            <div class="text-danger" id="error2"></div>
+            <div class="modal-body">
+
+            </div>
+
         </div>
     </div>
 </div>
