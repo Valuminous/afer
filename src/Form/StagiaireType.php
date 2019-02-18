@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class StagiaireType extends AbstractType
 {
@@ -40,14 +41,31 @@ class StagiaireType extends AbstractType
             ->add('numero_portable_stagiaire')
             ->add('numero_fixe_stagiaire')
             ->add('email_stagiaire')
-            ->add('carte_jeune_stagiaire')
-            ->add('partenaire_stagiaire')
-            ->add('adherent_stagiaire')
+            ->add('carte_jeune_stagiaire', ChoiceType::class, [
+                'choices' => [
+                    'Carte jeune' => [
+                        'Non' => false,
+                        'Oui' => true,
+                    ],
+                ],
+            ])
+            ->add('partenaire_stagiaire', ChoiceType::class, [
+                'choices' => [
+                    'Partenaire' => [
+                        'Non' => false,
+                        'Oui' => true,
+                    ],
+                ],
+            ])
+            ->add('adherent_stagiaire', ChoiceType::class, [
+                'choices' => [
+                    'Adherent' => [
+                        'Non' => false,
+                        'Oui' => true,
+                    ],
+                ],
+            ])
             ->add('numero_adresse_stagiaire');
-            // ->add('stages', EntityType::class, [
-            //     'class' => Stage::class,
-            //     'label' => 'numeroStage'
-            // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
