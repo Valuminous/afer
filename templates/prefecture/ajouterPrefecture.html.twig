@@ -2,14 +2,21 @@
 
 {% block body %}
 
+
+<section class="prefecture affichagetbl container mt-5">
+    <container class="affichage inline-block center">
+    <h2 class"mt-4 pb-5 text-center"=>Ajout d'une préfecture</h2>
+
 {{ form_start(formPrefecture) }}
 
-{{ form_row(formPrefecture.nomPrefecture, {'label': 'Nom', 'attr': {'placeholder': 'Nom'} }) }}
-{{ form_row(formPrefecture.numeroAdressePrefecture, {'label': 'Numéro adresse', 'attr': {'placeholder': 'Numéro
+{{ form_row(formPrefecture.nomPrefecture, {'label': 'Nom de la préfecture : ', 'attr': {'placeholder': 'Nom'} }) }}
+
+
+{{ form_row(formPrefecture.numeroAdressePrefecture, {'label': 'Numéro', 'attr': {'placeholder': 'Numéro
 adresse'} }) }}
-{{ form_row(formPrefecture.adressePrefecture, {'label': 'Adresse', 'attr': {'placeholder': 'Adresse'} }) }}
-{{ form_row(formPrefecture.cpPrefecture, {'label': 'Code postal', 'attr': {'placeholder': 'Code postal'} }) }}
-{{ form_row(formPrefecture.communePrefecture, {'label': 'Commune', 'attr': {'placeholder': 'Commune'} }) }}
+{{ form_row(formPrefecture.adressePrefecture, {'label': 'Adresse :', 'attr': {'placeholder': 'Adresse'} }) }}
+{{ form_row(formPrefecture.cpPrefecture, {'label': 'Code postal :', 'attr': {'placeholder': 'Code postal'} }) }}
+{{ form_row(formPrefecture.communePrefecture, {'label': 'Commune :', 'attr': {'placeholder': 'Commune'} }) }}
 
 <div class="d-flex">
     {{ form_row(formPrefecture.prefectureService, {'label': 'Service', 'attr': {'placeholder': 'Service'} }) }}
@@ -34,8 +41,7 @@ adresse'} }) }}
 </button>
 
 {{ form_end(formPrefecture) }}
-
-
+</section>
 <!-- Modal: modalCart -->
 <div class="modal fade" id="modalCart3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

@@ -59,16 +59,17 @@ class Stage
     private $stagiaires;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\LieuStage", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\LieuStage", inversedBy="stages")
      */
-    private $lieuStages;
+    private $lieuStage;
+
+    
 
     public function __construct()
     {
         $this->animateurs = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
-        $this->lieuStages = new ArrayCollection();
+       
     }
     public function getId(): ?int
     {
@@ -189,30 +190,18 @@ class Stage
         return $this;
     }
 
-    /**
-     * @return Collection|LieuStage[]
-     */
-    public function getLieuStages(): Collection
+    public function getLieuStage(): ?LieuStage
     {
-        return $this->lieuStages;
+        return $this->lieuStage;
     }
 
-    public function addLieuStage(LieuStage $lieuStage): self
+    public function setLieuStage(?LieuStage $lieuStage): self
     {
-        if (!$this->lieuStages->contains($lieuStage)) {
-            $this->lieuStages[] = $lieuStage;
-            $lieuStage->addLieuStage($this);
-        }
+        $this->lieuStage = $lieuStage;
+
         return $this;
     }
-    public function removeLieuStage(LieuStage $lieuStage): self
-    {
-        if ($this->lieuStages->contains($lieuStage)) {
-            $this->lieuStages->removeElement($lieuStage);
-            $lieuStage->removeLieuStage($this);
-           
-        }
-        return $this;
-    }
+
+    
 
 }
