@@ -21,9 +21,10 @@ class StageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero_stage')
+            ->add('numero_stage') 
             ->add('dated', DateType::class, [
                 'widget' => 'single_text',
+                'format'=>'dd/mm/yyyy',
                 // prevents rendering it as type="date", to avoid HTML5 date pickers
                 'html5' => false,
                 // adds a class that can be selected in JavaScript
@@ -31,6 +32,7 @@ class StageType extends AbstractType
             ])
             ->add('datef', DateType::class, [
                 'widget' => 'single_text',
+                'format'=>'dd/mm/yyyy',
     'html5' => false,
     'attr' => ['class' => 'js-datepicker'],
 ])

@@ -24,10 +24,10 @@
             <tr>
                 <td class="pl-5 text-left">{{ stage.numeroStage }}</td>
                 <td class="text-left">
-                    {{ stage.dated|date('j F Y') }}
+                    {{ stage.dated|localizeddate('long', 'none', 'fr')}} 
                 </td>
                 <td class="text-left">
-                    {{ stage.datef|date('j F Y') }}
+                    {{ stage.datef|localizeddate('long', 'none', 'fr')}} 
                 </td>
                 <td class="text-left">
                    
