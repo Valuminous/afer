@@ -359,8 +359,6 @@ class Stagiaire
         $this->civilite = $civilite;
 
         return $this;
-    }
-
-   
+    }   
 }
 
