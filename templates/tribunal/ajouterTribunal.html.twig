@@ -37,20 +37,17 @@
     </div>
 
     <div class="row">
-        <div class="col-5">
+        <div class="col d-flex">
             {{ form_row(form.tribunal_autorite, {'label':"Autorité du tribunal", 'attr': {'placeholder':
             "Autorité du tribunal"}}) }}
-        </div>
-        <div class="col-1">
             <button type="button" id="addAutoriteTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart">
                 +
             </button>
         </div>
-        <div class="col-5">
+
+        <div class="col d-flex">
             {{ form_row(form.tribunal_service, {'label':"Service du tribunal", 'attr': {'placeholder': "Service du
             tribunal"}}) }}
-        </div>
-        <div class="col-1">
             <button type="button" id="addServiceTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart2">
                 +
             </button>
