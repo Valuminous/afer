@@ -20,23 +20,23 @@ class StagiaireType extends AbstractType
             'class' => Civilite::class,
             'choice_label' => 'nomCivilite'
             ])
-            ->add('nom_stagiaire')
-            ->add('prenom_stagiaire')
-            ->add('cp_stagiaire')
-            ->add('commune_stagiaire')
-            ->add('nom_naissance_stagiaire')
-            ->add('date_naissance_stagiaire',DateTimeType::class, [
+            ->add('nomStagiaire')
+            ->add('prenomStagiaire')
+            ->add('cpStagiaire')
+            ->add('communeStagiaire')
+            ->add('nomNaissanceStagiaire')
+            ->add('dateNaissanceStagiaire',DateTimeType::class, [
                 'date_label' => 'Starts On'])
-            ->add('lieu_naissance_stagiaire')
-            ->add('adresse_stagiaire')
-            ->add('nationalite_stagiaire')
-            ->add('numero_portable_stagiaire')
-            ->add('numero_fixe_stagiaire')
-            ->add('email_stagiaire')
-            ->add('carte_jeune_stagiaire')
-            ->add('partenaire_stagiaire')
-            ->add('adherent_stagiaire')
-            ->add('numero_adresse_stagiaire');
+            ->add('lieuNaissanceStagiaire')
+            ->add('adresseStagiaire')
+            ->add('nationaliteStagiaire')
+            ->add('numeroPortableStagiaire')
+            ->add('numeroFixeStagiaire')
+            ->add('emailStagiaire')
+            ->add('carteJeuneStagiaire')
+            ->add('partenaireStagiaire')
+            ->add('adherentStagiaire')
+            ->add('numeroAdresseStagiaire');
             // ->add('stages', EntityType::class, [
             //     'class' => Stage::class,
             //     'label' => 'numeroStage'

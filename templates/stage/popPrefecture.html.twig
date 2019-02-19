@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+{{ form_row(form.nomPrefecture, {'label':"Nom de la préfecture", 'attr': {'placeholder': "Nom de la préfecture"}}) }}
+{{ form_row(form.adressePrefecture, {'label':"Adresse", 'attr': {'placeholder': "adresse du préfecture"}}) }}
+{{ form_row(form.numeroAdressePrefecture, {'label':"Numéro de rue", 'attr': {'placeholder': "Numéro de rue"}}) }}
+{{ form_row(form.communePrefecture, {'label':"Commune", 'attr': {'placeholder': "Commune de la préfecture"}}) }}
+{{ form_row(form.prefectureService, {'label':"Service", 'attr': {'placeholder': "Service de la préfecture"}}) }}
+{{ form_row(form.prefectureAutorite, {'label':"Autorité", 'attr': {'placeholder': "Autorité de la préfecture"}}) }}
+{{ form_row(form.cpPrefecture, {'label':"Code postal", 'attr': {'placeholder': "Code postal"}}) }}
+            
+
+<button class="btn btn-success" type="submit">Ajouter une prefecture</button>
+{{ form_end(form) }}

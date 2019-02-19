@@ -18,7 +18,19 @@ class StagiaireRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Stagiaire::class);
     }
-
+    
+    public function counter($value1,$value2)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nomPrefecture = :val1')
+            ->andWhere('t.communePrefecture = :val2')
+            ->setParameter('val1', $value1)
+            ->setParameter('val2', $value2)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Stagiaire[] Returns an array of Stagiaire objects
     //  */
