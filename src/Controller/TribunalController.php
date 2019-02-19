@@ -85,7 +85,7 @@ class TribunalController extends AbstractController
     }
 
     /**
-     * @Route("/tribunal{id}/afficher", name="tribunal_afficher")
+     * @Route("/tribunal/{id}/afficher", name="tribunal_afficher")
      */
     public function showOne(Tribunal $tribunal)
     {
