@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="utilisateur">
+    <p>ID : {{ users.id }}</p>
+    <p>Nom d'utilisateur : {{ users.username }}</p> 
+    <p>Email : {{ users.email }}</p>
+    <p>Nom : {{ users.nomUser }}</p>
+    <p>Prénom : {{ users.prenomUser }}</p>
+    {% for role in users.roles %}
+        <p>Rôle : {{ role }}</p>
+    {% endfor %}
+</section>
+
+    <a href="{{ path('utilisateur_index') }}">Retour</a>
+
+{% endblock %}

@@ -23,9 +23,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use Doctrine\ORM\EntityManager;
 /**
  * @Route("/admin")
+ * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_TRIBUNAL')")
  */
 class TribunalController extends AbstractController
 {
@@ -43,6 +47,7 @@ class TribunalController extends AbstractController
     /**
     * @Route("/tribunal/ajouter", name="tribunal_ajouter")
     * @Route("/tribunal/{id}/modifier", name="tribunal_modifier")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function ajouterTribunal(Tribunal $tribunals = null, Request $request, ObjectManager $manager)
     {
@@ -69,6 +74,7 @@ class TribunalController extends AbstractController
 
     /**
     * @Route("/tribunal/{id}/supprimer", name="tribunal_supprimer")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function supprimerTribunal(Tribunal $tribunal, Request $request, ObjectManager $manager)
     {
@@ -91,6 +97,7 @@ class TribunalController extends AbstractController
     /**
     * @Route("/tribunal/autorite/ajouter", name="tribunalAutorite_ajouter")
     * @Route("/tribunal/autorite/{id}/modifier", name="tribunalAutorite_modifier")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function ajoutTribunalAutorite(TribunalAutorite $autorite = null, Request $request, ObjectManager $manager)
     {
@@ -117,6 +124,7 @@ class TribunalController extends AbstractController
 
     /**
     * @Route("/tribunal/autorite/{id}/supprimer", name="tribunalAutorite_supprimer")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function supprimerAutorite(TribunalAutorite $autorite, Request $request, ObjectManager $manager)
     {
@@ -141,6 +149,7 @@ class TribunalController extends AbstractController
     /**
     * @Route("/tribunal/service/ajouter", name="tribunalService_ajouter")
     * @Route("/tribunal/service/{id}/modifier", name="tribunalService_modifier")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function ajoutTribunalService(TribunalService $service = null, Request $request, ObjectManager $manager)
     {
@@ -167,6 +176,7 @@ class TribunalController extends AbstractController
         
     /**
     * @Route("/tribunal/service/{id}/supprimer", name="tribunalService_supprimer")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function supprimerService(TribunalService $service, Request $request, ObjectManager $manager)
     {
@@ -189,6 +199,7 @@ class TribunalController extends AbstractController
         
     /**
     * @Route("/tribunal/autorite/loadFormAutoriteTribunal", name="tribunal_autorite_test")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function popAutorite(TribunalAutorite $autorite = null,TribunalAutoriteRepository $repoAutorite, Request $request, ObjectManager $manager)
     {
@@ -225,6 +236,7 @@ class TribunalController extends AbstractController
 
     /**
     * @Route("/tribunal/service/loadFormServiceTribunal", name="tribunal_service_test")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function popService(TribunalService $service = null,TribunalServiceRepository $repoService, Request $request, ObjectManager $manager)
     {

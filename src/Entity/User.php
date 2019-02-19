@@ -52,6 +52,11 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="simple_array")
+     */
+    private $roles = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,12 +126,13 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        // $roles = $this->roles;
-        // // guarantees that a user always has at least one role for security
-        // if (empty($roles)) {
-        //     $roles[] = 'ADMIN';
-        // }
-        return ['ROLE_ADMIN'];
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles) 
+    {
+        $this->roles = $roles;
+
     }
     // public function setRoles(array $roles)
     // {

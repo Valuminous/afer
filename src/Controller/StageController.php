@@ -11,8 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\StageRepository;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 /**
  * @Route("/admin")
+ * @IsGranted("ROLE_ADMIN")
  */
 class StageController extends AbstractController
 {
