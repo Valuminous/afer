@@ -2,75 +2,166 @@
 
 {% block body %}
 
-    {% if editMode %}
-    <h1>Modifier un animateur</h1>
-    {% else %}
-    <h1>Ajouter un animateur</h1>
-    {% endif %}
+<div class="container">
 
-{{ form_start(formAnimateur) }}
+    {{ form_start(formAnimateur) }}
 
-<button type="submit" class="btn btn-primary">
-    {% if editMode %}
-    Modifier
-    {% else %}
-    Sauvegarder
-    {% endif %}
-</button>
-<div class="d-flex">
-        {{ form_row(formAnimateur.animateurFonction, {'label':"Fonction de l'animateur", 'attr': {'placeholder':
-        "Fonction animateur"}}) }}
-        <button type="button" id="addFonctionAnimateur" class="btn btn-primary" data-toggle="modal" data-target="#modalCart5">
-            +
-        </button>
-    </div>
-    <div class="d-flex">
-        {{ form_row(formAnimateur.animateurStatut, {'label':"Statut de l'animateur", 'attr': {'placeholder': "Statut animateur"}}) }}
-        <button type="button" id="addStatutAnimateur" class="btn btn-primary" data-toggle="modal" data-target="#modalCart6">
-            +
-        </button>
+    <div>
+        {% if editMode %}
+        <h2 class="mt-5 mb-5 h2_animateur">Modifier un animateur</h2>
+        {% else %}
+        <h2 class="mt-5 mb-5 h2_animateur">Ajouter un animateur</h2>
+        {% endif %}
     </div>
 
-{{ form_end(formAnimateur) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateur.civilite, {'label': "Civilité :", 'attr': {'placeholder': "Civilité"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.nom_animateur, {'label': "Nom :", 'attr': {'placeholder': "Nom"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.prenom_animateur, {'label': "Prenom :", 'attr': {'placeholder': "Prenom"}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateur.rue_animateur, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.commune_animateur, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateur.cp_animateur, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}})
+            }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.region_animateur, {'label': "Region :", 'attr': {'placeholder': "Region"}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateur.email_animateur, {'label': "Email :", 'attr': {'placeholder': "Email"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.numero_portable_animateur, {'label': "N° de portable :", 'attr': {'placeholder':
+            "N° de portable"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.numero_fixe_animateur, {'label': "N° de fixe :", 'attr': {'placeholder': "N° de
+            fixe"}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateur.siret_animateur, {'label': "N° SIRET :", 'attr': {'placeholder': "N° SIRET"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.urssaf_animateur, {'label': "N° URSSAF :", 'attr': {'placeholder': "N° URSSAF"}})
+            }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateur.raison_sociale_animateur, {'label': "Raison sociale :", 'attr': {'placeholder':
+            "Raison sociale"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formAnimateur.gta_animateur, {'label': "Gestion technique et administrative :", 'attr':
+            {'placeholder': "Gestion technique et administrative"}})
+            }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-5">
+            {{ form_row(formAnimateur.animateurFonction, {'label':"Fonction de l'animateur", 'attr': {'placeholder':
+            "Fonction animateur"}}) }}
+        </div>
+        <div class="col-1">
+            <button type="button" id="addFonctionAnimateur" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart5">
+                +
+            </button>
+        </div>
+        <div class="col-5">
+            {{ form_row(formAnimateur.animateurStatut, {'label':"Statut de l'animateur", 'attr': {'placeholder':
+            "Statut
+            animateur"}}) }}
+        </div>
+        <div class="col-1">
+            <button type="button" id="addStatutAnimateur" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart6">
+                +
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateur.observations_animateur, {'label': "Observations :", 'attr': {'placeholder':
+            "Observations"}})}}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if editMode %}
+        Modifier
+        {% else %}
+        Sauvegarder
+        {% endif %}
+    </button>
+
+    {{ form_end(formAnimateur) }}
+
+</div>
+
 
 <!-- Modal: modalCart -->
 <div class="modal fade" id="modalCart5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Ajouter une fonction</h4>
-                    <button type="button" class="close5" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <!--Body-->
-                <div class="modal-body"></div>
-                <div class="text-danger" id="error5"></div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter une fonction</h4>
+                <button type="button" class="close5" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
+            <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger" id="error5"></div>
         </div>
     </div>
-    <!-- Modal: modalCart -->
-    
-    
-    <!-- Modal: modalCart -->
-    <div class="modal fade" id="modalCart6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Ajouter un Statut</h4>
-                    <button type="button" class="close6" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <!--Body-->
-                <div class="modal-body"></div>
-                <div class="text-danger" id="error6"></div>    
+</div>
+<!-- Modal: modalCart -->
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCart6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter un Statut</h4>
+                <button type="button" class="close6" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
+            <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger" id="error6"></div>
         </div>
     </div>
-    <!-- Modal: modalCart -->
-    
+</div>
+<!-- Modal: modalCart -->
+
 
 {% endblock %}

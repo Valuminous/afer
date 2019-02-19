@@ -229,13 +229,13 @@ function changeActiveButton(){
         activePrefectureAutorite.style.fontWeight = 'bold';
         purpleArrowValue = 1;
     }
-}
 
-if (pathname == '/admin/prefecture/service') {
-    purpleArrow.style.transform = 'rotate(90deg)';
-    myDropdownMenu4.style.display = 'block';
-    myDropdownMenu4.style.opacity = '1';
-    activePrefectureService.style.color = '#9c2db3';
-    activePrefectureService.style.fontWeight = 'bold';
-    purpleArrowValue = 1;
+    if (pathname == '/admin/prefecture/service') {
+        purpleArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu4.style.display = 'block';
+        myDropdownMenu4.style.opacity = '1';
+        activePrefectureService.style.color = '#9c2db3';
+        activePrefectureService.style.fontWeight = 'bold';
+        purpleArrowValue = 1;
+    }
 }

@@ -40,9 +40,9 @@
                     {% endfor %}
                 </td>
                 <td class="text-center">
-                    <a href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
-                    <a href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('stage_supprimer', {'id': stage.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5 "></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Voir le stage" href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
+                    <a  data-toggle="tooltip" data-placement="top" title="Modifier le stage" href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
+                    <a  data-toggle="tooltip" data-placement="top" title="Supprimer le stage" href="{{  path('stage_supprimer', {'id': stage.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5 "></i></a>
                 </td>
             </tr>
             {% else %}

@@ -20,8 +20,8 @@
             <tr>
                 <td class="pl-5 text-left">{{ animateurfonction.nom }}</td>
                 <td class="text-center">
-                    <a href="{{  path('animateurFonction_modifier', {'id': animateurfonction.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}"><i class="ml-3 trash_color far fa-trash-alt pr-5"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Modifier la fonction" href="{{  path('animateurFonction_modifier', {'id': animateurfonction.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Supprimer la fonction" href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}"><i class="ml-3 trash_color far fa-trash-alt pr-5"></i></a>
                 </td>
             </tr>
                 {% else %}

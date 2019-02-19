@@ -36,6 +36,9 @@
         </div>
         <div class="container-fluid">
             <div class="row">
+
+            {# <----- Menu admin -----> #}
+
                 <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 left_nav position-fixed">
                     <ul>
                         <li class="mt-5 mb-5">
@@ -113,6 +116,67 @@
                         </li>
                     </ul>
                 </div>
+
+                {# <----- Fin menu admin -----> #}
+
+                {# <----- Menu tribunaux -----> #}
+
+                {# <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 left_nav position-fixed">
+                    <ul>
+                        <li class="mt-5 mb-5">
+                            <a href="{{ path('stagiaire_index') }}"><i class="fas fa-users"></i>Stagiaires</a>
+                        </li>
+                        <li class="mb-5 onclick_tribunaux">
+                            <a class="turn_arrow_blue"><i class="fas fa-balance-scale"></i>Tribunaux</a>
+                            <i class="fas fa-angle-right ml-4 angle_blue"></i>
+                            <ul class="ul_without_padding list_tribunaux">
+                                <li class="background_tribunaux pb-2 pt-2">
+                                    <a href="{{ path('tribunal_index') }}" class="tribunaux_hover active_tribunal_liste">Liste des tribunaux</a>
+                                </li>
+                                <li><hr class="color_blue"></li>
+                                <li class="background_tribunaux pb-2 pt-2">
+                                    <a href="{{ path('tribunalAutorite_index') }}" class="tribunaux_hover active_tribunal_autorite">Autorité</a>
+                                </li>
+                                <li><hr class="color_blue"></li>
+                                <li class="background_tribunaux pb-2 pt-2">
+                                    <a href="{{ path('tribunalService_index') }}" class="tribunaux_hover active_tribunal_service">Service</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div> #}
+
+                {# <----- Fin menu tribunaux -----> #}
+
+                {# <----- Menu préfecture -----> #}
+
+                    {# <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 left_nav position-fixed">
+                    <ul>
+                        <li class="mt-5 mb-5">
+                            <a href="{{ path('stagiaire_index') }}"><i class="fas fa-users"></i>Stagiaires</a>
+                        </li>
+                        <li class="mb-5 onclick_prefecture">
+                            <a class="turn_arrow_purple"><i class="fas fa-address-card"></i>Préfectures</a>
+                            <i class="fas fa-angle-right ml-4 angle_purple"></i>
+                            <ul class="ul_without_padding list_prefectures">
+                                <li class="background_prefecture pb-2 pt-2">
+                                    <a href="{{ path('prefecture_index') }}" class="prefecture_hover active_prefecture_liste">Liste des préfectures</a>
+                                </li>
+                                <li><hr class="color_purple"></li>
+                                <li class="background_prefecture pb-2 pt-2">
+                                    <a href="{{ path('prefectureAutorite_index') }}" class="prefecture_hover active_prefecture_autorite">Autorité</a>
+                                </li>
+                                <li><hr class="color_purple"></li>
+                                <li class="background_prefecture pb-2 pt-2">
+                                    <a href="{{ path('prefectureService_index') }}" class="prefecture_hover active_prefecture_service">Service</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div> #}
+
+                {# <----- Fin menu préfecture -----> #}
+
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 main_content position-absolute">
                     {% block body %}{% endblock %}
                 </div>
@@ -129,7 +193,13 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/js/mdb.min.js"></script>
+
     <script src="{{ asset('build/app.js') }}"></script>
+
+    {# <script src="{{ asset('build/tribunal.js') }}"></script> #}
+
+    {# <script src="{{ asset('build/prefecture.js') }}"></script> #}
+
     {% block javascripts %}{% endblock %}
 </body>
 

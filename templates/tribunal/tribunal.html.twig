@@ -25,9 +25,9 @@
                 <td class="text-left">{{ tribunal.tribunalAutorite }}</td>
                 <td class="text-left">{{ tribunal.tribunalService }}</td>
                 <td class="text-center">
-                    <a href="{{  path('tribunal_afficher', {'id': tribunal.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
-                    <a href="{{  path('tribunal_modifier', {'id': tribunal.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('tribunal_supprimer', {'id': tribunal.id}) }}" ><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Voir le tribunal" href="{{  path('tribunal_afficher', {'id': tribunal.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Modifier le tribunal" href="{{  path('tribunal_modifier', {'id': tribunal.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Supprimer le tribunal" href="{{  path('tribunal_supprimer', {'id': tribunal.id}) }}" ><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
                 </td>
             </tr>
                 {% else %}

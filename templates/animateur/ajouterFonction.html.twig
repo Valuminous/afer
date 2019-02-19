@@ -1,23 +1,35 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block body %}
 
-    {% if editMode %}
-    <h1>Modifier une fonction</h1>
-    {% else %}
-    <h1>Ajouter une fonction</h1>
-    {% endif %}
+<div class="container">
 
-{{ form_start(formAnimateurFonction) }}
+    {{ form_start(formAnimateurFonction) }}
 
-<button type="submit" class="btn btn-primary">
-    {% if editMode %}
-    Modifier
-    {% else %}
-    Sauvegarder
-    {% endif %}
-</button>
+    <div>
+        {% if editMode %}
+        <h2 class="mt-5 mb-5 h2_animateur">Modifier une fonction</h2>
+        {% else %}
+        <h2 class="mt-5 mb-5 h2_animateur">Ajouter une fonction</h2>
+        {% endif %}
+    </div>
 
-{{ form_end(formAnimateurFonction) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateurFonction.nom, {'label': "Nom de la fonction :", 'attr': {'placeholder': "Nom de la fonction"}}) }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if editMode %}
+        Modifier
+        {% else %}
+        Sauvegarder
+        {% endif %}
+    </button>
+
+    {{ form_end(formAnimateurFonction) }}
+</div>
+
 
 {% endblock %}

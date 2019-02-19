@@ -21,8 +21,8 @@
                 <tr>
                     <td class="pl-5 text-left">{{ autorite.nom }}</td>
                     <td class="text-center">
-                        <a href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="ml-3 fas fa-pen pen_color "></i></a>
-                        <a href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Modifier l'autorité" href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="ml-3 fas fa-pen pen_color "></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Supprimer l'autorité" href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
                     </td>
                 </tr>
             {% else %}
