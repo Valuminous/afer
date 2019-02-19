@@ -38,6 +38,11 @@ class Tribunal
     private $communeTribunal;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $cpTribunal;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TribunalService", inversedBy="relation")
      */
     private $tribunalService;
@@ -93,6 +98,17 @@ class Tribunal
     public function setNumeroAdresseTribunal(string $numeroAdresseTribunal): self
     {
         $this->numeroAdresseTribunal = $numeroAdresseTribunal;
+
+        return $this;
+    }
+    public function getCpTribunal(): ?string
+    {
+        return $this->cpTribunal;
+    }
+
+    public function setCpTribunal(string $cpTribunal): self
+    {
+        $this->cpTribunal = $cpTribunal;
 
         return $this;
     }

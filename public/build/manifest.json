@@ -1,7 +1,8 @@
 {
   "build/app.css": "/build/app.css",
   "build/app.js": "/build/app.js",
-  "build/static/DOC_CSA_DETAILLE.pdf": "/build/static/DOC_CSA_DETAILLE.pdf",
+  "build/images/chosen-sprite.png": "/build/images/chosen-sprite.8b55a822.png",
+  "build/images/chosen-sprite@2x.png": "/build/images/chosen-sprite@2x.614fad61.png",
   "build/static/favicon.ico": "/build/static/favicon.ico",
   "build/static/logo.png": "/build/static/logo.png"
 }

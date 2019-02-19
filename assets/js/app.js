@@ -5,6 +5,7 @@ require('../scss/main.scss');
 require('../js/popUp.js');
 require('../../vendor/eternicode/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js');
 require('../../vendor/eternicode/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js');
+require('../../vendor/harvesthq/chosen/chosen.jquery.min.js');
 
 const onclickStage = document.querySelector('.onclick_stage');
 const onclickTribunaux = document.querySelector('.onclick_tribunaux');

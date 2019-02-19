@@ -46,6 +46,10 @@ class Animateur
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $numeroRueAnimateur;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $rueAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -161,6 +165,15 @@ class Animateur
     public function setRegionAnimateur(string $regionAnimateur): self
     {
         $this->regionAnimateur = $regionAnimateur;
+        return $this;
+    }
+    public function getNumeroRueAnimateur(): ?string
+    {
+        return $this->numeroRueAnimateur;
+    }
+    public function setNumeroRueAnimateur(string $numeroRueAnimateur): self
+    {
+        $this->numeroRueAnimateur = $numeroRueAnimateur;
         return $this;
     }
     public function getRueAnimateur(): ?string

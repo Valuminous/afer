@@ -84,7 +84,7 @@
             {{ form_row(formStagiaire.partenaire_stagiaire, {'label': "Stagiaire partenaire :", 'attr': {'placeholder': "Stagiaire partenaire"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formStagiaire.adherent_stagiaire, {'label': "Stagiaire adherent :", 'attr': {'placeholder': "Stagiaire adherent"}}) }}
+            {{ form_row(formStagiaire.adherent_stagiaire, {'label': "Stagiaire adhérent :", 'attr': {'placeholder': "Stagiaire adhérent"}}) }}
         </div>
     </div>
 
@@ -104,4 +104,11 @@
 </div>
 
 {% endblock %}
- 
+
+ {% block javascripts %}
+<script>
+ $().ready(function () {
+    $('select.chzn-select').chosen();
+ });
+    </script>
+{% endblock %}
