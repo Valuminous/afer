@@ -4,15 +4,19 @@
 
 <section class="prefecture">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="ml-5 h2_prefecture">Liste des services pour les préfectures</h2>
-        <a href="{{ path('prefectureService_ajouter') }}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        <h2 class="ml-5 h2_prefecture mt-5 mb-5">Liste des services pour les préfectures</h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('prefectureService_ajouter') }}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        {% endif %}
     </div>
 
     <table class="table table-striped">
         <thead>
             <tr class="background_prefecture">
                 <th scope="col" class="pl-5 text-left">Nom du service</th>
-                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                {% endif %}
             </tr>
         </thead>
 
@@ -20,10 +24,12 @@
             {% for service in services %}
                 <tr>
                     <td class="pl-5 text-left">{{ service.nom }}</td>
-                    <td class="text-center">
-                        <a href="{{ path('prefectureService_modifier', {'id': service.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
-                        <a href="{{ path('prefectureService_supprimer', {'id': service.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
-                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td class="text-center">
+                            <a href="{{ path('prefectureService_modifier', {'id': service.id}) }}"><i class="fas fa-pen pen_color"></i></a>
+                            <a href="{{ path('prefectureService_supprimer', {'id': service.id}) }}"><i class="far fa-trash-alt trash_color pl-2"></i></a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% else %}
                 <td class="pl-5 text-left">Il n'y a aucun service</td>

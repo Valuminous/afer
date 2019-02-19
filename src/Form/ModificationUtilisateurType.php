@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class RegistrationType extends AbstractType
+class ModificationUtilisateurType extends AbstractType
 {
     const ADMIN = 'ROLE_ADMIN';
     const PREFECTURE = 'ROLE_PREFECTURE';
@@ -29,8 +29,6 @@ class RegistrationType extends AbstractType
             ->add('prenomUser')
             ->add('email')
             ->add('username')
-            ->add('password', PasswordType::class)
-            ->add('confirm_password', PasswordType::class)
             ->add('roles', ChoiceType::class, [
                 'mapped' => false,
                 'choices' => [

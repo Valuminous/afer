@@ -4,8 +4,8 @@
 
 <section class="stage">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="ml-5 h2_stage">Liste des stages</h2>
-        <a href="{{ path('stage_ajouter')}}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        <h2 class="ml-5 h2_stage mt-5 mb-5">Liste des stages</h2>
+        <a href="{{ path('stage_ajouter')}}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
     </div>
 
     <table class="table table-striped">
@@ -16,7 +16,7 @@
                 <th scope="col" class="text-left">Date de fin</th>
                 <th scope="col" class="text-left">Lieu de stage</th>
                 <th scope="col" class="text-left">Animateurs</th>
-                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -40,9 +40,9 @@
                     {% endfor %}
                 </td>
                 <td class="text-center">
-                    <a href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
-                    <a href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('stage_supprimer', {'id': stage.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5 "></i></a>
+                    <a href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye eye_color"></i></a>
+                    <a href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+                    <a href="{{  path('stage_supprimer', {'id': stage.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
                 </td>
             </tr>
             {% else %}

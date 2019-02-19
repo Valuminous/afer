@@ -20,11 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin")
+ * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_PREFECTURE')")
  */
 class PrefectureController extends AbstractController
 {
@@ -68,6 +71,7 @@ class PrefectureController extends AbstractController
     /**
      * @Route("/prefecture/ajouter", name="prefecture_ajouter")
      * @Route("/prefecture/{id}/modifier", name="prefecture_modifier")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function form(Prefecture $prefectures = null, Request $request, ObjectManager $manager) {
 
@@ -105,6 +109,7 @@ class PrefectureController extends AbstractController
 
     /**
      * @Route("/prefecture/{id}/supprimer", name="prefecture_supprimer")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Prefecture $prefectures, Request $request, ObjectManager $manager) {
 
@@ -117,6 +122,7 @@ class PrefectureController extends AbstractController
     /**
      * @Route("/prefecture/service/ajouter", name="prefectureService_ajouter")
      * @Route("/prefecture/service/{id}/modifier", name="prefectureService_modifier")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function ajoutPrefectureService(PrefectureService $service = null, Request $request, ObjectManager $manager) {
 
@@ -143,6 +149,7 @@ class PrefectureController extends AbstractController
 
     /**
      * @Route("/prefecture/service/{id}/supprimer", name="prefectureService_supprimer")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deletePrefectureService(PrefectureService $service, Request $request, ObjectManager $manager) {
 
@@ -155,6 +162,7 @@ class PrefectureController extends AbstractController
     /**
      * @Route("/prefecture/autorite/ajouter", name="prefectureAutorite_ajouter")
      * @Route("/prefecture/autorite/{id}/modifier", name="prefectureAutorite_modifier")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function ajoutPrefectureAutorite(PrefectureAutorite $autorite = null, Request $request, ObjectManager $manager) {
 
@@ -181,6 +189,7 @@ class PrefectureController extends AbstractController
 
     /**
      * @Route("/prefecture/autorite/{id}/supprimer", name="prefectureAutorite_supprimer")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deletePrefectureAutorite(PrefectureAutorite $autorite, Request $request, ObjectManager $manager) {
 
@@ -192,6 +201,7 @@ class PrefectureController extends AbstractController
 
     /**
     * @Route("/prefecture/service/loadFormServicePrefecture", name="prefecture_service_pop")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function popService(PrefectureService $service = null, Request $request,PrefectureServiceRepository $repoService, ObjectManager $manager)
     {
@@ -228,6 +238,7 @@ class PrefectureController extends AbstractController
 
     /**
     * @Route("/prefecture/autorite/loadFormAutoritePrefecture", name="prefecture_autorite_pop")
+    * @IsGranted("ROLE_ADMIN")
     */
     public function popAutorite(PrefectureAutorite $autorite = null,PrefectureAutoriteRepository $repoAutorite, Request $request, ObjectManager $manager)
     {

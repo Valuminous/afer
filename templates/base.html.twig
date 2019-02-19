@@ -38,79 +38,97 @@
             <div class="row">
                 <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 left_nav position-fixed">
                     <ul>
-                        <li class="mt-5 mb-5">
-                            <a href="{{ path('admin') }}"><i class="fab fa-microsoft"></i>À la une</a>
-                        </li>
-                        <li class="mb-5 onclick_stage">
-                            <a><i class="far fa-calendar-alt"></i>Stages</a>
-                            <i class="fas fa-angle-right ml-4 angle_red"></i>
-                            <ul class="ul_without_padding list_stages">
-                                <li class="background_stage pt-2 pb-2">
-                                    <a href="{{ path('stage_index') }}" class="stage_hover active_stage_liste">Liste des stages</a>
-                                </li>
-                                <li><hr class="color_red"></li>
-                                <li class="background_stage pt-2 pb-2">
-                                    <a href="{{ path('lieuStage_index') }}" class="stage_hover active_lieu_stage">Lieu de stage</a>
-                                </li>
-                            </ul>
-                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="mt-5 mb-5">
+                                <a href="{{ path('admin') }}"><i class="fab fa-microsoft"></i>À la une</a>
+                            </li>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="mb-5 onclick_stage">
+                                <a><i class="far fa-calendar-alt"></i>Stages</a>
+                                <i class="fas fa-angle-right ml-4 angle_red"></i>
+                                <ul class="ul_without_padding list_stages">
+                                    <li class="background_stage pt-2 pb-2">
+                                        <a href="{{ path('stage_index') }}" class="stage_hover active_stage_liste">Liste des stages</a>
+                                    </li>
+                                    <li><hr class="color_red"></li>
+                                    <li class="background_stage pt-2 pb-2">
+                                        <a href="{{ path('lieuStage_index') }}" class="stage_hover active_lieu_stage">Lieu de stage</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
                         <li class="mb-5">
                             <a href="{{ path('stagiaire_index') }}"><i class="fas fa-users"></i>Stagiaires</a>
                         </li>
-                        <li class="mb-5 onclick_tribunaux">
-                            <a class="turn_arrow_blue"><i class="fas fa-balance-scale"></i>Tribunaux</a>
-                            <i class="fas fa-angle-right ml-4 angle_blue"></i>
-                            <ul class="ul_without_padding list_tribunaux">
-                                <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="{{ path('tribunal_index') }}" class="tribunaux_hover active_tribunal_liste">Liste des tribunaux</a>
-                                </li>
-                                <li><hr class="color_blue"></li>
-                                <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="{{ path('tribunalAutorite_index') }}" class="tribunaux_hover active_tribunal_autorite">Autorité</a>
-                                </li>
-                                <li><hr class="color_blue"></li>
-                                <li class="background_tribunaux pb-2 pt-2">
-                                    <a href="{{ path('tribunalService_index') }}" class="tribunaux_hover active_tribunal_service">Service</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="mb-5 onclick_animateur">
-                            <a class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
-                            <i class="fas fa-angle-right ml-4 angle_orange"></i>
-                            <ul class="ul_without_padding list_animateurs">
-                                <li class="background_animateur pb-2 pt-2">
-                                    <a href="{{ path('animateur_index') }}" class="animateur_hover active_animateur_liste">Liste des animateurs</a>
-                                </li>
-                                <li><hr class="color_orange"></li>
-                                <li class="background_animateur pb-2 pt-2">
-                                    <a href="{{ path('animateurFonction_index') }}" class="animateur_hover active_animateur_fonction">Fonction</a>
-                                </li>
-                                <li><hr class="color_orange"></li>
-                                <li class="background_animateur pb-2 pt-2">
-                                    <a href="{{ path('animateurStatut_index') }}" class="animateur_hover active_animateur_statut">Statut</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="mb-5 onclick_prefecture">
-                            <a class="turn_arrow_purple"><i class="fas fa-address-card"></i>Préfectures</a>
-                            <i class="fas fa-angle-right ml-4 angle_purple"></i>
-                            <ul class="ul_without_padding list_prefectures">
-                                <li class="background_prefecture pb-2 pt-2">
-                                    <a href="{{ path('prefecture_index') }}" class="prefecture_hover active_prefecture_liste">Liste des préfectures</a>
-                                </li>
-                                <li><hr class="color_purple"></li>
-                                <li class="background_prefecture pb-2 pt-2">
-                                    <a href="{{ path('prefectureAutorite_index') }}" class="prefecture_hover active_prefecture_autorite">Autorité</a>
-                                </li>
-                                <li><hr class="color_purple"></li>
-                                <li class="background_prefecture pb-2 pt-2">
-                                    <a href="{{ path('prefectureService_index') }}" class="prefecture_hover active_prefecture_service">Service</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{ path('utilisateur_index') }}"><i class="fas fa-key"></i>Utilisateurs</a>
-                        </li>
+
+                        {% if is_granted('ROLE_ADMIN') or  is_granted('ROLE_TRIBUNAL')%}
+                            <li class="mb-5 onclick_tribunaux">
+                                <a class="turn_arrow_blue"><i class="fas fa-balance-scale"></i>Tribunaux</a>
+                                <i class="fas fa-angle-right ml-4 angle_blue"></i>
+                                <ul class="ul_without_padding list_tribunaux">
+                                    <li class="background_tribunaux pb-2 pt-2">
+                                        <a href="{{ path('tribunal_index') }}" class="tribunaux_hover active_tribunal_liste">Liste des tribunaux</a>
+                                    </li>
+                                    <li><hr class="color_blue"></li>
+                                    <li class="background_tribunaux pb-2 pt-2">
+                                        <a href="{{ path('tribunalAutorite_index') }}" class="tribunaux_hover active_tribunal_autorite">Autorité</a>
+                                    </li>
+                                    <li><hr class="color_blue"></li>
+                                    <li class="background_tribunaux pb-2 pt-2">
+                                        <a href="{{ path('tribunalService_index') }}" class="tribunaux_hover active_tribunal_service">Service</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="mb-5 onclick_animateur">
+                                <a class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
+                                <i class="fas fa-angle-right ml-4 angle_orange"></i>
+                                <ul class="ul_without_padding list_animateurs">
+                                    <li class="background_animateur pb-2 pt-2">
+                                        <a href="{{ path('animateur_index') }}" class="animateur_hover active_animateur_liste">Liste des animateurs</a>
+                                    </li>
+                                    <li><hr class="color_orange"></li>
+                                    <li class="background_animateur pb-2 pt-2">
+                                        <a href="{{ path('animateurFonction_index') }}" class="animateur_hover active_animateur_fonction">Fonction</a>
+                                    </li>
+                                    <li><hr class="color_orange"></li>
+                                    <li class="background_animateur pb-2 pt-2">
+                                        <a href="{{ path('animateurStatut_index') }}" class="animateur_hover active_animateur_statut">Statut</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') or  is_granted('ROLE_PREFECTURE')%}
+                            <li class="mb-5 onclick_prefecture">
+                                <a class="turn_arrow_purple"><i class="fas fa-address-card"></i>Préfectures</a>
+                                <i class="fas fa-angle-right ml-4 angle_purple"></i>
+                                <ul class="ul_without_padding list_prefectures">
+                                    <li class="background_prefecture pb-2 pt-2">
+                                        <a href="{{ path('prefecture_index') }}" class="prefecture_hover active_prefecture_liste">Liste des préfectures</a>
+                                    </li>
+                                    <li><hr class="color_purple"></li>
+                                    <li class="background_prefecture pb-2 pt-2">
+                                        <a href="{{ path('prefectureAutorite_index') }}" class="prefecture_hover active_prefecture_autorite">Autorité</a>
+                                    </li>
+                                    <li><hr class="color_purple"></li>
+                                    <li class="background_prefecture pb-2 pt-2">
+                                        <a href="{{ path('prefectureService_index') }}" class="prefecture_hover active_prefecture_service">Service</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('utilisateur_index') }}"><i class="fas fa-key"></i>Utilisateurs</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 main_content position-absolute">

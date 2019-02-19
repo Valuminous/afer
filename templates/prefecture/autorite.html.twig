@@ -4,15 +4,19 @@
 
 <section class="prefecture">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="ml-5 h2_prefecture d-flex align-items-center">Liste des autorités pour les préfectures</h2>
-        <a href="{{ path('prefectureAutorite_ajouter') }}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        <h2 class="ml-5 h2_prefecture d-flex align-items-center  mt-5 mb-5">Liste des autorités pour les préfectures</h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('prefectureAutorite_ajouter') }}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        {% endif %}
     </div>
 
     <table class="table table-striped">
         <thead>
             <tr class="background_prefecture">
                 <th scope="col" class="pl-5 text-left">Nom de l'autorité</th>
-                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                {% endif %}
             </tr>
         </thead>
 
@@ -20,10 +24,12 @@
             {% for autorite in autorites %}
                 <tr>
                     <td class="pl-5 text-left">{{ autorite.nom }}</td>
-                    <td class="text-center">
-                        <a href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="ml-3 fas fa-pen pen_color "></i></a>
-                        <a href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
-                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td class="text-center">
+                            <a href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="fas fa-pen pen_color"></i></a>
+                            <a href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="far fa-trash-alt trash_color pl-2"></i></a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% else %}
                 <td class="pl-5 text-left">Il n'y a aucune autorité</td>

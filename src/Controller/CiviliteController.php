@@ -11,6 +11,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\CiviliteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+ * @IsGranted("ROLE_ADMIN")
+ */
 class CiviliteController extends AbstractController
 {
     public function index(CiviliteRepository $repo)

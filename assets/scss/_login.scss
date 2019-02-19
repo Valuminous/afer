@@ -1,0 +1,26 @@
+.body-login {
+    height: 100vh;
+}
+
+.h1-login {
+    color: #795548;
+}
+
+.logo-login {
+    height: 120px;
+    width: 120px;
+}
+
+.fa-user, .fa-unlock-alt {
+    color: #795548;
+    font-size: 1.5rem;
+}
+
+#inputUsername, #inputPassword {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #000000;
+    &:focus {
+        box-shadow: none;
+    }
+}
