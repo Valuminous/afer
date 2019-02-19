@@ -24,11 +24,12 @@
                 <td class="pl-5 text-left">{{ service.nom }}</td>
                 {% if is_granted('ROLE_ADMIN') %}
                     <td class="text-center">
-                        {# <a href="{{  path('tribunal_afficher', {'id': tribunal.id}) }}"><i class="far fa-eye"></i></a> #}
-                        <a href="{{  path('tribunalService_modifier', {'id': service.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                        <a href="{{  path('tribunalService_supprimer', {'id': service.id}) }}" ><i class="far fa-trash-alt trash_color pl-2"></i></a>
+                        
+                        <a data-toggle="tooltip" data-placement="top" title="Modifier le service" href="{{  path('tribunalService_modifier', {'id': service.id}) }}"><i class="fas fa-pen pen_color"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Supprimer le service" href="{{  path('tribunalService_supprimer', {'id': service.id}) }}" ><i class="far fa-trash-alt trash_color pl-2"></i></a>
                     </td>
                 {% endif %}
+                
             </tr>
             {% else %}
                 <td class="pl-5 text-left">Il n'y a aucun service</td>

@@ -29,11 +29,12 @@
                       <td class="text-left">{{ prefecture.prefectureAutorite }}</td>
                     <td class="text-left">{{ prefecture.prefectureService }}</td>
                     <td class="text-center">
-                        <a href="{{ path('prefecture_afficher', {'id': prefecture.id}) }}"><i class="fas fa-eye eye_color"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Voir la préfecture" href="{{ path('prefecture_afficher', {'id': prefecture.id}) }}"><i class="fas fa-eye eye_color"></i></a>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('prefecture_modifier', {'id': prefecture.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
-                            <a href="{{ path('prefecture_supprimer', {'id': prefecture.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Modifier la préfecture" href="{{ path('prefecture_modifier', {'id': prefecture.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Supprimer la préfecture" href="{{ path('prefecture_supprimer', {'id': prefecture.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
                         {% endif %}
+                        
                     </td>
                 </tr>
             {% else %}

@@ -1,23 +1,35 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block body %}
 
-    {% if editMode %}
-    <h1>Modifier un statut</h1>
-    {% else %}
-    <h1>Ajouter un statut</h1>
-    {% endif %}
+<div class="container">
 
-{{ form_start(formAnimateurStatut) }}
+    {{ form_start(formAnimateurStatut) }}
 
-<button type="submit" class="btn btn-primary">
-    {% if editMode %}
-    Modifier
-    {% else %}
-    Sauvegarder
-    {% endif %}
-</button>
+    <div>
+        {% if editMode %}
+        <h2 class="mt-5 mb-5 h2_animateur">Modifier un statut</h2>
+        {% else %}
+        <h2 class="mt-5 mb-5 h2_animateur">Ajouter un statut</h2>
+        {% endif %}
+    </div>
 
-{{ form_end(formAnimateurStatut) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAnimateurStatut.nom, {'label': "Nom du statut :", 'attr': {'placeholder': "Nom du statut"}}) }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if editMode %}
+        Modifier
+        {% else %}
+        Sauvegarder
+        {% endif %}
+    </button>
+
+    {{ form_end(formAnimateurStatut) }}
+</div>
+
 
 {% endblock %}

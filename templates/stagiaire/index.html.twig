@@ -29,11 +29,12 @@
                 <td class="text-left">{{ stagiaire.numeroFixeStagiaire}}</p>
                 </td>
                 <td class="text-center">
-                    <a href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i class="far fa-eye eye_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Voir le stagiaire" href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i class="far fa-eye eye_color"></i></a>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
-                        <a href="{{  path('stagiaire_supprimer', {'id': stagiaire.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Modifier le stagiaire" href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Supprimer le stagiaire" href="{{  path('stagiaire_supprimer', {'id': stagiaire.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
                     {% endif %}
+                   
                 </td>
             </tr>
              {% else %}

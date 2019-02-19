@@ -20,8 +20,9 @@
             <tr>
                 <td class="pl-5 text-left">{{ animateurstatut.nom }}</td>
                 <td class="text-center">
-                    <a href="{{  path('animateurStatut_modifier', {'id': animateurstatut.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('animateurStatut_supprimer', {'id': animateurstatut.id}) }}"><i class="trash_color far fa-trash-alt pl-2"></i></a>
+                     <a data-toggle="tooltip" data-placement="top" title="Modifier le statut" href="{{  path('animateurStatut_modifier', {'id': animateurstatut.id}) }}"><i class="fas fa-pen pen_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Supprimer le statut" href="{{  path('animateurStatut_supprimer', {'id': animateurstatut.id}) }}"><i class="trash_color far fa-trash-alt pl-2"></i></a>
+                    
                 </td>
             </tr>
                 {% else %}

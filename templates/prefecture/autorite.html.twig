@@ -26,10 +26,11 @@
                     <td class="pl-5 text-left">{{ autorite.nom }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td class="text-center">
-                            <a href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                            <a href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="far fa-trash-alt trash_color pl-2"></i></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Modifier l'autorité" href="{{ path('prefectureAutorite_modifier', {'id': autorite.id}) }}"><i class="fas fa-pen pen_color"></i></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Supprimer l'autorité" href="{{ path('prefectureAutorite_supprimer', {'id': autorite.id}) }}"><i class="far fa-trash-alt trash_color pl-2"></i></a>
                         </td>
                     {% endif %}
+                   
                 </tr>
             {% else %}
                 <td class="pl-5 text-left">Il n'y a aucune autorité</td>

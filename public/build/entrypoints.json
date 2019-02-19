@@ -7,6 +7,16 @@
       "js": [
         "/build/app.js"
       ]
+    },
+    "tribunal": {
+      "js": [
+        "/build/tribunal.js"
+      ]
+    },
+    "prefecture": {
+      "js": [
+        "/build/prefecture.js"
+      ]
     }
   }
 }

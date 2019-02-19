@@ -27,9 +27,10 @@
                 <td class="text-left">{{ animateur.numeroPortableAnimateur }}</td>
                 <td class="text-left">{{ animateur.numeroFixeAnimateur }}</td>
                 <td class="text-center">
-                    <a href="{{  path('animateur_afficher', {'id': animateur.id}) }}"><i class="far fa-eye eye_color"></i></a>
-                    <a href="{{  path('animateur_modifier', {'id': animateur.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
-                    <a href="{{  path('animateur_supprimer', {'id': animateur.id}) }}"><i class="trash_color far fa-trash-alt"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Voir l'animateur" href="{{  path('animateur_afficher', {'id': animateur.id}) }}"><i class="far fa-eye eye_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Modifier l'animateur" href="{{  path('animateur_modifier', {'id': animateur.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Supprimer l'animateur" href="{{  path('animateur_supprimer', {'id': animateur.id}) }}"><i class="trash_color far fa-trash-alt"></i></a>
+                    
                 </td>
             </tr>
             {% else %}
