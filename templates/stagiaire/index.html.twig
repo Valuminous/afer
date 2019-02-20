@@ -3,8 +3,10 @@
 
 <section class="stagiaire">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="ml-5 h2_stagiaire">Liste des stagiaires</h2>
-        <a href="{{ path('stagiaire_ajouter')}}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        <h2 class="ml-5 h2_stagiaire mt-5 mb-5">Liste des stagiaires</h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('stagiaire_ajouter')}}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        {% endif %}
     </div>
     <table class="table table-striped">
         <thead>
@@ -14,7 +16,7 @@
                 <th scope="col" class="text-left">Email</th>
                 <th scope="col" class="text-left">N° de portable</th>
                 <th scope="col" class="text-left">N° fixe</th>
-                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -27,15 +29,18 @@
                 <td class="text-left">{{ stagiaire.numeroFixeStagiaire}}</p>
                 </td>
                 <td class="text-center">
-                    <a href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i class="ml-3 far fa-eye eye_color"></i></a>
-                    <a href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('stagiaire_supprimer', {'id': stagiaire.id}) }}"><i class="ml-3 far fa-trash-alt trash_color pr-5"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Voir le stagiaire" href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i class="far fa-eye eye_color"></i></a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a data-toggle="tooltip" data-placement="top" title="Modifier le stagiaire" href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Supprimer le stagiaire" href="{{  path('stagiaire_supprimer', {'id': stagiaire.id}) }}"><i class="far fa-trash-alt trash_color"></i></a>
+                    {% endif %}
+                   
                 </td>
             </tr>
              {% else %}
            
                
-        <td class="pl-5 text-center">Il n'y a aucun stagiaire</td>
+            <td class="pl-5 text-center">Il n'y a aucun stagiaire</td>
             <td class="text-center">...</td>
             <td class="text-center">...</td>
             <td class="text-center">...</td>

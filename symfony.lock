@@ -1,4 +1,10 @@
 {
+    "components/bootstrap": {
+        "version": "3.4.0"
+    },
+    "components/jquery": {
+        "version": "3.3.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -80,11 +86,20 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
+    "eternicode/bootstrap-datepicker": {
+        "version": "v1.8.0"
+    },
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
+    "harvesthq/chosen": {
+        "version": "v1.8.7"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "kriswallsmith/assetic": {
+        "version": "v1.0.5"
     },
     "nikic/php-parser": {
         "version": "v4.2.0"
@@ -106,6 +121,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "robloach/component-installer": {
+        "version": "0.2.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -162,6 +180,9 @@
         "version": "v4.2.3"
     },
     "symfony/event-dispatcher": {
+        "version": "v4.2.3"
+    },
+    "symfony/expression-language": {
         "version": "v4.2.3"
     },
     "symfony/filesystem": {

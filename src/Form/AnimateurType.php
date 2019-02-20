@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AnimateurType extends AbstractType
 {
@@ -24,7 +25,14 @@ class AnimateurType extends AbstractType
             ->add('nom_animateur')
             ->add('prenom_animateur')
             ->add('raison_sociale_animateur')
-            ->add('gta_animateur')
+            ->add('gta_animateur', ChoiceType::class, [
+                'choices' => [
+                    'Gestion technique et administrative' => [
+                        'Non' => false,
+                        'Oui' => true,
+                    ],
+                ],
+            ])
             ->add('cp_animateur')
             ->add('commune_animateur')
             ->add('region_animateur')
@@ -43,10 +51,6 @@ class AnimateurType extends AbstractType
                 'class' => AnimateurFonction::class,
                 'choice_label' => 'nom'
             ])
-            // ->add('stages', EntityType::class, [
-            //     'class' => Stage::class,
-            //     'choice_label' => 'numero_stage'
-            // ])
         ;
     }
 

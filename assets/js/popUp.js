@@ -6,6 +6,7 @@ const close5 = document.querySelector('.close5');
 const close6 = document.querySelector('.close6');
 const closeTribunal = document.querySelector('.closeTribunal');
 const closePrefecture = document.querySelector('.closePrefecture');
+const closeStagiaire = document.querySelector('.closeStagiaire');
 
 // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 document.onreadystatechange = function () {
@@ -573,7 +574,9 @@ function loadFormStagiaire() {
                             document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire').value.length != 0 &&
                             document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire').value.length != 0 &&
                             document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire').value.length != 0 &&
-                            // document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire').value.length != "" &&
+                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value.length != "" &&
+                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value.length != "" &&
+                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value.length != "" &&
                             document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire').value.length != 0 &&
                             document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire').value.length != 0 &&
                             document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire').value.length != 0 &&
@@ -583,12 +586,16 @@ function loadFormStagiaire() {
                             document.querySelector('form[name="stagiaire"] #stagiaire_numeroAdresseStagiaire').value.length != 0 &&
                             document.querySelector('form[name="stagiaire"] #stagiaire_civilite').value.length != ""){
 
+       
+
                                 let stagiaireNom = document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire');
                                 let stagiairePrenom = document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire');
                                 let stagiaireCp = document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire');
                                 let stagiaireCommune = document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire');
                                 let stagiaireNomNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire');
-                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire');
+                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value+"/"+
+                                                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value+"/"+
+                                                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value;
                                 let stagiaireLieuNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire');
                                 let stagiaireAdresse = document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire');
                                 let stagiaireNationalite = document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire');
@@ -602,13 +609,13 @@ function loadFormStagiaire() {
                                 let stagiaireCivilite = document.querySelector('form[name="stagiaire"] #stagiaire_civilite');
                                 let token = document.querySelector('form[name="stagiaire"] #stagiaire__token');
                                 let data = new FormData();
-                                
+                              
                                 data.append("stagiaire_nomStagiaire", stagiaireNom.value);
                                 data.append("stagiaire_prenomStagiaire", stagiairePrenom.value);
                                 data.append("stagiaire_cpStagiaire", stagiaireCp.value);
                                 data.append("stagiaire_communeStagiaire", stagiaireCommune.value);
                                 data.append("stagiaire_nomNaissanceStagiaire", stagiaireNomNaissance.value);
-                                data.append("stagiaire_dateNaissanceStagiaire", stagiaireDateNaissance.value);
+                                data.append("stagiaire_dateNaissanceStagiaire", stagiaireDateNaissance);
                                 data.append("stagiaire_lieuNaissanceStagiaire", stagiaireLieuNaissance.value);
                                 data.append("stagiaire_adresseStagiaire", stagiaireAdresse.value);
                                 data.append("stagiaire_nationaliteStagiaire", stagiaireNationalite.value);
@@ -624,20 +631,31 @@ function loadFormStagiaire() {
 
                                 fetch("/admin/stage/loadFormStagiaire", { method: "POST",body: data,credentials: 'include'})
                                 .then((resultat) => {
-                                    return resultat.text();
+                                    return resultat.json();
                                 })
                                 .then((resultat) => {
-                                    console.log(resultat);
                                     if(resultat.error != null){
                                        document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
                                     }else if(resultat.value != null){
                                        const selectStagiaire = document.querySelector('#stage_stagiaires');
-                                       const option = document.createElement("option");
-                                       option.setAttribute('value', resultat.id )
-                                       option.text = resultat.value;
-                                       selectStagiaire.add(option);
-                                       selectStagiaire.selectedIndex = selectStagiaire.length - 1 ;
-                                       closeStaselectStagiaire.click(); 
+                                       const div = document.createElement("div");
+                                       div.classList.add('form-check');
+                                       
+                                       const input = document.createElement("input");
+                                       input.setAttribute('value', resultat.id );
+                                       input.setAttribute('type','checkbox');
+                                       input.setAttribute('id',"stage_stagiaires_"+resultat.id);
+                                       input.classList.add('form-check-input');
+                                       const label = document.createElement("label");
+
+                                       label.classList.add('form-check-label');
+                                       label.innerHTML = resultat.value;
+
+                                        div.appendChild(input);
+                                        div.appendChild(label);
+
+                                       selectStagiaire.appendChild(div);
+                                       closeStagiaire.click(); 
                                     }
                                 }).catch((error) => {
                                     console.log(error);
@@ -645,7 +663,6 @@ function loadFormStagiaire() {
                         }
                     })
                 }
-            
             }
         }).catch((error) => {
             console.log(error);

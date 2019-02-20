@@ -4,14 +4,14 @@
 
 <section class="animateur">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="ml-5 h2_animateur">Liste des statuts pour les animateurs</h2>
-        <a href="{{ path('animateurStatut_ajouter')}}" class="btn mt-5 mb-5 mr-5 add_icon d-flex align-items-center">Ajouter</a>
+        <h2 class="ml-5 h2_animateur mt-5 mb-5">Liste des statuts pour les animateurs</h2>
+        <a href="{{ path('animateurStatut_ajouter')}}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
     </div>
     <table class="table table-striped">
         <thead>
             <tr class="background_animateur">
                 <th scope="col" class="pl-5 text-left">Nom du statut</th>
-                <th scope="col" class="text-center pr-5"><i class="fas fa-cogs"></i></th>
+                <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
 
             </tr>
         </thead>
@@ -20,8 +20,9 @@
             <tr>
                 <td class="pl-5 text-left">{{ animateurstatut.nom }}</td>
                 <td class="text-center">
-                    <a href="{{  path('animateurStatut_modifier', {'id': animateurstatut.id}) }}"><i class="ml-3 fas fa-pen pen_color"></i></a>
-                    <a href="{{  path('animateurStatut_supprimer', {'id': animateurstatut.id}) }}"><i class="ml-3 trash_color far fa-trash-alt pr-5"></i></a>
+                     <a data-toggle="tooltip" data-placement="top" title="Modifier le statut" href="{{  path('animateurStatut_modifier', {'id': animateurstatut.id}) }}"><i class="fas fa-pen pen_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Supprimer le statut" href="{{  path('animateurStatut_supprimer', {'id': animateurstatut.id}) }}"><i class="trash_color far fa-trash-alt pl-2"></i></a>
+                    
                 </td>
             </tr>
                 {% else %}

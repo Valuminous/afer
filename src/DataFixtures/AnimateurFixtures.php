@@ -1,33 +1,29 @@
 <?php
-
 namespace App\DataFixtures;
-
 use Faker\Factory;
-
 use App\Entity\Animateur;
 use App\Entity\AnimateurStatut;
 use App\Entity\AnimateurFonction;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-
 class AnimateurFixtures extends Fixture
 {
+
+    
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('fr_FR');
-
-        for ($j = 1; $j < 5; $j++) { 
+        for ($j = 1; $j < 3; $j++) { 
             $fonction = new AnimateurFonction();
             $fonction->setNom($faker->word);
             $manager->persist($fonction);
         
-            for ($k = 1; $k < 5; $k++) { 
+            for ($k = 1; $k < 3; $k++) { 
                 $statut = new AnimateurStatut();
                 $statut->setNom($faker->word);
                 $manager->persist($statut);
             }
-
-            for($i = 1; $i < 7; $i++){
+            for($i = 1; $i < 5; $i++){
                 $animateur = new Animateur();
                 
                 $animateur->setNomAnimateur($faker->firstName);
@@ -46,7 +42,6 @@ class AnimateurFixtures extends Fixture
                 $animateur->setObservationsAnimateur($faker->sentence());
                 $animateur->setAnimateurFonction($fonction);
                 $animateur->setAnimateurStatut($statut);
-
                 $manager->persist($animateur);
             }
         }

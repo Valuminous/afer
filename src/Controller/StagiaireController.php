@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 /**
  * @Route("/admin")
  */
@@ -31,6 +34,7 @@ class StagiaireController extends AbstractController
     /**
      *  @Route("/stagiaire/ajouter", name="stagiaire_ajouter")
      *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function stagiaireForm(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager)
     {
@@ -51,6 +55,7 @@ class StagiaireController extends AbstractController
     }
     /**
      *  @Route("/stagiaire/{id}/supprimer", name="stagiaire_supprimer")
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function delete(Stagiaire $stagiaire, ObjectManager $manager)
     {

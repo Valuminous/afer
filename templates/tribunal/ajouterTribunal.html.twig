@@ -1,16 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Ajouter un tribunal{% endblock %}
-
 {% block body %}
 
-<div>
-    <h2>Ajouter un tribunal</h2>
+<div class="container">
 
-    <div class="content">
-
-        <div>
-            {{ form_start(form) }}
+    {{ form_start(form) }}
 
             {{ form_row(form.nom_tribunal, {'label':"Nom du tribulal", 'attr': {'placeholder': "Nom du tribunal"}}) }}
             {{ form_row(form.adresse_tribunal, {'label':"Adresse", 'attr': {'placeholder': "adresse du tribunal"}}) }}
@@ -30,25 +24,67 @@
                     +
                 </button>
             </div>
+    <div>
+        {% if editMode %}
+        <h2 class="mt-5 mb-5 h2_tribunal">Modifier un tribunal</h2>
+        {% else %}
+        <h2 class="mt-5 mb-5 h2_tribunal">Ajouter un tribunal</h2>
+        {% endif %}
+    </div>
 
-            <button type="submit" class="btn btn-success">
-                {% if editMode %}
-                Enregistrer les modifications
-                {% else %}
-                Ajouter le tribunal
-                {% endif %}
-            </button>
-            {% if error is defined %}
-                <p>L'autorité existe déjà</p>
-            {% endif %}
-
-            {% if error is defined %}
-                    <p class="text-danger text-error-identifiant pt-3 envoi">Veuillez renseigner tous les champs!</p>
-            {% endif %}
-
-            {{ form_end(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.nom_tribunal, {'label': "Tribunal :", 'attr': {'placeholder':
+            "Tribunal"}}) }}
         </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.numero_adresse_tribunal, {'label': "N° de rue :", 'attr': {'placeholder':
+            "N° de rue"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.adresse_tribunal, {'label': "Adresse :", 'attr': {'placeholder':
+            "Adresse"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.commune_tribunal, {'label': "Commune :", 'attr': {'placeholder':
+            "Commune"}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-5">
+            {{ form_row(form.tribunal_autorite, {'label':"Autorité du tribunal", 'attr': {'placeholder':
+            "Autorité du tribunal"}}) }}
+        </div>
+        <div class="col-1" data-toggle="tooltip" data-placement="top" title="Ajouter une autorité">
+            <button type="button" id="addAutoriteTribunal" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart">
+                +
+            </button>
+        </div>
+        <div class="col-5">
+            {{ form_row(form.tribunal_service, {'label':"Service du tribunal", 'attr': {'placeholder': "Service du
+            tribunal"}}) }}
+        </div>
+        <div class="col-1" data-toggle="tooltip" data-placement="top" title="Ajouter un service">
+            <button type="button" id="addServiceTribunal" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart2">
+                +
+            </button>
+        </div>
+    </div>
+
+        {% if editMode %}
+        <button type="submit" class="btn btn-warning">
+        Modifier
+        </button>
+        {% else %}
+        <button type="submit" class="btn btn-primary">
+        Sauvegarder
+        </button>
+        {% endif %}
+    {{ form_end(form) }}
 </div>
 
 <!-- Modal: modalCart -->
@@ -65,7 +101,6 @@
             <!--Body-->
             <div class="modal-body">
             </div>
-            <div class="text-danger text-center pb-3" id="error"></div>
         </div>
     </div>
 </div>
@@ -85,6 +120,10 @@
             <!--Body-->
             <div class="modal-body"></div>
             <div class="text-danger text-center pb-3" id="error2"></div>
+            <div class="modal-body">
+
+            </div>
+
         </div>
     </div>
 </div>

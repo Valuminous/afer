@@ -1,9 +1,13 @@
+@import'../../vendor/eternicode/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css';
+@import'../../vendor/harvesthq/chosen/chosen.min.css';
 @import'stage';
 @import'tribunal';
 @import'animateur';
 @import'prefecture';
 @import'stagiaire';
+@import'login';
 @import'tooltip';
+@import'utilisateur';
 
 html {
 
@@ -114,6 +118,7 @@ html {
                 }
 
                 ul {
+                    padding-left: 10px;
 
                     hr {
                         margin: 0;

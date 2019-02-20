@@ -20,11 +20,11 @@ class Animateur
      */
     private $nomAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenomAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $raisonSocialeAnimateur;
     /**
@@ -32,19 +32,23 @@ class Animateur
      */
     private $gtaAnimateur = false;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cpAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $communeAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $regionAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numeroRueAnimateur;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $rueAnimateur;
     /**
@@ -60,15 +64,15 @@ class Animateur
      */
     private $emailAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $urssafAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $siretAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observationsAnimateur;
     /**
@@ -161,6 +165,15 @@ class Animateur
     public function setRegionAnimateur(string $regionAnimateur): self
     {
         $this->regionAnimateur = $regionAnimateur;
+        return $this;
+    }
+    public function getNumeroRueAnimateur(): ?string
+    {
+        return $this->numeroRueAnimateur;
+    }
+    public function setNumeroRueAnimateur(string $numeroRueAnimateur): self
+    {
+        $this->numeroRueAnimateur = $numeroRueAnimateur;
         return $this;
     }
     public function getRueAnimateur(): ?string

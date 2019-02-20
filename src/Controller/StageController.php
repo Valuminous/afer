@@ -26,8 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 /**
  * @Route("/admin")
+ * @IsGranted("ROLE_ADMIN")
  */
 class StageController extends AbstractController
 {
@@ -147,7 +151,7 @@ class StageController extends AbstractController
      /**
      *  @Route("/stage/loadFormStagiaire", name="stage_stagiaire")
      */
-    public function popStagiaire(Stagiaire $stagiaire = null,StagiaireRepository $repostagiaire, Request $request, ObjectManager $manager)
+    public function popStagiaire(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
             $stagiaire = new Stagiaire();
@@ -157,9 +161,7 @@ class StageController extends AbstractController
         $form->handleRequest( $request );
 
         if($request->isMethod('POST')){
-          
-            dump($request);
-            die();
+           
             $stagiaireNom = $request->request->get('stagiaire_nomStagiaire');
             $stagiairePrenom = $request->request->get('stagiaire_prenomStagiaire');
             $stagiaireCp = $request->request->get('stagiaire_cpStagiaire');
@@ -177,16 +179,17 @@ class StageController extends AbstractController
             $stagiairePartenaire = $request->request->get('stagiaire_partenaireStagiaire');
             $stagiaireAdherent = $request->request->get('stagiaire_adherentStagiaire');
             $stagiaireCivilite = $request->request->get('stagiaire_civilite');
-
-            // $nbrs = $repostagiaire->counter($prefectureNom,$prefectureCommune);
-            // $nbr = $nbrs[0][1];
+        
+            $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom);
+            $nbr = $nbrs[0][1];
+            dump($nbrs);
+            die();
             
             if(strlen($stagiaireNom) > 0 && strlen($stagiairePrenom) > 0 && strlen($stagiaireCp) > 0 &&
                 strlen($stagiaireCommune) > 0 && strlen($stagiaireNomNaissance) > 0 && strlen($stagiaireDateNaissance) > 0 &&
                 strlen($stagiaireLieuNaissance) > 0 && strlen($stagiaireAdresse) > 0 && strlen($stagiaireNationalite) > 0 &&
                 strlen($stagiaireNumeroPortable) > 0 && strlen($stagiaireNumeroFixe) > 0 && strlen($stagiaireEmail) > 0 &&
-                strlen($stagiaireCarteJeune) > 0 && strlen($stagiairePartenaire) > 0 && strlen($stagiaireAdherent) > 0 &&
-                strlen($stagiaireNumeroAdresse) > 0 && strlen($stagiaireCivilite) > 0){
+                strlen($stagiaireNumeroAdresse) > 0 && strlen($stagiaireCivilite) > 0 && $nbr === "0"){
 
                 $stagiaire->setNomStagiaire($stagiaireNom);
                 $stagiaire->setPrenomStagiaire($stagiairePrenom);
@@ -202,16 +205,16 @@ class StageController extends AbstractController
                 $stagiaire->setEmailStagiaire($stagiaireEmail);
                 
                 $stagiaire->getDateNaissanceStagiaire($stagiaireDateNaissance);
-                $stagiaire->getCarteJeuneStagiaire($stagiaireCarteJeune);
-                $stagiaire->getPartenaireStagiaire($stagiairePartenaire);
-                $stagiaire->getAdherentStagiaire($stagiaireAdherent);
                 $stagiaire->getCivilite($stagiaireCivilite);
+                $stagiaire->setCarteJeuneStagiaire($stagiaireCarteJeune);
+                $stagiaire->setPartenaireStagiaire($stagiairePartenaire);
+                $stagiaire->setAdherentStagiaire($stagiaireAdherent);
 
                 $manager->persist($stagiaire);
                 $manager->flush();
 
                 $response = new Response();
-                $response = JsonResponse::fromJsonString('{"id":'.$stagiaire->getId().', "value":"'.$stagiaire->getNomStagiaire().'"}');
+                $response = JsonResponse::fromJsonString('{"id":'.$stagiaire->getId().', "value":"'.$stagiaire->getPrenomStagiaire().'"}');
             }else{
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"error":"existe"}');

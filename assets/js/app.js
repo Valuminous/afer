@@ -1,5 +1,11 @@
+//require jQuery normally
+const $ = require('jquery');
+global.$ = global.jQuery = $;
 require('../scss/main.scss');
 require('../js/popUp.js');
+require('../../vendor/eternicode/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js');
+require('../../vendor/eternicode/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js');
+require('../../vendor/harvesthq/chosen/chosen.jquery.min.js');
 
 const onclickStage = document.querySelector('.onclick_stage');
 const onclickTribunaux = document.querySelector('.onclick_tribunaux');
@@ -224,13 +230,13 @@ function changeActiveButton(){
         activePrefectureAutorite.style.fontWeight = 'bold';
         purpleArrowValue = 1;
     }
-}
 
-if (pathname == '/admin/prefecture/service') {
-    purpleArrow.style.transform = 'rotate(90deg)';
-    myDropdownMenu4.style.display = 'block';
-    myDropdownMenu4.style.opacity = '1';
-    activePrefectureService.style.color = '#9c2db3';
-    activePrefectureService.style.fontWeight = 'bold';
-    purpleArrowValue = 1;
+    if (pathname == '/admin/prefecture/service') {
+        purpleArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu4.style.display = 'block';
+        myDropdownMenu4.style.opacity = '1';
+        activePrefectureService.style.color = '#9c2db3';
+        activePrefectureService.style.fontWeight = 'bold';
+        purpleArrowValue = 1;
+    }
 }

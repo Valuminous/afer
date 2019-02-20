@@ -7,14 +7,15 @@
 <section class="info_animateur">
 <h2>Stage</h2>
 <div =class="d-flex justify-content-center">
-                <p>Numéro de stage :{{ stage.numeroStage }}</p>
-                <p> Date de début:{{ stage.dated|date('j F Y') }}</p>
-                <p> Date de fin:{{ stage.datef|date('j F Y') }}</p>
-                <p> Stage hors programme officiel{{ stage.stageProgrammeOfficiel }}</p>
+                <p>Numéro de stage : {{ stage.numeroStage }}</p>
+                <p> Date de début : {{ stage.dated|localizeddate('long', 'none', 'fr') }}</p>
+                <p> Date de fin : {{ stage.datef|localizeddate('long', 'none', 'fr') }}</p>
+                <p> Stage hors programme officiel : {{ stage.stageProgrammeOfficiel ?'Oui' : 'Non'}}</p>
 
                  <td class="text-center">
                  {% for animateur in stage.animateurs %}
                 <p>{{ animateur.nomAnimateur }}</p> 
+                 
                  {% endfor %}
                 </td> 
                  <td class="text-center">
