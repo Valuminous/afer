@@ -593,9 +593,9 @@ function loadFormStagiaire() {
                                 let stagiaireCp = document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire');
                                 let stagiaireCommune = document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire');
                                 let stagiaireNomNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire');
-                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value+"/"+
-                                                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value+"/"+
-                                                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value;
+                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value+"-"+
+                                                             document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value+"-"+
+                                                             document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value;
                                 let stagiaireLieuNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire');
                                 let stagiaireAdresse = document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire');
                                 let stagiaireNationalite = document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire');
@@ -655,6 +655,7 @@ function loadFormStagiaire() {
                                         div.appendChild(label);
 
                                        selectStagiaire.appendChild(div);
+                                       input.click();
                                        closeStagiaire.click(); 
                                     }
                                 }).catch((error) => {

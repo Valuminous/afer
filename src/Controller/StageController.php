@@ -2,32 +2,34 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Stage;
 use App\Form\StageType;
-use App\Entity\Tribunal;
 
+use App\Entity\Tribunal;
 use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
+
 use App\Form\TribunalType;
 
 use App\Form\StagiaireType;
 
 use App\Form\PrefectureType;
-
 use App\Repository\StageRepository;
 use App\Repository\TribunalRepository;
+use App\Repository\CiviliteRepository;
+
 use App\Repository\StagiaireRepository;
 use App\Repository\PrefectureRepository;
-
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin")
@@ -151,7 +153,7 @@ class StageController extends AbstractController
      /**
      *  @Route("/stage/loadFormStagiaire", name="stage_stagiaire")
      */
-    public function popStagiaire(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
+    public function popStagiaire(Stagiaire $stagiaire = null,CiviliteRepository $repoCivilite,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
             $stagiaire = new Stagiaire();
@@ -180,13 +182,16 @@ class StageController extends AbstractController
             $stagiaireAdherent = $request->request->get('stagiaire_adherentStagiaire');
             $stagiaireCivilite = $request->request->get('stagiaire_civilite');
         
-            $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom);
+            $year = substr($stagiaireDateNaissance, 0, 10);
+            $date = (\DateTime::createFromFormat('Y-m-d', $year));
+
+            $civilite = $repoCivilite->find($stagiaireCivilite);
+
+            $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom,$year);
             $nbr = $nbrs[0][1];
-            dump($nbrs);
-            die();
-            
+    
             if(strlen($stagiaireNom) > 0 && strlen($stagiairePrenom) > 0 && strlen($stagiaireCp) > 0 &&
-                strlen($stagiaireCommune) > 0 && strlen($stagiaireNomNaissance) > 0 && strlen($stagiaireDateNaissance) > 0 &&
+                strlen($stagiaireCommune) > 0 && strlen($stagiaireNomNaissance) > 0 && strlen($stagiaireDateNaissance) != "" &&
                 strlen($stagiaireLieuNaissance) > 0 && strlen($stagiaireAdresse) > 0 && strlen($stagiaireNationalite) > 0 &&
                 strlen($stagiaireNumeroPortable) > 0 && strlen($stagiaireNumeroFixe) > 0 && strlen($stagiaireEmail) > 0 &&
                 strlen($stagiaireNumeroAdresse) > 0 && strlen($stagiaireCivilite) > 0 && $nbr === "0"){
@@ -204,8 +209,8 @@ class StageController extends AbstractController
                 $stagiaire->setNumeroAdresseStagiaire($stagiaireNumeroAdresse);
                 $stagiaire->setEmailStagiaire($stagiaireEmail);
                 
-                $stagiaire->getDateNaissanceStagiaire($stagiaireDateNaissance);
-                $stagiaire->getCivilite($stagiaireCivilite);
+                $stagiaire->setDateNaissanceStagiaire($date);
+                $stagiaire->setCivilite($civilite);
                 $stagiaire->setCarteJeuneStagiaire($stagiaireCarteJeune);
                 $stagiaire->setPartenaireStagiaire($stagiairePartenaire);
                 $stagiaire->setAdherentStagiaire($stagiaireAdherent);

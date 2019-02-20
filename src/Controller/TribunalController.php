@@ -132,6 +132,7 @@ class TribunalController extends AbstractController
             'editMode' => $autorite->getId() !== null
             ]);
     }
+    
 
     /**
     * @Route("/tribunal/autorite/{id}/supprimer", name="tribunalAutorite_supprimer")
@@ -196,7 +197,6 @@ class TribunalController extends AbstractController
         
         return $this->redirectToRoute('tribunalService_index');
     }
-
         
     /**
     * @Route("/tribunal/autorite/loadFormAutoriteTribunal", name="tribunal_autorite_pop")
