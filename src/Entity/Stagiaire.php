@@ -354,7 +354,7 @@ class Stagiaire
         return $this->civilite;
     }
 
-    public function setCivilite(?Civilite $civilite): self
+    public function setCivilite(Civilite $civilite): self
     {
         $this->civilite = $civilite;
 

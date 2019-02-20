@@ -95,6 +95,17 @@ class TribunalController extends AbstractController
     }
 
     /**
+    * @Route("/tribunal/autorite", name="tribunalAutorite_index")
+    */
+    public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
+    {
+        $autorites = $repoAutorites->findAll();
+        return $this->render('tribunal/autorite.html.twig', [
+            'autorites'=> $autorites
+            ]); 
+    }
+
+    /**
     * @Route("/tribunal/autorite/ajouter", name="tribunalAutorite_ajouter")
     * @Route("/tribunal/autorite/{id}/modifier", name="tribunalAutorite_modifier")
     * @IsGranted("ROLE_ADMIN")
@@ -121,6 +132,7 @@ class TribunalController extends AbstractController
             'editMode' => $autorite->getId() !== null
             ]);
     }
+    
 
     /**
     * @Route("/tribunal/autorite/{id}/supprimer", name="tribunalAutorite_supprimer")
@@ -131,20 +143,10 @@ class TribunalController extends AbstractController
         $manager->remove($autorite);
         $manager->flush();
 
-        return $this->redirectToRoute('autorite_index');
+        return $this->redirectToRoute('tribunalAutorite_index');
     }
 
     
-    /**
-    * @Route("/tribunal/autorite", name="tribunalAutorite_index")
-    */
-    public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
-    {
-        $autorites = $repoAutorites->findAll();
-        return $this->render('tribunal/autorite.html.twig', [
-            'autorites'=> $autorites
-            ]); 
-    }
         
     /**
     * @Route("/tribunal/service/ajouter", name="tribunalService_ajouter")
@@ -183,7 +185,7 @@ class TribunalController extends AbstractController
         $manager->remove($service);
         $manager->flush();
         
-        return $this->redirectToRoute('service_index');
+        return $this->redirectToRoute('tribunalService_index');
     }
         
     /**

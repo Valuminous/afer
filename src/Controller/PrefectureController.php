@@ -196,7 +196,7 @@ class PrefectureController extends AbstractController
         $manager->remove($autorite);
         $manager->flush();
 
-        return $this->redirectToRoute('prefecture_autorite_index');
+        return $this->redirectToRoute('prefectureAutorite_index');
     }
 
     /**
