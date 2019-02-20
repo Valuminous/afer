@@ -206,7 +206,7 @@ class TribunalController extends AbstractController
         if(!$autorite){
             $autorite = new TribunalAutorite();
         }
-         $formAutorite = $this->createForm( TribunalAutoriteType::class, $autorite, array('method'=>'POST'));
+        $formAutorite = $this->createForm( TribunalAutoriteType::class, $autorite, array('method'=>'POST'));
         $formAutorite->handleRequest( $request );
       
         if($request->isMethod('POST')){

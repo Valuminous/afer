@@ -22,12 +22,12 @@ class StagiaireType extends AbstractType
             'class' => Civilite::class,
             'choice_label' => 'nomCivilite'
             ])
-            ->add('nom_stagiaire')
-            ->add('prenom_stagiaire')
-            ->add('cp_stagiaire')
-            ->add('commune_stagiaire')
-            ->add('nom_naissance_stagiaire')
-            ->add('date_naissance_stagiaire',BirthdayType::class, ['placeholder' => [
+            ->add('nomStagiaire')
+            ->add('prenomStagiaire')
+            ->add('cpStagiaire')
+            ->add('communeStagiaire')
+            ->add('nomNaissanceStagiaire')
+            ->add('dateNaissanceStagiaire',BirthdayType::class, ['placeholder' => [
                 'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année'
             ],
 
@@ -35,13 +35,13 @@ class StagiaireType extends AbstractType
                 
                
                 ])
-            ->add('lieu_naissance_stagiaire')
-            ->add('adresse_stagiaire')
-            ->add('nationalite_stagiaire')
-            ->add('numero_portable_stagiaire')
-            ->add('numero_fixe_stagiaire')
-            ->add('email_stagiaire')
-            ->add('carte_jeune_stagiaire', ChoiceType::class, [
+            ->add('lieuNaissanceStagiaire')
+            ->add('adresseStagiaire')
+            ->add('nationaliteStagiaire')
+            ->add('numeroPortableStagiaire')
+            ->add('numeroFixeStagiaire')
+            ->add('emailStagiaire')
+            ->add('carteJeuneStagiaire', ChoiceType::class, [
                 'choices' => [
                     'Carte jeune' => [
                         'Non' => false,
@@ -49,7 +49,7 @@ class StagiaireType extends AbstractType
                     ],
                 ],
             ])
-            ->add('partenaire_stagiaire', ChoiceType::class, [
+            ->add('partenaireStagiaire', ChoiceType::class, [
                 'choices' => [
                     'Partenaire' => [
                         'Non' => false,
@@ -57,7 +57,7 @@ class StagiaireType extends AbstractType
                     ],
                 ],
             ])
-            ->add('adherent_stagiaire', ChoiceType::class, [
+            ->add('adherentStagiaire', ChoiceType::class, [
                 'choices' => [
                     'Adherent' => [
                         'Non' => false,
@@ -65,7 +65,7 @@ class StagiaireType extends AbstractType
                     ],
                 ],
             ])
-            ->add('numero_adresse_stagiaire');
+            ->add('numeroAdresseStagiaire');
     }
 
     public function configureOptions(OptionsResolver $resolver)

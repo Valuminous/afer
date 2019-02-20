@@ -8,17 +8,95 @@
     <h1>Ajouter un stage</h1>
     {% endif %}
 
-{{ form_start(formStage) }}
+    {{ form_start(formStage) }}
 
-<button type="submit" class="btn btn-primary">
-    {% if editMode %}
-    Modifier
-    {% else %}
-    Sauvegarder
-    {% endif %}
-</button>
+    <div class="d-flex">
+        {{ form_row(formStage.tribunal, {'label': 'Tribunal'}) }}
+        <button type="button" id="addTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCartTribunal">
+            +
+        </button>
+    </div>
+    <div class="d-flex">
+        {{ form_row(formStage.prefecture, {'label': 'Prefécture'}) }}
+        <button type="button" id="addPrefecture" class="btn btn-primary" data-toggle="modal" data-target="#modalCartPrefecture">
+            +
+        </button>
+    </div>
+    <div class="d-flex">
+        {{ form_row(formStage.stagiaires, {'label': 'Stagiaire'}) }}
+        <button type="button" id="addStagiaire" class="btn btn-primary" data-toggle="modal" data-target="#modalCartStagiaire">
+            +
+        </button>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if editMode %}
+        Modifier
+        {% else %}
+        Sauvegarder
+        {% endif %}
+    </button>
 
 {{ form_end(formStage) }}
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCartTribunal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter un tribunal</h4>
+                <button type="button" class="closeTribunal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger text-center pb-3" id="errorTribunal"></div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCartPrefecture" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter une préfecture</h4>
+                <button type="button" class="closePrefecture" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger text-center pb-3" id="errorPrefecture"></div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCartStagiaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter un stagiaire</h4>
+                <button type="button" class="closeStagiaire" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger text-center pb-3" id="errorStagiaire"></div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
 
 {% endblock %}
 {% block javascripts %}

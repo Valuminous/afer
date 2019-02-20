@@ -4,12 +4,27 @@ namespace App\Controller;
 
 use App\Entity\Stage;
 use App\Form\StageType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\Tribunal;
+
+use App\Entity\Stagiaire;
+use App\Entity\Prefecture;
+use App\Form\TribunalType;
+
+use App\Form\StagiaireType;
+
+use App\Form\PrefectureType;
+
 use App\Repository\StageRepository;
+use App\Repository\TribunalRepository;
+use App\Repository\StagiaireRepository;
+use App\Repository\PrefectureRepository;
+
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,7 +47,186 @@ class StageController extends AbstractController
             'stages' => $stages
         ]);
     }
- /**
+
+     /**
+     *  @Route("/stage/loadFormTribunal", name="stage_tribunal")
+     */
+    public function popTribunal(Tribunal $tribunal = null,TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
+    {
+        if(!$tribunal){
+            $tribunal = new Tribunal();
+        }
+
+        $form = $this->createForm( TribunalType::class, $tribunal, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+            $tribunalNom = $request->request->get('tribunal_nom_tribunal');
+            $tribunalAdresse = $request->request->get('tribunal_adresse_tribunal');
+            $tribunalNumeroAdresse = $request->request->get('tribunal_numero_adresse_tribunal');
+            $tribunalCommune = $request->request->get('tribunal_commune_tribunal');
+            $tribunalAutorite = $request->request->get('tribunal_tribunal_service');
+            $tribunalService = $request->request->get('tribunal_tribunal_autorite');
+      
+             $nbrs = $repoTribunal->counter($tribunalNom,$tribunalCommune);
+             $nbr = $nbrs[0][1];
+
+            if(strlen($tribunalNom) > 0 && strlen($tribunalAdresse) > 0 && strlen($tribunalNumeroAdresse) > 0 &&
+                strlen($tribunalCommune) > 0 && strlen($tribunalAutorite) > 0 && strlen($tribunalService) > 0 && $nbr === "0"){
+                
+                $tribunal->setNomTribunal($tribunalNom);
+                $tribunal->setAdresseTribunal($tribunalAdresse);
+                $tribunal->setNumeroAdresseTribunal($tribunalNumeroAdresse);
+                $tribunal->setCommuneTribunal($tribunalCommune);
+                $tribunal->getTribunalService($tribunalAutorite);
+                $tribunal->getTribunalAutorite($tribunalService);
+                $manager->persist( $tribunal );
+                $manager->flush();
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$tribunal->getId().', "value":"'.$tribunal->getNomTribunal().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }
+            return $response;
+        }        
+        return $this->render('stage/popTribunal.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+     /**
+     *  @Route("/stage/loadFormPrefecture", name="stage_prefecture")
+     */
+    public function popPrefecture(Prefecture $prefecture = null,PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager)
+    {
+        if(!$prefecture){
+            $prefecture = new Prefecture();
+        }
+
+        $form = $this->createForm( PrefectureType::class, $prefecture, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+          
+            $prefectureNom = $request->request->get('prefecture_nomPrefecture');
+            $prefectureAdresse = $request->request->get('prefecture_adressePrefecture');
+            $prefectureNumeroAdresse = $request->request->get('prefecture_numeroAdressePrefecture');
+            $prefectureCommune = $request->request->get('prefecture_communePrefecture');
+            $prefectureCP = $request->request->get('prefecture_cpPrefecture');
+            $prefectureAutorite = $request->request->get('prefecture_prefectureAutorite');
+            $prefectureService = $request->request->get('prefecture_prefectureService');
+
+            $nbrs = $repoPrefecture->counter($prefectureNom,$prefectureCommune);
+            $nbr = $nbrs[0][1];
+            
+            if(strlen($prefectureNom) > 0 && strlen($prefectureAdresse) > 0 && strlen($prefectureNumeroAdresse) > 0 &&
+                strlen($prefectureCommune) > 0 && strlen($prefectureCP) > 0 && strlen($prefectureAutorite) > 0 &&
+                strlen($prefectureService) > 0 && $nbr === "0"){
+                $prefecture->setNomPrefecture($prefectureNom);
+                $prefecture->setAdressePrefecture($prefectureAdresse);
+                $prefecture->setNumeroAdressePrefecture($prefectureNumeroAdresse);
+                $prefecture->setCpPrefecture($prefectureCP);
+                $prefecture->setCommunePrefecture($prefectureCommune);
+                $prefecture->getPrefectureService($prefectureAutorite);
+                $prefecture->getPrefectureAutorite($prefectureService);
+
+                $manager->persist($prefecture);
+                $manager->flush();
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$prefecture->getId().', "value":"'.$prefecture->getNomPrefecture().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+        }  
+        return $this->render('stage/popPrefecture.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+
+     /**
+     *  @Route("/stage/loadFormStagiaire", name="stage_stagiaire")
+     */
+    public function popStagiaire(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
+    {
+        if(!$stagiaire){
+            $stagiaire = new Stagiaire();
+        }
+
+        $form = $this->createForm( StagiaireType::class, $stagiaire, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+           
+            $stagiaireNom = $request->request->get('stagiaire_nomStagiaire');
+            $stagiairePrenom = $request->request->get('stagiaire_prenomStagiaire');
+            $stagiaireCp = $request->request->get('stagiaire_cpStagiaire');
+            $stagiaireCommune = $request->request->get('stagiaire_communeStagiaire');
+            $stagiaireNomNaissance = $request->request->get('stagiaire_nomNaissanceStagiaire');
+            $stagiaireDateNaissance = $request->request->get('stagiaire_dateNaissanceStagiaire');
+            $stagiaireLieuNaissance = $request->request->get('stagiaire_lieuNaissanceStagiaire');
+            $stagiaireAdresse = $request->request->get('stagiaire_adresseStagiaire');
+            $stagiaireNationalite = $request->request->get('stagiaire_nationaliteStagiaire');
+            $stagiaireNumeroPortable = $request->request->get('stagiaire_numeroPortableStagiaire');
+            $stagiaireNumeroFixe = $request->request->get('stagiaire_numeroFixeStagiaire');
+            $stagiaireNumeroAdresse = $request->request->get('stagiaire_numeroAdresseStagiaire');
+            $stagiaireEmail = $request->request->get('stagiaire_emailStagiaire');
+            $stagiaireCarteJeune = $request->request->get('stagiaire_carteJeuneStagiaire');
+            $stagiairePartenaire = $request->request->get('stagiaire_partenaireStagiaire');
+            $stagiaireAdherent = $request->request->get('stagiaire_adherentStagiaire');
+            $stagiaireCivilite = $request->request->get('stagiaire_civilite');
+        
+            $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom);
+            $nbr = $nbrs[0][1];
+            dump($nbrs);
+            die();
+            
+            if(strlen($stagiaireNom) > 0 && strlen($stagiairePrenom) > 0 && strlen($stagiaireCp) > 0 &&
+                strlen($stagiaireCommune) > 0 && strlen($stagiaireNomNaissance) > 0 && strlen($stagiaireDateNaissance) > 0 &&
+                strlen($stagiaireLieuNaissance) > 0 && strlen($stagiaireAdresse) > 0 && strlen($stagiaireNationalite) > 0 &&
+                strlen($stagiaireNumeroPortable) > 0 && strlen($stagiaireNumeroFixe) > 0 && strlen($stagiaireEmail) > 0 &&
+                strlen($stagiaireNumeroAdresse) > 0 && strlen($stagiaireCivilite) > 0 && $nbr === "0"){
+
+                $stagiaire->setNomStagiaire($stagiaireNom);
+                $stagiaire->setPrenomStagiaire($stagiairePrenom);
+                $stagiaire->setCpStagiaire($stagiaireCp);
+                $stagiaire->setCommuneStagiaire($stagiaireCommune);
+                $stagiaire->setNomNaissanceStagiaire($stagiaireNomNaissance);
+                $stagiaire->setLieuNaissanceStagiaire($stagiaireLieuNaissance);
+                $stagiaire->setAdresseStagiaire($stagiaireAdresse);
+                $stagiaire->setNationaliteStagiaire($stagiaireNationalite);
+                $stagiaire->setNumeroPortableStagiaire($stagiaireNumeroPortable);
+                $stagiaire->setNumeroFixeStagiaire($stagiaireNumeroFixe);
+                $stagiaire->setNumeroAdresseStagiaire($stagiaireNumeroAdresse);
+                $stagiaire->setEmailStagiaire($stagiaireEmail);
+                
+                $stagiaire->getDateNaissanceStagiaire($stagiaireDateNaissance);
+                $stagiaire->getCivilite($stagiaireCivilite);
+                $stagiaire->setCarteJeuneStagiaire($stagiaireCarteJeune);
+                $stagiaire->setPartenaireStagiaire($stagiairePartenaire);
+                $stagiaire->setAdherentStagiaire($stagiaireAdherent);
+
+                $manager->persist($stagiaire);
+                $manager->flush();
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$stagiaire->getId().', "value":"'.$stagiaire->getPrenomStagiaire().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+        }  
+        return $this->render('stage/popStagiaire.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+    /**
      *  @Route("/stage/ajouter", name="stage_ajouter")
      *  @Route("/stage/{id}/modifier", name="stage_modifier")
      */
@@ -71,8 +265,6 @@ class StageController extends AbstractController
             'stage' => $stage
         ]);
     }
-
-
 }
 
 

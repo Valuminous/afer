@@ -6,6 +6,24 @@
 
     {{ form_start(form) }}
 
+            {{ form_row(form.nom_tribunal, {'label':"Nom du tribulal", 'attr': {'placeholder': "Nom du tribunal"}}) }}
+            {{ form_row(form.adresse_tribunal, {'label':"Adresse", 'attr': {'placeholder': "adresse du tribunal"}}) }}
+            {{ form_row(form.numero_adresse_tribunal, {'label':"Numéro de rue", 'attr': {'placeholder': "Numéro de rue"}}) }}
+            {{ form_row(form.commune_tribunal, {'label':"Commune", 'attr': {'placeholder': "Commune du tribunal"}}) }}
+            <div class="d-flex">
+                {{ form_row(form.tribunal_autorite, {'label':"Autorité du tribunal", 'attr': {'placeholder':
+                "Autorité du tribunal"}}) }}
+                <button type="button" id="addAutoriteTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart">
+                    +
+                </button>
+            </div>
+            <div class="d-flex">
+                {{ form_row(form.tribunal_service, {'label':"Service du tribunal", 'attr': {'placeholder': "Service du
+                tribunal"}}) }}
+                <button type="button" id="addServiceTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCart2">
+                    +
+                </button>
+            </div>
     <div>
         {% if editMode %}
         <h2 class="mt-5 mb-5 h2_tribunal">Modifier un tribunal</h2>
@@ -88,7 +106,6 @@
 </div>
 <!-- Modal: modalCart -->
 
-
 <!-- Modal: modalCart -->
 <div class="modal fade" id="modalCart2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -101,6 +118,8 @@
                 </button>
             </div>
             <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger text-center pb-3" id="error2"></div>
             <div class="modal-body">
 
             </div>

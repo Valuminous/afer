@@ -23,7 +23,7 @@ class PrefectureFixtures extends Fixture
         
             for ($k = 1; $k < 5; $k++) { 
                 $autorite = new PrefectureAutorite();
-                $autorite->setNom($faker->sentence());
+                $autorite->setNom($faker->word);
                 $manager->persist($autorite);
             }
        
