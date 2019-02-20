@@ -95,6 +95,17 @@ class TribunalController extends AbstractController
     }
 
     /**
+    * @Route("/tribunal/autorite", name="tribunalAutorite_index")
+    */
+    public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
+    {
+        $autorites = $repoAutorites->findAll();
+        return $this->render('tribunal/autorite.html.twig', [
+            'autorites'=> $autorites
+            ]); 
+    }
+
+    /**
     * @Route("/tribunal/autorite/ajouter", name="tribunalAutorite_ajouter")
     * @Route("/tribunal/autorite/{id}/modifier", name="tribunalAutorite_modifier")
     * @IsGranted("ROLE_ADMIN")
@@ -113,7 +124,7 @@ class TribunalController extends AbstractController
             
             $manager->persist( $autorite );
             $manager->flush();
-            return $this->redirectToRoute('autorite_index') ;
+            return $this->redirectToRoute('tribunalAutorite_index') ;
         }
         
         return $this->render('tribunal/ajouterAutorite.html.twig', 
@@ -134,15 +145,15 @@ class TribunalController extends AbstractController
         return $this->redirectToRoute('tribunalAutorite_index');
     }
 
-    
+
     /**
-    * @Route("/tribunal/autorite", name="tribunalAutorite_index")
+    * @Route("/tribunal/service", name="tribunalService_index")
     */
-    public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
+    public function indexService(TribunalServiceRepository $repoService)
     {
-        $autorites = $repoAutorites->findAll();
-        return $this->render('tribunal/autorite.html.twig', [
-            'autorites'=> $autorites
+        $services = $repoService->findAll();
+        return $this->render('tribunal/service.html.twig', [
+            'services'=> $services
             ]); 
     }
         
@@ -165,7 +176,7 @@ class TribunalController extends AbstractController
             
             $manager->persist( $service );
             $manager->flush();
-            return $this->redirectToRoute('service_index') ;
+            return $this->redirectToRoute('tribunalService_index') ;
         }
         
         return $this->render('tribunal/ajouterService.html.twig', 
@@ -198,7 +209,7 @@ class TribunalController extends AbstractController
     }
         
     /**
-    * @Route("/tribunal/autorite/loadFormAutoriteTribunal", name="tribunal_autorite_test")
+    * @Route("/tribunal/autorite/loadFormAutoriteTribunal", name="tribunal_autorite_pop")
     * @IsGranted("ROLE_ADMIN")
     */
     public function popAutorite(TribunalAutorite $autorite = null,TribunalAutoriteRepository $repoAutorite, Request $request, ObjectManager $manager)
@@ -235,7 +246,7 @@ class TribunalController extends AbstractController
 
 
     /**
-    * @Route("/tribunal/service/loadFormServiceTribunal", name="tribunal_service_test")
+    * @Route("/tribunal/service/loadFormServiceTribunal", name="tribunal_service_pop")
     * @IsGranted("ROLE_ADMIN")
     */
     public function popService(TribunalService $service = null,TribunalServiceRepository $repoService, Request $request, ObjectManager $manager)

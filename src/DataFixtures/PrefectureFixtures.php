@@ -16,18 +16,21 @@ class PrefectureFixtures extends Fixture
        
         $faker = \Faker\Factory::create('fr_FR');
 
-        for ($j = 1; $j < 5; $j++) { 
+        for ($j = 1; $j < 3; $j++) { 
             $service = new PrefectureService();
             $service->setNom($faker->word);
             $manager->persist($service);
-        
-            for ($k = 1; $k < 5; $k++) { 
-                $autorite = new PrefectureAutorite();
-                $autorite->setNom($faker->word);
-                $manager->persist($autorite);
-            }
-       
-            for($i = 1; $i < 3; $i++){
+            $manager->flush();
+        }
+
+        for ($k = 1; $k < 3; $k++) { 
+            $autorite = new PrefectureAutorite();
+            $autorite->setNom($faker->sentence());
+            $manager->persist($autorite);
+            $manager->flush();
+        }
+   
+        for($i = 1; $i < 3; $i++){
             $prefecture = new Prefecture();
             
             $prefecture->setNomPrefecture("Préfécture n°$i");
@@ -38,10 +41,9 @@ class PrefectureFixtures extends Fixture
             $prefecture->setPrefectureService($service);
             $prefecture->setPrefectureAutorite($autorite);
 
-
             $manager->persist($prefecture);
-            }
+            $manager->flush();
         }
-        $manager->flush();
+        
     }
 }
