@@ -196,17 +196,7 @@ class TribunalController extends AbstractController
         
         return $this->redirectToRoute('tribunalService_index');
     }
-        
-    /**
-    * @Route("/tribunal/service", name="tribunalService_index")
-    */
-    public function indexService(TribunalServiceRepository $repoService)
-    {
-        $services = $repoService->findAll();
-        return $this->render('tribunal/service.html.twig', [
-            'services'=> $services
-            ]); 
-    }
+
         
     /**
     * @Route("/tribunal/autorite/loadFormAutoriteTribunal", name="tribunal_autorite_pop")
