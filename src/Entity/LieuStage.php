@@ -66,11 +66,19 @@ class LieuStage
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $divers;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStage")
      */
     private $stages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commune", inversedBy="lieuStages")
+     */
+    private $lieu;
+
+    
 
     public function __construct()
     {
@@ -232,6 +240,18 @@ class LieuStage
                 $stage->setLieuStage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLieu(): ?Commune
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Commune $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Stage;
+use App\Entity\Commune;
 use App\Entity\Civilite;
 use App\Entity\Animateur;
 use App\Entity\AnimateurStatut;
@@ -51,9 +52,15 @@ class AnimateurType extends AbstractType
                 'class' => AnimateurFonction::class,
                 'choice_label' => 'nom'
             ])
+            //  ->add('lieu', EntityType::class, [
+            //     'class' => Commune::class,
+            //     'choice_label' => 'region',
+            //     // 'attr' => array('class' => 'chzn-select')
+            //     ])
         ;
     }
 
+    
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

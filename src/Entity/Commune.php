@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,12 +29,12 @@ class Commune
     private $departement;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cp;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $commune;
 
@@ -45,6 +47,16 @@ class Commune
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $longitude;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LieuStage", mappedBy="lieu")
+     */
+    private $lieuStages;
+
+    public function __construct()
+    {
+        $this->lieuStages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +131,37 @@ class Commune
     public function setLongitude(?string $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LieuStage[]
+     */
+    public function getLieuStages(): Collection
+    {
+        return $this->lieuStages;
+    }
+
+    public function addLieuStage(LieuStage $lieuStage): self
+    {
+        if (!$this->lieuStages->contains($lieuStage)) {
+            $this->lieuStages[] = $lieuStage;
+            $lieuStage->setLieu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLieuStage(LieuStage $lieuStage): self
+    {
+        if ($this->lieuStages->contains($lieuStage)) {
+            $this->lieuStages->removeElement($lieuStage);
+            // set the owning side to null (unless already changed)
+            if ($lieuStage->getLieu() === $this) {
+                $lieuStage->setLieu(null);
+            }
+        }
 
         return $this;
     }
