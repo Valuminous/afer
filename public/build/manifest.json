@@ -5,6 +5,8 @@
   "build/tribunal.js": "/build/tribunal.js",
   "build/images/chosen-sprite.png": "/build/images/chosen-sprite.8b55a822.png",
   "build/images/chosen-sprite@2x.png": "/build/images/chosen-sprite@2x.614fad61.png",
+  "build/static/bad-luck.gif": "/build/static/bad-luck.gif",
+  "build/static/emoji.png": "/build/static/emoji.png",
   "build/static/favicon.ico": "/build/static/favicon.ico",
   "build/static/logo.png": "/build/static/logo.png"
 }

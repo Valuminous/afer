@@ -20,14 +20,38 @@
             <tr>
                 <td class="pl-5 text-left">{{ animateurfonction.nom }}</td>
                 <td class="text-center">
-                    <a data-toggle="tooltip" data-placement="top" title="Modifier la fonction" href="{{  path('animateurFonction_modifier', {'id': animateurfonction.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="Supprimer la fonction" href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}"><i class="trash_color far fa-trash-alt pl-2"></i></a>
-                     
+                    <a data-toggle="tooltip" data-placement="top" title="Modifier la fonction" href="{{  path('animateurFonction_modifier', {'id': animateurfonction.id}) }}"><i
+                            class="fas fa-pen pen_color"></i></a>
+                    <a data-toggle="modal" data-target="#animateurFonctionDelete{{ animateurfonction.id }}" data-placement="top" title="Supprimer la fonction" href="#"><i
+                            class="trash_color far fa-trash-alt pl-2"></i></a>
+
                 </td>
             </tr>
-                {% else %}
-                <td class="text-center">Il n'y a aucune fonction</td>
-                <td class="text-center">...</td>
+
+            <!-- Modal -->
+            <div class="modal fade" id="animateurFonctionDelete{{ animateurfonction.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Attention !</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Vous êtes sur le point de supprimer une fonction
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <a href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}" class="btn btn-danger">Confirmer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <td class="text-center">Il n'y a aucune fonction</td>
+            <td class="text-center">...</td>
             {% endfor %}
         </tbody>
     </table>
