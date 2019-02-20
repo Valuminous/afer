@@ -28,16 +28,17 @@ class LieuStageType extends AbstractType
             ->add('cp', EntityType::class, [
                 'class' => Commune::class,
                 'choice_label' => 'cp',
-                // 'choice_label' => 'cp',
-                'placeholder' => 'Sélectionner un code postal',
-                'attr' => array('class' => 'chzn-select')
+             
+                'placeholder' => 'Sélectionner un code postal'
+                // 'attr' => array('class' => 'chzn-select'),
+                // 'disabled' => 'true'
                 ])
             ->add('commune', EntityType::class, [
                 'class' => Commune::class,
                 'choice_label' => 'commune',
-                // 'choice_label' => 'cp',
+               
                 'placeholder' => 'Sélectionner une commune',
-                'attr' => array('class' => 'chzn-select')
+                // 'attr' => array('class' => 'chosen-select')
                 ])
         ;
     }

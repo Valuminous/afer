@@ -60,22 +60,26 @@ class StageType extends AbstractType
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,
                 'choice_label' => 'nomAnimateur',
+                'attr' => array('class' => 'animateur-select'),
                 'multiple' => 'true',
-                'expanded' => 'true',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
                         ->orderBy('anim.nomAnimateur', 'ASC');
                 }
+                
             ])
             ->add('stagiaires', EntityType::class, [
                 'class' => Stagiaire::class,
                 'choice_label' => 'nomStagiaire',
+                'multiple' => 'true',
+                'attr' => array('class' => 'stagiaire-select'),
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('stag')
                         ->orderBy('stag.nomStagiaire', 'ASC');
+                       
                 },
-                'multiple' => 'true',
-                'expanded' => 'true'
+                
+                'mapped' => false
             ])
           
         ;
