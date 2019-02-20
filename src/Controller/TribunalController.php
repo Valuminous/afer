@@ -131,7 +131,7 @@ class TribunalController extends AbstractController
         $manager->remove($autorite);
         $manager->flush();
 
-        return $this->redirectToRoute('autorite_index');
+        return $this->redirectToRoute('tribunalAutorite_index');
     }
 
     
@@ -183,7 +183,7 @@ class TribunalController extends AbstractController
         $manager->remove($service);
         $manager->flush();
         
-        return $this->redirectToRoute('service_index');
+        return $this->redirectToRoute('tribunalService_index');
     }
         
     /**
