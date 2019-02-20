@@ -34,11 +34,12 @@
     </div>
 
     <div class="row">
-        <div class="col">
-            {{ form_row(formLieuStage.commune, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
-        </div>
+       
         <div class="col">
             {{ form_row(formLieuStage.cp, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}}) }}
+        </div>
+         <div class="col">
+            {{ form_row(formLieuStage.commune, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
         </div>
     </div>
 
@@ -78,4 +79,14 @@
 
 </div>
 
+{% endblock %}
+
+
+
+ {% block javascripts %}
+<script>
+ $().ready(function () {
+    $('select.chzn-select').chosen();
+ });
+    </script>
 {% endblock %}

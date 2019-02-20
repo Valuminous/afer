@@ -2,18 +2,34 @@
 
 {% block body %}
 
+<div class="container">
+
     {{ form_start(formPrefectureAutorite) }}
 
-    {{ form_row(formPrefectureAutorite.nom, {'label': 'Nom', 'attr': {'placeholder': 'Nom'} }) }}
-
-    <button type="submit" class="btn btn-primary btn-link text-white mb-5 mt-3">
+    <div>
         {% if editMode %}
-            Enregistrer
+        <h2 class="mt-5 mb-5 h2_prefecture">Ajouter une autorité</h2>
+        <h2 class="mt-5 mb-5 ">Modifier une autorité</h2>
         {% else %}
-            Valider
+        <h2 class="mt-5 mb-5 h2_prefecture">Ajouter une autorité</h2>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formPrefectureAutorite.nom, {'label': "Nom de l'autorité :", 'attr': {'placeholder': "Nom de l'autorité"}}) }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if editMode %}
+        Modifier
+        {% else %}
+        Sauvegarder
         {% endif %}
     </button>
 
     {{ form_end(formPrefectureAutorite) }}
+</div>
 
 {% endblock %}

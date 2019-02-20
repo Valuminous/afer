@@ -15,30 +15,34 @@ class TribunalFixtures extends Fixture
     {
         $faker = \Faker\Factory::create('fr_FR');
 
-        for ($j = 1; $j < 5; $j++) { 
+        for ($j = 1; $j < 3; $j++) { 
             $service = new TribunalService();
             $service->setNom($faker->word);
             $manager->persist($service);
-        
-            for ($k = 1; $k < 5; $k++) { 
-                $autorite = new TribunalAutorite();
-                $autorite->setNom($faker->word);
-                $manager->persist($autorite);
-            }
-       
-            for($i = 1; $i < 3; $i++){
+            $manager->flush();
+        }
+
+        for ($k = 1; $k < 3; $k++) { 
+            $autorite = new TribunalAutorite();
+            $autorite->setNom($faker->word);
+            $manager->persist($autorite);
+            $manager->flush();
+        }
+   
+        for($i = 1; $i < 3; $i++){
             $tribunal = new Tribunal();
             
             $tribunal->setNomTribunal("Tribunal n°$i");
             $tribunal->setAdresseTribunal($faker->streetAddress);
             $tribunal->setNumeroAdresseTribunal($faker->randomDigit);
             $tribunal->setCommuneTribunal($faker->region);
+            $tribunal->setCpTribunal($faker->postcode);
             $tribunal->setTribunalAutorite($autorite);
             $tribunal->setTribunalService($service);
 
             $manager->persist($tribunal);
-            }
+            $manager->flush();
         }
-        $manager->flush();
+
     }
 }

@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\LieuStage;
+use App\Entity\Commune;
+use App\Entity\Civilite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LieuStageType extends AbstractType
@@ -22,6 +25,20 @@ class LieuStageType extends AbstractType
             ->add('latitude')
             ->add('longitude')
             ->add('divers')
+            ->add('cp', EntityType::class, [
+                'class' => Commune::class,
+                'choice_label' => 'cp',
+                // 'choice_label' => 'cp',
+                'placeholder' => 'Sélectionner un code postal',
+                'attr' => array('class' => 'chzn-select')
+                ])
+            ->add('commune', EntityType::class, [
+                'class' => Commune::class,
+                'choice_label' => 'commune',
+                // 'choice_label' => 'cp',
+                'placeholder' => 'Sélectionner une commune',
+                'attr' => array('class' => 'chzn-select')
+                ])
         ;
     }
 

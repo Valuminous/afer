@@ -111,7 +111,7 @@ class AnimateurController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($animateurfonction);
             $manager->flush();
-            return $this->redirectToRoute('animateurFonction');
+            return $this->redirectToRoute('animateurFonction_index');
         }
         return $this->render('animateur/ajouterFonction.html.twig', [
             'formAnimateurFonction' => $form->createView(),
@@ -126,7 +126,7 @@ class AnimateurController extends AbstractController
     {
         $manager->remove($animateurfonction);
         $manager->flush();
-        return $this->redirectToRoute('animateurFonction');
+        return $this->redirectToRoute('animateurFonction_index');
     }
 
     // ----- Affichage, ajout, modification et suppresion des statuts pour les animateurs -----
@@ -158,7 +158,7 @@ class AnimateurController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($animateurstatut);
             $manager->flush();
-            return $this->redirectToRoute('animateurStatut');
+            return $this->redirectToRoute('animateurStatut_index');
         }
         return $this->render('animateur/ajouterStatut.html.twig', [
             'formAnimateurStatut' => $form->createView(),
@@ -173,7 +173,7 @@ class AnimateurController extends AbstractController
     {
         $manager->remove($animateurstatut);
         $manager->flush();
-        return $this->redirectToRoute('animateurStatut');
+        return $this->redirectToRoute('animateurStatut_index');
     }
     /**
      * @Route("/animateur/statut/{id}/afficher", name="animateurStatut_afficher")
