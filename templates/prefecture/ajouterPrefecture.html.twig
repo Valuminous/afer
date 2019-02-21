@@ -45,7 +45,7 @@
             {{ form_row(formPrefecture.prefectureAutorite, {'label': 'Autorité de la préfecture', 'attr': {'placeholder': 'Autorité de la préfecture'} }) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addAutoriteTribunal" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart">
+            <button type="button" id="addAutoritePrefecture" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCartAutoritePrefecture">
                 +
             </button>
         </div>
@@ -53,7 +53,7 @@
           {{ form_row(formPrefecture.prefectureService, {'label': 'Service de la préfecture', 'attr': {'placeholder': 'Service de la préfecture'} }) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addServiceTribunal" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart2">
+            <button type="button" id="addServicePrefecture" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCartServicePrefecture">
                 +
             </button>
         </div>
@@ -75,7 +75,7 @@
 </section>
 
 <!-- Modal: modalCart -->
-<div class="modal fade" id="modalCart3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCartServicePrefecture" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!--Header-->
@@ -95,7 +95,7 @@
 
 
 <!-- Modal: modalCart -->
-<div class="modal fade" id="modalCart4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCartAutoritePrefecture" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!--Header-->

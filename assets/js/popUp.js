@@ -162,8 +162,8 @@ function loadFormPrefectureService() {
             })
             .then((reponse) => {
                 if (reponse.length > 0) {
-                    document.querySelector('#modalCart3 .modal-body').innerHTML = reponse;
-                    btn = document.querySelector('#modalCart3 .modal-body button');
+                    document.querySelector('#modalCartServicePrefecture .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalCartServicePrefecture .modal-body button');
 
                     if (btn != null) {
                         btn.addEventListener('click', function (e) {
@@ -226,8 +226,8 @@ function loadFormPrefectureAutorite() {
             })
             .then((reponse) => {
                 if (reponse.length > 0) {
-                    document.querySelector('#modalCart4 .modal-body').innerHTML = reponse;
-                    btn = document.querySelector('#modalCart4 .modal-body button');
+                    document.querySelector('#modalCartAutoritePrefecture .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalCartAutoritePrefecture .modal-body button');
 
                     if (btn != null) {
                         btn.addEventListener('click', function (e) {
@@ -643,25 +643,25 @@ function loadFormStagiaire() {
                                     if(resultat.error != null){
                                        document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
                                     }else if(resultat.value != null){
-                                       const selectStagiaire = document.querySelector('#stage_stagiaires');
-                                       const div = document.createElement("div");
-                                       div.classList.add('form-check');
+                                       const selectStagiaire = document.querySelector('.chosen-results');
+                                       const li = document.createElement("li");
+                                       li.classList.add('active-result');
                                        
-                                       const input = document.createElement("input");
-                                       input.setAttribute('value', resultat.id );
-                                       input.setAttribute('type','checkbox');
-                                       input.setAttribute('id',"stage_stagiaires_"+resultat.id);
-                                       input.classList.add('form-check-input');
-                                       const label = document.createElement("label");
+                                    //    const input = document.createElement("input");
+                                        li.setAttribute('data-option-array-index', resultat.id );
+                                    //    input.setAttribute('type','checkbox');
+                                    //    li.setAttribute('value',resultat.value);
+                                    //    input.classList.add('form-check-input');
+                                    //    const label = document.createElement("label");
 
-                                       label.classList.add('form-check-label');
-                                       label.innerHTML = resultat.value;
+                                    //    label.classList.add('form-check-label');
+                                       li.innerHTML = resultat.value;
 
-                                        div.appendChild(input);
-                                        div.appendChild(label);
+                                    selectStagiaire.appendChild(li);
+                                        // div.appendChild(label);
 
-                                       selectStagiaire.appendChild(div);
-                                       input.click();
+                                    //    selectStagiaire.appendChild(div);
+                                       li.click();
                                        closeStagiaire.click(); 
                                     }
                                 }).catch((error) => {

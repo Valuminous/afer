@@ -35,6 +35,7 @@ class PrefectureFixtures extends Fixture
             
             $prefecture->setNomPrefecture("Préfecture n°$i");
             $prefecture->setAdressePrefecture($faker->streetAddress);
+            $prefecture->setNumeroAdressePrefecture($faker->text);
             $prefecture->setCommunePrefecture($faker->region);
             $prefecture->setNumeroAdressePrefecture($faker->departmentNumber);
             $prefecture->setCpPrefecture($faker->postcode);

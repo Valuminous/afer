@@ -8,6 +8,9 @@
 @import'login';
 @import'tooltip';
 @import'utilisateur';
+@import'responsive_xlarge';
+@import'responsive_xxlarge';
+@import'responsive_xxlarge';
 @import'404';
 
 html {
@@ -31,17 +34,35 @@ html {
         .add_icon{
             border: solid;
             border-width: 1px;
-            border-color: rgba(40, 167, 69, 0.3);
+            border-color: rgba(40, 167, 70, 0.3);
             background-color: rgba(40, 167, 70, 0.116);
 
             &:hover{
-                background-color: rgba(40, 167, 69, 0.3);
+                background-color: rgba(40, 167, 70, 0.3);
             }
             &::before{
                 font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f055";
                 font-size: 1rem;
                 margin-right: 0.5rem;
                 color: #28a745;
+            }
+        }
+
+        .retour{
+            border: solid;
+            border-width: 1px;
+            border-color: rgba(18, 142, 161, 0.3);
+            background-color: rgba(18, 142, 161, 0.116);
+
+            &:hover{
+                background-color: rgba(18, 142, 161, 0.3);
+            }
+            &::before{
+                font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f060";
+                font-size: 1rem;
+                margin-right: 0.5rem;
+            color: #17a2b8;
+            
             }
         }
 

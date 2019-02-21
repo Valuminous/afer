@@ -86,7 +86,11 @@
  {% block javascripts %}
 <script>
  $().ready(function () {
-    $('select.chzn-select').chosen();
+    $('select.chosen-select').chosen();
+    $(#'my-multiselect').chosen ({
+    min_length: 2
+});
+
  });
     </script>
 {% endblock %}
