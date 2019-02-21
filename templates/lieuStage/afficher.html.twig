@@ -4,18 +4,57 @@
 
 {% block body %}
 
-<section class="info_lieuStage">
-<h2 class="mt-5 mb-5 h2_stage">Lieux de stage</h2>
-<div =class="d-flex justify-content-center">
-                <p>Nom de l'établissement :{{ lieuStage.nomEtablissement }}</p>
-                <p>Commune :{{ lieuStage.commune }}</p>
-                <p> Téléphone :{{ lieuStage.telephoneStage }}</p>
-                <p> Code Postal :{{ lieuStage.cp }}</p>
 
-                
-  </section>
 
-   <a href="{{ path('lieuStage_index') }}" class="btn retour">Retour</a>
-  
+   
+<div class="container-fluid">
+   <h2 class="text-center background_stage">Lieu de stage n°{{lieuStage.id}}</span></h2>
+   <table class="table table-striped">
+      <tbody>
+         <tr>
+            <td>Nom de l'établissement :</td>
+            <td class="text-left">{{ lieuStage.nomEtablissement }}</td>
+         </tr>
+         <tr>
+            <td>N° d'agrément :</td>
+            <td class="text-left">{{ lieuStage.agrement }}</td>
+         </tr>
+         <tr>
+            <td>N° de téléphone :</td>
+            <td class="text-left">{{ lieuStage.telephoneStage }}</td>
+         </tr>
+         <tr>
+            <td>Adresse :</td>
+            <td class="text-left">{{ lieuStage.numeroAdresseStage }} {{ lieuStage.adresseStage }}</td>
+         </tr>
+         <tr>
+            <td>Commune :</td>
+            <td class="text-left">{{ lieuStage.commune }}, {{ lieuStage.cp }}</td>
+         </tr>
+         <tr>
+            <td>Latitude :</td>
+            <td class="text-left">{{ lieuStage.commune }}, {{ lieuStage.latitude }}</td>
+         </tr>
+         <tr>
+            <td>Longitude :</td>
+            <td class="text-left">{{ lieuStage.commune }}, {{ lieuStage.longitude }}</td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+{# <section class="info_lieuStage">
+   <h2>Lieux de stage</h2>
+   <div=class="d-flex justify-content-center">
+      <p>Nom de l'établissement :{{ lieuStage.nomEtablissement }}</p>
+      <p>Commune :{{ lieuStage.commune }}</p>
+      <p> Téléphone :{{ lieuStage.telephoneStage }}</p>
+      <p> Code Postal :{{ lieuStage.cp }}</p>
+
+
+</section>
+
+<a href="{{ path('lieuStage_index') }}" class="btn retour">Retour</a>
+
 
 {% endblock %}
