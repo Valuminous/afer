@@ -7,25 +7,27 @@ use App\Entity\Stage;
 use App\Form\StageType;
 
 use App\Entity\Tribunal;
+use App\Entity\Animateur;
 use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
 
 use App\Form\TribunalType;
 
+use App\Form\AnimateurType;
 use App\Form\StagiaireType;
-
 use App\Form\PrefectureType;
 use App\Repository\StageRepository;
-use App\Repository\TribunalRepository;
-use App\Repository\CiviliteRepository;
 
+use App\Repository\CiviliteRepository;
+use App\Repository\TribunalRepository;
+use App\Repository\AnimateurRepository;
 use App\Repository\StagiaireRepository;
 use App\Repository\PrefectureRepository;
 use Symfony\Component\HttpFoundation\Request;
+
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -227,6 +229,89 @@ class StageController extends AbstractController
             return $response;
         }  
         return $this->render('stage/popStagiaire.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+
+    /**
+    *  @Route("/stage/loadFormAnimateur", name="stage_animateur")
+    */
+    public function popAnimateur(Animateur $animateur = null, CiviliteRepository $repoCivilite, AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
+    {
+        if(!$animateur){
+            $animateur = new Animateur();
+        }
+
+        $form = $this->createForm( AnimateurType::class, $animateur, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+           
+            // dump($request);
+            // die();
+            $animateurNom = $request->request->get('animateur_nom_animateur');
+            $animateurPrenom = $request->request->get('animateur_prenom_animateur');
+            $animateurAdresse = $request->request->get('animateur_rue_animateur');
+            $animateurCommune = $request->request->get('animateur_commune_animateur');
+            $animateurCp = $request->request->get('animateur_cp_animateur');
+            $animateurRegion = $request->request->get('animateur_region_animateur');
+            $animateurEmail = $request->request->get('animateur_email_animateur');
+            $animateurNumeroPortable = $request->request->get('animateur_numero_portable_animateur');
+            $animateurNumeroFixe = $request->request->get('animateur_numero_fixe_animateur');
+            $animateurSiret = $request->request->get('animateur_siret_animateur');
+            $animateurUrssaf = $request->request->get('animateur_urssaf_animateur');
+            $animateurRaisonSociale = $request->request->get('animateur_raison_sociale_animateur');
+            $animateurGta = $request->request->get('animateur_gta_animateur');
+            $animateurCivilite = $request->request->get('animateur_civilite');
+            $animateurFonction = $request->request->get('animateur_animateurFonction');
+            $animateurStatut = $request->request->get('animateur_animateurStatut');
+            $animateurObservations = $request->request->get('animateur_observations_animateur');
+        
+
+            $civilite = $repoCivilite->find($animateurCivilite);
+
+        //     $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom,$year);
+        //     $nbr = $nbrs[0][1];
+    
+            if(strlen($animateurNom) > 0 && strlen($animateurCivilite) != "0" && strlen($animateurPrenom) > 0 &&
+                strlen($animateurAdresse) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 &&
+                strlen($animateurRegion) > 0 && strlen($animateurSiret) > 0 && strlen($animateurUrssaf) > 0 &&
+                strlen($animateurNumeroFixe) > 0 && strlen($stagiaireNumeroFixe) > 0 && strlen($stagiaireEmail) > 0 &&
+                strlen($animateurRaisonSociale) > 0 && strlen($animateurGta) != "0" && strlen($animateurFonction) != "0" &&
+                strlen($animateurStatut) != "0"){
+
+                $animateur->setNomAnimateur($animateurNom);
+                $animateur->setPrenomAnimateur($animateurPrenom);
+                $animateur->setRaisonSocialeAnimateur($animateurRaisonSociale);
+                $animateur->setGtaAnimateur($animateurGta);
+                $animateur->setCpAnimateur($animateurCp);
+                $animateur->setCommuneAnimateur($animateurCommune);
+                $animateur->setRegionAnimateur($animateurRegion);
+                $animateur->setNumeroRueAnimateur($animateurAdresse);
+                $animateur->setNumeroPortableAnimateur($animateurNumeroPortable);
+                $animateur->setNumeroFixeAnimateur($animateurNumeroFixe);
+                $animateur->setEmailAnimateur($animateurEmail);
+                $animateur->setUrssafAnimateur($animateurUrssaf);
+
+                $animateur->setSiretAnimateur($animateurSiret);
+                $animateur->setObservationsAnimateur($animateurObservations);
+                $animateur->setAnimateurStatut($animateurStatut);
+                $animateur->setAnimateurFonction($animateurFonction);
+                $animateur->setCivilite($civilite);
+
+                $manager->persist($animateur);
+                $manager->flush();
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$animateur->getId().', "value":"'.$animateur->setPrenomAnimateur().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+        }  
+        return $this->render('stage/popAnimateur.html.twig', 
             ['form' => $form->createView()
             ]);
     }
