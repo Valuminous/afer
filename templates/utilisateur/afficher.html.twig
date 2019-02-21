@@ -2,17 +2,40 @@
 
 {% block body %}
 
-<section class="utilisateur">
-    <p>ID : {{ users.id }}</p>
-    <p>Nom d'utilisateur : {{ users.username }}</p> 
-    <p>Email : {{ users.email }}</p>
-    <p>Nom : {{ users.nomUser }}</p>
-    <p>Prénom : {{ users.prenomUser }}</p>
-    {% for role in users.roles %}
-        <p>Rôle : {{ role }}</p>
-    {% endfor %}
-</section>
+<div class="container-fluid">
+    <div class="container w-50 utilisateur_border mt-2">
+        <h2 class="text-center background_utilisateur pt-2 pb-2 lieustage_margin">Utilisateur n°{{users.id}}</h2>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="font-weight-bold">Nom d'utilisateur :</td>
+                    <td class="text-left">{{ users.username }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Nom :</td>
+                    <td class="text-left">{{ users.nomUser }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Prénom :</td>
+                    <td class="text-left">{{ users.prenomUser }}</td>
+                </tr>
 
-    <a href="{{ path('utilisateur_index') }}" class="btn retour">Retour</a>
+                <tr>
+                    <td class="font-weight-bold">Email :</td>
+                    <td class="text-left">{{ users.email }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Rôle :</td>
+                    <td class="text-left">
+                        {% for role in users.roles %}
+                        {{ role }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ path('utilisateur_index') }}" class="btn retour lieustage_button mt-3">Retour</a>
+</div>
 
 {% endblock %}
