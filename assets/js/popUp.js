@@ -7,6 +7,7 @@ const close6 = document.querySelector('.close6');
 const closeTribunal = document.querySelector('.closeTribunal');
 const closePrefecture = document.querySelector('.closePrefecture');
 const closeStagiaire = document.querySelector('.closeStagiaire');
+const closeAnimateur = document.querySelector('.closeAnimateur');
 
 // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 document.onreadystatechange = function () {
@@ -464,7 +465,7 @@ function loadFormTribunal() {
                                     }else if(resultat.value != null){
                                        const selectTribunal = document.querySelector('#stage_tribunal');
                                        const option = document.createElement("option");
-                                       option.setAttribute('value', resultat.id )
+                                       option.setAttribute('value', resultat.id );
                                        option.text = resultat.value;
                                        selectTribunal.add(option);
                                        selectTribunal.selectedIndex = selectTribunal.length - 1 ;
@@ -643,25 +644,29 @@ function loadFormStagiaire() {
                                     if(resultat.error != null){
                                        document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
                                     }else if(resultat.value != null){
-                                       const selectStagiaire = document.querySelector('.chosen-results');
+
+                                       const selectStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-choices');
                                        const li = document.createElement("li");
-                                       li.classList.add('active-result');
+                                       li.classList.add('search-choice');
                                        
-                                    //    const input = document.createElement("input");
-                                        li.setAttribute('data-option-array-index', resultat.id );
-                                    //    input.setAttribute('type','checkbox');
-                                    //    li.setAttribute('value',resultat.value);
-                                    //    input.classList.add('form-check-input');
-                                    //    const label = document.createElement("label");
+                                       const span = document.createElement("span");
+                                       span.innerHTML = resultat.value;
+                                       const a = document.createElement("a");
+                                       a.classList.add('search-choice-close');
+                                       a.setAttribute('data-option-array-index', resultat.id );
 
-                                    //    label.classList.add('form-check-label');
-                                       li.innerHTML = resultat.value;
+                                       const selectStagiaire_list = document.querySelector('#stage_stagiaires_chosen .chosen-results');
+                                       const li_list = document.createElement("li");
+                                       li_list.classList.add('active-result');
+                                       li_list.setAttribute('data-option-array-index', resultat.id );
+                                       li_list.innerHTML = resultat.value;                                      
 
-                                    selectStagiaire.appendChild(li);
-                                        // div.appendChild(label);
+                                        li.appendChild(span);
+                                        li.appendChild(a);
 
-                                    //    selectStagiaire.appendChild(div);
-                                       li.click();
+                                        selectStagiaire.appendChild(li);
+                                        selectStagiaire_list.appendChild(li_list);
+
                                        closeStagiaire.click(); 
                                     }
                                 }).catch((error) => {
@@ -755,31 +760,27 @@ function loadFormAnimateur() {
                                     return resultat.json();
                                 })
                                 .then((resultat) => {
-                                   console.log(resultat);
-                                    // if(resultat.error != null){
-                                    //    document.querySelector('#errorAnimateur').innerHTML = "L'animateur' existe déjà";
-                                    // }else if(resultat.value != null){
-                                    // //    const selectStagiaire = document.querySelector('#stage_stagiaires');
-                                    // //    const div = document.createElement("div");
-                                    // //    div.classList.add('form-check');
-                                       
-                                    // //    const input = document.createElement("input");
-                                    // //    input.setAttribute('value', resultat.id );
-                                    // //    input.setAttribute('type','checkbox');
-                                    // //    input.setAttribute('id',"stage_stagiaires_"+resultat.id);
-                                    // //    input.classList.add('form-check-input');
-                                    // //    const label = document.createElement("label");
 
-                                    // //    label.classList.add('form-check-label');
-                                    // //    label.innerHTML = resultat.value;
+                                    if(resultat.error != null){
+                                       document.querySelector('#errorAnimateur').innerHTML = "L'animateur' existe déjà";
+                                    }else if(resultat.value != null){
+                                        const selectAnimateur = document.querySelector('#stage_animateurs_chosen .chosen-choices');
+                                        const li = document.createElement("li");
+                                        li.classList.add('search-choice');
 
-                                    // //     div.appendChild(input);
-                                    // //     div.appendChild(label);
+                                        const span = document.createElement("span");
+                                        span.innerHTML = resultat.value;
 
-                                    // //    selectStagiaire.appendChild(div);
-                                    // //    input.click();
-                                    //    closeStagiaire.click(); 
-                                    // }
+                                        const a = document.createElement("a");
+                                        a.classList.add('search-choice-close');
+                                        a.setAttribute('data-option-array-index', resultat.id );
+
+                                        li.appendChild(span);
+                                        li.appendChild(a);
+                                        selectAnimateur.appendChild(li);
+
+                                       closeAnimateur.click(); 
+                                    }
                                 }).catch((error) => {
                                     console.log(error);
                                 });
