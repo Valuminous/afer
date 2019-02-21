@@ -16,15 +16,21 @@ use App\Form\TribunalType;
 use App\Form\AnimateurType;
 use App\Form\StagiaireType;
 use App\Form\PrefectureType;
-use App\Repository\StageRepository;
 
-use App\Repository\CiviliteRepository;
+use App\Repository\StageRepository;
 use App\Repository\TribunalRepository;
+use App\Repository\PrefectureRepository;
 use App\Repository\AnimateurRepository;
 use App\Repository\StagiaireRepository;
-use App\Repository\PrefectureRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Repository\CiviliteRepository;
+use App\Repository\AnimateurStatutRepository;
+use App\Repository\AnimateurFonctionRepository;
+use App\Repository\TribunalAutoriteRepository;
+use App\Repository\TribunalServiceRepository;
+use App\Repository\PrefectureAutoriteRepository;
+use App\Repository\PrefectureServiceRepository;
 
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,7 +61,7 @@ class StageController extends AbstractController
      /**
      *  @Route("/stage/loadFormTribunal", name="stage_tribunal")
      */
-    public function popTribunal(Tribunal $tribunal = null,TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
+    public function popTribunal(Tribunal $tribunal = null, TribunalAutoriteRepository $repoAutorite, TribunalServiceRepository $repoService, TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
     {
         if(!$tribunal){
             $tribunal = new Tribunal();
@@ -69,23 +75,30 @@ class StageController extends AbstractController
             $tribunalAdresse = $request->request->get('tribunal_adresse_tribunal');
             $tribunalNumeroAdresse = $request->request->get('tribunal_numero_adresse_tribunal');
             $tribunalCommune = $request->request->get('tribunal_commune_tribunal');
-            $tribunalAutorite = $request->request->get('tribunal_tribunal_service');
-            $tribunalService = $request->request->get('tribunal_tribunal_autorite');
+            $tribunalCp = $request->request->get('tribunal_cp_tribunal');
+            $tribunalAutorite = $request->request->get('tribunal_tribunal_autorite');
+            $tribunalService = $request->request->get('tribunal_tribunal_service');
       
+            $autorite = $repoAutorite->find($tribunalAutorite);
+            $service = $repoService->find($tribunalService);
+
              $nbrs = $repoTribunal->counter($tribunalNom,$tribunalCommune);
              $nbr = $nbrs[0][1];
 
             if(strlen($tribunalNom) > 0 && strlen($tribunalAdresse) > 0 && strlen($tribunalNumeroAdresse) > 0 &&
-                strlen($tribunalCommune) > 0 && strlen($tribunalAutorite) > 0 && strlen($tribunalService) > 0 && $nbr === "0"){
+                strlen($tribunalCommune) > 0 && strlen($tribunalAutorite) > 0&& strlen($tribunalCp) > 0 && strlen($tribunalService) > 0 && $nbr === "0"){
                 
                 $tribunal->setNomTribunal($tribunalNom);
                 $tribunal->setAdresseTribunal($tribunalAdresse);
                 $tribunal->setNumeroAdresseTribunal($tribunalNumeroAdresse);
                 $tribunal->setCommuneTribunal($tribunalCommune);
-                $tribunal->getTribunalService($tribunalAutorite);
-                $tribunal->getTribunalAutorite($tribunalService);
+                $tribunal->setCpTribunal($tribunalCp);
+                $tribunal->setTribunalService($service);
+                $tribunal->setTribunalAutorite($autorite);
+
                 $manager->persist( $tribunal );
                 $manager->flush();
+
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"id":'.$tribunal->getId().', "value":"'.$tribunal->getNomTribunal().'"}');
             }else{
@@ -102,7 +115,7 @@ class StageController extends AbstractController
      /**
      *  @Route("/stage/loadFormPrefecture", name="stage_prefecture")
      */
-    public function popPrefecture(Prefecture $prefecture = null,PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager)
+    public function popPrefecture(Prefecture $prefecture = null,PrefectureRepository $repoPrefecture,PrefectureAutoriteRepository $repoAutorite,PrefectureServiceRepository $repoService, Request $request, ObjectManager $manager)
     {
         if(!$prefecture){
             $prefecture = new Prefecture();
@@ -121,6 +134,10 @@ class StageController extends AbstractController
             $prefectureAutorite = $request->request->get('prefecture_prefectureAutorite');
             $prefectureService = $request->request->get('prefecture_prefectureService');
 
+            $autorite = $repoAutorite->find($prefectureAutorite);
+            $service = $repoService->find($prefectureService);
+            // dump($autorite);
+            // die();
             $nbrs = $repoPrefecture->counter($prefectureNom,$prefectureCommune);
             $nbr = $nbrs[0][1];
             
@@ -132,8 +149,8 @@ class StageController extends AbstractController
                 $prefecture->setNumeroAdressePrefecture($prefectureNumeroAdresse);
                 $prefecture->setCpPrefecture($prefectureCP);
                 $prefecture->setCommunePrefecture($prefectureCommune);
-                $prefecture->getPrefectureService($prefectureAutorite);
-                $prefecture->getPrefectureAutorite($prefectureService);
+                $prefecture->setPrefectureService($service);
+                $prefecture->setPrefectureAutorite($autorite);
 
                 $manager->persist($prefecture);
                 $manager->flush();
@@ -237,7 +254,7 @@ class StageController extends AbstractController
     /**
     *  @Route("/stage/loadFormAnimateur", name="stage_animateur")
     */
-    public function popAnimateur(Animateur $animateur = null, CiviliteRepository $repoCivilite, AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
+    public function popAnimateur(Animateur $animateur = null, AnimateurFonctionRepository $repoFonction, AnimateurStatutRepository $repoStatut, CiviliteRepository $repoCivilite, AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
     {
         if(!$animateur){
             $animateur = new Animateur();
@@ -248,8 +265,7 @@ class StageController extends AbstractController
 
         if($request->isMethod('POST')){
            
-            // dump($request);
-            // die();
+
             $animateurNom = $request->request->get('animateur_nom_animateur');
             $animateurPrenom = $request->request->get('animateur_prenom_animateur');
             $animateurAdresse = $request->request->get('animateur_rue_animateur');
@@ -270,16 +286,17 @@ class StageController extends AbstractController
         
 
             $civilite = $repoCivilite->find($animateurCivilite);
+            $fonction = $repoFonction->find($animateurFonction);
+            $statut = $repoStatut->find($animateurStatut);
 
+          
         //     $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom,$year);
         //     $nbr = $nbrs[0][1];
     
             if(strlen($animateurNom) > 0 && strlen($animateurCivilite) != "0" && strlen($animateurPrenom) > 0 &&
                 strlen($animateurAdresse) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 &&
                 strlen($animateurRegion) > 0 && strlen($animateurSiret) > 0 && strlen($animateurUrssaf) > 0 &&
-                strlen($animateurNumeroFixe) > 0 && strlen($stagiaireNumeroFixe) > 0 && strlen($stagiaireEmail) > 0 &&
-                strlen($animateurRaisonSociale) > 0 && strlen($animateurGta) != "0" && strlen($animateurFonction) != "0" &&
-                strlen($animateurStatut) != "0"){
+                strlen($animateurNumeroFixe) > 0 &&strlen($animateurRaisonSociale) > 0 && strlen($animateurGta) != "0" && strlen($animateurFonction) != "0" && strlen($animateurStatut) != "0"){
 
                 $animateur->setNomAnimateur($animateurNom);
                 $animateur->setPrenomAnimateur($animateurPrenom);
@@ -296,15 +313,15 @@ class StageController extends AbstractController
 
                 $animateur->setSiretAnimateur($animateurSiret);
                 $animateur->setObservationsAnimateur($animateurObservations);
-                $animateur->setAnimateurStatut($animateurStatut);
-                $animateur->setAnimateurFonction($animateurFonction);
+                $animateur->setAnimateurStatut($statut);
+                $animateur->setAnimateurFonction($fonction);
                 $animateur->setCivilite($civilite);
 
                 $manager->persist($animateur);
                 $manager->flush();
 
                 $response = new Response();
-                $response = JsonResponse::fromJsonString('{"id":'.$animateur->getId().', "value":"'.$animateur->setPrenomAnimateur().'"}');
+                $response = JsonResponse::fromJsonString('{"id":'.$animateur->getId().', "value":"'.$animateur->getPrenomAnimateur().'"}');
             }else{
                 $response = new Response();
                 $response = JsonResponse::fromJsonString('{"error":"existe"}');

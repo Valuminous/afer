@@ -410,7 +410,6 @@ function loadFormAnimateurStatut() {
     }
 }
 
-
 function loadFormTribunal() {
     let tribunal = document.querySelector('#addTribunal');
 
@@ -430,17 +429,21 @@ function loadFormTribunal() {
                         e.preventDefault();
                         if (document.querySelector('form[name="tribunal"] #tribunal_nom_tribunal').value.length != 0 &&
                             document.querySelector('form[name="tribunal"] #tribunal_adresse_tribunal').value.length != 0 &&
+                            document.querySelector('form[name="tribunal"] #tribunal_cp_tribunal').value.length != 0 &&
                             document.querySelector('form[name="tribunal"] #tribunal_numero_adresse_tribunal').value.length != 0 &&
                             document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal').value.length != 0 &&
                             document.querySelector('form[name="tribunal"] #tribunal_tribunal_service').value != "" &&
                             document.querySelector('form[name="tribunal"] #tribunal_tribunal_autorite').value != "") {
+
                             let tribunalNom = document.querySelector('form[name="tribunal"] #tribunal_nom_tribunal');
                             let tribunalAdresse = document.querySelector('form[name="tribunal"] #tribunal_adresse_tribunal');
                             let tribunalNumeroAdresse = document.querySelector('form[name="tribunal"] #tribunal_numero_adresse_tribunal');
                             let tribunalCommune = document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal');
                             let tribunalAutorite = document.querySelector('form[name="tribunal"] #tribunal_tribunal_autorite');
                             let tribunalService = document.querySelector('form[name="tribunal"] #tribunal_tribunal_service');
+                            let tribunalCp = document.querySelector('form[name="tribunal"] #tribunal_cp_tribunal');
                             let token = document.querySelector('form[name="tribunal"] #tribunal__token');
+
                             let data = new FormData();
                             data.append("tribunal_nom_tribunal", tribunalNom.value);
                             data.append("tribunal_adresse_tribunal", tribunalAdresse.value);
@@ -448,6 +451,7 @@ function loadFormTribunal() {
                             data.append("tribunal_commune_tribunal", tribunalCommune.value);
                             data.append("tribunal_tribunal_autorite", tribunalAutorite.value);
                             data.append("tribunal_tribunal_service", tribunalService.value);
+                            data.append("tribunal_cp_tribunal", tribunalCp.value);
                             data.append("tribunal__token", token.value);
                             fetch("/admin/stage/loadFormTribunal", { method: "POST",body: data,credentials: 'include'})
                                 .then((resultat) => {
@@ -480,8 +484,6 @@ function loadFormTribunal() {
         });
     }
 }
-
-
 
 function loadFormPrefecture() {
     let prefecture = document.querySelector('#addPrefecture');
@@ -557,7 +559,6 @@ function loadFormPrefecture() {
         });
     }
 }
-
 
 function loadFormStagiaire() {
     let stagiaire = document.querySelector('#addStagiaire');
@@ -754,28 +755,29 @@ function loadFormAnimateur() {
                                     return resultat.json();
                                 })
                                 .then((resultat) => {
+                                   console.log(resultat);
                                     // if(resultat.error != null){
-                                    //    document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
+                                    //    document.querySelector('#errorAnimateur').innerHTML = "L'animateur' existe déjà";
                                     // }else if(resultat.value != null){
-                                    //    const selectStagiaire = document.querySelector('#stage_stagiaires');
-                                    //    const div = document.createElement("div");
-                                    //    div.classList.add('form-check');
+                                    // //    const selectStagiaire = document.querySelector('#stage_stagiaires');
+                                    // //    const div = document.createElement("div");
+                                    // //    div.classList.add('form-check');
                                        
-                                    //    const input = document.createElement("input");
-                                    //    input.setAttribute('value', resultat.id );
-                                    //    input.setAttribute('type','checkbox');
-                                    //    input.setAttribute('id',"stage_stagiaires_"+resultat.id);
-                                    //    input.classList.add('form-check-input');
-                                    //    const label = document.createElement("label");
+                                    // //    const input = document.createElement("input");
+                                    // //    input.setAttribute('value', resultat.id );
+                                    // //    input.setAttribute('type','checkbox');
+                                    // //    input.setAttribute('id',"stage_stagiaires_"+resultat.id);
+                                    // //    input.classList.add('form-check-input');
+                                    // //    const label = document.createElement("label");
 
-                                    //    label.classList.add('form-check-label');
-                                    //    label.innerHTML = resultat.value;
+                                    // //    label.classList.add('form-check-label');
+                                    // //    label.innerHTML = resultat.value;
 
-                                    //     div.appendChild(input);
-                                    //     div.appendChild(label);
+                                    // //     div.appendChild(input);
+                                    // //     div.appendChild(label);
 
-                                    //    selectStagiaire.appendChild(div);
-                                    //    input.click();
+                                    // //    selectStagiaire.appendChild(div);
+                                    // //    input.click();
                                     //    closeStagiaire.click(); 
                                     // }
                                 }).catch((error) => {

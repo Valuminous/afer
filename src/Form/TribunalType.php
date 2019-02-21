@@ -22,6 +22,7 @@ class TribunalType extends AbstractType
             ->add('adresse_tribunal')
             ->add('numero_adresse_tribunal')
             ->add('commune_tribunal')
+            ->add('cp_tribunal')
             ->add('tribunal_service', EntityType::class, [
                 'class' => TribunalService::class,
                 'choice_label' => 'nom',

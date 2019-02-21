@@ -25,7 +25,7 @@ class PrefectureFixtures extends Fixture
 
         for ($k = 1; $k < 3; $k++) { 
             $autorite = new PrefectureAutorite();
-            $autorite->setNom($faker->sentence());
+            $autorite->setNom($faker->word);
             $manager->persist($autorite);
             $manager->flush();
         }
@@ -33,10 +33,10 @@ class PrefectureFixtures extends Fixture
         for($i = 1; $i < 3; $i++){
             $prefecture = new Prefecture();
             
-            $prefecture->setNomPrefecture("Préfécture n°$i");
+            $prefecture->setNomPrefecture("Préfecture n°$i");
             $prefecture->setAdressePrefecture($faker->streetAddress);
-            $prefecture->setNumeroAdressePrefecture($faker->randomDigit);
             $prefecture->setCommunePrefecture($faker->region);
+            $prefecture->setNumeroAdressePrefecture($faker->departmentNumber);
             $prefecture->setCpPrefecture($faker->postcode);
             $prefecture->setPrefectureService($service);
             $prefecture->setPrefectureAutorite($autorite);
