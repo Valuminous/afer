@@ -3,39 +3,41 @@
 {% block body %}
 
 {% if editMode %}
-<h1>Modifier un stage</h1>
+<h1  class="mt-5 mb-5 h2_stage">Modifier un stage</h1>
 {% else %}
-<h1>Ajouter un stage</h1>
+<h1  class="mt-5 mb-5 h2_stage">Ajouter un stage</h1>
 {% endif %}
 
 {{ form_start(formStage) }}
 
 <div class="d-flex">
     {{ form_row(formStage.tribunal, {'label': 'Tribunal'}) }}
-    <button type="button" id="addTribunal" class="btn btn-primary" data-toggle="modal" data-target="#modalCartTribunal">
+    <button type="button" id="addTribunal" class="btn btn-success" data-toggle="modal" data-target="#modalCartTribunal">
         +
     </button>
 </div>
 <div class="d-flex">
     {{ form_row(formStage.prefecture, {'label': 'Prefécture'}) }}
-    <button type="button" id="addPrefecture" class="btn btn-primary" data-toggle="modal" data-target="#modalCartPrefecture">
+    <button type="button" id="addPrefecture" class="btn btn-success" data-toggle="modal" data-target="#modalCartPrefecture">
         +
     </button>
 </div>
 <div class="d-flex">
     {{ form_row(formStage.stagiaires, {'label': 'Stagiaire'}) }}
-    <button type="button" id="addStagiaire" class="btn btn-primary" data-toggle="modal" data-target="#modalCartStagiaire">
+    <button type="button" id="addStagiaire" class="btn btn-success" data-toggle="modal" data-target="#modalCartStagiaire">
         +
     </button>
 </div>
 
-<button type="submit" class="btn btn-primary">
-    {% if editMode %}
-    Modifier
+ {% if editMode %}
+    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+    Enregistrer
+    </button>
     {% else %}
-    Sauvegarder
+    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+    Enregistrer
+    </button>
     {% endif %}
-</button>
 
 {{ form_end(formStage) }}
 

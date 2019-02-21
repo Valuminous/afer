@@ -5,7 +5,7 @@
 {% block body %}
 
 <section class="info_lieuStage">
-<h2>Lieux de stage</h2>
+<h2 class="mt-5 mb-5 h2_stage">Lieux de stage</h2>
 <div =class="d-flex justify-content-center">
                 <p>Nom de l'établissement :{{ lieuStage.nomEtablissement }}</p>
                 <p>Commune :{{ lieuStage.commune }}</p>
@@ -15,7 +15,7 @@
                 
   </section>
 
-   <a href="{{ path('lieuStage_index') }}">Retour</a>
+   <a href="{{ path('lieuStage_index') }}" class="btn retour">Retour</a>
   
 
 {% endblock %}

@@ -3,6 +3,9 @@
 {% block body %}
 
 <section class="stagiaire">
+
+<h2 class="mt-5 mb-5 h2_stagiaire">Stagiaire</h2>
+<div =class="d-flex justify-content-center">
     <p>ID : {{ stagiaire.id }}</p>
     <p>Civilité : {{ stagiaire.civilite.nomCivilite }}</p> 
     <p>Nom : {{ stagiaire.nomStagiaire }}</p>
@@ -28,6 +31,6 @@
            
           
 
-    <a href="{{ path('stagiaire_index') }}">Retour</a>
+    <a href="{{ path('stagiaire_index') }}" class="btn retour">Retour</a>
 
 {% endblock %}

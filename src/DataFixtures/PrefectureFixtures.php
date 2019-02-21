@@ -33,7 +33,7 @@ class PrefectureFixtures extends Fixture
         for($i = 1; $i < 3; $i++){
             $prefecture = new Prefecture();
             
-            $prefecture->setNomPrefecture("Préfécture n°$i");
+            $prefecture->setNomPrefecture("Préfecture n°$i");
             $prefecture->setAdressePrefecture($faker->streetAddress);
             $prefecture->setNumeroAdressePrefecture($faker->text);
             $prefecture->setCommunePrefecture($faker->region);

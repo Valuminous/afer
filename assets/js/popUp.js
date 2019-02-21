@@ -20,7 +20,6 @@ document.onreadystatechange = function () {
     loadFormPrefecture();
     loadFormStagiaire();
 }
-
 function loadFormAutoriteTribunal() {
     let autorite = document.querySelector('#addAutoriteTribunal');
 

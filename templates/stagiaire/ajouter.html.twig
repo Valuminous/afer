@@ -8,9 +8,9 @@
 
     <div>
     {% if editMode %}
-    <h2 class="mt-5 mb-5 h2Stagiaire">Modifier un stagiaire</h2>
+    <h2 class="mt-5 mb-5 h2_Stagiaire">Modifier un stagiaire</h2>
     {% else %}
-    <h2 class="mt-5 mb-5 h2Stagiaire">Ajouter un stagiaire</h2>
+    <h2 class="mt-5 mb-5 h2_Stagiaire">Ajouter un stagiaire</h2>
     {% endif %}
     </div>
 
@@ -89,14 +89,15 @@
     </div>
 
         {% if editMode %}
-        <button type="submit" class="btn btn-warning">
-        Modifier
-        </button>
-        {% else %}
-        <button type="submit" class="btn btn-primary">
-        Sauvegarder
-        </button>
-        {% endif %}
+    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+    Enregistrer
+    </button>
+    {% else %}
+    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+    Enregistrer
+    </button>
+    {% endif %}
+
 
     {{ form_end(formStagiaire) }}
 
