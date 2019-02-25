@@ -2,48 +2,36 @@
 
 {% block body %}
 
-<section class="prefecture affichagetbl container mt-5">
-
-    <container class="affichage inline-block center">
+<div class="container-fluid">
+    <div class="container w-50 prefecture_border mt-2">
+        <h2 class="text-center background_prefecture pt-2 pb-2 lieustage_margin">Préfecture n°{{prefectures.id}}</h2>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="font-weight-bold">Nom de la préfecture :</td>
+                    <td class="text-left">{{ prefectures.nomPrefecture }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Autorité :</td>
+                    <td class="text-left">{{ prefectures.prefectureAutorite }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Service :</td>
+                    <td class="text-left">{{ prefectures.prefectureService }}</td>
+                </tr>
     
-    <h2 class"mt-4 pb-5 text-center h2_prefecture">Détails de la préfecture</h2>
-     <table class="table table-striped mb-4">
-        <thead>
-            <tr class="background_prefecture">
-                <th scope="col" class="text-left pl-5"></th>
-                <th scope="col" class="text-left"></th>
-  </tr>
-  </thead>
+                <tr>
+                    <td class="font-weight-bold">Adresse :</td>
+                    <td class="text-left">{{ prefectures.numeroAdressePrefecture }}, {{ prefectures.adressePrefecture }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Commune :</td>
+                    <td class="text-left">{{ prefectures.cpPrefecture}} {{ prefectures.communePrefecture }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ path('prefecture_index') }}" class="btn retour lieustage_button mt-3">Retour</a>
+</div>
 
-        <tbody>
-        <tr>
-    <td><strong>Nom : </strong></td>
-    <td>{{ prefectures.nomPrefecture }}</td>
-     </tr>
-    <tr>
-    <td><strong>Adresse : </strong></td>
-    <td>{{ prefectures.numeroAdressePrefecture }} {{ prefectures.adressePrefecture }}</td>
-     </tr>
-    <tr>
-    <td><strong>Code postal : </strong></td>
-    <td>{{ prefectures.cpPrefecture }}</td>
-     </tr>
-    <tr>
-    <td><strong>Commune : </strong></td>
-    <td>{{ prefectures.communePrefecture }}</td>
-     </tr>
-    <tr>
-    <td><strong>Autorité : </strong></td>
-    <td>{{ prefectures.prefectureAutorite }}</td>
-     </tr>
-    <tr>
-    <td><strong>Service : </strong></td>
-    <td>{{ prefectures.prefectureService }}</th>
-</tr>
-  </tbody>
-    </table>
-  
-   </container>
-    <a href="{{ path('prefecture_index') }}" class="btn retour mr-5">Retour</a>
-</section>
 {% endblock %}

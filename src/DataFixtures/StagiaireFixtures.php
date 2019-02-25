@@ -35,7 +35,7 @@ class StagiaireFixtures extends Fixture
                 $stagiaire->setCarteJeuneStagiaire($faker->boolean());
                 $stagiaire->setPartenaireStagiaire($faker->boolean());
                 $stagiaire->setAdherentStagiaire($faker->boolean());
-                $stagiaire->setNumeroAdresseStagiaire($faker->randomDigit);
+                $stagiaire->setNumeroAdresseStagiaire($faker->randomNumber);
               
             
 

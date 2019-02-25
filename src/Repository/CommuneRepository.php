@@ -19,22 +19,23 @@ class CommuneRepository extends ServiceEntityRepository
         parent::__construct($registry, Commune::class);
     }
 
-    // /**
-    //  * @return Commune[] Returns an array of Commune objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param string $commune
+     * @return Commune[] Returns an array of Commune objects
+   */
+    
+    public function findLikeName($commune)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('c.commune LIKE :commune')
+            ->setParameter('commune', "%commune%")
+            ->orderBy('c.commune')
+            ->setMaxResults(5)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Commune

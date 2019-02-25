@@ -11,16 +11,21 @@ const closeAnimateur = document.querySelector('.closeAnimateur');
 
 // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 document.onreadystatechange = function () {
-    loadFormAutoriteTribunal();
-    loadFormTribunalService();
-    loadFormPrefectureService();
-    loadFormPrefectureAutorite();
-    loadFormAnimateurFonction();
-    loadFormAnimateurStatut();
-    loadFormTribunal();
-    loadFormPrefecture();
-    loadFormStagiaire();
-    loadFormAnimateur();
+
+    if( document.readyState === 'complete' ){
+        loadFormAutoriteTribunal();
+        loadFormTribunalService();
+        loadFormPrefectureService();
+        loadFormPrefectureAutorite();
+        loadFormAnimateurFonction();
+        loadFormAnimateurStatut();
+        loadFormTribunal();
+        loadFormPrefecture();
+        loadFormStagiaire();
+        verifAutoriteTribunal();
+        myBox = $('#modalMessage');
+    }
+    
 }
 function loadFormAutoriteTribunal() {
     let autorite = document.querySelector('#addAutoriteTribunal');
@@ -477,12 +482,12 @@ function loadFormTribunal() {
                             }else{
                                 document.querySelector('#errorTribunal').innerHTML = "Veuillez remplir tous les champs";
                             }
-                    })
+                        })
+                    }
                 }
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 }
 
@@ -490,24 +495,26 @@ function loadFormPrefecture() {
     let prefecture = document.querySelector('#addPrefecture');
 
     if (prefecture != null) {
-        fetch("/admin/stage/loadFormPrefecture", {credentials: 'include'})
-        .then((reponse) => {
-            return reponse.text();
-        })
-        .then((reponse) => {
-            if (reponse.length > 0) {
-                document.querySelector('#modalCartPrefecture .modal-body').innerHTML = reponse;
-                btn = document.querySelector('#modalCartPrefecture .modal-body button');
-                if (btn != null) {
-                    btn.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        if (document.querySelector('form[name="prefecture"] #prefecture_nomPrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_adressePrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_numeroAdressePrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_communePrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_cpPrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_prefectureService').value != "" &&
-                            document.querySelector('form[name="prefecture"] #prefecture_prefectureAutorite').value != "" ) {
+        fetch("/admin/stage/loadFormPrefecture", {
+                credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.text();
+            })
+            .then((reponse) => {
+                if (reponse.length > 0) {
+                    document.querySelector('#modalCartPrefecture .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalCartPrefecture .modal-body button');
+                    if (btn != null) {
+                        btn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            if (document.querySelector('form[name="prefecture"] #prefecture_nomPrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_adressePrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_numeroAdressePrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_communePrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_cpPrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_prefectureService').value != "" &&
+                                document.querySelector('form[name="prefecture"] #prefecture_prefectureAutorite').value != "") {
 
                                 let prefectureNom = document.querySelector('form[name="prefecture"] #prefecture_nomPrefecture');
                                 let prefectureAdresse = document.querySelector('form[name="prefecture"] #prefecture_adressePrefecture');
@@ -528,36 +535,38 @@ function loadFormPrefecture() {
                                 data.append("prefecture_cpPrefecture", prefectureCp.value);
                                 data.append("prefecture__token", token.value);
 
-                                fetch("/admin/stage/loadFormPrefecture", { method: "POST",body: data,credentials: 'include'})
-                                .then((resultat) => {
-                                    return resultat.json();
-                                })
-                                .then((resultat) => {
-                                  
-                                    if(resultat.error != null){
-                                       document.querySelector('#errorPrefecture').innerHTML = "La préfecture existe déjà";
-                                    }else if(resultat.value != null){
-                                       const selectPrefecture = document.querySelector('#stage_prefecture');
-                                       const option = document.createElement("option");
-                                       option.setAttribute('value', resultat.id )
-                                       option.text = resultat.value;
-                                       selectPrefecture.add(option);
-                                       selectPrefecture.selectedIndex = selectPrefecture.length - 1 ;
-                                       closePrefecture.click(); 
-                                    }
-                                }).catch((error) => {
-                                    console.log(error);
-                                });
-                        }else{
-                            document.querySelector('#errorPrefecture').innerHTML = "Veuillez remplir tous les champs";
-                        }
-                    })
+                                fetch("/admin/stage/loadFormPrefecture", {
+                                        method: "POST",
+                                        body: data,
+                                        credentials: 'include'
+                                    })
+                                    .then((resultat) => {
+                                        return resultat.json();
+                                    })
+                                    .then((resultat) => {
+
+                                        if (resultat.error != null) {
+                                            document.querySelector('#errorPrefecture').innerHTML = "La préfecture existe déjà";
+                                        } else if (resultat.value != null) {
+                                            const selectPrefecture = document.querySelector('#stage_prefecture');
+                                            const option = document.createElement("option");
+                                            option.setAttribute('value', resultat.id)
+                                            option.text = resultat.value;
+                                            selectPrefecture.add(option);
+                                            selectPrefecture.selectedIndex = selectPrefecture.length - 1;
+                                            closePrefecture.click();
+                                        }
+                                    }).catch((error) => {
+                                        console.log(error);
+                                    });
+                            }
+                        })
+                    }
+
                 }
-            
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 }
 
@@ -565,44 +574,46 @@ function loadFormStagiaire() {
     let stagiaire = document.querySelector('#addStagiaire');
 
     if (stagiaire != null) {
-        fetch("/admin/stage/loadFormStagiaire", {credentials: 'include'})
-        .then((reponse) => {
-            return reponse.text();
-        })
-        .then((reponse) => {
-            if (reponse.length > 0) {
-                document.querySelector('#modalCartStagiaire .modal-body').innerHTML = reponse;
-                btn = document.querySelector('#modalCartStagiaire .modal-body button');
-                if (btn != null) {
-                    btn.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        if (document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value.length != "" &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value.length != "" &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value.length != "" &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_numeroPortableStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_numeroFixeStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_emailStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_numeroAdresseStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_civilite').value.length != ""){
+        fetch("/admin/stage/loadFormStagiaire", {
+                credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.text();
+            })
+            .then((reponse) => {
+                if (reponse.length > 0) {
+                    document.querySelector('#modalCartStagiaire .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalCartStagiaire .modal-body button');
+                    if (btn != null) {
+                        btn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            if (document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value.length != "" &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value.length != "" &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value.length != "" &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_numeroPortableStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_numeroFixeStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_emailStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_numeroAdresseStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_civilite').value.length != "") {
 
-       
+
 
                                 let stagiaireNom = document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire');
                                 let stagiairePrenom = document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire');
                                 let stagiaireCp = document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire');
                                 let stagiaireCommune = document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire');
                                 let stagiaireNomNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire');
-                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value+"-"+
-                                                             document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value+"-"+
-                                                             document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value;
+                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value + "-" +
+                                    document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value + "-" +
+                                    document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value;
                                 let stagiaireLieuNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire');
                                 let stagiaireAdresse = document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire');
                                 let stagiaireNationalite = document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire');
@@ -616,7 +627,7 @@ function loadFormStagiaire() {
                                 let stagiaireCivilite = document.querySelector('form[name="stagiaire"] #stagiaire_civilite');
                                 let token = document.querySelector('form[name="stagiaire"] #stagiaire__token');
                                 let data = new FormData();
-                              
+
                                 data.append("stagiaire_nomStagiaire", stagiaireNom.value);
                                 data.append("stagiaire_prenomStagiaire", stagiairePrenom.value);
                                 data.append("stagiaire_cpStagiaire", stagiaireCp.value);
@@ -700,13 +711,55 @@ function loadFormStagiaire() {
                         }
                     })
                 }
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 }
 
+
+function verifAutoriteTribunal(){
+    let btnDelete = document.querySelectorAll('.tribunalAutoriteDelete');
+    [].forEach.call( btnDelete, (btnElement) => {
+        btnElement.addEventListener('click', (e)=>{
+
+            e.preventDefault();
+            let id = btnElement.getAttribute('data-id');
+            data = new FormData();
+            data.append('id',id);
+
+            fetch("/admin/tribunal/autorite/supprAlertFormAutoriteTribunal", { method: "POST", body: data, credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.json();
+            })
+            .then((reponse) => {
+
+                if (reponse.error != null) {
+
+                    console.log('erreur');
+
+                } else {
+
+                    if(reponse.nb === 0) {
+                        // btnElement.setAttribute('data-toggle','modal');
+                        console.log(myBox);
+                        myBox.modal('show');
+
+                        console.log('bonjour');
+                    } else {
+                        console.log('au revoir');
+                    }
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+        })
+    })  }           
+
+
+                   
 function loadFormAnimateur() {
     let animateur = document.querySelector('#addAnimateur');
     if (animateur != null) {
@@ -717,8 +770,7 @@ function loadFormAnimateur() {
         .then((reponse) => {
             if (reponse.length > 0) {
                 document.querySelector('#modalCartAnimateur .modal-body').innerHTML = reponse;
-                btn = document.querySelector('#modalCartAnimateur .modal-body button');
-
+                btn = document.querySelector('#modalCartAnimateur .modal-body button');  
                 if (btn != null) {
                     btn.addEventListener('click', function (e) {
                         e.preventDefault();

@@ -34,7 +34,7 @@ class TribunalFixtures extends Fixture
             
             $tribunal->setNomTribunal("Tribunal n°$i");
             $tribunal->setAdresseTribunal($faker->streetAddress);
-            $tribunal->setNumeroAdresseTribunal($faker->randomDigit);
+            $tribunal->setNumeroAdresseTribunal($faker->randomNumber);
             $tribunal->setCommuneTribunal($faker->region);
             $tribunal->setCpTribunal($faker->postcode);
             $tribunal->setTribunalAutorite($autorite);

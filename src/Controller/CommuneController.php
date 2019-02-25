@@ -14,13 +14,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-/**
- * @IsGranted("ROLE_ADMIN")
- */
 class CommuneController extends AbstractController
 {
-    public function index(CommuneRepository $repo)
-    {
-        $communes = $repo->findAll();
+/**
+ * @Route("/search-commune", name="search-commune", methods="GET")
+ * 
+ */
 
-}}  
+    public function searchCommune(Request $request)
+    {
+        $q = $request->query->get('q'); 
+        $results = $this->getDoctrine()->getRepository('App:Commune')->findLike($q);
+
+        return $this->render('commune.json.twig', ['communes' => $results]);
+    }
+
+    // public function getCommune($id = null)
+    // {
+    //     $commune = $this->getDoctrine()->getRepository('App:Commune')->find($id);
+
+    //     return $this->json($commune->getCp());
+    // }
+}

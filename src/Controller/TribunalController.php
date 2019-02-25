@@ -100,8 +100,10 @@ class TribunalController extends AbstractController
     public function indexAutorite(TribunalAutoriteRepository $repoAutorites)
     {
         $autorites = $repoAutorites->findAll();
+        $nbr = null;
         return $this->render('tribunal/autorite.html.twig', [
-            'autorites'=> $autorites
+            'autorites'=> $autorites,
+            'nbr' => $nbr
             ]); 
     }
 
@@ -271,4 +273,35 @@ class TribunalController extends AbstractController
             ['form' => $formService->createView()
             ]);
     }
+
+    /**
+    * @Route("/tribunal/autorite/supprAlertFormAutoriteTribunal", name="tribunal_autorite_suppr_alert")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function supprAutorite(TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
+    {
+
+        if($request->isMethod('POST')){
+
+            $id = $request->request->get('id');
+            
+            if($id > 0){
+                $nbrs = $repoTribunal->counterAutorite($id);
+                $nbr = $nbrs[0][1];
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"nb":'.$nbr.'}');
+            } else {
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"notnumber"}');
+            }
+
+            return $response;
+        } else {
+            $response = new Response();
+            $response = JsonResponse::fromJsonString('{"error":"exception"}');
+        }
+        
+    }
+
 }
