@@ -23,7 +23,7 @@ document.onreadystatechange = function () {
         loadFormPrefecture();
         loadFormStagiaire();
         verifAutoriteTribunal();
-        myBox = $('#modalMessage');
+        myBox = $('#autoriteTribunalDelete');
     }
     
 }
@@ -739,13 +739,13 @@ function verifAutoriteTribunal(){
                 } else {
 
                     if(reponse.nb === 0) {
-                        // btnElement.setAttribute('data-toggle','modal');
-                        console.log(myBox);
+                        document.querySelector('.modal-body').innerHTML = "Vous êtes sur le point de supprimer une autorité";
                         myBox.modal('show');
-
-                        console.log('bonjour');
+                        document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        console.log('au revoir');
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette autorité car elle est utilisée dans un tribunal";
+                        document.querySelector('.btn-danger').style.display = 'none';
+                        myBox.modal('show');
                     }
                 }
             }).catch((error) => {
