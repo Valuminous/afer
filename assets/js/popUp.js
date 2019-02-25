@@ -7,7 +7,6 @@ const close6 = document.querySelector('.close6');
 const closeTribunal = document.querySelector('.closeTribunal');
 const closePrefecture = document.querySelector('.closePrefecture');
 const closeStagiaire = document.querySelector('.closeStagiaire');
-
 // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 document.onreadystatechange = function () {
 
@@ -22,6 +21,7 @@ document.onreadystatechange = function () {
         loadFormPrefecture();
         loadFormStagiaire();
         verifAutoriteTribunal();
+        myBox = $('#modalMessage');
     }
     
 }
@@ -717,6 +717,10 @@ function verifAutoriteTribunal(){
                 } else {
 
                     if(reponse.nb === 0) {
+                        // btnElement.setAttribute('data-toggle','modal');
+                        console.log(myBox);
+                        myBox.modal('show');
+
                         console.log('bonjour');
                     } else {
                         console.log('au revoir');

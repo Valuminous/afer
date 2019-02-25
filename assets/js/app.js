@@ -2,10 +2,12 @@
 const $ = require('jquery');
 global.$ = global.jQuery = $;
 require('../scss/main.scss');
-require('../js/popUp.js');
+require('../../node_modules/popper.js/dist/esm/popper.min.js');
+require('../../node_modules/bootstrap/dist/js/bootstrap.min.js');
 require('../../vendor/eternicode/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js');
 require('../../vendor/eternicode/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js');
 require('../../vendor/harvesthq/chosen/chosen.jquery.min.js');
+require('../js/popUp.js');
 
 const onclickStage = document.querySelector('.onclick_stage');
 const onclickTribunaux = document.querySelector('.onclick_tribunaux');
