@@ -2,35 +2,75 @@
 
 {% block body %}
 
-<section class="stagiaire">
-
-<h2 class="mt-5 mb-5 h2_stagiaire">Stagiaire</h2>
-<div =class="d-flex justify-content-center">
-    <p>ID : {{ stagiaire.id }}</p>
-    <p>Civilité : {{ stagiaire.civilite.nomCivilite }}</p> 
-    <p>Nom : {{ stagiaire.nomStagiaire }}</p>
-    <p>Prénom : {{ stagiaire.prenomStagiaire }}</p>
-    <p>Nom de naissance : {{ stagiaire.nomNaissanceStagiaire }}</p>
-    <p>Date de naissance_stagiaire : {{ stagiaire.dateNaissanceStagiaire|localizeddate('long', 'none', 'fr')}}</p>
-    <p>Lieu_naissance_stagiaire : {{ stagiaire.lieuNaissanceStagiaire }}</p>
-    <p>Nationalité : {{ stagiaire.nationaliteStagiaire }}</p>
-    <p>N° adresse : {{ stagiaire.numeroAdresseStagiaire  }}</p>
-    <p>Adresse : {{ stagiaire.AdresseStagiaire }}</p>
-    <p>Code postal : {{ stagiaire.cpStagiaire }}</p>
-    <p>Commune : {{ stagiaire.communeStagiaire }}</p>
-    <p>N° Fixe : {{ stagiaire.numeroFixeStagiaire }}</p>
-    <p>N° Portable : {{ stagiaire.numeroPortableStagiaire }}</p>
-    <p>Email : {{ stagiaire.emailStagiaire }}</p>
-  
-    <p>Carte jeune : {{ stagiaire.carteJeuneStagiaire ? 'Oui' : 'Non' }}</p>
-     <p>Partenaire : {{ stagiaire.partenaireStagiaire ? 'Oui' : 'Non' }}</p>
-    <p>Adhérent : {{ stagiaire.adherentStagiaire ? 'Oui' : 'Non'  }}</p>
-</section>
-
-             
-           
-          
-
-    <a href="{{ path('stagiaire_index') }}" class="btn retour">Retour</a>
+<div class="container-fluid">
+    <div class="container w-50 stagiaire_border mt-2">
+        <h2 class="text-center background_stagiaire pt-2 pb-2 lieustage_margin">Stagiaire n°{{stagiaire.id}}</h2>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="font-weight-bold">Civilité :</td>
+                    <td class="text-left">{{ stagiaire.civilite.nomCivilite }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Nationalité :</td>
+                    <td class="text-left">{{ stagiaire.nationaliteStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Nom :</td>
+                    <td class="text-left">{{ stagiaire.nomStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Prénom :</td>
+                    <td class="text-left">{{ stagiaire.prenomStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">N° de fixe :</td>
+                    <td class="text-left">{{ stagiaire.numeroFixeStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">N° de portable :</td>
+                    <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Email :</td>
+                    <td class="text-left">{{ stagiaire.emailStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Nom de naissance :</td>
+                    <td class="text-left">{{ stagiaire.nomNaissanceStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Date de naissance :</td>
+                    <td class="text-left">{{ stagiaire.dateNaissanceStagiaire|localizeddate('long', 'none', 'fr')}}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Lieu de naissance :</td>
+                    <td class="text-left">{{ stagiaire.lieuNaissanceStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Adresse :</td>
+                    <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }} {{ stagiaire.adresseStagiaire }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Commune :</td>
+                    <td class="text-left">{{ stagiaire.communeStagiaire }}, {{ stagiaire.cpStagiaire}}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Titulaire carte jeune :</td>
+                    <td class="text-left">{{ stagiaire.carteJeuneStagiaire ? 'Oui' : 'Non' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Partenaire :</td>
+                    <td class="text-left">{{ stagiaire.partenaireStagiaire ? 'Oui' : 'Non' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Adhérent :</td>
+                    <td class="text-left">{{ stagiaire.adherentStagiaire ? 'Oui' : 'Non' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ path('stagiaire_index') }}" class="btn retour lieustage_button mt-3">Retour</a>
+</div>
 
 {% endblock %}
