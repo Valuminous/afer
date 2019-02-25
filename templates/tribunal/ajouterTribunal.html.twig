@@ -17,32 +17,35 @@
 
     <div class="row">
         <div class="col">
-            {{ form_row(form.nom_tribunal, {'label': "Tribunal :", 'attr': {'placeholder':
-            "Tribunal"}}) }}
+            {{ form_row(form.nom_tribunal, {'label': "Nom du tribunal :", 'attr': {'placeholder':
+            "Nom"}}) }}
         </div>
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-2">
             {{ form_row(form.numero_adresse_tribunal, {'label': "N° de rue :", 'attr': {'placeholder':
             "N° de rue"}}) }}
         </div>
-        <div class="col">
+        <div class="col-10">
             {{ form_row(form.adresse_tribunal, {'label': "Adresse :", 'attr': {'placeholder':
             "Adresse"}}) }}
         </div>
-        <div class="col">
+         </div>
+          <div class="row">
+           <div class="col-2">
+            {{ form_row(form.cp_tribunal, {'label': "Code postal :", 'attr': {'placeholder':
+            "Code postal"}}) }}
+        </div>
+        <div class="col-10">
             {{ form_row(form.commune_tribunal, {'label': "Commune :", 'attr': {'placeholder':
             "Commune"}}) }}
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-4">
-            {{ form_row(form.cp_tribunal, {'label': "Code postal du tribunal :", 'attr': {'placeholder':
-            "Code postal"}}) }}
-        </div>
-        <div class="col-3">
+   
+        <div class="row">
+        <div class="col-5">
             {{ form_row(form.tribunal_autorite, {'label':"Autorité du tribunal", 'attr': {'placeholder':
             "Autorité du tribunal"}}) }}
         </div>
@@ -51,7 +54,7 @@
                 +
             </button>
         </div>
-        <div class="col-3">
+        <div class="col-5">
             {{ form_row(form.tribunal_service, {'label':"Service du tribunal", 'attr': {'placeholder': "Service du
             tribunal"}}) }}
         </div>
