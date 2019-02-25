@@ -4,6 +4,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TribunalRepository")
@@ -19,16 +20,19 @@ class Tribunal
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
      */
     private $nomTribunal;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 2, max = 255 , minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
      */
     private $adresseTribunal;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=45)
+     * @Assert\Length(min = 1, max = 45, minMessage = "La valeur inséré doit être comprise entre 1 et 45 caractères", maxMessage = "La valeur inséré doit être comprise entre 1 et 45 caractères")
      */
     private $numeroAdresseTribunal;
 
