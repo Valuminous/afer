@@ -670,21 +670,25 @@ function loadFormStagiaire() {
                                     //    const a = document.createElement("a");
                                     //    a.classList.add('search-choice-close');
 
-                                       const listStagiaire = document.querySelector('#stage_stagiaires').length;
+                                       const listStagiaire = document.querySelector('#stage_stagiaires').length-1;
                                     //    a.setAttribute('data-option-array-index', listStagiaire-1 );
                                     //    li_drop.appendChild(span);
                                     //    li_drop.appendChild(a);
                                        
                                      
 
-                                       const dropStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-results');
-                                       const li = document.createElement("li");
-                                       li.classList.add('result-selected');
-                                       li.innerHTML = resultat.value;
-                                       li.setAttribute('data-option-array-index', listStagiaire-1 );
-                                       dropStagiaire.appendChild(li);
+                                    //    const dropStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-results');
+                                    //    const li = document.createElement("li");
+                                    //    li.classList.add('result-selected');
+                                    //    li.innerHTML = resultat.value;
+                                    //    li.setAttribute('data-option-array-index', listStagiaire-1 );
+                                    //    dropStagiaire.appendChild(li);
+
+                                    
+                                        $('#stage_stagiaires').trigger('chosen:activate');
+                                    
                                    
-                                       $('chosen-results').trigger("chosen:updated");
+                                    //    $('#stage_stagiaires').val().trigger('chosen:activate');
                                         // selectStagiaire.appendChild(li);
                                        closeStagiaire.click(); 
                                     }
@@ -702,9 +706,9 @@ function loadFormStagiaire() {
         });
     }
 }
+
 function loadFormAnimateur() {
     let animateur = document.querySelector('#addAnimateur');
-
     if (animateur != null) {
         fetch("/admin/stage/loadFormAnimateur", {credentials: 'include'})
         .then((reponse) => {
@@ -714,6 +718,7 @@ function loadFormAnimateur() {
             if (reponse.length > 0) {
                 document.querySelector('#modalCartAnimateur .modal-body').innerHTML = reponse;
                 btn = document.querySelector('#modalCartAnimateur .modal-body button');
+
                 if (btn != null) {
                     btn.addEventListener('click', function (e) {
                         e.preventDefault();
