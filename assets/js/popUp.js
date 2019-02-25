@@ -7,19 +7,23 @@ const close6 = document.querySelector('.close6');
 const closeTribunal = document.querySelector('.closeTribunal');
 const closePrefecture = document.querySelector('.closePrefecture');
 const closeStagiaire = document.querySelector('.closeStagiaire');
-
 // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 document.onreadystatechange = function () {
-    loadFormAutoriteTribunal();
-    loadFormTribunalService();
-    loadFormPrefectureService();
-    loadFormPrefectureAutorite();
-    loadFormAnimateurFonction();
-    loadFormAnimateurStatut();
-    loadFormTribunal();
-    loadFormPrefecture();
-    loadFormStagiaire();
-    loadFormAnimateur();
+
+    if( document.readyState === 'complete' ){
+        loadFormAutoriteTribunal();
+        loadFormTribunalService();
+        loadFormPrefectureService();
+        loadFormPrefectureAutorite();
+        loadFormAnimateurFonction();
+        loadFormAnimateurStatut();
+        loadFormTribunal();
+        loadFormPrefecture();
+        loadFormStagiaire();
+        verifAutoriteTribunal();
+        myBox = $('#modalMessage');
+    }
+    
 }
 function loadFormAutoriteTribunal() {
     let autorite = document.querySelector('#addAutoriteTribunal');
@@ -416,71 +420,68 @@ function loadFormTribunal() {
         fetch("/admin/stage/loadFormTribunal", {
                 credentials: 'include'
             })
-        .then((reponse) => {
-            return reponse.text();
-        })
-        .then((reponse) => {
-            if (reponse.length > 0) {
-                document.querySelector('#modalCartTribunal .modal-body').innerHTML = reponse;
-                btn = document.querySelector('#modalCartTribunal .modal-body button');
-                if (btn != null) {
-                    btn.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        if (document.querySelector('form[name="tribunal"] #tribunal_nom_tribunal').value.length != 0 &&
-                            document.querySelector('form[name="tribunal"] #tribunal_adresse_tribunal').value.length != 0 &&
-                            document.querySelector('form[name="tribunal"] #tribunal_cp_tribunal').value.length != 0 &&
-                            document.querySelector('form[name="tribunal"] #tribunal_numero_adresse_tribunal').value.length != 0 &&
-                            document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal').value.length != 0 &&
-                            document.querySelector('form[name="tribunal"] #tribunal_tribunal_service').value != "" &&
-                            document.querySelector('form[name="tribunal"] #tribunal_tribunal_autorite').value != "") {
+            .then((reponse) => {
+                return reponse.text();
+            })
+            .then((reponse) => {
+                if (reponse.length > 0) {
+                    document.querySelector('#modalCartTribunal .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalCartTribunal .modal-body button');
+                    if (btn != null) {
+                        btn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            if (document.querySelector('form[name="tribunal"] #tribunal_nom_tribunal').value.length != 0 &&
+                                document.querySelector('form[name="tribunal"] #tribunal_adresse_tribunal').value.length != 0 &&
+                                document.querySelector('form[name="tribunal"] #tribunal_numero_adresse_tribunal').value.length != 0 &&
+                                document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal').value.length != 0 &&
+                                document.querySelector('form[name="tribunal"] #tribunal_tribunal_service').value != "" &&
+                                document.querySelector('form[name="tribunal"] #tribunal_tribunal_autorite').value != "") {
+                                let tribunalNom = document.querySelector('form[name="tribunal"] #tribunal_nom_tribunal');
+                                let tribunalAdresse = document.querySelector('form[name="tribunal"] #tribunal_adresse_tribunal');
+                                let tribunalNumeroAdresse = document.querySelector('form[name="tribunal"] #tribunal_numero_adresse_tribunal');
+                                let tribunalCommune = document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal');
+                                let tribunalAutorite = document.querySelector('form[name="tribunal"] #tribunal_tribunal_autorite');
+                                let tribunalService = document.querySelector('form[name="tribunal"] #tribunal_tribunal_service');
+                                let token = document.querySelector('form[name="tribunal"] #tribunal__token');
+                                let data = new FormData();
+                                data.append("tribunal_nom_tribunal", tribunalNom.value);
+                                data.append("tribunal_adresse_tribunal", tribunalAdresse.value);
+                                data.append("tribunal_numero_adresse_tribunal", tribunalNumeroAdresse.value);
+                                data.append("tribunal_commune_tribunal", tribunalCommune.value);
+                                data.append("tribunal_tribunal_autorite", tribunalAutorite.value);
+                                data.append("tribunal_tribunal_service", tribunalService.value);
+                                data.append("tribunal__token", token.value);
+                                fetch("/admin/stage/loadFormTribunal", {
+                                        method: "POST",
+                                        body: data,
+                                        credentials: 'include'
+                                    })
+                                    .then((resultat) => {
+                                        return resultat.json();
+                                    })
+                                    .then((resultat) => {
 
-                            let tribunalNom = document.querySelector('form[name="tribunal"] #tribunal_nom_tribunal');
-                            let tribunalAdresse = document.querySelector('form[name="tribunal"] #tribunal_adresse_tribunal');
-                            let tribunalNumeroAdresse = document.querySelector('form[name="tribunal"] #tribunal_numero_adresse_tribunal');
-                            let tribunalCommune = document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal');
-                            let tribunalAutorite = document.querySelector('form[name="tribunal"] #tribunal_tribunal_autorite');
-                            let tribunalService = document.querySelector('form[name="tribunal"] #tribunal_tribunal_service');
-                            let tribunalCp = document.querySelector('form[name="tribunal"] #tribunal_cp_tribunal');
-                            let token = document.querySelector('form[name="tribunal"] #tribunal__token');
-
-                            let data = new FormData();
-                            data.append("tribunal_nom_tribunal", tribunalNom.value);
-                            data.append("tribunal_adresse_tribunal", tribunalAdresse.value);
-                            data.append("tribunal_numero_adresse_tribunal", tribunalNumeroAdresse.value);
-                            data.append("tribunal_commune_tribunal", tribunalCommune.value);
-                            data.append("tribunal_tribunal_autorite", tribunalAutorite.value);
-                            data.append("tribunal_tribunal_service", tribunalService.value);
-                            data.append("tribunal_cp_tribunal", tribunalCp.value);
-                            data.append("tribunal__token", token.value);
-                            fetch("/admin/stage/loadFormTribunal", { method: "POST",body: data,credentials: 'include'})
-                                .then((resultat) => {
-                                    return resultat.json();
-                                })
-                                .then((resultat) => {
-                        
-                                    if(resultat.error != null){
-                                       document.querySelector('#errorTribunal').innerHTML = "Le tribunal existe déjà";
-                                    }else if(resultat.value != null){
-                                       const selectTribunal = document.querySelector('#stage_tribunal');
-                                       const option = document.createElement("option");
-                                       option.setAttribute('value', resultat.id )
-                                       option.text = resultat.value;
-                                       selectTribunal.add(option);
-                                       selectTribunal.selectedIndex = selectTribunal.length - 1 ;
-                                       closeTribunal.click(); 
-                                    }
-                                }).catch((error) => {
-                                    console.log(error);
-                                });
-                            }else{
-                                document.querySelector('#errorTribunal').innerHTML = "Veuillez remplir tous les champs";
+                                        if (resultat.error != null) {
+                                            document.querySelector('#errorTribunal').innerHTML = "Le tribunal existe déjà";
+                                        } else if (resultat.value != null) {
+                                            const selectTribunal = document.querySelector('#stage_tribunal');
+                                            const option = document.createElement("option");
+                                            option.setAttribute('value', resultat.id)
+                                            option.text = resultat.value;
+                                            selectTribunal.add(option);
+                                            selectTribunal.selectedIndex = selectTribunal.length - 1;
+                                            closeTribunal.click();
+                                        }
+                                    }).catch((error) => {
+                                        console.log(error);
+                                    });
                             }
-                    })
+                        })
+                    }
                 }
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 }
 
@@ -488,24 +489,26 @@ function loadFormPrefecture() {
     let prefecture = document.querySelector('#addPrefecture');
 
     if (prefecture != null) {
-        fetch("/admin/stage/loadFormPrefecture", {credentials: 'include'})
-        .then((reponse) => {
-            return reponse.text();
-        })
-        .then((reponse) => {
-            if (reponse.length > 0) {
-                document.querySelector('#modalCartPrefecture .modal-body').innerHTML = reponse;
-                btn = document.querySelector('#modalCartPrefecture .modal-body button');
-                if (btn != null) {
-                    btn.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        if (document.querySelector('form[name="prefecture"] #prefecture_nomPrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_adressePrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_numeroAdressePrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_communePrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_cpPrefecture').value.length != 0 &&
-                            document.querySelector('form[name="prefecture"] #prefecture_prefectureService').value != "" &&
-                            document.querySelector('form[name="prefecture"] #prefecture_prefectureAutorite').value != "" ) {
+        fetch("/admin/stage/loadFormPrefecture", {
+                credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.text();
+            })
+            .then((reponse) => {
+                if (reponse.length > 0) {
+                    document.querySelector('#modalCartPrefecture .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalCartPrefecture .modal-body button');
+                    if (btn != null) {
+                        btn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            if (document.querySelector('form[name="prefecture"] #prefecture_nomPrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_adressePrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_numeroAdressePrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_communePrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_cpPrefecture').value.length != 0 &&
+                                document.querySelector('form[name="prefecture"] #prefecture_prefectureService').value != "" &&
+                                document.querySelector('form[name="prefecture"] #prefecture_prefectureAutorite').value != "") {
 
                                 let prefectureNom = document.querySelector('form[name="prefecture"] #prefecture_nomPrefecture');
                                 let prefectureAdresse = document.querySelector('form[name="prefecture"] #prefecture_adressePrefecture');
@@ -526,36 +529,38 @@ function loadFormPrefecture() {
                                 data.append("prefecture_cpPrefecture", prefectureCp.value);
                                 data.append("prefecture__token", token.value);
 
-                                fetch("/admin/stage/loadFormPrefecture", { method: "POST",body: data,credentials: 'include'})
-                                .then((resultat) => {
-                                    return resultat.json();
-                                })
-                                .then((resultat) => {
-                                  
-                                    if(resultat.error != null){
-                                       document.querySelector('#errorPrefecture').innerHTML = "La préfecture existe déjà";
-                                    }else if(resultat.value != null){
-                                       const selectPrefecture = document.querySelector('#stage_prefecture');
-                                       const option = document.createElement("option");
-                                       option.setAttribute('value', resultat.id )
-                                       option.text = resultat.value;
-                                       selectPrefecture.add(option);
-                                       selectPrefecture.selectedIndex = selectPrefecture.length - 1 ;
-                                       closePrefecture.click(); 
-                                    }
-                                }).catch((error) => {
-                                    console.log(error);
-                                });
-                        }else{
-                            document.querySelector('#errorPrefecture').innerHTML = "Veuillez remplir tous les champs";
-                        }
-                    })
+                                fetch("/admin/stage/loadFormPrefecture", {
+                                        method: "POST",
+                                        body: data,
+                                        credentials: 'include'
+                                    })
+                                    .then((resultat) => {
+                                        return resultat.json();
+                                    })
+                                    .then((resultat) => {
+
+                                        if (resultat.error != null) {
+                                            document.querySelector('#errorPrefecture').innerHTML = "La préfecture existe déjà";
+                                        } else if (resultat.value != null) {
+                                            const selectPrefecture = document.querySelector('#stage_prefecture');
+                                            const option = document.createElement("option");
+                                            option.setAttribute('value', resultat.id)
+                                            option.text = resultat.value;
+                                            selectPrefecture.add(option);
+                                            selectPrefecture.selectedIndex = selectPrefecture.length - 1;
+                                            closePrefecture.click();
+                                        }
+                                    }).catch((error) => {
+                                        console.log(error);
+                                    });
+                            }
+                        })
+                    }
+
                 }
-            
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 }
 
@@ -563,44 +568,46 @@ function loadFormStagiaire() {
     let stagiaire = document.querySelector('#addStagiaire');
 
     if (stagiaire != null) {
-        fetch("/admin/stage/loadFormStagiaire", {credentials: 'include'})
-        .then((reponse) => {
-            return reponse.text();
-        })
-        .then((reponse) => {
-            if (reponse.length > 0) {
-                document.querySelector('#modalCartStagiaire .modal-body').innerHTML = reponse;
-                btn = document.querySelector('#modalCartStagiaire .modal-body button');
-                if (btn != null) {
-                    btn.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        if (document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value.length != "" &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value.length != "" &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value.length != "" &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_numeroPortableStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_numeroFixeStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_emailStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_numeroAdresseStagiaire').value.length != 0 &&
-                            document.querySelector('form[name="stagiaire"] #stagiaire_civilite').value.length != ""){
+        fetch("/admin/stage/loadFormStagiaire", {
+                credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.text();
+            })
+            .then((reponse) => {
+                if (reponse.length > 0) {
+                    document.querySelector('#modalCartStagiaire .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalCartStagiaire .modal-body button');
+                    if (btn != null) {
+                        btn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            if (document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value.length != "" &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value.length != "" &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value.length != "" &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_numeroPortableStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_numeroFixeStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_emailStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_numeroAdresseStagiaire').value.length != 0 &&
+                                document.querySelector('form[name="stagiaire"] #stagiaire_civilite').value.length != "") {
 
-       
+
 
                                 let stagiaireNom = document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire');
                                 let stagiairePrenom = document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire');
                                 let stagiaireCp = document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire');
                                 let stagiaireCommune = document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire');
                                 let stagiaireNomNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire');
-                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value+"-"+
-                                                             document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value+"-"+
-                                                             document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value;
+                                let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value + "-" +
+                                    document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_month').value + "-" +
+                                    document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value;
                                 let stagiaireLieuNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_lieuNaissanceStagiaire');
                                 let stagiaireAdresse = document.querySelector('form[name="stagiaire"] #stagiaire_adresseStagiaire');
                                 let stagiaireNationalite = document.querySelector('form[name="stagiaire"] #stagiaire_nationaliteStagiaire');
@@ -614,7 +621,7 @@ function loadFormStagiaire() {
                                 let stagiaireCivilite = document.querySelector('form[name="stagiaire"] #stagiaire_civilite');
                                 let token = document.querySelector('form[name="stagiaire"] #stagiaire__token');
                                 let data = new FormData();
-                              
+
                                 data.append("stagiaire_nomStagiaire", stagiaireNom.value);
                                 data.append("stagiaire_prenomStagiaire", stagiairePrenom.value);
                                 data.append("stagiaire_cpStagiaire", stagiaireCp.value);
@@ -634,162 +641,90 @@ function loadFormStagiaire() {
                                 data.append("stagiaire_civilite", stagiaireCivilite.value);
                                 data.append("stagiaire", token.value);
 
-                                fetch("/admin/stage/loadFormStagiaire", { method: "POST",body: data,credentials: 'include'})
-                                .then((resultat) => {
-                                    return resultat.json();
-                                })
-                                .then((resultat) => {
-                                    if(resultat.error != null){
-                                       document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
-                                    }else if(resultat.value != null){
-                                       const selectStagiaire = document.querySelector('.chosen-results');
-                                       const li = document.createElement("li");
-                                       li.classList.add('active-result');
-                                       
-                                    //    const input = document.createElement("input");
-                                        li.setAttribute('data-option-array-index', resultat.id );
-                                    //    input.setAttribute('type','checkbox');
-                                    //    li.setAttribute('value',resultat.value);
-                                    //    input.classList.add('form-check-input');
-                                    //    const label = document.createElement("label");
+                                fetch("/admin/stage/loadFormStagiaire", {
+                                        method: "POST",
+                                        body: data,
+                                        credentials: 'include'
+                                    })
+                                    .then((resultat) => {
+                                        return resultat.json();
+                                    })
+                                    .then((resultat) => {
+                                        if (resultat.error != null) {
+                                            document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
+                                        } else if (resultat.value != null) {
+                                            const selectStagiaire = document.querySelector('#stage_stagiaires');
+                                            const div = document.createElement("div");
+                                            div.classList.add('form-check');
 
-                                    //    label.classList.add('form-check-label');
-                                       li.innerHTML = resultat.value;
+                                            const input = document.createElement("input");
+                                            input.setAttribute('value', resultat.id);
+                                            input.setAttribute('type', 'checkbox');
+                                            input.setAttribute('id', "stage_stagiaires_" + resultat.id);
+                                            input.classList.add('form-check-input');
+                                            const label = document.createElement("label");
 
-                                    selectStagiaire.appendChild(li);
-                                        // div.appendChild(label);
+                                            label.classList.add('form-check-label');
+                                            label.innerHTML = resultat.value;
 
-                                    //    selectStagiaire.appendChild(div);
-                                       li.click();
-                                       closeStagiaire.click(); 
-                                    }
-                                }).catch((error) => {
-                                    console.log(error);
-                                });
-                        }else{
-                            document.querySelector('#errorStagiaire').innerHTML = "Veuillez remplir tous les champs";
-                        }
-                    })
+                                            div.appendChild(input);
+                                            div.appendChild(label);
+
+                                            selectStagiaire.appendChild(div);
+                                            input.click();
+                                            closeStagiaire.click();
+                                        }
+                                    }).catch((error) => {
+                                        console.log(error);
+                                    });
+                            }
+                        })
+                    }
                 }
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 }
-function loadFormAnimateur() {
-    let animateur = document.querySelector('#addAnimateur');
 
-    if (animateur != null) {
-        fetch("/admin/stage/loadFormAnimateur", {credentials: 'include'})
-        .then((reponse) => {
-            return reponse.text();
-        })
-        .then((reponse) => {
-            if (reponse.length > 0) {
-                document.querySelector('#modalCartAnimateur .modal-body').innerHTML = reponse;
-                btn = document.querySelector('#modalCartAnimateur .modal-body button');
-                if (btn != null) {
-                    btn.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        if ( document.querySelector('form[name="animateur"] #animateur_nom_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_civilite').value.length != "" &&
-                             document.querySelector('form[name="animateur"] #animateur_prenom_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_rue_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_commune_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_cp_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_region_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_email_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_numero_portable_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_numero_fixe_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_siret_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_urssaf_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_raison_sociale_animateur').value.length != 0 &&
-                             document.querySelector('form[name="animateur"] #animateur_gta_animateur').value.length != "" &&
-                             document.querySelector('form[name="animateur"] #animateur_animateurFonction').value.length != "" &&
-                             document.querySelector('form[name="animateur"] #animateur_animateurStatut').value.length != ""){
-            
 
-                               let AnimateurNom = document.querySelector('form[name="animateur"] #animateur_nom_animateur');
-                               let AnimateurCivilite = document.querySelector('form[name="animateur"] #animateur_civilite');
-                               let AnimateurPrenom = document.querySelector('form[name="animateur"] #animateur_prenom_animateur');
-                               let AnimateurAdresse = document.querySelector('form[name="animateur"] #animateur_rue_animateur');
-                               let AnimateurCommune = document.querySelector('form[name="animateur"] #animateur_commune_animateur');
-                               let AnimateurCp = document.querySelector('form[name="animateur"] #animateur_cp_animateur');
-                               let AnimateurRegion = document.querySelector('form[name="animateur"] #animateur_region_animateur');
-                               let AnimateurEmail = document.querySelector('form[name="animateur"] #animateur_email_animateur');
-                               let AnimateurNumeroPortable = document.querySelector('form[name="animateur"] #animateur_numero_portable_animateur');
-                               let AnimateurNumeroFixe = document.querySelector('form[name="animateur"] #animateur_numero_fixe_animateur');
-                               let AnimateurSiret = document.querySelector('form[name="animateur"] #animateur_siret_animateur');
-                               let AnimateurUrssaf = document.querySelector('form[name="animateur"] #animateur_urssaf_animateur');
-                               let AnimateurRaisonSociale = document.querySelector('form[name="animateur"] #animateur_raison_sociale_animateur');
-                               let AnimateurGta = document.querySelector('form[name="animateur"] #animateur_gta_animateur');
-                               let AnimateurFonction = document.querySelector('form[name="animateur"] #animateur_animateurFonction');
-                               let AnimateurStatut = document.querySelector('form[name="animateur"] #animateur_animateurStatut');
-                               let AnimateurObservations = document.querySelector('form[name="animateur"] #animateur_observations_animateur');
-                               let token = document.querySelector('form[name="animateur"] #animateur__token');
-                               let data = new FormData();
-                              
-                                data.append("animateur_nom_animateur", AnimateurNom.value);
-                                data.append("animateur_civilite", AnimateurCivilite.value);
-                                data.append("animateur_prenom_animateur", AnimateurPrenom.value);
-                                data.append("animateur_rue_animateur", AnimateurAdresse.value);
-                                data.append("animateur_commune_animateur", AnimateurCommune.value);
-                                data.append("animateur_cp_animateur", AnimateurCp.value);
-                                data.append("animateur_region_animateur", AnimateurRegion.value);
-                                data.append("animateur_email_animateur", AnimateurEmail.value);
-                                data.append("animateur_numero_portable_animateur", AnimateurNumeroPortable.value);
-                                data.append("animateur_numero_fixe_animateur", AnimateurNumeroFixe.value);
-                                data.append("animateur_siret_animateur", AnimateurSiret.value);
-                                data.append("animateur_urssaf_animateur", AnimateurUrssaf.value);
-                                data.append("animateur_raison_sociale_animateur", AnimateurRaisonSociale.value);
-                                data.append("animateur_gta_animateur", AnimateurGta.value);
-                                data.append("animateur_animateurFonction", AnimateurFonction.value);
-                                data.append("animateur_animateurStatut", AnimateurStatut.value);
-                                data.append("animateur_observations_animateur", AnimateurObservations.value);
-                                data.append("animateur__token", token.value);
+function verifAutoriteTribunal(){
+    let btnDelete = document.querySelectorAll('.tribunalAutoriteDelete');
+    [].forEach.call( btnDelete, (btnElement) => {
+        btnElement.addEventListener('click', (e)=>{
 
-                                fetch("/admin/stage/loadFormAnimateur", { method: "POST",body: data,credentials: 'include'})
-                                .then((resultat) => {
-                                    return resultat.json();
-                                })
-                                .then((resultat) => {
-                                   console.log(resultat);
-                                    // if(resultat.error != null){
-                                    //    document.querySelector('#errorAnimateur').innerHTML = "L'animateur' existe déjà";
-                                    // }else if(resultat.value != null){
-                                    // //    const selectStagiaire = document.querySelector('#stage_stagiaires');
-                                    // //    const div = document.createElement("div");
-                                    // //    div.classList.add('form-check');
-                                       
-                                    // //    const input = document.createElement("input");
-                                    // //    input.setAttribute('value', resultat.id );
-                                    // //    input.setAttribute('type','checkbox');
-                                    // //    input.setAttribute('id',"stage_stagiaires_"+resultat.id);
-                                    // //    input.classList.add('form-check-input');
-                                    // //    const label = document.createElement("label");
+            e.preventDefault();
+            let id = btnElement.getAttribute('data-id');
+            data = new FormData();
+            data.append('id',id);
 
-                                    // //    label.classList.add('form-check-label');
-                                    // //    label.innerHTML = resultat.value;
+            fetch("/admin/tribunal/autorite/supprAlertFormAutoriteTribunal", { method: "POST", body: data, credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.json();
+            })
+            .then((reponse) => {
 
-                                    // //     div.appendChild(input);
-                                    // //     div.appendChild(label);
+                if (reponse.error != null) {
 
-                                    // //    selectStagiaire.appendChild(div);
-                                    // //    input.click();
-                                    //    closeStagiaire.click(); 
-                                    // }
-                                }).catch((error) => {
-                                    console.log(error);
-                                });
-                        }else{
-                            document.querySelector('#errorAnimateur').innerHTML = "Veuillez remplir tous les champs";
-                        }
-                    })
+                    console.log('erreur');
+
+                } else {
+
+                    if(reponse.nb === 0) {
+                        // btnElement.setAttribute('data-toggle','modal');
+                        console.log(myBox);
+                        myBox.modal('show');
+
+                        console.log('bonjour');
+                    } else {
+                        console.log('au revoir');
+                    }
                 }
-            }
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
+
+            }).catch((error) => {
+                console.log(error);
+            });
+        })
+    });
 }
