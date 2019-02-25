@@ -340,9 +340,9 @@ function changeActiveButton() {
   !*** ./assets/js/popUp.js ***!
   \****************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-var close = document.querySelector('.close');
+/* WEBPACK VAR INJECTION */(function($) {var close = document.querySelector('.close');
 var close2 = document.querySelector('.close2');
 var close3 = document.querySelector('.close3');
 var close4 = document.querySelector('.close4');
@@ -350,7 +350,8 @@ var close5 = document.querySelector('.close5');
 var close6 = document.querySelector('.close6');
 var closeTribunal = document.querySelector('.closeTribunal');
 var closePrefecture = document.querySelector('.closePrefecture');
-var closeStagiaire = document.querySelector('.closeStagiaire'); // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
+var closeStagiaire = document.querySelector('.closeStagiaire');
+var closeAnimateur = document.querySelector('.closeAnimateur'); // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 
 document.onreadystatechange = function () {
   loadFormAutoriteTribunal();
@@ -545,6 +546,8 @@ function loadFormPrefectureAutorite() {
     }).then(function (reponse) {
       return reponse.text();
     }).then(function (reponse) {
+      console.log(reponse);
+
       if (reponse.length > 0) {
         document.querySelector('#modalCartAutoritePrefecture .modal-body').innerHTML = reponse;
         btn = document.querySelector('#modalCartAutoritePrefecture .modal-body button');
@@ -908,21 +911,37 @@ function loadFormStagiaire() {
                 if (resultat.error != null) {
                   document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
                 } else if (resultat.value != null) {
-                  var selectStagiaire = document.querySelector('.chosen-results');
+                  //    const selectStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-results');
+                  //    const li = document.createElement("li");
+                  //    li.classList.add('active-result');
+                  //    li.setAttribute('data-option-array-index', 16 );
+                  //    li.innerHTML = resultat.value;
+                  var selectStagiaire_list = document.querySelector('#stage_stagiaires');
+                  var option = document.createElement("option");
+                  option.setAttribute('value', resultat.id);
+                  option.text = resultat.value;
+                  selectStagiaire_list.add(option);
+                  $('#stage_stagiaires').trigger("chosen:updated"); //    const chosenStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-choices');
+                  //    const li_drop = document.createElement("li");
+                  //    li_drop.classList.add('search-choice');
+                  //    chosenStagiaire.appendChild(li_drop);
+                  //    const span = document.createElement("span");
+                  //    span.innerHTML = resultat.value;
+                  //    const a = document.createElement("a");
+                  //    a.classList.add('search-choice-close');
+
+                  var listStagiaire = document.querySelector('#stage_stagiaires').length; //    a.setAttribute('data-option-array-index', listStagiaire-1 );
+                  //    li_drop.appendChild(span);
+                  //    li_drop.appendChild(a);
+
+                  var dropStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-results');
                   var li = document.createElement("li");
-                  li.classList.add('active-result'); //    const input = document.createElement("input");
-
-                  li.setAttribute('data-option-array-index', resultat.id); //    input.setAttribute('type','checkbox');
-                  //    li.setAttribute('value',resultat.value);
-                  //    input.classList.add('form-check-input');
-                  //    const label = document.createElement("label");
-                  //    label.classList.add('form-check-label');
-
+                  li.classList.add('result-selected');
                   li.innerHTML = resultat.value;
-                  selectStagiaire.appendChild(li); // div.appendChild(label);
-                  //    selectStagiaire.appendChild(div);
+                  li.setAttribute('data-option-array-index', listStagiaire - 1);
+                  dropStagiaire.appendChild(li);
+                  $('chosen-results').trigger("chosen:updated"); // selectStagiaire.appendChild(li);
 
-                  li.click();
                   closeStagiaire.click();
                 }
               }).catch(function (error) {
@@ -1002,26 +1021,22 @@ function loadFormAnimateur() {
               }).then(function (resultat) {
                 return resultat.json();
               }).then(function (resultat) {
-                console.log(resultat); // if(resultat.error != null){
-                //    document.querySelector('#errorAnimateur').innerHTML = "L'animateur' existe déjà";
-                // }else if(resultat.value != null){
-                // //    const selectStagiaire = document.querySelector('#stage_stagiaires');
-                // //    const div = document.createElement("div");
-                // //    div.classList.add('form-check');
-                // //    const input = document.createElement("input");
-                // //    input.setAttribute('value', resultat.id );
-                // //    input.setAttribute('type','checkbox');
-                // //    input.setAttribute('id',"stage_stagiaires_"+resultat.id);
-                // //    input.classList.add('form-check-input');
-                // //    const label = document.createElement("label");
-                // //    label.classList.add('form-check-label');
-                // //    label.innerHTML = resultat.value;
-                // //     div.appendChild(input);
-                // //     div.appendChild(label);
-                // //    selectStagiaire.appendChild(div);
-                // //    input.click();
-                //    closeStagiaire.click(); 
-                // }
+                if (resultat.error != null) {
+                  document.querySelector('#errorAnimateur').innerHTML = "L'animateur' existe déjà";
+                } else if (resultat.value != null) {
+                  var selectAnimateur = document.querySelector('#stage_animateurs_chosen .chosen-choices');
+                  var li = document.createElement("li");
+                  li.classList.add('search-choice');
+                  var span = document.createElement("span");
+                  span.innerHTML = resultat.value;
+                  var a = document.createElement("a");
+                  a.classList.add('search-choice-close');
+                  a.setAttribute('data-option-array-index', resultat.id);
+                  li.appendChild(span);
+                  li.appendChild(a);
+                  selectAnimateur.appendChild(li);
+                  closeAnimateur.click();
+                }
               }).catch(function (error) {
                 console.log(error);
               });
@@ -1036,6 +1051,7 @@ function loadFormAnimateur() {
     });
   }
 }
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
