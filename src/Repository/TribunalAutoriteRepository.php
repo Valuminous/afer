@@ -35,7 +35,6 @@ class TribunalAutoriteRepository extends ServiceEntityRepository
     }
 
 
-
     /*
     public function findByExampleField($value)
     {
