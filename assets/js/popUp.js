@@ -22,8 +22,6 @@ document.onreadystatechange = function () {
         loadFormTribunal();
         loadFormPrefecture();
         loadFormStagiaire();
-        verifAutoriteTribunal();
-        myBox = $('#autoriteTribunalDelete');
     }
     
 }
@@ -713,48 +711,6 @@ function loadFormStagiaire() {
             });
     }
 }
-
-
-function verifAutoriteTribunal(){
-    let btnDelete = document.querySelectorAll('.tribunalAutoriteDelete');
-    [].forEach.call( btnDelete, (btnElement) => {
-        btnElement.addEventListener('click', (e)=>{
-
-            e.preventDefault();
-            let id = btnElement.getAttribute('data-id');
-            data = new FormData();
-            data.append('id',id);
-
-            fetch("/admin/tribunal/autorite/supprAlertFormAutoriteTribunal", { method: "POST", body: data, credentials: 'include'
-            })
-            .then((reponse) => {
-                return reponse.json();
-            })
-            .then((reponse) => {
-
-                if (reponse.error != null) {
-
-                    console.log('erreur');
-
-                } else {
-
-                    if(reponse.nb === 0) {
-                        document.querySelector('.modal-body').innerHTML = "Vous êtes sur le point de supprimer une autorité";
-                        myBox.modal('show');
-                        document.querySelector('.btn-danger').style.display = 'block';
-                    } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette autorité car elle est utilisée dans un tribunal";
-                        document.querySelector('.btn-danger').style.display = 'none';
-                        myBox.modal('show');
-                    }
-                }
-            }).catch((error) => {
-                console.log(error);
-            });
-        })
-    })  }           
-
-
                    
 function loadFormAnimateur() {
     let animateur = document.querySelector('#addAnimateur');

@@ -44,6 +44,17 @@ class TribunalRepository extends ServiceEntityRepository
         ;
     }
 
+    public function counterService($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.tribunalService = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Tribunal[] Returns an array of Tribunal objects
     //  */

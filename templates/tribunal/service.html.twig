@@ -26,11 +26,10 @@
                     <td class="text-center">
                         
                         <a data-toggle="tooltip" data-placement="top" title="Modifier le service" href="{{  path('tribunalService_modifier', {'id': service.id}) }}"><i class="fas fa-pen pen_color"></i></a>
-                        <a data-toggle="modal" data-target="#tribunalServiceDelete{{ service.id }}" data-placement="top" title="Supprimer le service" href="#" ><i class="far fa-trash-alt trash_color pl-2"></i></a>
-                    </td>
+                        <a data-id="{{ service.id }}" data-target="#tribunalServiceDelete" class="tribunalServiceDelete" data-placement="top" title="Supprimer le service" href="{{  path('tribunal_service_suppr_alert') }}" ><i class="far fa-trash-alt trash_color pl-2"></i></a>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="tribunalServiceDelete{{ service.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                    <div class="modal fade" id="tribunalServiceDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
