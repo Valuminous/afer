@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\LieuStage;
 use App\Entity\Commune;
 use App\Entity\Civilite;
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,21 +26,18 @@ class LieuStageType extends AbstractType
             ->add('latitude')
             ->add('longitude')
             ->add('divers')
-            ->add('cp', EntityType::class, [
+            ->add('cp', AutocompleteType::class, [
                 'class' => Commune::class,
-                'choice_label' => 'cp',
-             
-                'placeholder' => 'Sélectionner un code postal'
-                // 'attr' => array('class' => 'chzn-select'),
-                // 'disabled' => 'true'
+                             'attr' => array('class' => 'select_cp')
+              
                 ])
-            ->add('commune', EntityType::class, [
-                'class' => Commune::class,
-                'choice_label' => 'commune',
+            // ->add('commune', EntityType::class, [
+            //     'class' => Commune::class,
+            //     'choice_label' => 'commune',
                
-                'placeholder' => 'Sélectionner une commune',
-                // 'attr' => array('class' => 'chosen-select')
-                ])
+            //     'placeholder' => 'Sélectionner une commune',
+            //     // 'attr' => array('class' => 'chosen-select')
+            //     ])
         ;
     }
 

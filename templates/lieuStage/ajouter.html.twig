@@ -87,11 +87,9 @@
  {% block javascripts %}
 <script>
  $().ready(function () {
-    $('select.chosen-select').chosen();
-    $(#'my-multiselect').chosen ({
-    min_length: 2
-});
 
- });
+$('.select_cp').autocompleter({
+    miniùumInputLength :3
+})
     </script>
 {% endblock %}

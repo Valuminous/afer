@@ -3,9 +3,11 @@ const $ = require('jquery');
 global.$ = global.jQuery = $;
 require('../scss/main.scss');
 require('../js/popUp.js');
+require('../js/select.js');
 require('../../vendor/eternicode/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js');
 require('../../vendor/eternicode/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js');
 require('../../vendor/harvesthq/chosen/chosen.jquery.min.js');
+require('../../vendor/select2/select2/dist/js/select2.min.js');
 
 const onclickStage = document.querySelector('.onclick_stage');
 const onclickTribunaux = document.querySelector('.onclick_tribunaux');

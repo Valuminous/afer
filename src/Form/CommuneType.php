@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Commune;
 use Symfony\Component\Form\AbstractType;
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,14 +14,15 @@ class CommuneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cp')
-            ->add('commune')
-            ->add('region')
-            ->add('departement')
-            ->add('latitude')
-            ->add('longitude')
-        ;
-    }
+           
+            ->add('commune', AutocompleteType::class, [
+                'class' => Commune::class,
+            // ->add('region')
+            // ->add('departement')
+            // ->add('latitude')
+            // ->add('longitude')
+        
+    ]);}
 
     public function configureOptions(OptionsResolver $resolver)
     {
