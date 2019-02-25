@@ -23,6 +23,7 @@ document.onreadystatechange = function () {
         loadFormPrefecture();
         loadFormStagiaire();
         verifAutoriteTribunal();
+        loadFormAnimateur();
         myBox = $('#modalMessage');
     }
     
@@ -656,51 +657,42 @@ function loadFormStagiaire() {
                                        document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
                                     }else if(resultat.value != null){
 
-                                    //    const selectStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-results');
-                                    //    const li = document.createElement("li");
-                                    //    li.classList.add('active-result');
-                                    //    li.setAttribute('data-option-array-index', 16 );
-                                    //    li.innerHTML = resultat.value;
-                                       
                                         const selectStagiaire_list = document.querySelector('#stage_stagiaires');
                                         let option = document.createElement("option");
                                         option.setAttribute('value', resultat.id);
                                         option.text = resultat.value;
                                         selectStagiaire_list.add(option);  
-                                        $('#stage_stagiaires').trigger("chosen:updated");
+                                        $('#stage_stagiaires').trigger("chosen:updated");                              
                                     
-                                    
-                                    
-                                    //    const chosenStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-choices');
-                                    //    const li_drop = document.createElement("li");
-                                    //    li_drop.classList.add('search-choice');
-                                    //    chosenStagiaire.appendChild(li_drop);
+                                       const chosenStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-choices');
+                                       const li_drop = document.createElement("li");
+                                       li_drop.classList.add('search-choice');
+                                       chosenStagiaire.appendChild(li_drop);
 
-                                    //    const span = document.createElement("span");
-                                    //    span.innerHTML = resultat.value;
-                                    //    const a = document.createElement("a");
-                                    //    a.classList.add('search-choice-close');
+                                       const span = document.createElement("span");
+                                       span.innerHTML = resultat.value;
+                                       const a = document.createElement("a");
+                                       a.classList.add('search-choice-close');
 
-                                       const listStagiaire = document.querySelector('#stage_stagiaires').length-1;
-                                    //    a.setAttribute('data-option-array-index', listStagiaire-1 );
-                                    //    li_drop.appendChild(span);
-                                    //    li_drop.appendChild(a);
+                                        const listStagiaire = document.querySelector('#stage_stagiaires').length-1;
+                                        a.setAttribute('data-option-array-index', listStagiaire-1 );
+                                        li_drop.appendChild(span);
+                                        li_drop.appendChild(a);
                                        
-                                     
+                                        a.addEventListener('click', function(){
 
-                                    //    const dropStagiaire = document.querySelector('#stage_stagiaires_chosen .chosen-results');
-                                    //    const li = document.createElement("li");
-                                    //    li.classList.add('result-selected');
-                                    //    li.innerHTML = resultat.value;
-                                    //    li.setAttribute('data-option-array-index', listStagiaire-1 );
-                                    //    dropStagiaire.appendChild(li);
-
-                                    
+                                            textValue = this.innerText;
+                                            myParent = this.parentNode;
+                                            myParent.remove( this );
+                                            listLi = document.querySelectorAll('stage_stagiaires_chosen .chosen-results li.result-selected');
+                                            [].forEach.call(listLi, (element) =>{
+                                                if( element.innerText === textValue ){
+                                                    element.classList.remove('result-selected');
+                                                    element.classList.add('active-result');
+                                                }
+                                            })
+                                        });                                  
                                         $('#stage_stagiaires').trigger('chosen:activate');
-                                    
-                                   
-                                    //    $('#stage_stagiaires').val().trigger('chosen:activate');
-                                        // selectStagiaire.appendChild(li);
                                        closeStagiaire.click(); 
                                     }
                                 }).catch((error) => {
@@ -840,20 +832,43 @@ function loadFormAnimateur() {
                                     if(resultat.error != null){
                                        document.querySelector('#errorAnimateur').innerHTML = "L'animateur' existe déjà";
                                     }else if(resultat.value != null){
-                                        const selectAnimateur = document.querySelector('#stage_animateurs_chosen .chosen-choices');
-                                        const li = document.createElement("li");
-                                        li.classList.add('search-choice');
+    
+                                        const selectAnimateur_list = document.querySelector('#stage_animateurs');
+                                        let option = document.createElement("option");
+                                        option.setAttribute('value', resultat.id);
+                                        option.text = resultat.value;
+                                        selectAnimateur_list.add(option);  
+                                        $('#stage_animateurs').trigger("chosen:updated");                              
+                                    
+                                       const chosenAnimateur = document.querySelector('#stage_animateurs_chosen .chosen-choices');
+                                       const li_drop = document.createElement("li");
+                                       li_drop.classList.add('search-choice');
+                                       chosenAnimateur.appendChild(li_drop);
 
-                                        const span = document.createElement("span");
-                                        span.innerHTML = resultat.value;
+                                       const span = document.createElement("span");
+                                       span.innerHTML = resultat.value;
+                                       const a = document.createElement("a");
+                                       a.classList.add('search-choice-close');
 
-                                        const a = document.createElement("a");
-                                        a.classList.add('search-choice-close');
-                                        a.setAttribute('data-option-array-index', resultat.id );
+                                        const listAnimateur = document.querySelector('#stage_stagiaires').length-1;
+                                        a.setAttribute('data-option-array-index', listAnimateur-1 );
+                                        li_drop.appendChild(span);
+                                        li_drop.appendChild(a);
+                                       
+                                        a.addEventListener('click', function(){
 
-                                        li.appendChild(span);
-                                        li.appendChild(a);
-                                        selectAnimateur.appendChild(li);
+                                            textValue = this.innerText;
+                                            myParent = this.parentNode;
+                                            myParent.remove( this );
+                                            listLi = document.querySelectorAll('stage_animateurs_chosen .chosen-results li.result-selected');
+                                            [].forEach.call(listLi, (element) =>{
+                                                if( element.innerText === textValue ){
+                                                    element.classList.remove('result-selected');
+                                                    element.classList.add('active-result');
+                                                }
+                                            })
+                                        });                                  
+                                        // $('#stage_animateurs').trigger('chosen:activate');
 
                                        closeAnimateur.click(); 
                                     }

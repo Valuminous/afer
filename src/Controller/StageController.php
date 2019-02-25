@@ -290,8 +290,8 @@ class StageController extends AbstractController
             $statut = $repoStatut->find($animateurStatut);
 
           
-        //     $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom,$year);
-        //     $nbr = $nbrs[0][1];
+            $nbrs = $repoAnimateur->counter($animateurNom,$animateurPrenom,$animateurSiret);
+            $nbr = $nbrs[0][1];
     
             if(strlen($animateurNom) > 0 && strlen($animateurCivilite) != "0" && strlen($animateurPrenom) > 0 &&
                 strlen($animateurAdresse) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 &&
