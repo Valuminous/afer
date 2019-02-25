@@ -1,31 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stages{% endblock %}
-
 {% block body %}
 
-<section class="info_animateur">
-<h2>Stage</h2>
-<div =class="d-flex justify-content-center">
-                <p>Numéro de stage : {{ stage.numeroStage }}</p>
-                <p> Date de début : {{ stage.dated|localizeddate('long', 'none', 'fr') }}</p>
-                <p> Date de fin : {{ stage.datef|localizeddate('long', 'none', 'fr') }}</p>
-                <p> Stage hors programme officiel : {{ stage.stageProgrammeOfficiel ?'Oui' : 'Non'}}</p>
+<div class="container-fluid">
+<h2 class="text-center background_stage">Détails du tage n° {{ stage.numeroStage }}</span></h2>
+   <table class="table table-striped">
+      <tbody>
+         <tr>
+            <td>Numéro de stage :</td>
+            <td class="text-left">{{ stage.numeroStage }}</td>
+         </tr>
+         <tr>
+            <td>Date de début :</td>
+            <td class="text-left">{{ stage.dated|localizeddate('long', 'none', 'fr') }}</td>
+         </tr>
+         <tr>
+            <td>Date de fin :</td>
+            <td class="text-left">{{ stage.datef|localizeddate('long', 'none', 'fr') }}</td>
+         </tr>
+         <tr>
+            <td>Stage hors programme officiel :</td>
+            <td class="text-left">{{ stage.stageProgrammeOfficiel ?'Oui' : 'Non'}}</td>
+         </tr>
+      </tbody>
+   </table>
+</div>
 
-                 <td class="text-center">
-                 {% for animateur in stage.animateurs %}
-                <p>{{ animateur.nomAnimateur }}</p> 
-                 
-                 {% endfor %}
-                </td> 
-                 <td class="text-center">
-                 {% for stagiaire in stage.stagiaires %}
-                <p>{{ stagiaire.nomStagiaire }}</p> 
-                 {% endfor %}
-                </td> 
-  </section>
+{# <section class="info_animateur">
+   <h2>Stage</h2>
+   <div=class="d-flex justify-content-center">
+      <p>Numéro de stage : {{ stage.numeroStage }}</p>
+      <p> Date de début : {{ stage.dated|localizeddate('long', 'none', 'fr') }}</p>
+      <p> Date de fin : {{ stage.datef|localizeddate('long', 'none', 'fr') }}</p>
+      <p> Stage hors programme officiel : {{ stage.stageProgrammeOfficiel ?'Oui' : 'Non'}}</p>
 
-   <a href="{{ path('stage_index') }}">Retour</a>
-  
+      <td class="text-center">
+         {% for animateur in stage.animateurs %}
+         <p>{{ animateur.nomAnimateur }}</p>
+
+         {% endfor %}
+      </td>
+      <td class="text-center">
+         {% for stagiaire in stage.stagiaires %}
+         <p>{{ stagiaire.nomStagiaire }}</p>
+         {% endfor %}
+      </td>
+</section>
+
+<a href="{{ path('stage_index') }}">Retour</a> #}
+
 
 {% endblock %}

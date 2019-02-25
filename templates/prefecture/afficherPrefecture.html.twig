@@ -3,11 +3,13 @@
 {% block body %}
 
 <section class="prefecture affichagetbl container mt-5">
+
     <container class="affichage inline-block center">
-    <h2 class"mt-4 pb-5 text-center"=>Détails de la préfecture</h2>
+    
+    <h2 class"mt-4 pb-5 text-center h2_prefecture">Détails de la préfecture</h2>
      <table class="table table-striped mb-4">
         <thead>
-            <tr class="background_tbl ">
+            <tr class="background_prefecture">
                 <th scope="col" class="text-left pl-5"></th>
                 <th scope="col" class="text-left"></th>
   </tr>
@@ -15,32 +17,33 @@
 
         <tbody>
         <tr>
-    <td>Nom : </td>
+    <td><strong>Nom : </strong></td>
     <td>{{ prefectures.nomPrefecture }}</td>
      </tr>
     <tr>
-    <td>Adresse : </td>
+    <td><strong>Adresse : </strong></td>
     <td>{{ prefectures.numeroAdressePrefecture }} {{ prefectures.adressePrefecture }}</td>
      </tr>
     <tr>
-    <td>Code postal : </td>
+    <td><strong>Code postal : </strong></td>
     <td>{{ prefectures.cpPrefecture }}</td>
      </tr>
     <tr>
-    <td>Commune : </td>
+    <td><strong>Commune : </strong></td>
     <td>{{ prefectures.communePrefecture }}</td>
      </tr>
     <tr>
-    <td>Autorité : </td>
+    <td><strong>Autorité : </strong></td>
     <td>{{ prefectures.prefectureAutorite }}</td>
      </tr>
     <tr>
-    <td>Service : </td>
+    <td><strong>Service : </strong></td>
     <td>{{ prefectures.prefectureService }}</th>
 </tr>
   </tbody>
     </table>
-   <a href="{{ path('prefecture_index') }}" class="btn retour ml-3 fas fa-arrow-left">Retour</a>
+  
    </container>
+    <a href="{{ path('prefecture_index') }}" class="btn retour mr-5">Retour</a>
 </section>
 {% endblock %}

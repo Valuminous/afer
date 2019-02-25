@@ -88,7 +88,7 @@
             "Fonction animateur"}}) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addFonctionAnimateur" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart5">
+            <button type="button" id="addFonctionAnimateur" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCart5">
                 +
             </button>
         </div>
@@ -98,7 +98,7 @@
             animateur"}}) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addStatutAnimateur" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCart6">
+            <button type="button" id="addStatutAnimateur" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCart6">
                 +
             </button>
         </div>
@@ -111,13 +111,15 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">
-        {% if editMode %}
-        Modifier
-        {% else %}
-        Sauvegarder
-        {% endif %}
+    {% if editMode %}
+    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+    Enregistrer
     </button>
+    {% else %}
+    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+    Enregistrer
+    </button>
+    {% endif %}
 
     {{ form_end(formAnimateur) }}
 

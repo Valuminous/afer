@@ -64,15 +64,16 @@
         </div>
     </div>
 
-    {% if editMode %}
-    <button type="submit" class="btn btn-warning">
-        Modifier
+ {% if editMode %}
+    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+    Enregistrer
     </button>
     {% else %}
-    <button type="submit" class="btn btn-primary">
-        Sauvegarder
+    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+    Enregistrer
     </button>
     {% endif %}
+
 
     {{ form_end(formLieuStage) }}
 
