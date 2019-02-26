@@ -38,6 +38,7 @@ class AnimateurType extends AbstractType
             ->add('commune_animateur')
             ->add('region_animateur')
             ->add('rue_animateur')
+            ->add('numero_rue_animateur')
             ->add('numero_portable_animateur')
             ->add('numero_fixe_animateur')
             ->add('email_animateur')

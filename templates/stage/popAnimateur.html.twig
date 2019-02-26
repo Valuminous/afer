@@ -17,7 +17,10 @@
 
     <div class="row">
         <div class="col">
-            {{ form_row(form.rue_animateur, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
+            {{ form_row(form.numero_rue_animateur, {'label': "Numéro de rue :", 'attr': {'placeholder': "Numéro rue"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.rue_animateur, {'label': "Rue :", 'attr': {'placeholder': "Rue"}}) }}
         </div>
         <div class="col">
             {{ form_row(form.commune_animateur, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
@@ -44,8 +47,7 @@
             "N° de portable"}}) }}
         </div>
         <div class="col">
-            {{ form_row(form.numero_fixe_animateur, {'label': "N° de fixe :", 'attr': {'placeholder': "N° de
-            fixe"}}) }}
+            {{ form_row(form.numero_fixe_animateur, {'label': "N° de fixe :", 'attr': {'placeholder': "N° de fixe"}}) }}
         </div>
     </div>
 

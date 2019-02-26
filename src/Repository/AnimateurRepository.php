@@ -15,6 +15,23 @@ class AnimateurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Animateur::class);
     }
+
+    public function counter($value1,$value2,$value3)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nomAnimateur = :val1')
+            ->andWhere('t.prenomAnimateur = :val2')
+            ->andWhere('t.siretAnimateur = :val3')
+            ->setParameter('val1', $value1)
+            ->setParameter('val2', $value2)
+            ->setParameter('val3', $value3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
     // /**
     //  * @return Animateur[] Returns an array of Animateur objects
     //  */

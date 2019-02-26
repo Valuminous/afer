@@ -268,7 +268,8 @@ class StageController extends AbstractController
 
             $animateurNom = $request->request->get('animateur_nom_animateur');
             $animateurPrenom = $request->request->get('animateur_prenom_animateur');
-            $animateurAdresse = $request->request->get('animateur_rue_animateur');
+            $animateurRue = $request->request->get('animateur_rue_animateur');
+            $animateurNumeroRue = $request->request->get('animateur_numero_rue_animateur');
             $animateurCommune = $request->request->get('animateur_commune_animateur');
             $animateurCp = $request->request->get('animateur_cp_animateur');
             $animateurRegion = $request->request->get('animateur_region_animateur');
@@ -294,9 +295,10 @@ class StageController extends AbstractController
             $nbr = $nbrs[0][1];
     
             if(strlen($animateurNom) > 0 && strlen($animateurCivilite) != "0" && strlen($animateurPrenom) > 0 &&
-                strlen($animateurAdresse) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 &&
+                strlen($animateurRue) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 && strlen($animateurNumeroRue) > 0 &&
                 strlen($animateurRegion) > 0 && strlen($animateurSiret) > 0 && strlen($animateurUrssaf) > 0 &&
-                strlen($animateurNumeroFixe) > 0 &&strlen($animateurRaisonSociale) > 0 && strlen($animateurGta) != "0" && strlen($animateurFonction) != "0" && strlen($animateurStatut) != "0"){
+                strlen($animateurNumeroFixe) > 0 &&strlen($animateurRaisonSociale) > 0 && strlen($animateurGta) != "0" 
+                && strlen($animateurFonction) != "0" && strlen($animateurStatut) != "0" && $nbr === "0"){
 
                 $animateur->setNomAnimateur($animateurNom);
                 $animateur->setPrenomAnimateur($animateurPrenom);
@@ -305,7 +307,8 @@ class StageController extends AbstractController
                 $animateur->setCpAnimateur($animateurCp);
                 $animateur->setCommuneAnimateur($animateurCommune);
                 $animateur->setRegionAnimateur($animateurRegion);
-                $animateur->setNumeroRueAnimateur($animateurAdresse);
+                $animateur->setNumeroRueAnimateur($animateurNumeroRue);
+                $animateur->setRueAnimateur($animateurRue);
                 $animateur->setNumeroPortableAnimateur($animateurNumeroPortable);
                 $animateur->setNumeroFixeAnimateur($animateurNumeroFixe);
                 $animateur->setEmailAnimateur($animateurEmail);
