@@ -24,7 +24,7 @@ class Stage
     private $numeroStage;
     /**
      * @ORM\Column(type="date")
-     * @Assert\GreaterThan("today", message = "La date de début de stage doit être supérieure à la date actuelle")
+     * @Assert\GreaterThanOrEqual("today", message = "La date de début de stage doit être supérieure ou égale à la date d'aujourd'hui")
      */
     private $dated;
     /**
