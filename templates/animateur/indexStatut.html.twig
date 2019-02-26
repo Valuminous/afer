@@ -22,14 +22,14 @@
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Modifier le statut" href="{{  path('animateurStatut_modifier', {'id': animateurstatut.id}) }}"><i
                             class="fas fa-pen pen_color"></i></a>
-                    <a data-toggle="modal" data-target="#animateurStatutDelete{{ animateurstatut.id }}" data-placement="top" title="Supprimer le statut" href="#"><i
+                    <a data-id="{{ animateurstatut.id }}" data-target="#animateurStatutDelete" class="animateurStatutDelete" data-placement="top" title="Supprimer le statut" href="{{  path('animateur_statut_suppr_alert') }}"><i
                             class="trash_color far fa-trash-alt pl-2"></i></a>
 
                 </td>
             </tr>
 
             <!-- Modal -->
-            <div class="modal fade" id="animateurStatutDelete{{ animateurstatut.id }}" tabindex="-1" role="dialog"
+            <div class="modal fade" id="animateurStatutDelete" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <a href="{{  path('animateurStatut_supprimer', {'id': animateurstatut.id}) }}" class="btn btn-danger">Confirmer</a>
+                            <a href="#" class="btn btn-danger">Confirmer</a>
                         </div>
                     </div>
                 </div>

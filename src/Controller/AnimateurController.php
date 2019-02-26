@@ -252,4 +252,64 @@ class AnimateurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+    * @Route("/animateur/fonction/supprAlertFormFonctionAnimateur", name="animateur_fonction_suppr_alert")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function supprFonction(AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
+    {
+
+        if($request->isMethod('POST')){
+
+            $id = $request->request->get('id');
+            
+            if($id > 0){
+                $nbrs = $repoAnimateur->counterFonction($id);
+                $nbr = $nbrs[0][1];
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"nb":'.$nbr.'}');
+            } else {
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"notnumber"}');
+            }
+
+            return $response;
+        } else {
+            $response = new Response();
+            $response = JsonResponse::fromJsonString('{"error":"exception"}');
+        }
+        
+    }
+
+    /**
+    * @Route("/animateur/statut/supprAlertFormFonctionAnimateur", name="animateur_statut_suppr_alert")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function supprStatut(AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
+    {
+
+        if($request->isMethod('POST')){
+
+            $id = $request->request->get('id');
+            
+            if($id > 0){
+                $nbrs = $repoAnimateur->counterStatut($id);
+                $nbr = $nbrs[0][1];
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"nb":'.$nbr.'}');
+            } else {
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"notnumber"}');
+            }
+
+            return $response;
+        } else {
+            $response = new Response();
+            $response = JsonResponse::fromJsonString('{"error":"exception"}');
+        }
+        
+    }
 }

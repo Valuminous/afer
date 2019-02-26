@@ -28,13 +28,13 @@
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Modifier le service" href="{{ path('prefectureService_modifier', {'id': service.id}) }}"><i
                             class="fas fa-pen pen_color"></i></a>
-                    <a data-toggle="modal" data-target="#prefectureServiceDelete{{ service.id }}" data-placement="top" title="Supprimer le service" href="#"><i
+                    <a data-id="{{ service.id }}" data-target="#prefectureServiceDelete" class="prefectureServiceDelete" data-placement="top" title="Supprimer le service" href="{{  path('tribunal_service_suppr_alert') }}"><i
                             class="far fa-trash-alt trash_color pl-2"></i></a>
                 </td>
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="prefectureServiceDelete{{ service.id }}" tabindex="-1" role="dialog"
+                <div class="modal fade" id="prefectureServiceDelete" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                <a href="{{ path('prefectureService_supprimer', {'id': service.id}) }}" class="btn btn-danger">Confirmer</a>
+                                <a href="#" class="btn btn-danger">Confirmer</a>
                             </div>
                         </div>
                     </div>

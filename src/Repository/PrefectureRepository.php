@@ -32,6 +32,28 @@ class PrefectureRepository extends ServiceEntityRepository
         ;
     }
 
+    public function counterAutorite($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.prefectureAutorite = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function counterService($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.prefectureService = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Prefecture[] Returns an array of Prefecture objects
     //  */
