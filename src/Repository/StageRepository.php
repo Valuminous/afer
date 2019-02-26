@@ -19,6 +19,17 @@ class StageRepository extends ServiceEntityRepository
         parent::__construct($registry, Stage::class);
     }
 
+    public function counterLieu($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.lieuStage = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Stage[] Returns an array of Stage objects
     //  */

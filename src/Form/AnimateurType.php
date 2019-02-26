@@ -21,8 +21,9 @@ class AnimateurType extends AbstractType
         $builder
             ->add('civilite', EntityType::class, [
             'class' => Civilite::class,
-            'choice_label' => 'nomCivilite'
-            ])
+            'choice_label' => 'nomCivilite',
+            'mapped'> false
+           ])
             ->add('nom_animateur')
             ->add('prenom_animateur')
             ->add('raison_sociale_animateur')

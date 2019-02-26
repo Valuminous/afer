@@ -4,6 +4,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnimateurRepository")
  */
@@ -17,14 +19,20 @@ class Animateur
     private $id;
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
+     * @Assert\Regex(pattern = "/^[a-zA-Zàâçéèêëîïôûùüÿñæœ .-]*$/i", match = true, message = "{{ value }} contient un caractère non autorisé")
      */
     private $nomAnimateur;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
+     * @Assert\Regex(pattern = "/^[a-zA-Zàâçéèêëîïôûùüÿñæœ .-]*$/i", match = true, message = "{{ value }} contient un caractère non autorisé")
      */
     private $prenomAnimateur;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
+     * @Assert\Regex(pattern = "/^[a-zA-Zàâçéèêëîïôûùüÿñæœ .-]*$/i", match = true, message = "{{ value }} contient un caractère non autorisé")
      */
     private $raisonSocialeAnimateur;
     /**
@@ -32,15 +40,15 @@ class Animateur
      */
     private $gtaAnimateur = false;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $cpAnimateur;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $communeAnimateur;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $regionAnimateur;
     /**
@@ -48,31 +56,37 @@ class Animateur
      */
     private $numeroRueAnimateur;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $rueAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern = "/^[0-9]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
      */
     private $numeroPortableAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern = "/^[0-9]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
      */
     private $numeroFixeAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email(message = "L'adresse email saisie n'est pas valide")
      */
     private $emailAnimateur;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
      */
     private $urssafAnimateur;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
      */
     private $siretAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
      */
     private $observationsAnimateur;
     /**
@@ -90,7 +104,7 @@ class Animateur
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="animateur")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn
      */
     private $civilite;
 

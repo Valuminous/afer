@@ -33,7 +33,7 @@
         </td>
 
         <!-- Modal -->
-        {# <div class="modal fade" id="autoriteTribunalDelete" tabindex="-1" role="dialog"
+        <div class="modal fade" id="autoriteTribunalDelete" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -48,11 +48,11 @@
               </div>
               <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <a href="{{  path('tribunalAutorite_supprimer', {'id': autorite.id}) }}" class="btn btn-danger">Confirmer</a>
+                <a href="#" class="btn btn-danger">Confirmer</a>
               </div>
             </div>
           </div>
-        </div> #}
+        </div>
         {% endif %}
       </tr>
       {% else %}
@@ -61,23 +61,5 @@
       {% endfor %}
     </tbody>
   </table>
-  <div class="modal" id="modalMessage" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
   {% endblock %}

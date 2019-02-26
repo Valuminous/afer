@@ -21,9 +21,6 @@ document.onreadystatechange = function () {
         loadFormTribunal();
         loadFormPrefecture();
         loadFormStagiaire();
-        verifAutoriteTribunal();
-        loadFormAnimateur();
-        myBox = $('#modalMessage');
     }
 }
 
@@ -680,50 +677,7 @@ function loadFormStagiaire() {
             });
     }
 }
-
-function verifAutoriteTribunal() {
-    let btnDelete = document.querySelectorAll('.tribunalAutoriteDelete');
-    [].forEach.call(btnDelete, (btnElement) => {
-        btnElement.addEventListener('click', (e) => {
-
-            e.preventDefault();
-            let id = btnElement.getAttribute('data-id');
-            data = new FormData();
-            data.append('id', id);
-
-            fetch("/admin/tribunal/autorite/supprAlertFormAutoriteTribunal", {
-                    method: "POST",
-                    body: data,
-                    credentials: 'include'
-                })
-                .then((reponse) => {
-                    return reponse.json();
-                })
-                .then((reponse) => {
-
-                    if (reponse.error != null) {
-
-                        console.log('erreur');
-
-                    } else {
-
-                        if (reponse.nb === 0) {
-                            // btnElement.setAttribute('data-toggle','modal');
-                            console.log(myBox);
-                            myBox.modal('show');
-
-                            console.log('bonjour');
-                        } else {
-                            console.log('au revoir');
-                        }
-                    }
-                }).catch((error) => {
-                    console.log(error);
-                });
-        })
-    })
-}
-
+                   
 function loadFormAnimateur() {
     let animateur = document.querySelector('#addAnimateur');
     if (animateur != null) {

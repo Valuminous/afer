@@ -375,6 +375,35 @@ class StageController extends AbstractController
             'stage' => $stage
         ]);
     }
+
+    /**
+    * @Route("/stage/lieuStage/supprAlertFormLieuStage", name="stage_lieu_suppr_alert")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function supprLieu(StageRepository $repoStage, Request $request, ObjectManager $manager)
+    {
+
+        if($request->isMethod('POST')){
+
+            $id = $request->request->get('id');
+            
+            if($id > 0){
+                $nbrs = $repoStage->counterLieu($id);
+                $nbr = $nbrs[0][1];
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"nb":'.$nbr.'}');
+            } else {
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"notnumber"}');
+            }
+
+            return $response;
+        } else {
+            $response = new Response();
+            $response = JsonResponse::fromJsonString('{"error":"exception"}');
+        }
+        
+    }
+
 }
-
-

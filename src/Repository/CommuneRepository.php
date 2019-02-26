@@ -24,17 +24,17 @@ class CommuneRepository extends ServiceEntityRepository
      * @return Commune[] Returns an array of Commune objects
    */
     
-    public function findLikeName($commune)
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.commune LIKE :commune')
-            ->setParameter('commune', "%commune%")
-            ->orderBy('c.commune')
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    // public function findLikeName($commune)
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->where('c.commune LIKE :commune')
+    //         ->setParameter('commune', "%commune%")
+    //         ->orderBy('c.commune')
+    //         ->setMaxResults(5)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
     
 
     /*

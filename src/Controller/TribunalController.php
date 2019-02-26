@@ -303,4 +303,34 @@ class TribunalController extends AbstractController
         
     }
 
+    /**
+    * @Route("/tribunal/autorite/supprAlertFormServiceTribunal", name="tribunal_service_suppr_alert")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function supprService(TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
+    {
+
+        if($request->isMethod('POST')){
+
+            $id = $request->request->get('id');
+            
+            if($id > 0){
+                $nbrs = $repoTribunal->counterService($id);
+                $nbr = $nbrs[0][1];
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"nb":'.$nbr.'}');
+            } else {
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"notnumber"}');
+            }
+
+            return $response;
+        } else {
+            $response = new Response();
+            $response = JsonResponse::fromJsonString('{"error":"exception"}');
+        }
+        
+    }
+
 }

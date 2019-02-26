@@ -22,14 +22,13 @@
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Modifier la fonction" href="{{  path('animateurFonction_modifier', {'id': animateurfonction.id}) }}"><i
                             class="fas fa-pen pen_color"></i></a>
-                    <a data-toggle="modal" data-target="#animateurFonctionDelete{{ animateurfonction.id }}" data-placement="top" title="Supprimer la fonction" href="#"><i
+                    <a data-id="{{ animateurfonction.id }}" data-target="#animateurFonctionDelete" class="animateurFonctionDelete" data-placement="top" title="Supprimer la fonction" href="{{  path('animateur_fonction_suppr_alert') }}"><i
                             class="trash_color far fa-trash-alt pl-2"></i></a>
-
                 </td>
             </tr>
 
             <!-- Modal -->
-            <div class="modal fade" id="animateurFonctionDelete{{ animateurfonction.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            <div class="modal fade" id="animateurFonctionDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -44,7 +43,7 @@
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <a href="{{  path('animateurFonction_supprimer', {'id': animateurfonction.id}) }}" class="btn btn-danger">Confirmer</a>
+                            <a href="#" class="btn btn-danger">Confirmer</a>
                         </div>
                     </div>
                 </div>
