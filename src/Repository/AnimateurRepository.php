@@ -27,6 +27,21 @@ class AnimateurRepository extends ServiceEntityRepository
         ;
     }
 
+    public function counter($value1,$value2,$value3)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nomAnimateur = :val1')
+            ->andWhere('t.prenomAnimateur = :val2')
+            ->andWhere('t.siretAnimateur = :val3')
+            ->setParameter('val1', $value1)
+            ->setParameter('val2', $value2)
+            ->setParameter('val3', $value3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function counterStatut($value)
     {
         return $this->createQueryBuilder('t')
