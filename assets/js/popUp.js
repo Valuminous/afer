@@ -64,10 +64,8 @@ function loadFormAutoriteTribunal() {
                                         return resultat.json();
                                     })
                                     .then((resultat) => {
-
                                         if (resultat.error != null) {
-                                            document.querySelector('#error').innerHTML = "L'autorité existe déjà";
-
+                                            document.querySelector('#errorAutoriteTribunal').innerHTML = "L'autorité existe déjà";
                                         } else if (resultat.value != null) {
                                             const selectTribunalAutorite = document.querySelector('#tribunal_tribunal_autorite');
                                             const option = document.createElement("option");
@@ -193,7 +191,7 @@ function loadFormPrefectureService() {
                                     .then((resultat) => {
 
                                         if (resultat.error != null) {
-                                            document.querySelector('#error4').innerHTML = "Le service existe déjà";
+                                            document.querySelector('#errorServicePrefecture').innerHTML = "Le service existe déjà";
 
                                         } else if (resultat.value != null) {
                                             const selectPrefectureService = document.querySelector('#prefecture_prefectureService');
@@ -230,7 +228,6 @@ function loadFormPrefectureAutorite() {
                 return reponse.text();
             })
             .then((reponse) => {
-                console.log(reponse)
                 if (reponse.length > 0) {
                     document.querySelector('#modalCartAutoritePrefecture .modal-body').innerHTML = reponse;
                     btn = document.querySelector('#modalCartAutoritePrefecture .modal-body button');
@@ -244,7 +241,6 @@ function loadFormPrefectureAutorite() {
                                 let autorite = document.querySelector('form[name="prefecture_autorite"] #prefecture_autorite_nom');
                                 let token = document.querySelector('form[name="prefecture_autorite"] #prefecture_autorite__token');
                                 let data = new FormData();
-
                                 data.append("prefecture_autorite_nom", autorite.value);
                                 data.append("prefecture_autorite__token", token.value);
 
@@ -259,7 +255,7 @@ function loadFormPrefectureAutorite() {
                                     .then((resultat) => {
 
                                         if (resultat.error != null) {
-                                            document.querySelector('#error3').innerHTML = "L'autorité existe déjà";
+                                            document.querySelector('#errorAutoritePrefecture').innerHTML = "L'autorité existe déjà";
 
                                         } else if (resultat.value != null) {
                                             const selectPrefectureAutorite = document.querySelector('#prefecture_prefectureAutorite');
@@ -268,7 +264,7 @@ function loadFormPrefectureAutorite() {
                                             option.text = resultat.value;
                                             selectPrefectureAutorite.add(option);
                                             selectPrefectureAutorite.selectedIndex = selectPrefectureAutorite.length - 1;
-                                            close4.click();
+                                            close3.click();
                                         }
                                     }).catch((error) => {
                                         console.log(error);

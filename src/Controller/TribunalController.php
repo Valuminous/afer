@@ -230,7 +230,6 @@ class TribunalController extends AbstractController
             }
             return $response;
         }
-        
         return $this->render('tribunal/popAutorite.html.twig', 
             ['form' => $formAutorite->createView()
             ]);
