@@ -5,6 +5,7 @@ use App\Entity\DateTimeInterface;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StageRepository")
@@ -23,10 +24,12 @@ class Stage
     private $numeroStage;
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThanOrEqual("today", message = "La date de début de stage doit être supérieure ou égale à la date d'aujourd'hui")
      */
     private $dated;
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThan(propertyPath="dated", message = "La date de fin de stage doit être supérieure à la date de début de stage")
      */
     private $datef;
     /**
