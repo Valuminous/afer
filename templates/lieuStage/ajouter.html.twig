@@ -64,6 +64,7 @@
     <div class="row">
         <div class="col">
             {{ form_row(formLieuStage.divers, {'label': "Divers :", 'attr': {'placeholder': "Divers"}}) }}
+            {{ form_errors(formLieuStage) }}
         </div>
     </div>
 
@@ -89,11 +90,15 @@
 
 {% block javascripts %}
 <script>
-    $().ready(function () {
+$(document).ready(function () {
 
-        $('.select_cp').autocompleter({
-            minimumInputLength: 3
-        });
-    })
-</script>
+    $('.select_cp').select2({
+      minimumInputLength: 3,
+      maximumInputLength: 20,
+      minimumResultsForSearch: 20
+    
+    });
+     })
+    
+    </script>
 {% endblock %}
