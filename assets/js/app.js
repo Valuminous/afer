@@ -9,6 +9,7 @@ require('../../vendor/harvesthq/chosen/chosen.jquery.min.js');
 require('../../vendor/select2/select2/dist/js/select2.min.js');
 require('../../node_modules/popper.js/dist/esm/popper.min.js');
 require('../js/popUp.js');
+require('../js/modal.js');
 require('../js/select.js');
 
 const onclickStage = document.querySelector('.onclick_stage');

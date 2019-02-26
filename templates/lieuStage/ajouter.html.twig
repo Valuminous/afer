@@ -20,13 +20,15 @@
             "Nom de l'établissement"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formLieuStage.agrement, {'label': "N° d'agrément :", 'attr': {'placeholder': "N° d'agrément"}})}}
+            {{ form_row(formLieuStage.agrement, {'label': "N° d'agrément :", 'attr': {'placeholder': "N°
+            d'agrément"}})}}
         </div>
     </div>
 
     <div class="row">
         <div class="col-2">
-            {{ form_row(formLieuStage.numero_adresse_stage, {'label': "N° de rue :", 'attr': {'placeholder': "N° de rue"}}) }}
+            {{ form_row(formLieuStage.numero_adresse_stage, {'label': "N° de rue :", 'attr': {'placeholder': "N° de
+            rue"}}) }}
         </div>
         <div class="col-10">
             {{ form_row(formLieuStage.adresse_stage, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
@@ -34,18 +36,19 @@
     </div>
 
     <div class="row">
-       
+
         <div class="col">
             {{ form_row(formLieuStage.cp, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}}) }}
         </div>
-         <div class="col">
+        <div class="col">
             {{ form_row(formLieuStage.commune, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            {{ form_row(formLieuStage.telephone_stage, {'label': "N° de téléphone :", 'attr': {'placeholder': "N° de téléphone"}}) }}
+            {{ form_row(formLieuStage.telephone_stage, {'label': "N° de téléphone :", 'attr': {'placeholder': "N° de
+            téléphone"}}) }}
         </div>
     </div>
 
@@ -64,13 +67,13 @@
         </div>
     </div>
 
- {% if editMode %}
+    {% if editMode %}
     <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-    Enregistrer
+        Enregistrer
     </button>
     {% else %}
     <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
-    Enregistrer
+        Enregistrer
     </button>
     {% endif %}
 
@@ -84,7 +87,7 @@
 
 
 
- {% block javascripts %}
+{% block javascripts %}
 <script>
 $(document).ready(function () {
 

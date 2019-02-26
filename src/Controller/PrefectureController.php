@@ -272,4 +272,64 @@ class PrefectureController extends AbstractController
             ['form' => $formAutorite->createView()
             ]);
     }
+
+    /**
+    * @Route("/prefecture/autorite/supprAlertFormAutoritePrefecture", name="prefecture_autorite_suppr_alert")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function supprAutorite(PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager)
+    {
+
+        if($request->isMethod('POST')){
+
+            $id = $request->request->get('id');
+            
+            if($id > 0){
+                $nbrs = $repoPrefecture->counterAutorite($id);
+                $nbr = $nbrs[0][1];
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"nb":'.$nbr.'}');
+            } else {
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"notnumber"}');
+            }
+
+            return $response;
+        } else {
+            $response = new Response();
+            $response = JsonResponse::fromJsonString('{"error":"exception"}');
+        }
+        
+    }
+
+    /**
+    * @Route("/prefecture/service/supprAlertFormServicePrefecture", name="prefecture_service_suppr_alert")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function supprService(PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager)
+    {
+
+        if($request->isMethod('POST')){
+
+            $id = $request->request->get('id');
+            
+            if($id > 0){
+                $nbrs = $repoPrefecture->counterService($id);
+                $nbr = $nbrs[0][1];
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"nb":'.$nbr.'}');
+            } else {
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"notnumber"}');
+            }
+
+            return $response;
+        } else {
+            $response = new Response();
+            $response = JsonResponse::fromJsonString('{"error":"exception"}');
+        }
+        
+    }
 }
