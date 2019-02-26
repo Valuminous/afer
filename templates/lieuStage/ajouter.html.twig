@@ -86,10 +86,15 @@
 
  {% block javascripts %}
 <script>
- $().ready(function () {
+$(document).ready(function () {
 
-$('.select_cp').autocompleter({
-    minimumInputLength :3
-})
+    $('.select_cp').select2({
+      minimumInputLength: 3,
+      maximumInputLength: 20,
+      minimumResultsForSearch: 20
+    
+    });
+     })
+    
     </script>
 {% endblock %}

@@ -15,14 +15,14 @@ class CommuneType extends AbstractType
     {
         $builder
            
-            ->add('commune', AutocompleteType::class, [
-                'class' => Commune::class,
+            ->add('commune')
+            ->add('cp');
             // ->add('region')
             // ->add('departement')
             // ->add('latitude')
             // ->add('longitude')
         
-    ]);}
+    }
 
     public function configureOptions(OptionsResolver $resolver)
     {
