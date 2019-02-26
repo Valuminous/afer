@@ -33,6 +33,7 @@ class AnimateurFixtures extends Fixture
                 $animateur->setCpAnimateur($faker->postcode);
                 $animateur->setCommuneAnimateur($faker->departmentName);
                 $animateur->setRegionAnimateur($faker->region);
+                $animateur->setNumeroRueAnimateur($faker->randomNumber);
                 $animateur->setRueAnimateur($faker->streetAddress);
                 $animateur->setNumeroRueAnimateur($faker->streetAddress);
                 $animateur->setNumeroPortableAnimateur($faker->mobileNumber);

@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AnimateurType extends AbstractType
 {
@@ -22,7 +23,7 @@ class AnimateurType extends AbstractType
             ->add('civilite', EntityType::class, [
             'class' => Civilite::class,
             'choice_label' => 'nomCivilite',
-            'mapped'> false
+            
            ])
             ->add('nom_animateur')
             ->add('prenom_animateur')
@@ -45,7 +46,7 @@ class AnimateurType extends AbstractType
             ->add('email_animateur')
             ->add('urssaf_animateur')
             ->add('siret_animateur')
-            ->add('observations_animateur')
+            ->add('observations_animateur', TextareaType::class)
             ->add('animateurStatut', EntityType::class, [
                 'class' => AnimateurStatut::class,
                 'choice_label' => 'nom'

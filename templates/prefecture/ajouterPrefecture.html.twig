@@ -45,16 +45,16 @@
             {{ form_row(formPrefecture.prefectureAutorite, {'label': 'Autorité de la préfecture', 'attr': {'placeholder': 'Autorité de la préfecture'} }) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addAutoritePrefecture" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCartAutoritePrefecture">
+            <button type="button" id="addAutoritePrefecture" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCartAutoritePrefecture">
                 +
             </button>
         </div>
         <div class="col-5">
           {{ form_row(formPrefecture.prefectureService, {'label': 'Service de la préfecture', 'attr': {'placeholder': 'Service de la préfecture'} }) }}
-          {{ form_errors(formAnimateur) }}
+          {{ form_errors(formPrefecture) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addServicePrefecture" class="btn btn-primary tribunal_add" data-toggle="modal" data-target="#modalCartServicePrefecture">
+            <button type="button" id="addServicePrefecture" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCartServicePrefecture">
                 +
             </button>
         </div>
