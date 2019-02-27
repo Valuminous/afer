@@ -36,16 +36,32 @@ class StagiaireController extends AbstractController
      *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
      *  @IsGranted("ROLE_ADMIN")
      */
-    public function stagiaireForm(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager)
+    public function stagiaireForm(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
         $stagiaire = new stagiaire();
         }
         $form = $this->createForm(stagiaireType::class, $stagiaire);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($stagiaire);
-            $manager->flush();
+
+            $stagiaireNom = $stagiaire->getNomStagiaire();
+            $stagiairePrenom = $stagiaire->getPrenomStagiaire();
+            $stagiaireDateNaissance = $stagiaire->getDateNaissanceStagiaire();
+            $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom,$stagiaireDateNaissance);
+            $nbr = $nbrs[0][1];
+      
+            if($nbr === "0"){
+                $manager->persist($stagiaire);
+                $manager->flush();
+            }else{
+                return $this->render('stagiaire/ajouter.html.twig', [
+                    'formStagiaire' => $form->createView(),
+                    'editMode' => $stagiaire->getId() !== null,
+                    'error' => 'error'
+                ]);
+            }
             return $this->redirectToRoute('stagiaire_index');
         }
         return $this->render('stagiaire/ajouter.html.twig', [

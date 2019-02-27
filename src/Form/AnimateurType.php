@@ -22,7 +22,6 @@ class AnimateurType extends AbstractType
             ->add('civilite', EntityType::class, [
             'class' => Civilite::class,
             'choice_label' => 'nomCivilite',
-            'mapped'> false
            ])
             ->add('nom_animateur')
             ->add('prenom_animateur')

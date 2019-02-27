@@ -347,6 +347,7 @@ class StageController extends AbstractController
         }
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($stage);
             $manager->flush();

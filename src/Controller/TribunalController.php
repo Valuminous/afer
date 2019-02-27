@@ -49,7 +49,7 @@ class TribunalController extends AbstractController
     * @Route("/tribunal/{id}/modifier", name="tribunal_modifier")
     * @IsGranted("ROLE_ADMIN")
     */
-    public function ajouterTribunal(Tribunal $tribunals = null, Request $request, ObjectManager $manager)
+    public function ajouterTribunal(Tribunal $tribunals = null,TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
     {
         if(!$tribunals){
             $tribunals = new Tribunal();
@@ -58,11 +58,24 @@ class TribunalController extends AbstractController
         $form = $this->createForm( TribunalType::class, $tribunals );
         
         $form->handleRequest( $request );
-        
+               
         if( $form->isSubmitted() && $form->isValid() ){
             
-            $manager->persist( $tribunals );
-            $manager->flush();
+            $tribunalNom = $tribunals->getNomTribunal();
+            $tribunalCommune = $tribunals->getCommuneTribunal();
+            $nbrs = $repoTribunal->counter($tribunalNom,$tribunalCommune);
+            $nbr = $nbrs[0][1];
+       
+            if($nbr === "0"){
+                $manager->persist( $tribunals );
+                $manager->flush();
+            }else{
+                return $this->render('tribunal/ajouterTribunal.html.twig', 
+                    ['form' => $form->createView(),
+                    'editMode' => $tribunals->getId() !== null,
+                    'error' => 'error'
+                    ]);
+            }
             return $this->redirectToRoute('tribunal_index') ;
         }
         

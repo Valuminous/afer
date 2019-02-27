@@ -13,6 +13,11 @@
         <h2 class="mt-5 mb-5 h2_animateur">Ajouter un animateur</h2>
         {% endif %}
     </div>
+    <div class="text-center">
+        {% if error is defined %}
+            <h4 class="text-danger">L'animateur existe déjà</h4>
+        {% endif %}
+    </div>
 
     <div class="row">
         <div class="col">

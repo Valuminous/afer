@@ -1,51 +1,84 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    {% if editMode %}
-        <h1  class="mt-5 mb-5 h2_stage">Modifier un stage</h1>
-    {% else %}
-        <h1  class="mt-5 mb-5 h2_stage">Ajouter un stage</h1>
-    {% endif %}
-
-    {{ form_start(formStage) }}
-
-        <div class="d-flex">
-            {{ form_row(formStage.tribunal, {'label': 'Tribunal'}) }}
-            <button type="button" id="addTribunal" class="btn btn-success" data-toggle="modal" data-target="#modalCartTribunal">
-                +
-            </button>
-        </div>
-        <div class="d-flex">
-            {{ form_row(formStage.prefecture, {'label': 'Prefécture'}) }}
-            <button type="button" id="addPrefecture" class="btn btn-success" data-toggle="modal" data-target="#modalCartPrefecture">
-                +
-            </button>
-        </div>
-        <div class="d-flex">
-            {{ form_row(formStage.stagiaires, {'label': 'Stagiaire'}) }}
-            <button type="button" id="addStagiaire" class="btn btn-success" data-toggle="modal" data-target="#modalCartStagiaire">
-                +
-            </button>
-        </div>
-        <div class="d-flex">
-            {{ form_row(formStage.animateurs, {'label': 'Animateur'}) }}
-            <button type="button" id="addAnimateur" class="btn btn-success" data-toggle="modal" data-target="#modalCartAnimateur">
-                    +
-            </button>
-        </div>
+    <div class="container">
 
         {% if editMode %}
-            <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-                Enregistrer
-            </button>
+            <h1  class="mt-5 mb-5 h2_stage">Modifier un stage</h1>
         {% else %}
-            <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
-                Enregistrer
-            </button>
+            <h1  class="mt-5 mb-5 h2_stage">Ajouter un stage</h1>
         {% endif %}
 
-    {{ form_end(formStage) }}
+        {{ form_start(formStage) }}
+
+        <div class="row">
+            <div class="col-2">
+                {{ form_row(formStage.numero_stage, {'label': 'Numéro', 'attr': {'placeholder': 'Numéro'} }) }}
+            </div>
+            <div class="col-4">
+                {{ form_row(formStage.tribunal, {'label': 'Tribunal'}) }}
+            </div>
+            <div class="col-1 tribunal_add">
+                <button type="button" id="addTribunal" class="btn btn-success" data-toggle="modal" data-target="#modalCartTribunal">
+                    +
+                </button>
+            </div>
+            <div class="col-4">
+                {{ form_row(formStage.prefecture, {'label': 'Prefécture'}) }}
+            </div>
+            <div class="col-1 tribunal_add">
+                <button type="button" id="addPrefecture" class="btn btn-success" data-toggle="modal" data-target="#modalCartPrefecture">
+                    +
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                {{ form_row(formStage.stagiaires, {'label': 'Stagiaire'}) }}
+            </div>
+            <div class="col-1 tribunal_add">
+                <button type="button" id="addStagiaire" class="btn btn-success" data-toggle="modal" data-target="#modalCartStagiaire">
+                    +
+                </button>
+            </div>
+            <div class="col-5">
+                {{ form_row(formStage.animateurs, {'label': 'Animateur'}) }}
+            </div>
+            <div class="col-1 tribunal_add">
+                <button type="button" id="addAnimateur" class="btn btn-success" data-toggle="modal" data-target="#modalCartAnimateur">
+                    +
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{ form_row(formStage.dated, {'label': 'Date de début', 'attr': {'placeholder': 'Date de début'} }) }}
+            </div>
+            <div class="col-3">
+                {{ form_row(formStage.datef, {'label': 'Date de fin', 'attr': {'placeholder': 'Date de fin'} }) }}
+            </div>
+       
+        
+            <div class="col-3">
+                {{ form_row(formStage.stage_programme_officiel, {'label': 'Stage Programme officiel', 'attr': {'placeholder': 'Stage Programme officiel'} }) }}
+            </div>
+            <div class="col-3">
+                {{ form_row(formStage.lieuStage, {'label': 'Lieu', 'attr': {'placeholder': 'Lieu'} }) }}
+            </div>
+        </div>
+
+            {% if editMode %}
+                <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+                    Enregistrer
+                </button>
+            {% else %}
+                <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+                    Enregistrer
+                </button>
+            {% endif %}
+
+        {{ form_end(formStage) }}
+    </div>
 
     <!-- Modal: modalCart -->
     <div class="modal fade" id="modalCartTribunal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
