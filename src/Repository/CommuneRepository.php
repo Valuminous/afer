@@ -20,32 +20,22 @@ class CommuneRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $commune
-     * @return Commune[] Returns an array of Commune objects
-   */
-    
-    // public function findLikeName($commune)
-    // {
-    //     return $this->createQueryBuilder('c')
-    //         ->where('c.commune LIKE :commune')
-    //         ->setParameter('commune', "%commune%")
-    //         ->orderBy('c.commune')
-    //         ->setMaxResults(5)
-    //         ->getQuery()
-    //         ->getResult()
-    //     ;
-    // }
-    
+     * @Return Commune[]
+     */
 
-    /*
-    public function findOneBySomeField($value): ?Commune
+
+    public function findCommunes($commune)
     {
+
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('c.nomCommune LIKE :commune')
+            ->setParameter('commune', $commune.'%')
+            ->orderBy('c.nomCommune')
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getArrayResult()
         ;
     }
-    */
+    
+
+    
 }

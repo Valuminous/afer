@@ -3,20 +3,21 @@
 namespace App\Form;
 
 use App\Entity\Commune;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
-use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 use Symfony\Component\Form\FormBuilderInterface;
-
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class CommuneType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        $builder;
            
-            ->add('commune')
-            ->add('cp');
+            // ->add('commune')
+            // ->add('cp');
             // ->add('region')
             // ->add('departement')
             // ->add('latitude')
