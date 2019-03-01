@@ -30,7 +30,7 @@
                 <div class="col-10 col-sm-10 col-md-10 col-lg-9 col-xl-10 top_logout position-fixed d-flex align-items-center justify-content-end">
                     <i class="fas fa-user-tie mr-2"></i>
                     <p class="logout">Bonjour {{ app.user }}</p>
-                    <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt ml-2"></i></a>
+                    <a href="{{ path('logout') }}" data-toggle="tooltip" data-placement="top" title="Se déconnecter"><i class="fas fa-sign-out-alt ml-2 mr-3"></i></a>
                 </div>
             </div>
         </div>
@@ -234,7 +234,7 @@
     {% endif %}
 
     {% if is_granted('ROLE_TRIBUNAL') %}
-    <script src="{{ asset('build/tribunal.js') }}"></script>
+    ²
     {% endif %}
 
     {% if is_granted('ROLE_PREFECTURE') %}
@@ -242,6 +242,9 @@
     {% endif %}
 
     {% block javascripts %}{% endblock %}
+
+    {% block chartjs %}{% endblock %}
+    
 </body>
 
 </html>

@@ -1,3 +1,5 @@
+require('../../node_modules/chart.js/dist/Chart.js');
+
 let civiliteGraph = new Array();
 let stageMonthGraph = new Array();
 let titulaireGraph = new Array();
