@@ -9,7 +9,7 @@
             <tbody>
                 <tr>
                     <td class="font-weight-bold">Civilité :</td>
-                    <td class="text-left">{{ animateur.civilite.nomCivilite }}</td>
+                    <td class="text-left">{{ animateur.civilite }}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Nom :</td>
@@ -33,11 +33,11 @@
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Adresse :</td>
-                    <td class="text-left">{{ animateur.numeroRueAnimateur }} {{ animateur.rueAnimateur }}</td>
+                    <td class="text-left">{{ animateur.numeroRueAnimateur }}, {{ animateur.rueAnimateur }}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Commune :</td>
-                    <td class="text-left">{{ animateur.communeAnimateur }}, {{ animateur.cpAnimateur}}</td>
+                    <td class="text-left">{{ animateur.cpAnimateur}} {{ animateur.communeAnimateur }}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Region :</td>

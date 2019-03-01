@@ -27,29 +27,26 @@
             {{ form_row(formAnimateur.nom_animateur, {'label': "Nom :", 'attr': {'placeholder': "Nom"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formAnimateur.prenom_animateur, {'label': "Prenom :", 'attr': {'placeholder': "Prenom"}}) }}
+            {{ form_row(formAnimateur.prenom_animateur, {'label': "Prénom :", 'attr': {'placeholder': "Prénom"}}) }}
         </div>
     </div>
 
     <div class="row">
-        <div class="col">
+            <div class="col-2">
+                    {{ form_row(formAnimateur.numero_rue_animateur, {'label': "N° de rue :", 'attr': {'placeholder': "N° de rue"}}) }}
+                </div>
+        <div class="col-10">
             {{ form_row(formAnimateur.rue_animateur, {'label': "Rue :", 'attr': {'placeholder': "Rue"}}) }}
         </div>
-        <div class="col">
-            {{ form_row(formAnimateur.numero_rue_animateur, {'label': "Numéro de rue :", 'attr': {'placeholder': "Numéro de rue"}}) }}
-        </div>
-        <div class="col">
-            {{ form_row(formAnimateur.commune_animateur, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
-        </div>
+       
     </div>
 
     <div class="row">
+            <div class="col">
+                    {{ form_row(formAnimateur.commune_animateur, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+                </div>
         <div class="col">
-            {{ form_row(formAnimateur.cp_animateur, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}})
-            }}
-        </div>
-        <div class="col">
-            {{ form_row(formAnimateur.region_animateur, {'label': "Region :", 'attr': {'placeholder': "Region"}}) }}
+            {{ form_row(formAnimateur.region_animateur, {'label': "Région :", 'attr': {'placeholder': "Région"}}) }}
         </div>
     </div>
 
@@ -62,8 +59,7 @@
             "N° de portable"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formAnimateur.numero_fixe_animateur, {'label': "N° de fixe :", 'attr': {'placeholder': "N° de
-            fixe"}}) }}
+            {{ form_row(formAnimateur.numero_fixe_animateur, {'label': "N° de fixe :", 'attr': {'placeholder': "N° de fixe"}}) }}
         </div>
     </div>
 
@@ -163,7 +159,7 @@
             <div class="modal-content">
                 <!--Header-->
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Ajouter un Statut</h4>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un statut</h4>
                     <button type="button" class="close6" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

@@ -27,18 +27,18 @@ class Civilite
      * @ORM\OneToMany(targetEntity="App\Entity\Animateur", mappedBy="civilite")
      * @ORM\JoinColumn
      */
-    private $Animateur;
+    private $Animateurs;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="civilite")
      * @ORM\JoinColumn
      */
-    private $Stagiaire;
+    private $Stagiaires;
 
     public function __construct()
     {
-        $this->Animateur = new ArrayCollection();
-        $this->Stagiaire = new ArrayCollection();
+        $this->Animateurs = new ArrayCollection();
+        $this->Stagiaires = new ArrayCollection();
     }
 
     
@@ -62,15 +62,15 @@ class Civilite
     /**
      * @return Collection|Animateur[]
      */
-    public function getAnimateur(): Collection
+    public function getAnimateurs(): Collection
     {
-        return $this->Animateur;
+        return $this->Animateurs;
     }
 
     public function addAnimateur(Animateur $animateur): self
     {
-        if (!$this->Animateur->contains($animateur)) {
-            $this->Animateur[] = $animateur;
+        if (!$this->Animateurs->contains($animateur)) {
+            $this->Animateurs[] = $animateur;
             $animateur->setCivilite($this);
         }
 
@@ -79,8 +79,8 @@ class Civilite
 
     public function removeAnimateur(Animateur $animateur): self
     {
-        if ($this->Animateur->contains($animateur)) {
-            $this->Animateur->removeElement($animateur);
+        if ($this->Animateurs->contains($animateur)) {
+            $this->Animateurs->removeElement($animateur);
             // set the owning side to null (unless already changed)
             if ($animateur->getCivilite() === $this) {
                 $animateur->setCivilite(null);
@@ -93,15 +93,15 @@ class Civilite
     /**
      * @return Collection|Stagiaire[]
      */
-    public function getStagiaire(): Collection
+    public function getStagiaires(): Collection
     {
-        return $this->Stagiaire;
+        return $this->Stagiaires;
     }
 
     public function addStagiaire(Stagiaire $stagiaire): self
     {
-        if (!$this->Stagiaire->contains($stagiaire)) {
-            $this->Stagiaire[] = $stagiaire;
+        if (!$this->Stagiaires->contains($stagiaire)) {
+            $this->Stagiaires[] = $stagiaire;
             $stagiaire->setCivilite($this);
         }
 
@@ -110,8 +110,8 @@ class Civilite
 
     public function removeStagiaire(Stagiaire $stagiaire): self
     {
-        if ($this->Stagiaire->contains($stagiaire)) {
-            $this->Stagiaire->removeElement($stagiaire);
+        if ($this->Stagiaires->contains($stagiaire)) {
+            $this->Stagiaires->removeElement($stagiaire);
             // set the owning side to null (unless already changed)
             if ($stagiaire->getCivilite() === $this) {
                 $stagiaire->setCivilite(null);

@@ -35,10 +35,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
+            {# <div class="col-2">
                 {{ form_row(formPrefecture.cpPrefecture, {'label': 'Code postal :', 'attr': {'placeholder': 'Code postal'}
                 }) }}
-            </div>
+            </div> #}
             <div class="col-10">
                 {{ form_row(formPrefecture.communePrefecture, {'label': "Commune :", 'attr': {'placeholder':
                 "Commune"}}) }}
@@ -51,7 +51,7 @@
                 {'placeholder': 'Autorité de la préfecture'} }) }}
             </div>
             <div class="col-1">
-                <button type="button" id="addAutoritePrefecture" class="btn btn-primary tribunal_add" data-toggle="modal"
+                <button type="button" id="addAutoritePrefecture" class="btn btn-success tribunal_add" data-toggle="modal"
                     data-target="#modalCartAutoritePrefecture">
                     +
                 </button>
@@ -61,7 +61,7 @@
             {{ form_errors(formPrefecture) }}
             </div>
             <div class="col-1">
-                <button type="button" id="addServicePrefecture" class="btn btn-primary tribunal_add" data-toggle="modal"
+                <button type="button" id="addServicePrefecture" class="btn btn-success tribunal_add" data-toggle="modal"
                     data-target="#modalCartServicePrefecture">
                     +
                 </button>
@@ -110,7 +110,7 @@
                 <div class="modal-content">
                     <!--Header-->
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Ajouter une autorite</h4>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter une autorité</h4>
                         <button type="button" class="close4" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>

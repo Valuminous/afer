@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Tribunal;
 use App\Entity\TribunalService;
 use App\Entity\TribunalAutorite;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 class TribunalType extends AbstractType
@@ -22,7 +23,9 @@ class TribunalType extends AbstractType
             ->add('adresse_tribunal')
             ->add('numero_adresse_tribunal')
             ->add('commune_tribunal')
-            ->add('cp_tribunal')
+            ->add('cp_tribunal', HiddenType::class,[
+                'data' => 'cp'
+            ])
             ->add('tribunal_service', EntityType::class, [
                 'class' => TribunalService::class,
                 'choice_label' => 'nom',

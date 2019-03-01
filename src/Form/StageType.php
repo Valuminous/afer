@@ -24,18 +24,14 @@ class StageType extends AbstractType
             ->add('numero_stage') 
             ->add('dated', DateType::class, [
                 'widget' => 'single_text',
-                'format'=>'dd/mm/yyyy',
-                // prevents rendering it as type="date", to avoid HTML5 date pickers
-                'html5' => false,
-                // adds a class that can be selected in JavaScript
-                'attr' => ['class' => 'js-datepicker'],
+                'format'=>'yyyy-MM-dd',
+                'html5' => true,
             ])
             ->add('datef', DateType::class, [
                 'widget' => 'single_text',
-                'format'=>'dd/mm/yyyy',
-    'html5' => false,
-    'attr' => ['class' => 'js-datepicker'],
-])
+                'format'=>'yyyy-MM-dd',
+                'html5' => true,
+            ])
             ->add('stage_programme_officiel', ChoiceType::class, [
                 'choices'  => [
                     'Oui' => true,
@@ -65,8 +61,8 @@ class StageType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
                         ->orderBy('anim.nomAnimateur', 'ASC');
-                }
-                
+                },
+            
             ])
             ->add('stagiaires', EntityType::class, [
                 'class' => Stagiaire::class,
@@ -79,12 +75,11 @@ class StageType extends AbstractType
                        
                 },
                 
-                'mapped' => false
-            ])
-          
-        ;
-    }
+                
+            ]);
 
+    }
+            
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

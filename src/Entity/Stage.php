@@ -24,15 +24,17 @@ class Stage
      */
     private $id;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $numeroStage;
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThanOrEqual("today", message = "La date de début de stage doit être supérieure ou égale à la date d'aujourd'hui")
      */
     private $dated;
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThan(propertyPath="dated", message = "La date de fin de stage doit être supérieure à la date de début de stage")
      */
     private $datef;
     /**

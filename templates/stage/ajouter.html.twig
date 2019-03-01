@@ -9,7 +9,7 @@
             <h1  class="mt-5 mb-5 h2_stage">Ajouter un stage</h1>
         {% endif %}
 
-        {{ form_start(formStage) }}
+    
 
         <div class="row">
             <div class="col-2">
@@ -33,7 +33,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-5">
+            <div class="col-2">
+                {{ form_row(formStage.dated, {'label': 'Date de début', 'attr': {'placeholder': 'Date de début'} }) }}
+            </div>
+            <div class="col-4">
                 {{ form_row(formStage.stagiaires, {'label': 'Stagiaire'}) }}
             </div>
             <div class="col-1 tribunal_add">
@@ -41,7 +44,7 @@
                     +
                 </button>
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 {{ form_row(formStage.animateurs, {'label': 'Animateur'}) }}
             </div>
             <div class="col-1 tribunal_add">
@@ -51,22 +54,22 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
-                {{ form_row(formStage.dated, {'label': 'Date de début', 'attr': {'placeholder': 'Date de début'} }) }}
-            </div>
-            <div class="col-3">
+              <div class="col-3">
                 {{ form_row(formStage.datef, {'label': 'Date de fin', 'attr': {'placeholder': 'Date de fin'} }) }}
-            </div>
-       
-        
+            </div>       
             <div class="col-3">
                 {{ form_row(formStage.stage_programme_officiel, {'label': 'Stage Programme officiel', 'attr': {'placeholder': 'Stage Programme officiel'} }) }}
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 {{ form_row(formStage.lieuStage, {'label': 'Lieu', 'attr': {'placeholder': 'Lieu'} }) }}
             </div>
+            <div class="col-1 tribunal_add">
+                <button type="button" id="addLieuStage" class="btn btn-success" data-toggle="modal" data-target="#modalCartLieuStage">
+                    +
+                </button>
+            </div>
         </div>
-
+        {{ form_widget(formStage.cp_animateur, { 'attr' : { 'style':'display:none'} }) }}
             {% if editMode %}
                 <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
                     Enregistrer
@@ -76,8 +79,8 @@
                     Enregistrer
                 </button>
             {% endif %}
-
-        {{ form_end(formStage) }}
+            
+      
     </div>
 
     <!-- Modal: modalCart -->
@@ -155,6 +158,26 @@
                 <!--Body-->
                 <div class="modal-body"></div>
                 <div class="text-danger text-center pb-3" id="errorAnimateur"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal: modalCart -->
+
+    
+    <!-- Modal: modalCart -->
+    <div class="modal fade" id="modalCartLieuStage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un lieu de stage</h4>
+                    <button type="button" class="closeLieuStage" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body"></div>
+                <div class="text-danger text-center pb-3" id="errorLieuStage"></div>
             </div>
         </div>
     </div>

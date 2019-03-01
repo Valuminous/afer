@@ -1,22 +1,17 @@
-document.onreadystatechange = function () {
-    if( document.readyState === 'complete' ){  
-        verifAutoriteTribunal();
-        myBoxAutoriteTribunal = $('#autoriteTribunalDelete');
-        verifServiceTribunal();
-        myBoxServiceTribunal = $('#tribunalServiceDelete');
-        verifAutoritePrefecture();
-        myBoxAutoritePrefecture = $('#prefectureAutoriteDelete');
-        verifServicePrefecture();
-        myBoxServicePrefecture = $('#prefectureServiceDelete');
-        verifFonctionAnimateur();
-        myBoxFonctionAnimateur = $('#animateurFonctionDelete');
-        verifStatutAnimateur();
-        myBoxStatutAnimateur = $('#animateurStatutDelete');
-        verifLieuStage();
-        myBoxLieuStage = $('#lieuStageDelete');
-    }
-}
-
+verifAutoriteTribunal();
+myBoxAutoriteTribunal = $('#autoriteTribunalDelete');
+verifServiceTribunal();
+myBoxServiceTribunal = $('#tribunalServiceDelete');
+verifAutoritePrefecture();
+myBoxAutoritePrefecture = $('#prefectureAutoriteDelete');
+verifServicePrefecture();
+myBoxServicePrefecture = $('#prefectureServiceDelete');
+verifFonctionAnimateur();
+myBoxFonctionAnimateur = $('#animateurFonctionDelete');
+verifStatutAnimateur();
+myBoxStatutAnimateur = $('#animateurStatutDelete');
+verifLieuStage();
+myBoxLieuStage = $('#lieuStageDelete');
 //Fonction vérification si l'autorité existe ou non pour les tribunaux
 function verifAutoriteTribunal(){
     let btnDelete = document.querySelectorAll('.tribunalAutoriteDelete');

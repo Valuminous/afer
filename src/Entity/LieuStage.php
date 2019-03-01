@@ -226,7 +226,7 @@ class LieuStage
     {
         if (!$this->stages->contains($stage)) {
             $this->stages[] = $stage;
-            $stage->setLieuStage($this);
+            $stage->setStage($this);
         }
 
         return $this;
