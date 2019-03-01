@@ -30,6 +30,21 @@ class StageRepository extends ServiceEntityRepository
         ;
     }
 
+    public function counterStage($monthValue, $yearValue): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT count(id) FROM stage t
+            WHERE MONTH(t.dated) = :month
+            AND YEAR(t.dated) = :year
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['month' => $monthValue, 'year' => $yearValue]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Stage[] Returns an array of Stage objects
     //  */
