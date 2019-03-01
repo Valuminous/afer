@@ -22,7 +22,7 @@ class CommuneFixtures extends Fixture
             $commune[$i] = new Commune();
             $commune[$i]->setRegion($line[2]);
             $commune[$i]->setDepartement($line[5]);
-            $commune[$i]->setCommune($line[8]);
+            $commune[$i]->setNomCommune($line[8]);
             $commune[$i]->setCp($line[9]);
             $commune[$i]->setLatitude($line[11]);
             $commune[$i]->setLongitude($line[12]);
