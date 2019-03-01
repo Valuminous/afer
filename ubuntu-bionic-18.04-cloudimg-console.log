@@ -595,3 +595,48 @@ Ubuntu 18.04.1 LTS ubuntu-bionic ttyS0
 
 ubuntu-bionic login: [   61.739374] cloud-init[1823]: Cloud-init v. 18.4-0ubuntu1~18.04.1 running 'modules:final' at Fri, 01 Mar 2019 07:29:23 +0000. Up 61.25 seconds.
 [   61.754262] cloud-init[1823]: Cloud-init v. 18.4-0ubuntu1~18.04.1 finished at Fri, 01 Mar 2019 07:29:24 +0000. Datasource DataSourceNoCloud [seed=/dev/sdb][dsmode=net].  Up 61.71 seconds
+[27157.878706] e1000 0000:00:03.0 enp0s3: Detected Tx Unit Hang
+[27157.878706]   Tx Queue             <0>
+[27157.878706]   TDH                  <fd>
+[27157.878706]   TDT                  <ff>
+[27157.878706]   next_to_use          <ff>
+[27157.878706]   next_to_clean        <fd>
+[27157.878706] buffer_info[next_to_clean]
+[27157.878706]   time_stamp           <1006675b0>
+[27157.878706]   next_to_watch        <fe>
+[27157.878706]   jiffies              <100667727>
+[27157.878706]   next_to_watch.status <0>
+[27159.344689] e1000 0000:00:03.0 enp0s3: Detected Tx Unit Hang
+[27159.344689]   Tx Queue             <0>
+[27159.344689]   TDH                  <fd>
+[27159.344689]   TDT                  <ff>
+[27159.344689]   next_to_use          <ff>
+[27159.344689]   next_to_clean        <fd>
+[27159.344689] buffer_info[next_to_clean]
+[27159.344689]   time_stamp           <1006675b0>
+[27159.344689]   next_to_watch        <fe>
+[27159.344689]   jiffies              <100667896>
+[27159.344689]   next_to_watch.status <0>
+[27161.347372] e1000 0000:00:03.0 enp0s3: Detected Tx Unit Hang
+[27161.347372]   Tx Queue             <0>
+[27161.347372]   TDH                  <fd>
+[27161.347372]   TDT                  <ff>
+[27161.347372]   next_to_use          <ff>
+[27161.347372]   next_to_clean        <fd>
+[27161.347372] buffer_info[next_to_clean]
+[27161.347372]   time_stamp           <1006675b0>
+[27161.347372]   next_to_watch        <fe>
+[27161.347372]   jiffies              <100667a8a>
+[27161.347372]   next_to_watch.status <0>
+[27163.640349] e1000 0000:00:03.0 enp0s3: Detected Tx Unit Hang
+[27163.640349]   Tx Queue             <0>
+[27163.640349]   TDH                  <fd>
+[27163.640349]   TDT                  <ff>
+[27163.640349]   next_to_use          <ff>
+[27163.640349]   next_to_clean        <fd>
+[27163.640349] buffer_info[next_to_clean]
+[27163.640349]   time_stamp           <1006675b0>
+[27163.640349]   next_to_watch        <fe>
+[27163.640349]   jiffies              <100667cc8>
+[27163.640349]   next_to_watch.status <0>
+[27165.157869] e1000 0000:00:03.0 enp0s3: Reset adapter

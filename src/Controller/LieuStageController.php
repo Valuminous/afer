@@ -5,16 +5,17 @@ namespace App\Controller;
 use App\Entity\LieuStage;
 use App\Form\LieuStageType;
 use App\Repository\LieuStageRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Repository\CommuneRepository;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/admin")
  * @IsGranted("ROLE_ADMIN")
@@ -83,6 +84,7 @@ class LieuStageController extends AbstractController {
         $communes= $crepo->findCommunes($commune);
       
         // $result = json_encode($communes);
+       dump($communes);
        
         $response = new JsonResponse($communes); 
 

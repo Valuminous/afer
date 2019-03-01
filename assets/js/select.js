@@ -1,6 +1,7 @@
 inputCommune();
 
 function inputCommune() {
+    
     let commune = document.querySelector('#lieu_stage_nom_commune');
      
     commune.addEventListener('keyup', function (e) {
@@ -20,14 +21,23 @@ function inputCommune() {
                     })
                     .then((resultat) => {
                         let selection = document.getElementById('select');
-                        
-                        selection.style.top = commune.offsetLeft+10+"px";
+                        console.log(resultat);
+                        selection.style.top = commune.offsetLeft+commune.offsetHeight;
                         selection.style.left = commune.offsetLeft;
+                        selection.style.width = commune.offsetWidth;
                         for (let i = 0; i < resultat.length; i++) {
                             const ville = document.createElement("p");
-                            ville.textContent = resultat[i]['nomCommune'];
+                            ville.textContent = resultat[i]['nomCommune']+"("+resultat[i]['cp']+")";
                             selection.appendChild(ville);
+                            selection.classList.remove('listeHidden');
                         }
+
+                        let longitude = document.getElementById('lieu_stage_longitude');
+                        let latitude = document.getElementById('lieu_stage_latitude');
+
+                        longitude.innerHTML = resultat[i]['longitude'];
+                        latitude.innerHTML = resultat[i]['latitude'];
+
                     }).catch((error) => {
                         console.log(error);
                     });
