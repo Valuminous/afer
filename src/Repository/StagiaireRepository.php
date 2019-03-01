@@ -33,6 +33,32 @@ class StagiaireRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function counterCivilite($civilite)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.civilite = :val')
+            ->setParameter(':val', $civilite)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function countTitulaire($carteJeune, $partenaire, $adherent): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $titulaire = '
+        select (SELECT count(id) FROM stagiaire WHERE carte_jeune_stagiaire = :cartejeune) as cartejeune, (SELECT count(id) FROM stagiaire WHERE partenaire_stagiaire = :partenaire) as partenaire, (SELECT count(id) FROM stagiaire WHERE adherent_stagiaire = :adherent) as adherent
+        ';
+
+        $stmt = $conn->prepare($titulaire);
+        $stmt->execute(['cartejeune' => $carteJeune, 'partenaire' => $partenaire, 'adherent' => $adherent]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Stagiaire[] Returns an array of Stagiaire objects
     //  */
