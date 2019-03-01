@@ -37,11 +37,14 @@
 
     <div class="row">
 
-        <div class="col">
+         <div class="col ">
             {{ form_row(formLieuStage.cp, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}}) }}
         </div>
-        <div class="col">
-            {{ form_row(formLieuStage.commune, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+
+        <div class="col divCommune">
+            {{ form_row(formLieuStage.nom_commune, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+        <div id="select">
+        </div>
         </div>
     </div>
 
@@ -80,8 +83,6 @@
 
 
     {{ form_end(formLieuStage) }}
-
-
 </div>
 
 {% endblock %}
@@ -89,16 +90,11 @@
 
 
 {% block javascripts %}
-<script>
+{# <script>
 $(document).ready(function () {
 
-    $('.select_cp').select2({
-      minimumInputLength: 3,
-      maximumInputLength: 20,
-      minimumResultsForSearch: 20
-    
-    });
+    $('.select_cp').select2();
      })
     
-    </script>
+    </script> #}
 {% endblock %}

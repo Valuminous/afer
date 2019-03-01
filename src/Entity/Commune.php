@@ -36,7 +36,7 @@ class Commune
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $commune;
+    private $nomCommune;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -49,7 +49,7 @@ class Commune
     private $longitude;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LieuStage", mappedBy="lieu")
+     * @ORM\OneToMany(targetEntity="App\Entity\LieuStage", mappedBy="commune")
      */
     private $lieuStages;
 
@@ -99,14 +99,14 @@ class Commune
         return $this;
     }
 
-    public function getCommune(): ?string
+    public function getNomCommune(): ?string
     {
-        return $this->commune;
+        return $this->nomCommune;
     }
 
-    public function setCommune(string $commune): self
+    public function setNomCommune(string $nomCommune): self
     {
-        $this->commune = $commune;
+        $this->nom = $nomCommune;
 
         return $this;
     }
@@ -147,7 +147,7 @@ class Commune
     {
         if (!$this->lieuStages->contains($lieuStage)) {
             $this->lieuStages[] = $lieuStage;
-            $lieuStage->setLieu($this);
+            $lieuStage->setLieuStage($this);
         }
 
         return $this;
