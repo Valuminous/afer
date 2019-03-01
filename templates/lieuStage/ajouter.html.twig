@@ -87,14 +87,6 @@
 
 {% endblock %}
 
-
-
-{% block javascripts %}
-{# <script>
-$(document).ready(function () {
-
-    $('.select_cp').select2();
-     })
-    
-    </script> #}
-{% endblock %}
+{% block selectjs %}
+    <script src="{{ asset('build/select.js') }}"></script>
+ {% endblock %}
