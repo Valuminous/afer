@@ -1,5 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<div class="row mw-100">
+    <div class="myChartCivilite col-6">
+        <canvas id="myChartCivilite"></canvas>
+    </div>
+    <div class="myChartStageMois col-6 mt-5">
+        <canvas id="myChartStageMois"></canvas>
+    </div>
+</div>
+<div class="row mw-100 d-flex justify-content-center">
+    <div class="myChartTitulaire col-6">
+        <canvas id="myChartTitulaire"></canvas>
+    </div>
+</div>
 {% endblock %}
+
+{% block chartjs %}<script src="{{ asset('build/chart.js') }}"></script>{% endblock %}

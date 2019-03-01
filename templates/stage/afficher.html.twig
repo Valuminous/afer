@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
 <div class="container-fluid">
-   <h2 class="text-center background_stage">Détails du stage n° {{ stage.numeroStage }}</span></h2>
-   <table class="table table-striped">
-      <tbody>
+   <div class="container w-50 stage_border">
+      <h2 class="text-center background_stage pt-2 pb-2 stage_margin">Détails du stage n° {{ stage.numeroStage }}</span></h2>
+      <table class="table table-striped">
+         <tbody>
+
          <tr>
             <td>Numéro de stage :</td>
             <td class="text-left">{{ stage.numeroStage }}</td>
@@ -24,14 +25,14 @@
          </tr>
       </tbody>
    </table>
-</div>
+
 
 
 <section>
-<h2>Lieu de stage</h2>
+<h2  class="text-center background_stage pt-2 pb-2 stage_margin">Lieu de stage</h2>
 {% for lieuStage in stage.lieuStage %}
-   {# <a href="#vue_lieuStage" class="btn" data-toggle="collapse">Lieu de Stage</a>
-   <div id="vue_lieuStage" class="collapse info_lieuStage"> #}
+   <a href="#vue_lieuStage" class="btn" data-toggle="collapse">Lieu de Stage {{ lieuStage.nomEtablissement }}</a>
+   <div id="vue_lieuStage" class="collapse info_lieuStage">
 
       <div class="d-flex justify-content-center">
          <table class="table table-striped">
@@ -67,12 +68,14 @@
             </tbody>
          </table>
       </div>
+      </div>
         {% endfor %}
 </section>
 
 
+
 <section>
-   <h2>Animateurs</h2>
+   <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Animateurs</h2>
    {% for animateur in stage.animateurs %}
    <a href="#vue_animateur" class="btn" data-toggle="collapse">{{ animateur.animateurFonction}}</a>
    <div id="vue_animateur" class="collapse info_animateur">
@@ -81,10 +84,7 @@
          <table class="table table-striped">
             <tbody>
 
-               <tr>
-                  <td class="font-weight-bold">Civilité :</td>
-                  <td class="text-left">{{ animateur.civilite }}</td>
-               </tr>
+               
                <tr>
                   <td class="font-weight-bold">Animateur : </td>
                   <td class="text-left">{{ animateur.prenomAnimateur }} {{ animateur.nomAnimateur }}
@@ -146,7 +146,7 @@
 
 
 <section>
-   <h2>Stagiaires</h2>
+   <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Stagiaires</h2>
    {% for stagiaire in stage.stagiaires %}
    <a href="#vue_stagiaire" class="btn" data-toggle="collapse"> {{ stagiaire.nomStagiaire }}</a>
    <div id="vue_stagiaire" class="collapse info_stagiaire">
@@ -154,10 +154,7 @@
          <table class="table table-striped">
             <tbody>
 
-               <tr>
-                  <td class="font-weight-bold">Civilité :</td>
-                  <td class="text-left">{{ stagiaire.civilite }}</td>
-               </tr>
+               
                <tr>
                   <td class="font-weight-bold">Nationalité :</td>
                   <td class="text-left">{{ stagiaire.nationaliteStagiaire }}</td>
@@ -216,7 +213,8 @@
    </div>
      {% endfor %}
    </section>
- 
+ </div>
+
 
 
    <a href="{{ path('stage_index') }}" class="btn retour stage_button mt-3">Retour</a>

@@ -5,14 +5,19 @@ namespace App\Form;
 use App\Entity\LieuStage;
 use App\Entity\Commune;
 use App\Entity\Civilite;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class LieuStageType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -21,33 +26,23 @@ class LieuStageType extends AbstractType
             ->add('adresse_stage')
             ->add('numero_adresse_stage')
             ->add('cp')
-            ->add('commune')
-            ->add('telephone_stage')
             ->add('latitude')
             ->add('longitude')
+            ->add('telephone_stage')
             ->add('divers')
-            ->add('cp', EntityType::class, [
-                'class' => Commune::class,
-             'attr' => array('class' => 'select_cp'),
-              'choice_label' => 'cp', 
-              'placeholder' => 'Choisir un code postal'
-              
-                ])
-            ->add('commune', EntityType::class, [
-                'class' => Commune::class,
-                 'attr' => array('class' => 'select_commune'),
-                'choice_label' => 'commune'
-                ])
-            //     'placeholder' => 'Sélectionner une commune',
-            //     // 'attr' => array('class' => 'chosen-select')
-            //     ])
-        ;
-    }
+            ->add('nom_commune')
+            ;
+                         
+                // ])
+                // ->add('commune', EntityType::class, [
+                //     'class' => Commune::class,
+                //      'attr' => array('class' => 'select_commune'),
+                //     'choice_label' => 'commune',
+                //     'placeholder' => 'Sélectionner une commune'
+                //     // 'attr' => array('class' => 'chosen-select')
+                    // ]);
+                
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => LieuStage::class,
-        ]);
-    }
+//       
+}
 }

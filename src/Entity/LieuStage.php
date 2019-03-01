@@ -38,17 +38,7 @@ class LieuStage
      */
     private $numeroAdresseStage;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cp;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $commune;
-
-    /**
+       /**
      * @ORM\Column(type="string", length=255)
      */
     private $telephoneStage;
@@ -56,19 +46,24 @@ class LieuStage
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $divers;
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cp;
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nomCommune;
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $latitude;
-
-    /**
+     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $longitude;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $divers;
     
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStage")
      */
@@ -77,7 +72,7 @@ class LieuStage
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Commune", inversedBy="lieuStages")
      */
-    private $lieu;
+    private $commune;
 
     
 
@@ -142,30 +137,6 @@ class LieuStage
         return $this;
     }
 
-    public function getCp(): ?string
-    {
-        return $this->cp;
-    }
-
-    public function setCp(string $cp): self
-    {
-        $this->cp = $cp;
-
-        return $this;
-    }
-
-    public function getCommune(): ?string
-    {
-        return $this->commune;
-    }
-
-    public function setCommune(string $commune): self
-    {
-        $this->commune = $commune;
-
-        return $this;
-    }
-
     public function getTelephoneStage(): ?string
     {
         return $this->telephoneStage;
@@ -178,12 +149,36 @@ class LieuStage
         return $this;
     }
 
+    public function getCp(): ?string
+    {
+        return $this->cp;
+    }
+
+    public function setCp(string $cp): self
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    public function getNomCommune(): ?string
+    {
+        return $this->nomCommune;
+    }
+
+    public function setNomCommune(string $nomCommune): self
+    {
+        $this->nom = $nomCommune;
+
+        return $this;
+    }
+
     public function getLatitude(): ?string
     {
         return $this->latitude;
     }
 
-    public function setLatitude(string $latitude): self
+    public function setLatitude(?string $latitude): self
     {
         $this->latitude = $latitude;
 
@@ -195,7 +190,7 @@ class LieuStage
         return $this->longitude;
     }
 
-    public function setLongitude(string $longitude): self
+    public function setLongitude(?string $longitude): self
     {
         $this->longitude = $longitude;
 
@@ -226,7 +221,7 @@ class LieuStage
     {
         if (!$this->stages->contains($stage)) {
             $this->stages[] = $stage;
-            $stage->setLieuStage($this);
+            $stage->AddStage($this);
         }
 
         return $this;
@@ -245,14 +240,14 @@ class LieuStage
         return $this;
     }
 
-    public function getLieu(): ?Commune
+    public function getCommune(): ?Commune
     {
-        return $this->lieu;
+        return $this->commune;
     }
 
-    public function setLieu(?Commune $lieu): self
+    public function setCommune(?Commune $commune): self
     {
-        $this->lieu = $lieu;
+        $this->commune = $commune;
 
         return $this;
     }

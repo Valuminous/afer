@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\CommuneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -18,21 +18,34 @@ class CommuneController extends AbstractController
 {
 /**
  * @Route("/search-commune", name="search-commune", methods="GET")
- * 
+ *  
+*@param Request $request
+*@return JsonResponse
  */
 
-    public function searchCommune(Request $request)
-    {
-        $q = $request->query->get('q'); 
-        $results = $this->getDoctrine()->getRepository('App:Commune')->findLike($q);
-
-        return $this->render('commune.json.twig', ['communes' => $results]);
-    }
-
-    // public function getCommune($id = null)
+    // public function listCommune(Request $request)
     // {
-    //     $commune = $this->getDoctrine()->getRepository('App:Commune')->find($id);
+    //     $em = $this->getDoctrine()->getManager();
+    //     $communeRepository = $em->getRepository(Commune::class);
+        
+    //     $communes = $communeRepository->createQueryBuilder("q")
+    //         ->where("q.commune = :communeid")
+    //         ->setParameter("communeid", $request->query->get("communeid"))
+    //         ->getQuery()
+    //         ->getResult();
+        
 
-    //     return $this->json($commune->getCp());
+    //     $responseArray = array();
+    //     foreach($communes as $commune){
+    //         $responseArray[] = array(
+    //             "id" => $commune->getId(),
+    //             // "cp" => $cp->getName()
+    //         );
+    //     }
+        
+       
+    //     return new JsonResponse($responseArray);
+
+     
     // }
 }
