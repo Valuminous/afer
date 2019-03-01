@@ -34,7 +34,7 @@ class Commune
     private $cp;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomCommune;
 

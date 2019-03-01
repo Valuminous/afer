@@ -44,7 +44,7 @@ class StageFixtures extends Fixture
                 $lieustage->setAdresseStage($faker->streetName);
                 $lieustage->setNumeroAdresseStage($faker->randomNumber);
                 $lieustage->setCp($faker->postcode);
-                $lieustage->setCommune($faker->City);
+                $lieustage->setNomCommune($faker->City);
                 $lieustage->setTelephoneStage($faker->phoneNumber);
                
                 return $lieustage;
