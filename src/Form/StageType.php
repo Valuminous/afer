@@ -61,8 +61,8 @@ class StageType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
                         ->orderBy('anim.nomAnimateur', 'ASC');
-                }
-                
+                },
+            
             ])
             ->add('stagiaires', EntityType::class, [
                 'class' => Stagiaire::class,
@@ -75,12 +75,11 @@ class StageType extends AbstractType
                        
                 },
                 
-                'mapped' => false
-            ])
-          
-        ;
-    }
+                
+            ]);
 
+    }
+            
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
