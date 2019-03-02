@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class PrefectureType extends AbstractType
 {
@@ -20,15 +21,19 @@ class PrefectureType extends AbstractType
             ->add('nomPrefecture')
             ->add('numeroAdressePrefecture')
             ->add('adressePrefecture')
-            ->add('cpPrefecture')
+            ->add('cpPrefecture', HiddenType::class, [
+                'data' => 'abcdef',
+            ])
             ->add('communePrefecture')
             ->add('prefectureService', EntityType::class, [
                 'class' => PrefectureService::class, 
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir un service'
             ])
             ->add('prefectureAutorite', EntityType::class, [
                 'class' => PrefectureAutorite::class, 
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir une autorité'
             ])
         ;
     }

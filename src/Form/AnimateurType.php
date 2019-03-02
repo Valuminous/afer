@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class AnimateurType extends AbstractType
 {
@@ -23,6 +24,7 @@ class AnimateurType extends AbstractType
             ->add('civilite', EntityType::class, [
             'class' => Civilite::class,
             'choice_label' => 'nomCivilite',
+            'placeholder' => 'Choisir une civilité'
             
            ])
             ->add('nom_animateur')
@@ -36,7 +38,9 @@ class AnimateurType extends AbstractType
                     ],
                 ],
             ])
-            ->add('cp_animateur')
+            ->add('cp_animateur', HiddenType::class, [
+                'data' => 'cp'
+            ])
             ->add('commune_animateur')
             ->add('region_animateur')
             ->add('rue_animateur')
@@ -49,17 +53,15 @@ class AnimateurType extends AbstractType
             ->add('observations_animateur', TextareaType::class)
             ->add('animateurStatut', EntityType::class, [
                 'class' => AnimateurStatut::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir un statut'
             ])
             ->add('animateurFonction', EntityType::class, [
                 'class' => AnimateurFonction::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir une fonction'
             ])
-            //  ->add('lieu', EntityType::class, [
-            //     'class' => Commune::class,
-            //     'choice_label' => 'region',
-            //     // 'attr' => array('class' => 'chzn-select')
-            //     ])
+            
         ;
     }
 

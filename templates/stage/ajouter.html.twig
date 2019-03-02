@@ -39,8 +39,7 @@
             {{ form_row(formStage.tribunal, {'label': 'Tribunal'}) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addTribunal" class="btn btn-success tribunal_add"
-                data-toggle="modal" data-target="#modalCartTribunal">
+            <button type="button" id="addTribunal" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCartTribunal">
                 +
             </button>
         </div>
@@ -56,31 +55,37 @@
     </div>
 
     <div class="row">
-     <div class="col-3">
+        <div class="col-5">
             {{ form_row(formStage.lieuStage, {'label': 'Lieu de stage'}) }}
-           </div>
-        <div class="col-1">
-            <button type="button" id="addlieuStage" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCartLieuStage">
-                +
-            </button>
         </div>
-        <div class="col-3">
-            {{ form_row(formStage.stagiaires, {'label': 'Stagiaire'}) }}
-           </div>
         <div class="col-1">
-            <button type="button" id="addStagiaire" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCartStagiaire">
-                +
-            </button>
-        </div>
-       <div class="col-3">
-            {{ form_row(formStage.animateurs, {'label': 'Animateur'}) }}
-             </div>
-        <div class="col-1">
-            <button type="button" id="addAnimateur" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCartAnimateur">
+            <button type="button" id="addlieuStage" class="btn btn-success tribunal_add" data-toggle="modal"
+                data-target="#modalCartLieuStage">
                 +
             </button>
         </div>
 
+        <div class="col-5">
+            {{ form_row(formStage.animateurs, {'label': 'Animateur'}) }}
+        </div>
+        <div class="col-1">
+            <button type="button" id="addAnimateur" class="btn btn-success tribunal_add" data-toggle="modal"
+                data-target="#modalCartAnimateur">
+                +
+            </button>
+        </div>
+         </div>
+        <div class="row">
+            <div class="col-11">
+                {{ form_row(formStage.stagiaires, {'label': 'Stagiaire'}) }}
+            </div>
+            <div class="col-1">
+                <button type="button" id="addStagiaire" class="btn btn-success tribunal_add" data-toggle="modal"
+                    data-target="#modalCartStagiaire">
+                    +
+                </button>
+            </div>
+        </div>
         {% if editMode %}
         <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
             Enregistrer
@@ -199,5 +204,5 @@
         </script>
         {% endblock %}
         {% block selectjs %}
-    <script src="{{ asset('build/select.js') }}"></script>
- {% endblock %}
+        <script src="{{ asset('build/select.js') }}"></script>
+        {% endblock %}
