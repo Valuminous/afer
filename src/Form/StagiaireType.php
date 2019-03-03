@@ -31,10 +31,10 @@ class StagiaireType extends AbstractType
             ])
             ->add('communeStagiaire')
             ->add('nomNaissanceStagiaire')
-            ->add('dateNaissanceStagiaire',BirthdayType::class, ['placeholder' => [
+            ->add('dateNaissanceStagiaire',BirthdayType::class, [
+                'placeholder' => [
                 'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année'
             ],
-
                 'format' => 'd M y'
                 
                

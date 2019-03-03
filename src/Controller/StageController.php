@@ -33,6 +33,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\LieuStage;
+use App\Form\LieuStageType;
 
 /**
  * @Route("/admin")
@@ -288,6 +290,7 @@ class StageController extends AbstractController
           
             $nbrs = $repoAnimateur->counter($animateurNom,$animateurPrenom,$animateurSiret);
             $nbr = $nbrs[0][1];
+          
     
             if(strlen($animateurNom) > 0 && strlen($animateurCivilite) != "0" && strlen($animateurPrenom) > 0 &&
                 strlen($animateurRue) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 && strlen($animateurNumeroRue) > 0 &&
@@ -332,6 +335,48 @@ class StageController extends AbstractController
     }
 
     /**
+    *  @Route("/stage/loadFormLieuStage", name="stage_lieu")
+    */
+    public function popLieuStage(LieuStage $lieuStage = null, Request $request, ObjectManager $manager)
+    {
+        if(!$lieuStage){
+            $lieuStage = new LieuStage();
+        }
+
+        $form = $this->createForm( LieuStageType::class, $lieuStage, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        // if($request->isMethod('POST')){
+           
+
+        //     $animateurNom = $request->request->get('animateur_nom_animateur');
+                        
+        //     $nbrs = $repoAnimateur->counter($animateurNom,$animateurPrenom,$animateurSiret);
+        //     $nbr = $nbrs[0][1];
+    
+        //     if(strlen($animateurNom)){
+
+        //         $animateur->setNomAnimateur($animateurNom);
+
+
+        //         $manager->persist($animateur);
+        //         $manager->flush();
+
+        //         $response = new Response();
+        //         $response = JsonResponse::fromJsonString('{"id":'.$animateur->getId().', "value":"'.$animateur->getPrenomAnimateur().'"}');
+        //     }else{
+        //         $response = new Response();
+        //         $response = JsonResponse::fromJsonString('{"error":"existe"}');
+        //     }      
+        //     return $response;
+        // }  
+        return $this->render('stage/popLieuStage.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+
+    /**
      *  @Route("/stage/ajouter", name="stage_ajouter")
      *  @Route("/stage/{id}/modifier", name="stage_modifier")
      */
@@ -342,6 +387,7 @@ class StageController extends AbstractController
         }
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($stage);
             $manager->flush();
@@ -401,4 +447,5 @@ class StageController extends AbstractController
         
     }
 
+    
 }

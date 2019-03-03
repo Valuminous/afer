@@ -13,6 +13,11 @@
         <h2 class="mt-5 mb-5 h2_animateur">Ajouter un animateur</h2>
         {% endif %}
     </div>
+    <div class="text-center">
+        {% if error is defined %}
+            <h4 class="text-danger">L'animateur existe déjà</h4>
+        {% endif %}
+    </div>
 
     <div class="row">
         <div class="col">
@@ -45,7 +50,7 @@
             {{ form_row(formAnimateur.commune_animateur, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formAnimateur.region_animateur, {'label': "Region :", 'attr': {'placeholder': "Region"}}) }}
+            {{ form_row(formAnimateur.region_animateur, {'label': "Région :", 'attr': {'placeholder': "Région"}}) }}
         </div>
     </div>
 
@@ -152,7 +157,6 @@
         <div class="text-danger" id="error5"></div>
     </div>
 </div>
-<!-- Modal: modalCart -->
 
 
 <!-- Modal: modalCart -->

@@ -346,25 +346,20 @@ function changeActiveButton() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {document.onreadystatechange = function () {
-  if (document.readyState === 'complete') {
-    verifAutoriteTribunal();
-    myBoxAutoriteTribunal = $('#autoriteTribunalDelete');
-    verifServiceTribunal();
-    myBoxServiceTribunal = $('#tribunalServiceDelete');
-    verifAutoritePrefecture();
-    myBoxAutoritePrefecture = $('#prefectureAutoriteDelete');
-    verifServicePrefecture();
-    myBoxServicePrefecture = $('#prefectureServiceDelete');
-    verifFonctionAnimateur();
-    myBoxFonctionAnimateur = $('#animateurFonctionDelete');
-    verifStatutAnimateur();
-    myBoxStatutAnimateur = $('#animateurStatutDelete');
-    verifLieuStage();
-    myBoxLieuStage = $('#lieuStageDelete');
-  }
-}; //Fonction vérification si l'autorité existe ou non pour les tribunaux
-
+/* WEBPACK VAR INJECTION */(function($) {verifAutoriteTribunal();
+myBoxAutoriteTribunal = $('#autoriteTribunalDelete');
+verifServiceTribunal();
+myBoxServiceTribunal = $('#tribunalServiceDelete');
+verifAutoritePrefecture();
+myBoxAutoritePrefecture = $('#prefectureAutoriteDelete');
+verifServicePrefecture();
+myBoxServicePrefecture = $('#prefectureServiceDelete');
+verifFonctionAnimateur();
+myBoxFonctionAnimateur = $('#animateurFonctionDelete');
+verifStatutAnimateur();
+myBoxStatutAnimateur = $('#animateurStatutDelete');
+verifLieuStage();
+myBoxLieuStage = $('#lieuStageDelete'); //Fonction vérification si l'autorité existe ou non pour les tribunaux
 
 function verifAutoriteTribunal() {
   var btnDelete = document.querySelectorAll('.tribunalAutoriteDelete');
@@ -645,19 +640,16 @@ var closePrefecture = document.querySelector('.closePrefecture');
 var closeStagiaire = document.querySelector('.closeStagiaire');
 var closeAnimateur = document.querySelector('.closeAnimateur'); // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 
-document.onreadystatechange = function () {
-  if (document.readyState === 'complete') {
-    loadFormAutoriteTribunal();
-    loadFormTribunalService();
-    loadFormPrefectureService();
-    loadFormPrefectureAutorite();
-    loadFormAnimateurFonction();
-    loadFormAnimateurStatut();
-    loadFormTribunal();
-    loadFormPrefecture();
-    loadFormStagiaire();
-  }
-};
+loadFormAutoriteTribunal();
+loadFormTribunalService();
+loadFormPrefectureService();
+loadFormPrefectureAutorite();
+loadFormAnimateurFonction();
+loadFormAnimateurStatut();
+loadFormTribunal();
+loadFormPrefecture();
+loadFormStagiaire();
+loadFormLieuStage();
 
 function loadFormAutoriteTribunal() {
   var autorite = document.querySelector('#addAutoriteTribunal');
@@ -1306,6 +1298,62 @@ function loadFormAnimateur() {
             }
           });
         }
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+}
+
+function loadFormLieuStage() {
+  var lieuStage = document.querySelector('#addLieuStage');
+
+  if (lieuStage != null) {
+    fetch("/admin/stage/loadFormLieuStage", {
+      credentials: 'include'
+    }).then(function (reponse) {
+      return reponse.text();
+    }).then(function (reponse) {
+      if (reponse.length > 0) {
+        document.querySelector('#modalCartLieuStage .modal-body').innerHTML = reponse;
+        btn = document.querySelector('#modalCartLieuStage .modal-body button'); // if (btn != null) {
+        //     btn.addEventListener('click', function (e) {
+        //         e.preventDefault();
+        //         // if (document.querySelector('form[name="tribunal_autorite"] #tribunal_autorite_nom').value.length != 0) {
+        //         //     // let autorite = document.querySelector('form[name="tribunal_autorite"] #tribunal_autorite_nom');
+        //         //     // let token = document.querySelector('form[name="tribunal_autorite"] #tribunal_autorite__token');
+        //         //     // let data = new FormData();
+        //         //     // data.append("tribunal_autorite_nom", autorite.value);
+        //         //     // data.append("tribunal_autorite__token", token.value);
+        //         //     fetch("/admin/stage/loadFormLieuStage", {
+        //         //             method: "POST",
+        //         //             body: data,
+        //         //             credentials: 'include'
+        //         //         })
+        //         //         .then((resultat) => {
+        //         //             return resultat.json();
+        //         //         })
+        //         //         .then((resultat) => {
+        //         //             // if (resultat.error != null) {
+        //         //             //     document.querySelector('#errorAutoriteTribunal').innerHTML = "L'autorité existe déjà";
+        //         //             // } else if (resultat.value != null) {
+        //         //             //     const selectTribunalAutorite = document.querySelector('#tribunal_tribunal_autorite');
+        //         //             //     const option = document.createElement("option");
+        //         //             //     option.setAttribute('value', resultat.id)
+        //         //             //     option.text = resultat.value;
+        //         //             //     selectTribunalAutorite.add(option);
+        //         //             //     selectTribunalAutorite.selectedIndex = selectTribunalAutorite.length - 1;
+        //         //             //     close.click();
+        //         //             // }
+        //         //         }).catch((error) => {
+        //         //             console.log(error);
+        //         //         });
+        //         // } 
+        //         // else {
+        //         //     document.querySelector('form[name="tribunal_autorite"] #tribunal_autorite_nom').classList.add('error')
+        //         // }
+        //     })
+        // }
       }
     }).catch(function (error) {
       console.log(error);

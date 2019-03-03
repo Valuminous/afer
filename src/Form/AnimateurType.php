@@ -35,10 +35,10 @@ class AnimateurType extends AbstractType
                     'Gestion technique et administrative' => [
                         'Non' => false,
                         'Oui' => true,
-                    ],
+                        ],
                 ],
             ])
-            ->add('cp_animateur', HiddenType::class, [
+            ->add('cp_animateur', HiddenType::class,[
                 'data' => 'cp'
             ])
             ->add('commune_animateur')

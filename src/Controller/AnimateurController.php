@@ -46,16 +46,32 @@ class AnimateurController extends AbstractController
      *  @Route("/animateur/ajouter", name="animateur_ajouter")
      *  @Route("/animateur/{id}/modifier", name="animateur_modifier")
      */
-    public function animateurForm(Animateur $animateur = null, Request $request, ObjectManager $manager)
+    public function animateurForm(Animateur $animateur = null,AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
     {
         if(!$animateur){
         $animateur = new Animateur();
         }
         $form = $this->createForm(AnimateurType::class, $animateur);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($animateur);
-            $manager->flush();
+
+            $AnimateurNom = $animateur->getNomAnimateur();
+            $AnimateurPrenom = $animateur->getPrenomAnimateur();
+            $AnimateurSiret = $animateur->getSiretAnimateur();
+            $nbrs = $repoAnimateur->counter($AnimateurNom,$AnimateurPrenom,$AnimateurSiret);
+            $nbr = $nbrs[0][1];
+      
+            if($nbr === "0"){
+                $manager->persist($animateur);
+                $manager->flush();
+            }else{
+                return $this->render('animateur/ajouter.html.twig', [
+                    'formAnimateur' => $form->createView(),
+                    'editMode' => $animateur->getId() !== null,
+                    'error' => 'error'
+                ]);
+            }
             return $this->redirectToRoute('animateur_index');
         }
         return $this->render('animateur/ajouter.html.twig', [
