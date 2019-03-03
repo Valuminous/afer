@@ -34,7 +34,7 @@ class StageFixtures extends Fixture
     }
         
     
-    public function loadLieuStage()
+    public function loadLieuStage(ObjectManager $manager)
         {   
             $faker = \Faker\Factory::create('fr_FR');
             

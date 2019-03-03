@@ -173,8 +173,8 @@ class Tribunal
         if ($this->stage->contains($stage)) {
             $this->stage->removeElement($stage);
              // set the owning side to null (unless already changed)
-             if ($relation->getTribunal() === $this) {
-                $relation->setTribunal(null);
+             if ($stage->getTribunal() === $this) {
+                $stage->setTribunal(null);
            
         }
     }

@@ -357,8 +357,8 @@ class Stagiaire
     {
         if (!$this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-            if ($relation->getStagiaire() === $this) {
-                $relation->setStagiaire(null);
+            if ($stage->getStagiaire() === $this) {
+                $stage->setStagiaire(null);
            
         }
         }

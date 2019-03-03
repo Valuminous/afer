@@ -158,8 +158,8 @@ class Commune
         if ($this->lieuStages->contains($lieuStage)) {
             $this->lieuStages->removeElement($lieuStage);
             // set the owning side to null (unless already changed)
-            if ($lieuStage->getLieu() === $this) {
-                $lieuStage->setLieu(null);
+            if ($lieuStage->getLieuStage() === $this) {
+                $lieuStage->setLieuStage(null);
             }
         }
 

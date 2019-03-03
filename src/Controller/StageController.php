@@ -5,18 +5,14 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Stage;
 use App\Form\StageType;
-
 use App\Entity\Tribunal;
 use App\Entity\Animateur;
 use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
-
 use App\Form\TribunalType;
-
 use App\Form\AnimateurType;
 use App\Form\StagiaireType;
 use App\Form\PrefectureType;
-
 use App\Repository\StageRepository;
 use App\Repository\TribunalRepository;
 use App\Repository\PrefectureRepository;
@@ -29,7 +25,6 @@ use App\Repository\TribunalAutoriteRepository;
 use App\Repository\TribunalServiceRepository;
 use App\Repository\PrefectureAutoriteRepository;
 use App\Repository\PrefectureServiceRepository;
-
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;

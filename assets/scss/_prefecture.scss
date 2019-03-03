@@ -20,3 +20,21 @@
     padding: 0;
     border: solid 1px #cdcdcd;
 }
+
+.btn_prefecture{
+    border: solid;
+    border-width: 1px;
+    border-color: rgba(156, 45, 179, 0.3);
+    background-color: rgba(156, 45, 179, 0.116);
+
+    &:hover{
+        background-color: rgba(156, 45, 179, 0.3);
+    }
+    &::before{
+        font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f065";
+        font-size: 1rem;
+        margin-right: 0.5rem;
+    color: #9c2db3;
+    
+    }
+}
