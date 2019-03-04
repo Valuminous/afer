@@ -406,6 +406,7 @@ class StageController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()){
+  
             $manager->persist($stage);
             $manager->flush();
             return $this->redirectToRoute('stage_index');
