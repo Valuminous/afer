@@ -3,30 +3,31 @@
 namespace App\Controller;
 
 use App\Entity\Tribunal;
-use App\Entity\TribunalService;
-use App\Entity\TribunalAutorite;
-
 use App\Form\TribunalType;
-use App\Form\TribunalServiceType;
-use App\Form\TribunalAutoriteType;
+use App\Entity\TribunalService;
 
+use Doctrine\ORM\EntityManager;
+use App\Entity\TribunalAutorite;
+use App\Form\TribunalServiceType;
+
+use App\Form\TribunalAutoriteType;
+use App\Repository\CommuneRepository;
 use App\Repository\TribunalRepository;
+
 use App\Repository\TribunalServiceRepository;
+
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TribunalAutoriteRepository;
 
 use Doctrine\Common\Persistence\ObjectManager;
-
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/admin")
  * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_TRIBUNAL')")
@@ -66,7 +67,10 @@ class TribunalController extends AbstractController
             $nbrs = $repoTribunal->counter($tribunalNom,$tribunalCommune);
             $nbr = $nbrs[0][1];
        
-            if($nbr === "0"){
+            if($nbr === "0" && $tribunals->getId() === null){
+                $manager->persist( $tribunals );
+                $manager->flush();
+            }else if($tribunals->getId() !== null){
                 $manager->persist( $tribunals );
                 $manager->flush();
             }else{
@@ -346,4 +350,16 @@ class TribunalController extends AbstractController
         
     }
 
+    /**
+    * @Route("/tribunal/commune", name="tribunal_commune")
+    */
+    public function TribunalCommune(CommuneRepository $crepo, Request $request)
+    {
+        $commune = $request->request->get("tribunal_commune_tribunal");
+        $communes= $crepo->findCommunes($commune);
+       
+        $response = new JsonResponse($communes); 
+
+        return $response;
+    }    
 }

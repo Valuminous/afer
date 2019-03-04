@@ -42,13 +42,10 @@
     </div>
 
     <div class="row">
-        {# <div class="col">
-            {{ form_row(formAnimateur.cp_animateur, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}})
-            }}
-        </div> #}
-        <div class="col">
-            {{ form_row(formAnimateur.commune_animateur, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
-        </div>
+            <div class="col">
+                {{ form_row(formAnimateur.commune_animateur, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+                <div id="selectAnimateur" class="listeHidden"></div>          
+            </div>
         <div class="col">
             {{ form_row(formAnimateur.region_animateur, {'label': "Région :", 'attr': {'placeholder': "Région"}}) }}
         </div>

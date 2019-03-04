@@ -5,16 +5,17 @@ namespace App\Controller;
 use App\Entity\LieuStage;
 use App\Form\LieuStageType;
 use App\Repository\LieuStageRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Repository\CommuneRepository;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/admin")
  * @IsGranted("ROLE_ADMIN")
@@ -79,40 +80,11 @@ class LieuStageController extends AbstractController {
     public function lieuCommune(CommuneRepository $crepo, Request $request)
     {
         $commune = $request->request->get("lieu_stage_nom_commune");
-             
         $communes= $crepo->findCommunes($commune);
-      
-        // $result = json_encode($communes);
        
         $response = new JsonResponse($communes); 
 
         return $response;
-    }
-        // public function listCommune(Request $request)
-        // {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $communeRepository = $em->getRepository(Commune::class);
-            
-        //     $communes = $communeRepository->createQueryBuilder("q")
-        //         ->where("q.commune = :communeid")
-        //         ->setParameter("communeid", $request->query->get("communeid"))
-        //         ->getQuery()
-        //         ->getResult();
-            
+    }       
     
-        //     $responseArray = array();
-        //     foreach($communes as $commune){
-        //         $responseArray[] = array(
-        //             "id" => $commune->getId(),
-        //             // "cp" => $cp->getName()
-        //         );
-        //     }
-            
-           
-        //     return new JsonResponse($responseArray);
-    
-         
-        // }
-
-       
 }

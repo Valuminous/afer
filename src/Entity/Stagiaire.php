@@ -37,11 +37,6 @@ class Stagiaire
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cpStagiaire;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $communeStagiaire;
 
     /**
@@ -162,18 +157,6 @@ class Stagiaire
     public function setPrenomStagiaire(string $prenomStagiaire): self
     {
         $this->prenomStagiaire = $prenomStagiaire;
-
-        return $this;
-    }
-
-    public function getCpStagiaire(): ?string
-    {
-        return $this->cpStagiaire;
-    }
-
-    public function setCpStagiaire(string $cpStagiaire): self
-    {
-        $this->cpStagiaire = $cpStagiaire;
 
         return $this;
     }

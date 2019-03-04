@@ -2,27 +2,28 @@
 namespace App\Controller;
 
 use App\Entity\Animateur;
-use App\Entity\AnimateurStatut;
-use App\Entity\AnimateurFonction;
-
 use App\Form\AnimateurType;
+use App\Entity\AnimateurStatut;
+
+use App\Entity\AnimateurFonction;
 use App\Form\AnimateurStatutType;
 use App\Form\AnimateurFonctionType;
 
+use App\Repository\CommuneRepository;
 use App\Repository\AnimateurRepository;
 use App\Repository\AnimateurStatutRepository;
-use App\Repository\AnimateurFonctionRepository;
+
+use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\Common\Persistence\ObjectManager;
-
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+use App\Repository\AnimateurFonctionRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin")
@@ -62,7 +63,10 @@ class AnimateurController extends AbstractController
             $nbrs = $repoAnimateur->counter($AnimateurNom,$AnimateurPrenom,$AnimateurSiret);
             $nbr = $nbrs[0][1];
       
-            if($nbr === "0"){
+            if($animateur->getId() === null && $nbr === "0"){
+                $manager->persist($animateur);
+                $manager->flush();
+            }else if($animateur->getId() !== null){
                 $manager->persist($animateur);
                 $manager->flush();
             }else{
@@ -328,4 +332,17 @@ class AnimateurController extends AbstractController
         }
         
     }
+
+    /**
+    * @Route("/animateur/commune", name="animateur_commune")
+    */
+    public function TribunalCommune(CommuneRepository $crepo, Request $request)
+    {
+        $commune = $request->request->get("animateur_commune_animateur");
+        $communes= $crepo->findCommunes($commune);
+       
+        $response = new JsonResponse($communes); 
+
+        return $response;
+    }   
 }

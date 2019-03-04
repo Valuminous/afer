@@ -34,18 +34,6 @@ class LieuStageType extends AbstractType
             ->add('telephone_stage')
             ->add('divers')
             ->add('nom_commune')
-            ;
-                         
-                // ])
-                // ->add('commune', EntityType::class, [
-                //     'class' => Commune::class,
-                //      'attr' => array('class' => 'select_commune'),
-                //     'choice_label' => 'commune',
-                //     'placeholder' => 'Sélectionner une commune'
-                //     // 'attr' => array('class' => 'chosen-select')
-                    // ]);
-                
-
-//       
-}
+            ;      
+    }
 }

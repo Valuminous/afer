@@ -38,9 +38,6 @@ class AnimateurType extends AbstractType
                         ],
                 ],
             ])
-            ->add('cp_animateur', HiddenType::class,[
-                'data' => 'cp'
-            ])
             ->add('commune_animateur')
             ->add('region_animateur')
             ->add('rue_animateur')

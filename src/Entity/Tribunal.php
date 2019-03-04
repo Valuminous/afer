@@ -40,12 +40,6 @@ class Tribunal
      * @ORM\Column(type="string", length=255)
      */
     private $communeTribunal;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $cpTribunal;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TribunalService", inversedBy="relation")
      */
@@ -105,18 +99,7 @@ class Tribunal
 
         return $this;
     }
-    public function getCpTribunal(): ?string
-    {
-        return $this->cpTribunal;
-    }
-
-    public function setCpTribunal(string $cpTribunal): self
-    {
-        $this->cpTribunal = $cpTribunal;
-
-        return $this;
-    }
-
+    
     public function getCommuneTribunal(): ?string
     {
         return $this->communeTribunal;

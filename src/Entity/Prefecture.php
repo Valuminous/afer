@@ -37,11 +37,6 @@ class Prefecture
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cpPrefecture;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $communePrefecture;
 
     /**
@@ -101,18 +96,6 @@ class Prefecture
     public function setNumeroAdressePrefecture(string $numeroAdressePrefecture): self
     {
         $this->numeroAdressePrefecture = $numeroAdressePrefecture;
-
-        return $this;
-    }
-
-    public function getCpPrefecture(): ?string
-    {
-        return $this->cpPrefecture;
-    }
-
-    public function setCpPrefecture(string $cpPrefecture): self
-    {
-        $this->cpPrefecture = $cpPrefecture;
 
         return $this;
     }

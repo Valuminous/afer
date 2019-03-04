@@ -35,6 +35,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\LieuStage;
 use App\Form\LieuStageType;
+use App\Repository\LieuStageRepository;
 
 /**
  * @Route("/admin")
@@ -337,7 +338,7 @@ class StageController extends AbstractController
     /**
     *  @Route("/stage/loadFormLieuStage", name="stage_lieu")
     */
-    public function popLieuStage(LieuStage $lieuStage = null, Request $request, ObjectManager $manager)
+    public function popLieuStage(LieuStage $lieuStage = null, LieuStageRepository $repoLieu, Request $request, ObjectManager $manager)
     {
         if(!$lieuStage){
             $lieuStage = new LieuStage();
@@ -346,30 +347,41 @@ class StageController extends AbstractController
         $form = $this->createForm( LieuStageType::class, $lieuStage, array('method'=>'POST'));
         $form->handleRequest( $request );
 
-        // if($request->isMethod('POST')){
+        if($request->isMethod('POST')){
            
 
-        //     $animateurNom = $request->request->get('animateur_nom_animateur');
+            $lieuStageNom = $request->request->get('lieu_stage_nom_etablissement');
+            $lieuStageAgrement = $request->request->get('lieu_stage_agrement');
+            $lieuStageNumeroAdresse = $request->request->get('lieu_stage_numero_adresse_stage');
+            $lieuStageAdresse = $request->request->get('lieu_stage_adresse_stage');
+            $lieuStageCommune = $request->request->get('lieu_stage_nom_commune');
+            $lieuStageTelephone = $request->request->get('lieu_stage_telephone_stage');
                         
-        //     $nbrs = $repoAnimateur->counter($animateurNom,$animateurPrenom,$animateurSiret);
-        //     $nbr = $nbrs[0][1];
+            $nbrs = $repoLieu->counter($lieuStageNom,$lieuStageAgrement);
+            $nbr = $nbrs[0][1];
     
-        //     if(strlen($animateurNom)){
+            if(strlen($lieuStageNom) > 0 && strlen($lieuStageAgrement) > 0 && strlen($lieuStageNumeroAdresse) > 0 &&
+            strlen($lieuStageAdresse) > 0 && strlen($lieuStageCommune) > 0 && strlen($lieuStageTelephone) > 0 && $nbr === "0"){
 
-        //         $animateur->setNomAnimateur($animateurNom);
+                $lieuStage->setNomEtablissement($lieuStageNom);
+                $lieuStage->setAgrement($lieuStageAgrement);
+                $lieuStage->setAdresseStage($lieuStageAdresse);
+                $lieuStage->setNumeroAdresseStage($lieuStageNumeroAdresse);
+                $lieuStage->setNomCommune($lieuStageCommune);
+                $lieuStage->setTelephoneStage($lieuStageTelephone);
 
 
-        //         $manager->persist($animateur);
-        //         $manager->flush();
+                $manager->persist($lieuStage);
+                $manager->flush();
 
-        //         $response = new Response();
-        //         $response = JsonResponse::fromJsonString('{"id":'.$animateur->getId().', "value":"'.$animateur->getPrenomAnimateur().'"}');
-        //     }else{
-        //         $response = new Response();
-        //         $response = JsonResponse::fromJsonString('{"error":"existe"}');
-        //     }      
-        //     return $response;
-        // }  
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$lieuStage->getId().', "value":"'.$lieuStage->getNomEtablissement().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+        }  
         return $this->render('stage/popLieuStage.html.twig', 
             ['form' => $form->createView()
             ]);
