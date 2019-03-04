@@ -357,8 +357,8 @@ class Stagiaire
     {
         if (!$this->stages->contains($stage)) {
             $this->stages->removeElement($stage);
-            if ($stage->getStagiaire() === $this) {
-                $stage->setStagiaire(null);
+            if ($stage->getStage() === $this) {
+                $stage->setStage(null);
            
         }
         }

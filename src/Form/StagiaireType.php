@@ -70,6 +70,12 @@ class StagiaireType extends AbstractType
                 ],
             ])
             ->add('numeroAdresseStagiaire');
+            // ->add('stages', EntityType::class, [
+            //     'class' => Stage::class,
+            //     'choice_label' => 'stage',
+               
+               
+            //    ]);
             
     }
 
