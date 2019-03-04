@@ -35,18 +35,12 @@
             </div>
         </div>
         <div class="row">
-            {# <div class="col-2">
-                {{ form_row(formPrefecture.cpPrefecture, {'label': 'Code postal :', 'attr': {'placeholder': 'Code postal'}
-                }) }}
-            </div> #}
-            <div class="col-10">
+            <div class="col-4">
                 {{ form_row(formPrefecture.communePrefecture, {'label': "Commune :", 'attr': {'placeholder':
-                "Commune"}}) }}
+                    "Commune"}}) }}
+                <div id="selectPrefecture" class="listeHidden"></div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-5">
+            <div class="col-3">
                 {{ form_row(formPrefecture.prefectureAutorite, {'label': 'Autorité de la préfecture', 'attr':
                 {'placeholder': 'Autorité de la préfecture'} }) }}
             </div>
@@ -56,9 +50,9 @@
                     +
                 </button>
             </div>
-            <div class="col-5">
-            {{ form_row(formPrefecture.prefectureService, {'label': 'Service de la préfecture', 'attr': {'placeholder': 'Service de la préfecture'} }) }}
-            {{ form_errors(formPrefecture) }}
+            <div class="col-3">
+                {{ form_row(formPrefecture.prefectureService, {'label': 'Service de la préfecture', 'attr': {'placeholder': 'Service de la préfecture'} }) }}
+                {{ form_errors(formPrefecture) }}
             </div>
             <div class="col-1">
                 <button type="button" id="addServicePrefecture" class="btn btn-success tribunal_add" data-toggle="modal"
@@ -71,7 +65,7 @@
 
         {% if editMode %}
         <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-            Enregistrer
+            Modifier
         </button>
         {% else %}
         <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">

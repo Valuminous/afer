@@ -42,10 +42,6 @@ class Animateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cpAnimateur;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $communeAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
@@ -152,15 +148,6 @@ class Animateur
     public function setGtaAnimateur(string $gtaAnimateur): self
     {
         $this->gtaAnimateur = $gtaAnimateur;
-        return $this;
-    }
-    public function getCpAnimateur(): ?string
-    {
-        return $this->cpAnimateur;
-    }
-    public function setCpAnimateur(string $cpAnimateur): self
-    {
-        $this->cpAnimateur = $cpAnimateur;
         return $this;
     }
     public function getCommuneAnimateur(): ?string

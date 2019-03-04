@@ -21,9 +21,6 @@ class PrefectureType extends AbstractType
             ->add('nomPrefecture')
             ->add('numeroAdressePrefecture')
             ->add('adressePrefecture')
-            ->add('cpPrefecture', HiddenType::class,[
-                'data' => 'cp'
-            ])
             ->add('communePrefecture')
             ->add('prefectureService', EntityType::class, [
                 'class' => PrefectureService::class, 

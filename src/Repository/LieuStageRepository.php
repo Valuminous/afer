@@ -19,6 +19,19 @@ class LieuStageRepository extends ServiceEntityRepository
         parent::__construct($registry, LieuStage::class);
     }
 
+    public function counter($value1,$value2)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->andWhere('t.nomEtablissement = :val1')
+            ->andWhere('t.agrement = :val2')
+            ->setParameter('val1', $value1)
+            ->setParameter('val2', $value2)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return LieuStage[] Returns an array of LieuStage objects
     //  */

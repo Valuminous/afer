@@ -80,41 +80,11 @@ class LieuStageController extends AbstractController {
     public function lieuCommune(CommuneRepository $crepo, Request $request)
     {
         $commune = $request->request->get("lieu_stage_nom_commune");
-             
         $communes= $crepo->findCommunes($commune);
-      
-        // $result = json_encode($communes);
-       dump($communes);
        
         $response = new JsonResponse($communes); 
 
         return $response;
-    }
-        // public function listCommune(Request $request)
-        // {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $communeRepository = $em->getRepository(Commune::class);
-            
-        //     $communes = $communeRepository->createQueryBuilder("q")
-        //         ->where("q.commune = :communeid")
-        //         ->setParameter("communeid", $request->query->get("communeid"))
-        //         ->getQuery()
-        //         ->getResult();
-            
+    }       
     
-        //     $responseArray = array();
-        //     foreach($communes as $commune){
-        //         $responseArray[] = array(
-        //             "id" => $commune->getId(),
-        //             // "cp" => $cp->getName()
-        //         );
-        //     }
-            
-           
-        //     return new JsonResponse($responseArray);
-    
-         
-        // }
-
-       
 }

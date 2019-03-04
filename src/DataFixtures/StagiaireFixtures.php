@@ -22,7 +22,6 @@ class StagiaireFixtures extends Fixture
                 
                 $stagiaire->setNomStagiaire($faker->firstName);
                 $stagiaire->setPrenomStagiaire($faker->lastName);
-                $stagiaire->setCpStagiaire($faker->postcode);
                 $stagiaire->setCommuneStagiaire($faker->DepartmentName);
                 $stagiaire->setNomNaissanceStagiaire($faker->lastname);
                 $stagiaire->setDateNaissanceStagiaire($faker->datetime);
@@ -37,11 +36,8 @@ class StagiaireFixtures extends Fixture
                 $stagiaire->setAdherentStagiaire($faker->boolean());
                 $stagiaire->setNumeroAdresseStagiaire($faker->randomNumber);
               
-            
-
                 $manager->persist($stagiaire);
             }
-        
         $manager->flush();
     }
 }

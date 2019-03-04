@@ -7,17 +7,16 @@
     {{ form_start(formStagiaire) }}
 
     <div>
-    {% if editMode %}
-    <h2 class="mt-5 mb-5 h2_stagiaire">Modifier un stagiaire</h2>
-    {% else %}
-    <h2 class="mt-5 mb-5 h2_stagiaire">Ajouter un stagiaire</h2>
-    {% endif %}
-    </div>
-
-    <div class="text-center">
-        {% if error is defined %}
-            <h4 class="text-danger">Le stagiaire existe déjà</h4>
+        {% if editMode %}
+           <h2 class="mt-5 mb-5 h2_stagiaire">Modifier un stagiaire</h2>
+        {% else %}
+           <h2 class="mt-5 mb-5 h2_stagiaire">Ajouter un stagiaire</h2>
         {% endif %}
+    </div>
+    <div class="text-center mb-2">
+            {% if error is defined %}
+                <h4 class="text-danger">Le stagiaire existe déjà</h4>
+            {% endif %}
     </div>
 
     <div class="row">
@@ -50,23 +49,18 @@
         <div class="col">
             {{ form_row(formStagiaire.lieuNaissanceStagiaire, {'label': "Lieu de naissance :", 'attr': {'placeholder': "Lieu de naissance"}}) }}
         </div>
-    </div>
-
-    <div class="row">
         <div class="col">
             {{ form_row(formStagiaire.numeroAdresseStagiaire, {'label': "N° de rue :", 'attr': {'placeholder': "N° de rue"}}) }}
         </div>
-        <div class="col">
-            {{ form_row(formStagiaire.adresseStagiaire, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
-        </div>
     </div>
 
     <div class="row">
         <div class="col">
-            {{ form_row(formStagiaire.communeStagiaire, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+            {{ form_row(formStagiaire.adresseStagiaire, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formStagiaire.cpStagiaire, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}}) }}
+            {{ form_row(formStagiaire.communeStagiaire, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+            <div id="selectStagiaire" class="listeHidden"></div>
         </div>
     </div>
 
@@ -94,14 +88,14 @@
         </div>
     </div>
 
-        {% if editMode %}
+    {% if editMode %}
     <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-    Enregistrer
+        Modifier
     </button>
     {% else %}
-    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
-    Enregistrer
-    </button>
+       <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+          Enregistrer
+       </button>
     {% endif %}
 
 
