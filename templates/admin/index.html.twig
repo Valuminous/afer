@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateurs{% endblock %}
-
 {% block body %}
 <div class="row mw-100">
     <div class="myChartCivilite col-6">
         <canvas id="myChartCivilite"></canvas>
     </div>
-    <div class="myChartStageMois col-6 mt-5">
-        <canvas id="myChartStageMois"></canvas>
-    </div>
-</div>
-<div class="row mw-100 d-flex justify-content-center">
     <div class="myChartTitulaire col-6">
         <canvas id="myChartTitulaire"></canvas>
+    </div>
+
+</div>
+<div class="row mw-100 d-flex justify-content-center">
+    <div class="myChartStageMois col-7">
+        <canvas id="myChartStageMois"></canvas>
     </div>
 </div>
 {% endblock %}

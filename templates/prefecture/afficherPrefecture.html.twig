@@ -4,13 +4,13 @@
 
 <div class="container-fluid">
     <div class="container w-50 prefecture_border mt-2">
-        <h2 class="text-center background_prefecture pt-2 pb-2 lieustage_margin">Préfecture n°{{prefectures.id}}</h2>
+        <h2 class="text-center background_prefecture pt-2 pb-2 lieustage_margin">{{prefectures.nomPrefecture}}</h2>
         <table class="table table-striped">
             <tbody>
-                <tr>
+                {# <tr>
                     <td class="font-weight-bold">Nom de la préfecture :</td>
                     <td class="text-left">{{ prefectures.nomPrefecture }}</td>
-                </tr>
+                </tr> #}
                 <tr>
                     <td class="font-weight-bold">Autorité :</td>
                     <td class="text-left">{{ prefectures.prefectureAutorite }}</td>

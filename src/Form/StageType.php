@@ -42,20 +42,24 @@ class StageType extends AbstractType
             ->add('lieuStage', EntityType::class, [
                 'class' => LieuStage::class,
                 'choice_label' => 'nomEtablissement',
+                'placeholder' => 'Choisir un lieu de stage'
         
             
             ])    
             ->add('prefecture', EntityType::class, [
                 'class' => Prefecture::class,
-                'choice_label' => 'nomPrefecture'
+                'choice_label' => 'nomPrefecture',
+                'placeholder' => 'Choisir une préfecture'
             ])    
             ->add('tribunal', EntityType::class, [
                 'class' => Tribunal::class,
-                'choice_label' => 'nomTribunal'
+                'choice_label' => 'nomTribunal',
+                'placeholder' => 'Choisir un tribunal'
             ])    
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,
                 'choice_label' => 'nomAnimateur',
+                'placeholder' => 'Choisir un ou deux animateurs',
                 'attr' => array('class' => 'animateur-select'),
                 'multiple' => 'true',
                 'query_builder' => function (EntityRepository $er) {
@@ -67,6 +71,7 @@ class StageType extends AbstractType
             ->add('stagiaires', EntityType::class, [
                 'class' => Stagiaire::class,
                 'choice_label' => 'nomStagiaire',
+                'placeholder' => 'Choisir un ou des stagiaires',
                 'multiple' => 'true',
                 'attr' => array('class' => 'stagiaire-select'),
                 'query_builder' => function (EntityRepository $er) {

@@ -49,15 +49,21 @@
         <div class="col">
             {{ form_row(formStagiaire.lieuNaissanceStagiaire, {'label': "Lieu de naissance :", 'attr': {'placeholder': "Lieu de naissance"}}) }}
         </div>
-        <div class="col">
-            {{ form_row(formStagiaire.numeroAdresseStagiaire, {'label': "N° de rue :", 'attr': {'placeholder': "N° de rue"}}) }}
-        </div>
+        
     </div>
 
     <div class="row">
+    <div class="col">
+            {{ form_row(formStagiaire.numeroAdresseStagiaire, {'label': "N° de rue :", 'attr': {'placeholder': "N° de rue"}}) }}
+        </div>
         <div class="col">
             {{ form_row(formStagiaire.adresseStagiaire, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
         </div>
+        </div>
+          <div class="row">
+        {# <div class="col">
+            {{ form_row(formStagiaire.cpStagiaire, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}}) }}
+        </div> #}
         <div class="col">
             {{ form_row(formStagiaire.communeStagiaire, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
             <div id="selectStagiaire" class="listeHidden"></div>
@@ -69,7 +75,7 @@
             {{ form_row(formStagiaire.numeroPortableStagiaire, {'label': "N° de portable :", 'attr': {'placeholder': "ex.: 9999999999"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formStagiaire.numeroFixeStagiaire, {'label': "N° fixe :", 'attr': {'placeholder': "ex.: 9999999999"}}) }}
+            {{ form_row(formStagiaire.numeroFixeStagiaire, {'label': "N° de fixe :", 'attr': {'placeholder': "ex.: 9999999999"}}) }}
         </div>
         <div class="col">
             {{ form_row(formStagiaire.emailStagiaire, {'label': "Email :", 'attr': {'placeholder': "Ex.: jean.dupont@afer.fr"}}) }}

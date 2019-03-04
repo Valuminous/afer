@@ -32,13 +32,13 @@
     </div>
 
     <div class="row">
-            <div class="col-2">
-                    {{ form_row(formAnimateur.numero_rue_animateur, {'label': "N° de rue :", 'attr': {'placeholder': "N° de rue"}}) }}
-                </div>
-        <div class="col-10">
-            {{ form_row(formAnimateur.rue_animateur, {'label': "Rue :", 'attr': {'placeholder': "Rue"}}) }}
+        <div class="col-2">
+            {{ form_row(formAnimateur.numero_rue_animateur, {'label': "N° de rue :", 'attr': {'placeholder': "N° de
+            rue"}}) }}
         </div>
-       
+        <div class="col-10">
+            {{ form_row(formAnimateur.rue_animateur, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
+        </div>
     </div>
 
     <div class="row">
@@ -57,10 +57,11 @@
         </div>
         <div class="col">
             {{ form_row(formAnimateur.numero_portable_animateur, {'label': "N° de portable :", 'attr': {'placeholder':
-            "N° de portable"}}) }}
+            "N° de téléphone portable"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formAnimateur.numero_fixe_animateur, {'label': "N° de fixe :", 'attr': {'placeholder': "N° de fixe"}}) }}
+            {{ form_row(formAnimateur.numero_fixe_animateur, {'label': "N° de fixe :", 'attr': {'placeholder': "N° de
+            téléphone fixe"}}) }}
         </div>
     </div>
 
@@ -92,7 +93,8 @@
             "Fonction animateur"}}) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addFonctionAnimateur" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCart5">
+            <button type="button" id="addFonctionAnimateur" class="btn btn-success tribunal_add" data-toggle="modal"
+                data-target="#modalCart5">
                 +
             </button>
         </div>
@@ -102,7 +104,8 @@
             animateur"}}) }}
         </div>
         <div class="col-1">
-            <button type="button" id="addStatutAnimateur" class="btn btn-success tribunal_add" data-toggle="modal" data-target="#modalCart6">
+            <button type="button" id="addStatutAnimateur" class="btn btn-success tribunal_add" data-toggle="modal"
+                data-target="#modalCart6">
                 +
             </button>
         </div>
@@ -117,13 +120,13 @@
     </div>
 
     {% if editMode %}
-        <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-            Modifier
-        </button>
+    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+        Enregistrer
+    </button>
     {% else %}
-       <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
-         Enregistrer
-       </button>
+    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+        Enregistrer
+    </button>
     {% endif %}
 
     {{ form_end(formAnimateur) }}
@@ -133,52 +136,51 @@
 
 <!-- Modal: modalCart -->
 <div class="modal fade" id="modalCart5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Ajouter une fonction</h4>
-                    <button type="button" class="close5" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <!--Body-->
-                <div class="modal-body"></div>
-                <div class="text-danger text-center pb-3" id="error5"></div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter une fonction</h4>
+                <button type="button" class="close5" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
             <!--Body-->
             <div class="modal-body"></div>
-            <div class="text-danger" id="error5"></div>
+            <div class="text-danger text-center pb-3" id="error5"></div>
         </div>
+        <!--Body-->
+        <div class="modal-body"></div>
+        <div class="text-danger" id="error5"></div>
     </div>
-    <!-- Modal: modalCart -->
-    
-    
-    <!-- Modal: modalCart -->
-    <div class="modal fade" id="modalCart6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Ajouter un statut</h4>
-                    <button type="button" class="close6" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <!--Body-->
-                <div class="modal-body"></div>
-                <div class="text-danger text-center pb-3" id="error6"></div>    
+</div>
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalCart6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter un statut</h4>
+                <button type="button" class="close6" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
             <!--Body-->
             <div class="modal-body"></div>
-            <div class="text-danger" id="error6"></div>
+            <div class="text-danger text-center pb-3" id="error6"></div>
         </div>
+        <!--Body-->
+        <div class="modal-body"></div>
+        <div class="text-danger" id="error6"></div>
     </div>
+</div>
 </div>
 <!-- Modal: modalCart -->
 
 
 {% endblock %}
- {% block selectjs %}
-    <script src="{{ asset('build/select.js') }}"></script>
- {% endblock %}
+{% block selectjs %}
+<script src="{{ asset('build/select.js') }}"></script>
+{% endblock %}

@@ -30,8 +30,8 @@
 
 <section>
 <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Lieu de stage</h2>
-{% for lieuStage in stage.lieuStage %}
-   <a href="#vue_lieuStage" class="btn" data-toggle="collapse">Lieu de Stage {{ lieuStage.nomEtablissement }}</a>
+
+   <a href="#vue_lieuStage" class="btn btn_lieustage" data-toggle="collapse">{{ stage.lieuStage.nomEtablissement }}</a>
    <div id="vue_lieuStage" class="collapse info_lieuStage">
 
       <div class="d-flex justify-content-center">
@@ -39,45 +39,115 @@
             <tbody>
                <tr>
                   <td class="font-weight-bold">Nom de l'établissement :</td>
-                  <td class="text-left">{{ lieuStage.nomEtablissement }}</td>
+                  <td class="text-left">{{ stage.lieuStage.nomEtablissement }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">N° d'agrément :</td>
-                  <td class="text-left">{{ lieuStage.agrement }}</td>
+                  <td class="text-left">{{ stage.lieuStage.agrement }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">N° de téléphone :</td>
-                  <td class="text-left">{{ lieuStage.telephoneStage }}</td>
+                  <td class="text-left">{{ stage.lieuStage.telephoneStage }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Adresse :</td>
-                  <td class="text-left">{{ lieuStage.numeroAdresseStage }} {{ lieuStage.adresseStage }}</td>
+                  <td class="text-left">{{ stage.lieuStage.numeroAdresseStage }}, {{ stage.lieuStage.adresseStage }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Commune :</td>
-                  <td class="text-left">{{ lieuStage.commune }}, {{ lieuStage.cp }}</td>
+                  <td class="text-left">{{ stage.lieuStage.cp }} {{ stage.lieuStage.commune }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Latitude :</td>
-                  <td class="text-left">{{ lieuStage.latitude }}</td>
+                  <td class="text-left">{{ stage.lieuStage.latitude }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Longitude :</td>
-                  <td class="text-left">{{ lieuStage.longitude }}</td>
+                  <td class="text-left">{{ stage.lieuStage.longitude }}</td>
                </tr>
             </tbody>
          </table>
       </div>
       </div>
-        {% endfor %}
+      
+</section>
+<section>
+<h2  class="text-center background_stage pt-2 pb-2 stage_margin">Préfecture</h2>
+
+   <a href="#vue_prefecture" class="btn  stage_btn btn_prefecture" data-toggle="collapse">{{ stage.prefecture.nomPrefecture }}</a>
+   <div id="vue_prefecture" class="collapse info_prefecture">
+
+      <div class="d-flex justify-content-center">
+          <table class="table table-striped">
+            <tbody>
+                 <tr>
+                    <td class="font-weight-bold">Nom de la préfecture :</td>
+                    <td class="text-left">{{ stage.prefecture.nomPrefecture }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Autorité :</td>
+                    <td class="text-left">{{ stage.prefecture.prefectureAutorite }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Service :</td>
+                    <td class="text-left">{{ stage.prefecture.prefectureService }}</td>
+                </tr>
+    
+                <tr>
+                    <td class="font-weight-bold">Adresse :</td>
+                    <td class="text-left">{{ stage.prefecture.numeroAdressePrefecture }}, {{ stage.prefecture.adressePrefecture }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Commune :</td>
+                    <td class="text-left">{{ stage.prefecture.cpPrefecture}} {{ stage.prefecture.communePrefecture }}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      </div>
+      
 </section>
 
+<section>
+<h2  class="text-center background_stage pt-2 pb-2 stage_margin">Tribunal</h2>
 
+   <a href="#vue_tribunal" class="btn btn_tribunal" data-toggle="collapse">{{ stage.tribunal.nomTribunal }}</a>
+   <div id="vue_tribunal" class="collapse info_tribunal">
 
+      <div class="d-flex justify-content-center">
+          <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="font-weight-bold">Nom du tribunal :</td>
+                    <td class="text-left">{{ stage.tribunal.nomtribunal }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Autorité :</td>
+                    <td class="text-left">{{ stage.tribunal.tribunalAutorite }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Service :</td>
+                    <td class="text-left">{{ stage.tribunal.tribunalService }}</td>
+                </tr>
+    
+                <tr>
+                    <td class="font-weight-bold">Adresse :</td>
+                    <td class="text-left">{{ stage.tribunal.numeroAdresseTribunal }}, {{ stage.tribunal.adresseTribunal }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Commune :</td>
+                    <td class="text-left">{{ stage.tribunal.cpTribunal }} {{ stage.tribunal.communeTribunal }}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      </div>
+      
+</section>
 <section>
    <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Animateurs</h2>
    {% for animateur in stage.animateurs %}
-   <a href="#vue_animateur" class="btn" data-toggle="collapse">{{ animateur.animateurFonction}}</a>
+   <a href="#vue_animateur" class="btn btn_animateur" data-toggle="collapse">{{ animateur.animateurFonction}}</a>
    <div id="vue_animateur" class="collapse info_animateur">
 
       <div class="d-flex justify-content-center">
@@ -99,14 +169,14 @@
                </tr>
                <tr>
                   <td class="font-weight-bold">Adresse :</td>
-                  <td class="text-left">{{ animateur.numeroRueAnimateur }} {{ animateur.rueAnimateur }}</td>
+                  <td class="text-left">{{ animateur.numeroRueAnimateur }}, {{ animateur.rueAnimateur }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Commune :</td>
-                  <td class="text-left">{{ animateur.communeAnimateur }}, {{ animateur.cpAnimateur}}</td>
+                  <td class="text-left">{{ animateur.cpAnimateur}} {{ animateur.communeAnimateur }}</td>
                </tr>
                <tr>
-                  <td class="font-weight-bold">Region :</td>
+                  <td class="font-weight-bold">Région :</td>
                   <td class="text-left">{{ animateur.regionAnimateur}}</td>
                </tr>
                <tr>
@@ -148,7 +218,9 @@
 <section>
    <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Stagiaires</h2>
    {% for stagiaire in stage.stagiaires %}
-   <a href="#vue_stagiaire" class="btn" data-toggle="collapse"> {{ stagiaire.nomStagiaire }}</a>
+  
+   <a href="#vue_stagiaire" class="btn btn_stagiaire" data-toggle="collapse"> {{ stagiaire.nomStagiaire }}</a>
+
    <div id="vue_stagiaire" class="collapse info_stagiaire">
       <div class="d-flex justify-content-center">
          <table class="table table-striped">
@@ -189,11 +261,11 @@
                </tr>
                <tr>
                   <td class="font-weight-bold">Adresse :</td>
-                  <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }} {{ stagiaire.adresseStagiaire }}</td>
+                  <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Commune :</td>
-                  <td class="text-left">{{ stagiaire.communeStagiaire }}, {{ stagiaire.cpStagiaire}}</td>
+                  <td class="text-left">{{ stagiaire.cpStagiaire}} {{ stagiaire.communeStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Titulaire carte jeune :</td>

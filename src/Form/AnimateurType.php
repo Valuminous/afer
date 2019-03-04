@@ -25,6 +25,7 @@ class AnimateurType extends AbstractType
             'class' => Civilite::class,
             'choice_label' => 'nomCivilite',
             'placeholder' => 'Choisir une civilité'
+            
            ])
             ->add('nom_animateur')
             ->add('prenom_animateur')
@@ -57,11 +58,7 @@ class AnimateurType extends AbstractType
                 'choice_label' => 'nom',
                 'placeholder' => 'Choisir une fonction'
             ])
-            //  ->add('lieu', EntityType::class, [
-            //     'class' => Commune::class,
-            //     'choice_label' => 'region',
-            //     // 'attr' => array('class' => 'chzn-select')
-            //     ])
+            
         ;
     }
 

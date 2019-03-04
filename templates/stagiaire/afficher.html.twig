@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="container w-50 stagiaire_border mt-2">
-        <h2 class="text-center background_stagiaire pt-2 pb-2 lieustage_margin">Stagiaire n°{{stagiaire.id}}</h2>
+        <h2 class="text-center background_stagiaire pt-2 pb-2 lieustage_margin">Stagiaire {{stagiaire.nomStagiaire}}</h2>
         <table class="table table-striped">
             <tbody>
                 <tr>
@@ -66,6 +66,12 @@
                 <tr>
                     <td class="font-weight-bold">Adhérent :</td>
                     <td class="text-left">{{ stagiaire.adherentStagiaire ? 'Oui' : 'Non' }}</td>
+                </tr>
+                {% for stage in stagiaire.stages %}
+                <tr>
+                    <td class="font-weight-bold">Numéro de stage :</td>
+                    <td class="text-left">{{ stage.numeroStage }}</td>
+                    {% endfor %}
                 </tr>
             </tbody>
         </table>

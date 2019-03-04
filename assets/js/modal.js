@@ -252,7 +252,7 @@ function verifStatutAnimateur(){
                         document.querySelector('.btn-danger').href = "/admin/animateur/statut/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce statut car il est utilisée dans un animateur";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce statut car il est utilisé dans un animateur";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxStatutAnimateur.modal('show');
                     }
@@ -294,7 +294,7 @@ function verifLieuStage(){
                         document.querySelector('.btn-danger').href = "/admin/stage/lieuStage/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce lieu de stage car il est utilisée dans un stage";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce lieu de stage car il est utilisé dans un stage";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxLieuStage.modal('show');
                     }

@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="container w-50 animateur_border mt-2">
-        <h2 class="text-center background_animateur pt-2 pb-2 lieustage_margin">Animateur n°{{animateur.id}}</h2>
+        <h2 class="text-center background_animateur pt-2 pb-2 lieustage_margin">Animateur {{animateur.nomAnimateur}}</h2>
         <table class="table table-striped">
             <tbody>
                 <tr>
@@ -40,7 +40,7 @@
                     <td class="text-left">{{ animateur.cpAnimateur}} {{ animateur.communeAnimateur }}</td>
                 </tr>
                 <tr>
-                    <td class="font-weight-bold">Region :</td>
+                    <td class="font-weight-bold">Région :</td>
                     <td class="text-left">{{ animateur.regionAnimateur}}</td>
                 </tr>
                 <tr>
@@ -64,7 +64,7 @@
                     <td class="text-left">{{ animateur.urssafAnimateur }}</td>
                 </tr>
                 <tr>
-                    <td class="font-weight-bold">N° de SIRET :</td>
+                    <td class="font-weight-bold">N° SIRET :</td>
                     <td class="text-left">{{ animateur.siretAnimateur }}</td>
                 </tr>
                 <tr>

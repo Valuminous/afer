@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class LieuStageType extends AbstractType
 {
@@ -25,6 +26,9 @@ class LieuStageType extends AbstractType
             ->add('agrement')
             ->add('adresse_stage')
             ->add('numero_adresse_stage')
+            ->add('cp', HiddenType::class, [
+                'data' => 'cp',
+            ])
             ->add('latitude')
             ->add('longitude')
             ->add('telephone_stage')

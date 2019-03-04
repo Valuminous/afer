@@ -21,7 +21,7 @@
                 </div>
                 <h2 class="text-center">Oh non, pas de chance !</h2>
                 <p class="text-center">Vous n'avez pas la permission d'accèder à cette page ou vous avez été déconnecté.</p>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex  {% block selectjs %}{% endblock %}justify-content-center">
                     <a href="{{  path('admin') }}" class="btn btn-primary">Revenir à l'accueil</a>
                 </div>
             </div>

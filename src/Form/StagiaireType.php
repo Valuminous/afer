@@ -26,9 +26,9 @@ class StagiaireType extends AbstractType
             ])
             ->add('nomStagiaire')
             ->add('prenomStagiaire')
-            // ->add('cpStagiaire', HiddenType::class,[
-            //     'data' => 'cp'
-            // ])
+            ->add('cpStagiaire', HiddenType::class, [
+                'data' => 'cp',
+            ])
             ->add('communeStagiaire')
             ->add('nomNaissanceStagiaire')
             ->add('dateNaissanceStagiaire',BirthdayType::class, [
@@ -70,6 +70,13 @@ class StagiaireType extends AbstractType
                 ],
             ])
             ->add('numeroAdresseStagiaire');
+            // ->add('stages', EntityType::class, [
+            //     'class' => Stage::class,
+            //     'choice_label' => 'stage',
+               
+               
+            //    ]);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver)
