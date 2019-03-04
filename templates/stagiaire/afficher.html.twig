@@ -67,12 +67,12 @@
                     <td class="font-weight-bold">Adhérent :</td>
                     <td class="text-left">{{ stagiaire.adherentStagiaire ? 'Oui' : 'Non' }}</td>
                 </tr>
+                {% for stage in stagiaire.stages %}
                 <tr>
-                 {% for stage in stagiaire.stages %}
-            <td class="font-weight-bold">Numéro de stage :</td>
-            <td class="text-left">{{ stage.numeroStage }}</td>
-            {% endfor %}
-         </tr>
+                    <td class="font-weight-bold">Numéro de stage :</td>
+                    <td class="text-left">{{ stage.numeroStage }}</td>
+                    {% endfor %}
+                </tr>
             </tbody>
         </table>
     </div>

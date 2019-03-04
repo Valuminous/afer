@@ -14,6 +14,7 @@
         <h4 class="text-danger">Le stage existe déjà</h4>
         {% endif %}
     </div>
+ {{ form_start(formStage) }}
 
     <div class="row">
         <div class="col">
@@ -90,7 +91,7 @@
         Enregistrer
     </button>
     {% endif %}
-
+{{ form_end(formStage) }}
 
 
 
