@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
    <div class="container w-50 lieustage_border">
-      <h2 class="text-center background_stage pt-2 pb-2 lieustage_margin">Lieu de stage n°{{lieuStage.id}}</h2>
+      <h2 class="text-center background_stage pt-2 pb-2 lieustage_margin">Lieu de stage - {{ lieuStage.commune }}</h2>
       <table class="table table-striped">
          <tbody>
             <tr>
@@ -34,6 +34,10 @@
             <tr>
                <td class="font-weight-bold">Longitude :</td>
                <td class="text-left">{{ lieuStage.longitude }}</td>
+            </tr>
+             <tr>
+               <td class="font-weight-bold">Notes :</td>
+               <td class="text-left">{{ lieuStage.divers }}</td>
             </tr>
          </tbody>
       </table>

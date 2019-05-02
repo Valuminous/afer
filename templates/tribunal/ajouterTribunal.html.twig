@@ -11,6 +11,11 @@
         <h2 class="mt-5 mb-5 h2_tribunal">Ajouter un tribunal</h2>
         {% endif %}
     </div>
+    <div class="text-center">
+        {% if error is defined %}
+            <h4 class="text-danger">Le tribunal existe déjà</h4>
+        {% endif %}
+    </div>
 
     {{ form_start(form) }}
 
@@ -21,7 +26,6 @@
             "Nom"}}) }}
         </div>
     </div>
-
     <div class="row">
         <div class="col-2">
             {{ form_row(form.numero_adresse_tribunal, {'label': "N° de rue :", 'attr': {'placeholder':
@@ -31,21 +35,14 @@
             {{ form_row(form.adresse_tribunal, {'label': "Adresse :", 'attr': {'placeholder':
             "Adresse"}}) }}
         </div>
-         </div>
-          <div class="row">
-           <div class="col-2">
-            {{ form_row(form.cp_tribunal, {'label': "Code postal :", 'attr': {'placeholder':
-            "Code postal"}}) }}
-        </div>
-        <div class="col-10">
+    </div>
+    <div class="row">
+        <div class="col-4">
             {{ form_row(form.commune_tribunal, {'label': "Commune :", 'attr': {'placeholder':
             "Commune"}}) }}
+            <div id="selectTribunal" class="listeHidden"></div>
         </div>
-    </div>
-
-   
-        <div class="row">
-        <div class="col-5">
+        <div class="col-3">
             {{ form_row(form.tribunal_autorite, {'label':"Autorité du tribunal", 'attr': {'placeholder':
             "Autorité du tribunal"}}) }}
         </div>
@@ -54,7 +51,7 @@
                 +
             </button>
         </div>
-        <div class="col-5">
+        <div class="col-3">
             {{ form_row(form.tribunal_service, {'label':"Service du tribunal", 'attr': {'placeholder': "Service du
             tribunal"}}) }}
         </div>
@@ -66,14 +63,14 @@
     </div>
 
 
-        {% if editMode %}
-    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-    Enregistrer
-    </button>
+    {% if editMode %}
+        <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+        Modifier
+        </button>
     {% else %}
-    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
-    Enregistrer
-    </button>
+        <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+        Enregistrer
+        </button>
     {% endif %}
 
     {{ form_end(form) }}
@@ -104,7 +101,7 @@
         <div class="modal-content">
             <!--Header-->
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Ajouter un Service</h4>
+                <h4 class="modal-title" id="myModalLabel">Ajouter un service</h4>
                 <button type="button" class="close2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>

@@ -10,19 +10,20 @@ use App\Entity\PrefectureAutorite;
 use App\Form\PrefectureServiceType;
 use App\Form\PrefectureAutoriteType;
 
+use App\Repository\CommuneRepository;
 use App\Repository\PrefectureRepository;
-use App\Repository\PrefectureServiceRepository;
-use App\Repository\PrefectureAutoriteRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\PrefectureServiceRepository;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\PrefectureAutoriteRepository;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -42,6 +43,19 @@ class PrefectureController extends AbstractController
             'controller_name' => 'PrefectureController',
             'prefectures' => $prefectures
         ]);
+    }
+
+    /**
+    * @Route("/prefecture/commune", name="prefecture_commune")
+    */
+    public function PrefectureCommune(CommuneRepository $crepo, Request $request)
+    {
+        $commune = $request->request->get("prefecture_communePrefecture");
+        $communes= $crepo->findCommunes($commune);
+  
+        $response = new JsonResponse($communes); 
+
+        return $response;
     }
 
     /**
@@ -73,7 +87,7 @@ class PrefectureController extends AbstractController
      * @Route("/prefecture/{id}/modifier", name="prefecture_modifier")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function form(Prefecture $prefectures = null, Request $request, ObjectManager $manager) {
+    public function form(Prefecture $prefectures = null,PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager) {
 
         if(!$prefectures) {
             $prefectures = new Prefecture();
@@ -84,9 +98,25 @@ class PrefectureController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($prefectures);
-            $manager->flush();
 
+            $prefectureNom = $prefectures->getNomPrefecture();
+            $prefectureCommune = $prefectures->getCommunePrefecture();
+            $nbrs = $repoPrefecture->counter($prefectureNom,$prefectureCommune);
+            $nbr = $nbrs[0][1];
+      
+            if($nbr === "0" && $prefectures->getId() === null){
+                $manager->persist($prefectures);
+                $manager->flush();
+            }else if($prefectures->getId() !== null){
+                $manager->persist($prefectures);
+                $manager->flush();
+            }else{
+                return $this->render('prefecture/ajouterPrefecture.html.twig', [
+                    'formPrefecture' => $form->createView(),
+                    'editMode' => $prefectures->getId() !== null,
+                    'error' => 'error'
+                ]);
+            }
             return $this->redirectToRoute('prefecture_index');
         }
 
@@ -329,7 +359,6 @@ class PrefectureController extends AbstractController
         } else {
             $response = new Response();
             $response = JsonResponse::fromJsonString('{"error":"exception"}');
-        }
-        
-    }
+        } 
+    }   
 }

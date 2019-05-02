@@ -18,7 +18,7 @@ class CommuneFixtures extends Fixture
         while (!feof($csv)) {
             $line = fgetcsv($csv);
 
-               
+        
             $commune[$i] = new Commune();
             $commune[$i]->setRegion($line[2]);
             $commune[$i]->setDepartement($line[5]);

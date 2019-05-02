@@ -4,16 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Stagiaire;
 use App\Form\StagiaireType;
+use App\Repository\CommuneRepository;
 use App\Repository\StagiaireRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin")
@@ -37,18 +38,38 @@ class StagiaireController extends AbstractController
      *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
      *  @IsGranted("ROLE_ADMIN")
      */
-    public function stagiaireForm(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager)
+    public function stagiaireForm(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
-        $stagiaire = new stagiaire();
+           $stagiaire = new stagiaire();
         }
-        $form = $this->createForm(stagiaireType::class, $stagiaire);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($stagiaire);
-            $manager->flush();
+           $form = $this->createForm(stagiaireType::class, $stagiaire);
+           $form->handleRequest($request);
+   
+           if($form->isSubmitted() && $form->isValid()){
+   
+            $stagiaireNom = $stagiaire->getNomStagiaire();
+            $stagiairePrenom = $stagiaire->getPrenomStagiaire();
+            $stagiaireDateNaissance = $stagiaire->getDateNaissanceStagiaire();
+            $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom,$stagiaireDateNaissance);
+            $nbr = $nbrs[0][1];
+      
+            if($stagiaire->getId() === null && $nbr === "0"){
+                $manager->persist($stagiaire);
+                $manager->flush();
+            }else if($stagiaire->getId() !== null){
+                $manager->persist($stagiaire);
+                $manager->flush();
+            }else{
+                return $this->render('stagiaire/ajouter.html.twig', [
+                    'formStagiaire' => $form->createView(),
+                    'editMode' => $stagiaire->getId() !== null,
+                    'error' => 'error'
+                ]);
+            }
             return $this->redirectToRoute('stagiaire_index');
         }
+       
         return $this->render('stagiaire/ajouter.html.twig', [
             'formStagiaire' => $form->createView(),
             'editMode' => $stagiaire->getId() !== null
@@ -72,5 +93,17 @@ class StagiaireController extends AbstractController
         return $this->render('stagiaire/afficher.html.twig', [
             'stagiaire' => $stagiaire
         ]);
+    }
+
+    /**
+    * @Route("/stagiaire/communeStagiaire", name="stagiaire_commune")
+    */
+    public function StagiaireCommune(CommuneRepository $crepo, Request $request)
+    {
+        $commune = $request->request->get("stagiaire_communeStagiaire"); 
+        $communes= $crepo->findCommunes($commune);   
+        $response = new JsonResponse($communes); 
+
+        return $response;
     }
 }

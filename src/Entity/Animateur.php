@@ -20,29 +20,25 @@ class Animateur
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
-     * @Assert\Regex(pattern = "/^[a-zA-Zàâçéèêëîïôûùüÿñæœ .-]*$/i", match = true, message = "{{ value }} contient un caractère non autorisé")
+     *
      */
     private $nomAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
-     * @Assert\Regex(pattern = "/^[a-zA-Zàâçéèêëîïôûùüÿñæœ .-]*$/i", match = true, message = "{{ value }} contient un caractère non autorisé")
+     * 
      */
     private $prenomAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
-     * @Assert\Regex(pattern = "/^[a-zA-Zàâçéèêëîïôûùüÿñæœ .-]*$/i", match = true, message = "{{ value }} contient un caractère non autorisé")
+     * 
      */
     private $raisonSocialeAnimateur;
     /**
      * @ORM\Column(type="boolean")
      */
     private $gtaAnimateur = false;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cpAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -56,7 +52,7 @@ class Animateur
      */
     private $numeroRueAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $rueAnimateur;
     /**
@@ -75,12 +71,12 @@ class Animateur
      */
     private $emailAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
      */
     private $urssafAnimateur;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
      */
     private $siretAnimateur;
@@ -152,15 +148,6 @@ class Animateur
     public function setGtaAnimateur(string $gtaAnimateur): self
     {
         $this->gtaAnimateur = $gtaAnimateur;
-        return $this;
-    }
-    public function getCpAnimateur(): ?string
-    {
-        return $this->cpAnimateur;
-    }
-    public function setCpAnimateur(string $cpAnimateur): self
-    {
-        $this->cpAnimateur = $cpAnimateur;
         return $this;
     }
     public function getCommuneAnimateur(): ?string

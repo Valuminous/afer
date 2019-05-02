@@ -19,8 +19,8 @@ class Tribunal
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
+     * @ORM\Column(type="string", length=45)
+     * @Assert\Length(min = 2, max = 45, minMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères")
      */
     private $nomTribunal;
 
@@ -40,12 +40,6 @@ class Tribunal
      * @ORM\Column(type="string", length=255)
      */
     private $communeTribunal;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $cpTribunal;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TribunalService", inversedBy="relation")
      */
@@ -105,18 +99,7 @@ class Tribunal
 
         return $this;
     }
-    public function getCpTribunal(): ?string
-    {
-        return $this->cpTribunal;
-    }
-
-    public function setCpTribunal(string $cpTribunal): self
-    {
-        $this->cpTribunal = $cpTribunal;
-
-        return $this;
-    }
-
+    
     public function getCommuneTribunal(): ?string
     {
         return $this->communeTribunal;
@@ -173,8 +156,8 @@ class Tribunal
         if ($this->stage->contains($stage)) {
             $this->stage->removeElement($stage);
              // set the owning side to null (unless already changed)
-             if ($relation->getTribunal() === $this) {
-                $relation->setTribunal(null);
+             if ($stage->getTribunal() === $this) {
+                $stage->setTribunal(null);
            
         }
     }

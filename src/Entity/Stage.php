@@ -5,10 +5,15 @@ use App\Entity\DateTimeInterface;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StageRepository")
+ * @UniqueEntity(
+ * fields={"numeroStage"},
+ * message="Le stage existe déjà")
  */
 class Stage
 {
@@ -19,7 +24,8 @@ class Stage
      */
     private $id;
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=45, nullable=false)
+     * @Assert\Length(min = 2, max = 45, minMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères")
      */
     private $numeroStage;
     /**

@@ -34,7 +34,7 @@ class Commune
     private $cp;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $nomCommune;
 
@@ -106,7 +106,7 @@ class Commune
 
     public function setNomCommune(string $nomCommune): self
     {
-        $this->nom = $nomCommune;
+        $this->nomCommune = $nomCommune;
 
         return $this;
     }
@@ -158,8 +158,8 @@ class Commune
         if ($this->lieuStages->contains($lieuStage)) {
             $this->lieuStages->removeElement($lieuStage);
             // set the owning side to null (unless already changed)
-            if ($lieuStage->getLieu() === $this) {
-                $lieuStage->setLieu(null);
+            if ($lieuStage->getLieuStage() === $this) {
+                $lieuStage->setLieuStage(null);
             }
         }
 

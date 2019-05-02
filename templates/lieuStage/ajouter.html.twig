@@ -36,26 +36,10 @@
     </div>
 
     <div class="row">
-
-         <div class="col ">
-            {{ form_row(formLieuStage.cp, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}}) }}
-        </div>
-
-        <div class="col divCommune">
-            {{ form_row(formLieuStage.nom_commune, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
-        <div id="select">
-        </div>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col">
-            {{ form_row(formLieuStage.telephone_stage, {'label': "N° de téléphone :", 'attr': {'placeholder': "N° de
-            téléphone"}}) }}
+            {{ form_row(formLieuStage.nom_commune, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
+            <div id="select" class="listeHidden"></div>
         </div>
-    </div>
-
-    <div class="row">
         <div class="col">
             {{ form_row(formLieuStage.latitude, {'label': "Latitude :", 'attr': {'placeholder': "Latitude"}}) }}
         </div>
@@ -63,8 +47,11 @@
             {{ form_row(formLieuStage.longitude, {'label': "Longitude :", 'attr': {'placeholder': "Longitude"}}) }}
         </div>
     </div>
-
     <div class="row">
+        <div class="col">
+            {{ form_row(formLieuStage.telephone_stage, {'label': "N° de téléphone :", 'attr': {'placeholder': "N° de
+            téléphone"}}) }}
+        </div>
         <div class="col">
             {{ form_row(formLieuStage.divers, {'label': "Divers :", 'attr': {'placeholder': "Divers"}}) }}
             {{ form_errors(formLieuStage) }}

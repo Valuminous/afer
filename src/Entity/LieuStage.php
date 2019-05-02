@@ -50,10 +50,6 @@ class LieuStage
      /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $cp;
-     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $nomCommune;
      /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -149,17 +145,6 @@ class LieuStage
         return $this;
     }
 
-    public function getCp(): ?string
-    {
-        return $this->cp;
-    }
-
-    public function setCp(string $cp): self
-    {
-        $this->cp = $cp;
-
-        return $this;
-    }
 
     public function getNomCommune(): ?string
     {

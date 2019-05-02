@@ -19,9 +19,8 @@ class Prefecture
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 255 caractères")
-     * @Assert\Regex(pattern = "/^[a-zA-Zàâçéèêëîïôûùüÿñæœ .-]*$/i", match = true, message = "{{ value }} contient un caractère non autorisé")
+     * @ORM\Column(type="string", length=45)
+     * @Assert\Length(min = 2, max = 45, minMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères")
      */
     private $nomPrefecture;
 
@@ -34,11 +33,6 @@ class Prefecture
      * @ORM\Column(type="string", length=255)
      */
     private $numeroAdressePrefecture;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cpPrefecture;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -102,18 +96,6 @@ class Prefecture
     public function setNumeroAdressePrefecture(string $numeroAdressePrefecture): self
     {
         $this->numeroAdressePrefecture = $numeroAdressePrefecture;
-
-        return $this;
-    }
-
-    public function getCpPrefecture(): ?string
-    {
-        return $this->cpPrefecture;
-    }
-
-    public function setCpPrefecture(string $cpPrefecture): self
-    {
-        $this->cpPrefecture = $cpPrefecture;
 
         return $this;
     }

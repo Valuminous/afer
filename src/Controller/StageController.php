@@ -5,18 +5,14 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Stage;
 use App\Form\StageType;
-
 use App\Entity\Tribunal;
 use App\Entity\Animateur;
 use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
-
 use App\Form\TribunalType;
-
 use App\Form\AnimateurType;
 use App\Form\StagiaireType;
 use App\Form\PrefectureType;
-
 use App\Repository\StageRepository;
 use App\Repository\TribunalRepository;
 use App\Repository\PrefectureRepository;
@@ -29,7 +25,6 @@ use App\Repository\TribunalAutoriteRepository;
 use App\Repository\TribunalServiceRepository;
 use App\Repository\PrefectureAutoriteRepository;
 use App\Repository\PrefectureServiceRepository;
-
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +33,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\LieuStage;
+use App\Form\LieuStageType;
+use App\Repository\LieuStageRepository;
 
 /**
  * @Route("/admin")
@@ -293,6 +291,7 @@ class StageController extends AbstractController
           
             $nbrs = $repoAnimateur->counter($animateurNom,$animateurPrenom,$animateurSiret);
             $nbr = $nbrs[0][1];
+          
     
             if(strlen($animateurNom) > 0 && strlen($animateurCivilite) != "0" && strlen($animateurPrenom) > 0 &&
                 strlen($animateurRue) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 && strlen($animateurNumeroRue) > 0 &&
@@ -337,6 +336,59 @@ class StageController extends AbstractController
     }
 
     /**
+    *  @Route("/stage/loadFormLieuStage", name="stage_lieu")
+    */
+    public function popLieuStage(LieuStage $lieuStage = null, LieuStageRepository $repoLieu, Request $request, ObjectManager $manager)
+    {
+        if(!$lieuStage){
+            $lieuStage = new LieuStage();
+        }
+
+        $form = $this->createForm( LieuStageType::class, $lieuStage, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+           
+
+            $lieuStageNom = $request->request->get('lieu_stage_nom_etablissement');
+            $lieuStageAgrement = $request->request->get('lieu_stage_agrement');
+            $lieuStageNumeroAdresse = $request->request->get('lieu_stage_numero_adresse_stage');
+            $lieuStageAdresse = $request->request->get('lieu_stage_adresse_stage');
+            $lieuStageCommune = $request->request->get('lieu_stage_nom_commune');
+            $lieuStageTelephone = $request->request->get('lieu_stage_telephone_stage');
+                        
+            $nbrs = $repoLieu->counter($lieuStageNom,$lieuStageAgrement);
+            $nbr = $nbrs[0][1];
+    
+            if(strlen($lieuStageNom) > 0 && strlen($lieuStageAgrement) > 0 && strlen($lieuStageNumeroAdresse) > 0 &&
+            strlen($lieuStageAdresse) > 0 && strlen($lieuStageCommune) > 0 && strlen($lieuStageTelephone) > 0 && $nbr === "0"){
+
+                $lieuStage->setNomEtablissement($lieuStageNom);
+                $lieuStage->setAgrement($lieuStageAgrement);
+                $lieuStage->setAdresseStage($lieuStageAdresse);
+                $lieuStage->setNumeroAdresseStage($lieuStageNumeroAdresse);
+                $lieuStage->setNomCommune($lieuStageCommune);
+                $lieuStage->setTelephoneStage($lieuStageTelephone);
+
+
+                $manager->persist($lieuStage);
+                $manager->flush();
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$lieuStage->getId().', "value":"'.$lieuStage->getNomEtablissement().'"}');
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+        }  
+        return $this->render('stage/popLieuStage.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+
+    /**
      *  @Route("/stage/ajouter", name="stage_ajouter")
      *  @Route("/stage/{id}/modifier", name="stage_modifier")
      */
@@ -347,6 +399,7 @@ class StageController extends AbstractController
         }
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($stage);
             $manager->flush();
@@ -406,4 +459,5 @@ class StageController extends AbstractController
         
     }
 
+    
 }
