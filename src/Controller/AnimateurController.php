@@ -10,17 +10,18 @@ use App\Form\AnimateurStatutType;
 use App\Form\AnimateurFonctionType;
 
 use App\Repository\CommuneRepository;
+use App\Repository\CiviliteRepository;
 use App\Repository\AnimateurRepository;
+
 use App\Repository\AnimateurStatutRepository;
 
 use Symfony\Component\HttpFoundation\Request;
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\AnimateurFonctionRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,7 +48,7 @@ class AnimateurController extends AbstractController
      *  @Route("/animateur/ajouter", name="animateur_ajouter")
      *  @Route("/animateur/{id}/modifier", name="animateur_modifier")
      */
-    public function animateurForm(Animateur $animateur = null,AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
+    public function animateurForm(Animateur $animateur = null,AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager, CiviliteRepository $repoCivilite)
     {
         if(!$animateur){
         $animateur = new Animateur();
@@ -57,13 +58,19 @@ class AnimateurController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
+
+            
             $AnimateurNom = $animateur->getNomAnimateur();
             $AnimateurPrenom = $animateur->getPrenomAnimateur();
             $AnimateurSiret = $animateur->getSiretAnimateur();
             $nbrs = $repoAnimateur->counter($AnimateurNom,$AnimateurPrenom,$AnimateurSiret);
             $nbr = $nbrs[0][1];
-      
+            
+            $animateurCivilite = $request->request->get('animateur_civilite');
+            $civilite = $repoCivilite->find($animateurCivilite);
+
             if($animateur->getId() === null && $nbr === "0"){
+                $animateur->setCivilite($civilite);
                 $manager->persist($animateur);
                 $manager->flush();
             }else if($animateur->getId() !== null){

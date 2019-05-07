@@ -3,12 +3,11 @@
 {% block body %}
     <div class="container">
         {{ form_start(formPrefecture) }}
-
         <div>
             {% if editMode %}
-            <h2 class="mt-5 mb-5 h2_prefecture">Modifier une préfecture</h2>
+                <h2 class="mt-5 mb-5 h2_prefecture">Modifier une préfecture</h2>
             {% else %}
-            <h2 class="mt-5 mb-5 h2_prefecture">Ajouter une préfecture</h2>
+                <h2 class="mt-5 mb-5 h2_prefecture">Ajouter une préfecture</h2>
             {% endif %}
         </div>
         <div class="text-center">
@@ -16,14 +15,12 @@
                     <h4 class="text-danger">La préfecture existe déjà</h4>
                 {% endif %}
             </div>
-
         <div class="row">
             <div class="col">
                 {{ form_row(formPrefecture.nomPrefecture, {'label': 'Nom de la préfecture : ', 'attr': {'placeholder':
                 'Nom'} }) }}
             </div>
         </div>
-
         <div class="row">
             <div class="col-2">
                 {{ form_row(formPrefecture.numeroAdressePrefecture, {'label': "N° de rue :", 'attr': {'placeholder':
@@ -62,18 +59,17 @@
 
 
         {% if editMode %}
-        <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-            Modifier
-        </button>
+            <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+                Modifier
+            </button>
         {% else %}
-        <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
-            Enregistrer
-        </button>
+            <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+                Enregistrer
+            </button>
         {% endif %}
 
 
         {{ form_end(formPrefecture) }}
-        </section>
 
         <!-- Modal: modalCart -->
         <div class="modal fade" id="modalCartServicePrefecture" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

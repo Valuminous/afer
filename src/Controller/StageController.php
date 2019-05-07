@@ -73,7 +73,6 @@ class StageController extends AbstractController
             $tribunalAdresse = $request->request->get('tribunal_adresse_tribunal');
             $tribunalNumeroAdresse = $request->request->get('tribunal_numero_adresse_tribunal');
             $tribunalCommune = $request->request->get('tribunal_commune_tribunal');
-            $tribunalCp = $request->request->get('tribunal_cp_tribunal');
             $tribunalAutorite = $request->request->get('tribunal_tribunal_autorite');
             $tribunalService = $request->request->get('tribunal_tribunal_service');
       
@@ -84,13 +83,12 @@ class StageController extends AbstractController
              $nbr = $nbrs[0][1];
 
             if(strlen($tribunalNom) > 0 && strlen($tribunalAdresse) > 0 && strlen($tribunalNumeroAdresse) > 0 &&
-                strlen($tribunalCommune) > 0 && strlen($tribunalAutorite) > 0&& strlen($tribunalCp) > 0 && strlen($tribunalService) > 0 && $nbr === "0"){
+                strlen($tribunalCommune) > 0 && strlen($tribunalAutorite) > 0 && strlen($tribunalService) > 0 && $nbr === "0"){
                 
                 $tribunal->setNomTribunal($tribunalNom);
                 $tribunal->setAdresseTribunal($tribunalAdresse);
                 $tribunal->setNumeroAdresseTribunal($tribunalNumeroAdresse);
                 $tribunal->setCommuneTribunal($tribunalCommune);
-                $tribunal->setCpTribunal($tribunalCp);
                 $tribunal->setTribunalService($service);
                 $tribunal->setTribunalAutorite($autorite);
 
@@ -128,7 +126,6 @@ class StageController extends AbstractController
             $prefectureAdresse = $request->request->get('prefecture_adressePrefecture');
             $prefectureNumeroAdresse = $request->request->get('prefecture_numeroAdressePrefecture');
             $prefectureCommune = $request->request->get('prefecture_communePrefecture');
-            $prefectureCP = $request->request->get('prefecture_cpPrefecture');
             $prefectureAutorite = $request->request->get('prefecture_prefectureAutorite');
             $prefectureService = $request->request->get('prefecture_prefectureService');
 
@@ -140,12 +137,11 @@ class StageController extends AbstractController
             $nbr = $nbrs[0][1];
             
             if(strlen($prefectureNom) > 0 && strlen($prefectureAdresse) > 0 && strlen($prefectureNumeroAdresse) > 0 &&
-                strlen($prefectureCommune) > 0 && strlen($prefectureCP) > 0 && strlen($prefectureAutorite) > 0 &&
+                strlen($prefectureCommune) > 0 && strlen($prefectureAutorite) > 0 &&
                 strlen($prefectureService) > 0 && $nbr === "0"){
                 $prefecture->setNomPrefecture($prefectureNom);
                 $prefecture->setAdressePrefecture($prefectureAdresse);
                 $prefecture->setNumeroAdressePrefecture($prefectureNumeroAdresse);
-                $prefecture->setCpPrefecture($prefectureCP);
                 $prefecture->setCommunePrefecture($prefectureCommune);
                 $prefecture->setPrefectureService($service);
                 $prefecture->setPrefectureAutorite($autorite);
@@ -183,7 +179,6 @@ class StageController extends AbstractController
            
             $stagiaireNom = $request->request->get('stagiaire_nomStagiaire');
             $stagiairePrenom = $request->request->get('stagiaire_prenomStagiaire');
-            $stagiaireCp = $request->request->get('stagiaire_cpStagiaire');
             $stagiaireCommune = $request->request->get('stagiaire_communeStagiaire');
             $stagiaireNomNaissance = $request->request->get('stagiaire_nomNaissanceStagiaire');
             $stagiaireDateNaissance = $request->request->get('stagiaire_dateNaissanceStagiaire');
@@ -207,7 +202,7 @@ class StageController extends AbstractController
             $nbrs = $repoStagiaire->counter($stagiaireNom,$stagiairePrenom,$year);
             $nbr = $nbrs[0][1];
     
-            if(strlen($stagiaireNom) > 0 && strlen($stagiairePrenom) > 0 && strlen($stagiaireCp) > 0 &&
+            if(strlen($stagiaireNom) > 0 && strlen($stagiairePrenom) > 0 &&
                 strlen($stagiaireCommune) > 0 && strlen($stagiaireNomNaissance) > 0 && strlen($stagiaireDateNaissance) != "" &&
                 strlen($stagiaireLieuNaissance) > 0 && strlen($stagiaireAdresse) > 0 && strlen($stagiaireNationalite) > 0 &&
                 strlen($stagiaireNumeroPortable) > 0 && strlen($stagiaireNumeroFixe) > 0 && strlen($stagiaireEmail) > 0 &&
@@ -215,7 +210,6 @@ class StageController extends AbstractController
 
                 $stagiaire->setNomStagiaire($stagiaireNom);
                 $stagiaire->setPrenomStagiaire($stagiairePrenom);
-                $stagiaire->setCpStagiaire($stagiaireCp);
                 $stagiaire->setCommuneStagiaire($stagiaireCommune);
                 $stagiaire->setNomNaissanceStagiaire($stagiaireNomNaissance);
                 $stagiaire->setLieuNaissanceStagiaire($stagiaireLieuNaissance);
@@ -269,7 +263,6 @@ class StageController extends AbstractController
             $animateurRue = $request->request->get('animateur_rue_animateur');
             $animateurNumeroRue = $request->request->get('animateur_numero_rue_animateur');
             $animateurCommune = $request->request->get('animateur_commune_animateur');
-            $animateurCp = $request->request->get('animateur_cp_animateur');
             $animateurRegion = $request->request->get('animateur_region_animateur');
             $animateurEmail = $request->request->get('animateur_email_animateur');
             $animateurNumeroPortable = $request->request->get('animateur_numero_portable_animateur');
@@ -294,7 +287,7 @@ class StageController extends AbstractController
           
     
             if(strlen($animateurNom) > 0 && strlen($animateurCivilite) != "0" && strlen($animateurPrenom) > 0 &&
-                strlen($animateurRue) > 0 && strlen($animateurCommune) > 0 && strlen($animateurCp) > 0 && strlen($animateurNumeroRue) > 0 &&
+                strlen($animateurRue) > 0 && strlen($animateurCommune) > 0 && strlen($animateurNumeroRue) > 0 &&
                 strlen($animateurRegion) > 0 && strlen($animateurSiret) > 0 && strlen($animateurUrssaf) > 0 &&
                 strlen($animateurNumeroFixe) > 0 &&strlen($animateurRaisonSociale) > 0 && strlen($animateurGta) != "0" 
                 && strlen($animateurFonction) != "0" && strlen($animateurStatut) != "0" && $nbr === "0"){
@@ -303,7 +296,6 @@ class StageController extends AbstractController
                 $animateur->setPrenomAnimateur($animateurPrenom);
                 $animateur->setRaisonSocialeAnimateur($animateurRaisonSociale);
                 $animateur->setGtaAnimateur($animateurGta);
-                $animateur->setCpAnimateur($animateurCp);
                 $animateur->setCommuneAnimateur($animateurCommune);
                 $animateur->setRegionAnimateur($animateurRegion);
                 $animateur->setNumeroRueAnimateur($animateurNumeroRue);

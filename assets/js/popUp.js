@@ -21,6 +21,7 @@ loadFormTribunal();
 loadFormPrefecture();
 loadFormStagiaire();
 loadFormLieuStage();
+loadFormAnimateur();
 
 function loadFormAutoriteTribunal() {
     let autorite = document.querySelector('#addAutoriteTribunal');
@@ -424,7 +425,6 @@ function loadFormTribunal() {
                             e.preventDefault();
                             if (document.querySelector('form[name="tribunal"] #tribunal_nom_tribunal').value.length != 0 &&
                                 document.querySelector('form[name="tribunal"] #tribunal_adresse_tribunal').value.length != 0 &&
-                                document.querySelector('form[name="tribunal"] #tribunal_cp_tribunal').value.length != 0 &&
                                 document.querySelector('form[name="tribunal"] #tribunal_numero_adresse_tribunal').value.length != 0 &&
                                 document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal').value.length != 0 &&
                                 document.querySelector('form[name="tribunal"] #tribunal_tribunal_service').value != "" &&
@@ -436,7 +436,6 @@ function loadFormTribunal() {
                                 let tribunalCommune = document.querySelector('form[name="tribunal"] #tribunal_commune_tribunal');
                                 let tribunalAutorite = document.querySelector('form[name="tribunal"] #tribunal_tribunal_autorite');
                                 let tribunalService = document.querySelector('form[name="tribunal"] #tribunal_tribunal_service');
-                                let tribunalCp = document.querySelector('form[name="tribunal"] #tribunal_cp_tribunal');
                                 let token = document.querySelector('form[name="tribunal"] #tribunal__token');
 
                                 let data = new FormData();
@@ -446,7 +445,6 @@ function loadFormTribunal() {
                                 data.append("tribunal_commune_tribunal", tribunalCommune.value);
                                 data.append("tribunal_tribunal_autorite", tribunalAutorite.value);
                                 data.append("tribunal_tribunal_service", tribunalService.value);
-                                data.append("tribunal_cp_tribunal", tribunalCp.value);
                                 data.append("tribunal__token", token.value);
                                 fetch("/admin/stage/loadFormTribunal", {
                                         method: "POST",
@@ -505,7 +503,6 @@ function loadFormPrefecture() {
                                 document.querySelector('form[name="prefecture"] #prefecture_adressePrefecture').value.length != 0 &&
                                 document.querySelector('form[name="prefecture"] #prefecture_numeroAdressePrefecture').value.length != 0 &&
                                 document.querySelector('form[name="prefecture"] #prefecture_communePrefecture').value.length != 0 &&
-                                document.querySelector('form[name="prefecture"] #prefecture_cpPrefecture').value.length != 0 &&
                                 document.querySelector('form[name="prefecture"] #prefecture_prefectureService').value != "" &&
                                 document.querySelector('form[name="prefecture"] #prefecture_prefectureAutorite').value != "") {
 
@@ -515,7 +512,6 @@ function loadFormPrefecture() {
                                 let prefectureCommune = document.querySelector('form[name="prefecture"] #prefecture_communePrefecture');
                                 let prefectureAutorite = document.querySelector('form[name="prefecture"] #prefecture_prefectureAutorite');
                                 let prefectureService = document.querySelector('form[name="prefecture"] #prefecture_prefectureService');
-                                let prefectureCp = document.querySelector('form[name="prefecture"] #prefecture_cpPrefecture');
                                 let token = document.querySelector('form[name="prefecture"] #prefecture__token');
                                 let data = new FormData();
 
@@ -525,7 +521,6 @@ function loadFormPrefecture() {
                                 data.append("prefecture_communePrefecture", prefectureCommune.value);
                                 data.append("prefecture_prefectureAutorite", prefectureAutorite.value);
                                 data.append("prefecture_prefectureService", prefectureService.value);
-                                data.append("prefecture_cpPrefecture", prefectureCp.value);
                                 data.append("prefecture__token", token.value);
 
                                 fetch("/admin/stage/loadFormPrefecture", {
@@ -581,7 +576,6 @@ function loadFormStagiaire() {
                             e.preventDefault();
                             if (document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire').value.length != 0 &&
                                 document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire').value.length != 0 &&
-                                document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire').value.length != 0 &&
                                 document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire').value.length != 0 &&
                                 document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire').value.length != 0 &&
                                 document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_day').value.length != "" &&
@@ -600,7 +594,6 @@ function loadFormStagiaire() {
 
                                 let stagiaireNom = document.querySelector('form[name="stagiaire"] #stagiaire_nomStagiaire');
                                 let stagiairePrenom = document.querySelector('form[name="stagiaire"] #stagiaire_prenomStagiaire');
-                                let stagiaireCp = document.querySelector('form[name="stagiaire"] #stagiaire_cpStagiaire');
                                 let stagiaireCommune = document.querySelector('form[name="stagiaire"] #stagiaire_communeStagiaire');
                                 let stagiaireNomNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_nomNaissanceStagiaire');
                                 let stagiaireDateNaissance = document.querySelector('form[name="stagiaire"] #stagiaire_dateNaissanceStagiaire_year').value + "-" +
@@ -622,7 +615,6 @@ function loadFormStagiaire() {
 
                                 data.append("stagiaire_nomStagiaire", stagiaireNom.value);
                                 data.append("stagiaire_prenomStagiaire", stagiairePrenom.value);
-                                data.append("stagiaire_cpStagiaire", stagiaireCp.value);
                                 data.append("stagiaire_communeStagiaire", stagiaireCommune.value);
                                 data.append("stagiaire_nomNaissanceStagiaire", stagiaireNomNaissance.value);
                                 data.append("stagiaire_dateNaissanceStagiaire", stagiaireDateNaissance);
@@ -686,6 +678,7 @@ function loadFormAnimateur() {
                 return reponse.text();
             })
             .then((reponse) => {
+
                 if (reponse.length > 0) {
                     document.querySelector('#modalCartAnimateur .modal-body').innerHTML = reponse;
                     btn = document.querySelector('#modalCartAnimateur .modal-body button');
@@ -698,7 +691,6 @@ function loadFormAnimateur() {
                                 document.querySelector('form[name="animateur"] #animateur_rue_animateur').value.length != 0 &&
                                 document.querySelector('form[name="animateur"] #animateur_numero_rue_animateur').value.length != 0 &&
                                 document.querySelector('form[name="animateur"] #animateur_commune_animateur').value.length != 0 &&
-                                document.querySelector('form[name="animateur"] #animateur_cp_animateur').value.length != 0 &&
                                 document.querySelector('form[name="animateur"] #animateur_region_animateur').value.length != 0 &&
                                 document.querySelector('form[name="animateur"] #animateur_email_animateur').value.length != 0 &&
                                 document.querySelector('form[name="animateur"] #animateur_numero_portable_animateur').value.length != 0 &&
@@ -717,7 +709,6 @@ function loadFormAnimateur() {
                                 let AnimateurRue = document.querySelector('form[name="animateur"] #animateur_rue_animateur');
                                 let AnimateurNumeroRue = document.querySelector('form[name="animateur"] #animateur_numero_rue_animateur');
                                 let AnimateurCommune = document.querySelector('form[name="animateur"] #animateur_commune_animateur');
-                                let AnimateurCp = document.querySelector('form[name="animateur"] #animateur_cp_animateur');
                                 let AnimateurRegion = document.querySelector('form[name="animateur"] #animateur_region_animateur');
                                 let AnimateurEmail = document.querySelector('form[name="animateur"] #animateur_email_animateur');
                                 let AnimateurNumeroPortable = document.querySelector('form[name="animateur"] #animateur_numero_portable_animateur');
@@ -738,7 +729,6 @@ function loadFormAnimateur() {
                                 data.append("animateur_rue_animateur", AnimateurRue.value);
                                 data.append("animateur_numero_rue_animateur", AnimateurNumeroRue.value);
                                 data.append("animateur_commune_animateur", AnimateurCommune.value);
-                                data.append("animateur_cp_animateur", AnimateurCp.value);
                                 data.append("animateur_region_animateur", AnimateurRegion.value);
                                 data.append("animateur_email_animateur", AnimateurEmail.value);
                                 data.append("animateur_numero_portable_animateur", AnimateurNumeroPortable.value);

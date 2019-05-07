@@ -65,20 +65,10 @@ class LieuStage
      */
     private $stages;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Commune", inversedBy="lieuStages")
-     */
-    private $commune;
-
-    
-
     public function __construct()
     {
         $this->stages = new ArrayCollection();
     }
-
-
-    
 
     public function getId(): ?int
     {
@@ -145,7 +135,6 @@ class LieuStage
         return $this;
     }
 
-
     public function getNomCommune(): ?string
     {
         return $this->nomCommune;
@@ -153,7 +142,7 @@ class LieuStage
 
     public function setNomCommune(string $nomCommune): self
     {
-        $this->nom = $nomCommune;
+        $this->nomCommune = $nomCommune;
 
         return $this;
     }
@@ -225,17 +214,6 @@ class LieuStage
         return $this;
     }
 
-    public function getCommune(): ?Commune
-    {
-        return $this->commune;
-    }
-
-    public function setCommune(?Commune $commune): self
-    {
-        $this->commune = $commune;
-
-        return $this;
-    }
 
      
 }

@@ -114,7 +114,7 @@ class Civilite
             $this->Stagiaires->removeElement($stagiaire);
             // set the owning side to null (unless already changed)
             if ($stagiaire->getCivilite() === $this) {
-                $stagiaire->setCivilite(null);
+                $stagiaire->setCivilite($this);
             }
         }
 

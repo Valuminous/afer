@@ -48,10 +48,7 @@ class Commune
      */
     private $longitude;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LieuStage", mappedBy="commune")
-     */
-    private $lieuStages;
+    
 
     public function __construct()
     {
@@ -135,34 +132,4 @@ class Commune
         return $this;
     }
 
-    /**
-     * @return Collection|LieuStage[]
-     */
-    public function getLieuStages(): Collection
-    {
-        return $this->lieuStages;
-    }
-
-    public function addLieuStage(LieuStage $lieuStage): self
-    {
-        if (!$this->lieuStages->contains($lieuStage)) {
-            $this->lieuStages[] = $lieuStage;
-            $lieuStage->setLieuStage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLieuStage(LieuStage $lieuStage): self
-    {
-        if ($this->lieuStages->contains($lieuStage)) {
-            $this->lieuStages->removeElement($lieuStage);
-            // set the owning side to null (unless already changed)
-            if ($lieuStage->getLieuStage() === $this) {
-                $lieuStage->setLieuStage(null);
-            }
-        }
-
-        return $this;
-    }
 }

@@ -46,6 +46,8 @@ class LieuStageController extends AbstractController {
         $form = $this->createForm(lieuStageType::class, $lieuStage);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            // dump($request);
+            // die();
             $manager->persist($lieuStage);
             $manager->flush();
             return $this->redirectToRoute('lieuStage_index');

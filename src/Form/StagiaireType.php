@@ -26,9 +26,6 @@ class StagiaireType extends AbstractType
             ])
             ->add('nomStagiaire')
             ->add('prenomStagiaire')
-            ->add('cpStagiaire', HiddenType::class, [
-                'data' => 'cp',
-            ])
             ->add('communeStagiaire')
             ->add('nomNaissanceStagiaire')
             ->add('dateNaissanceStagiaire',BirthdayType::class, [
