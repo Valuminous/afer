@@ -17,11 +17,8 @@
     border: solid 1px #cdcdcd;
 }
 
-#select, #selectStagiaire, #selectTribunal,  #selectAnimateur, #selectPrefecture{
-    position: absolute;
-    height: 35vh;
-    overflow: auto;
-}
+
+
 
 .btn_tribunal{
     border: solid;
@@ -39,6 +36,11 @@
     color: #4098f3;
     
     }
+}
+    #select, #selectStagiaire, #selectTribunal,  #selectAnimateur, #selectPrefecture{
+        position: absolute;
+        height: 35vh;
+        overflow: auto;
     z-index: 1;
     width: 100%;
     padding: .375rem .75rem;

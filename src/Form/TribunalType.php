@@ -19,7 +19,6 @@ class TribunalType extends AbstractType
     {
         $builder
             ->add('nom_tribunal')
-           
             ->add('adresse_tribunal')
             ->add('numero_adresse_tribunal')
             ->add('commune_tribunal')
