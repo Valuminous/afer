@@ -21,14 +21,14 @@ class StagiaireType extends AbstractType
         $builder
         ->add('civilite', EntityType::class, [
             'class' => Civilite::class,
-            'choice_label' => 'nomCivilite',
+            'choice_label' => 'Civilite',
             'placeholder' => 'Choisir une civilité'
             ])
             ->add('nomStagiaire')
             ->add('prenomStagiaire')
-            ->add('cpStagiaire', HiddenType::class, [
-                'data' => 'cp',
-            ])
+            // ->add('cpStagiaire', HiddenType::class, [
+            //     'data' => 'cp',
+            // ])
             ->add('communeStagiaire')
             ->add('nomNaissanceStagiaire')
             ->add('dateNaissanceStagiaire',BirthdayType::class, [

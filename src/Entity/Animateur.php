@@ -294,5 +294,5 @@ class Animateur
         return $this;
     }
 
-   
+
 }

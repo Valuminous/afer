@@ -26,9 +26,9 @@ class LieuStageType extends AbstractType
             ->add('agrement')
             ->add('adresse_stage')
             ->add('numero_adresse_stage')
-            ->add('cp', HiddenType::class, [
-                'data' => 'cp',
-            ])
+            // ->add('cp', HiddenType::class, [
+            //     'data' => 'cp',
+            // ])
             ->add('latitude')
             ->add('longitude')
             ->add('telephone_stage')
