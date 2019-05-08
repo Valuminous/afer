@@ -21,7 +21,7 @@ class StagiaireType extends AbstractType
         $builder
         ->add('civilite', EntityType::class, [
             'class' => Civilite::class,
-            'choice_label' => 'Civilite',
+            'choice_label' => 'nomCivilite',
             'placeholder' => 'Choisir une civilité'
             ])
             ->add('nomStagiaire')

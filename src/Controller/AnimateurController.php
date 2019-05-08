@@ -66,8 +66,8 @@ class AnimateurController extends AbstractController
             $nbrs = $repoAnimateur->counter($AnimateurNom,$AnimateurPrenom,$AnimateurSiret);
             $nbr = $nbrs[0][1];
             
-            $animateurCivilite = $request->request->get('animateur_civilite');
-            $civilite = $repoCivilite->find($animateurCivilite);
+            // $animateurCivilite = $request->request->get('animateur_civilite');
+            // $civilite = $repoCivilite->find($animateurCivilite);
 
             if($animateur->getId() === null && $nbr === "0"){
                 $animateur->setCivilite($civilite);

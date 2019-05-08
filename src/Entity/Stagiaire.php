@@ -119,7 +119,7 @@ class Stagiaire
     private $stages;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="stagiaire")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="stagiaires")
      * @ORM\JoinColumn(nullable=true)
      */
     private $civilite;
