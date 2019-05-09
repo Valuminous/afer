@@ -83,9 +83,10 @@ class LieuStageController extends AbstractController {
     {
         $commune = $request->request->get("lieu_stage_nom_commune");
         $communes= $crepo->findCommunes($commune);
-       
+      
         $response = new JsonResponse($communes); 
-
+        dump($response);
+        die;
         return $response;
     }       
     

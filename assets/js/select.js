@@ -6,14 +6,17 @@ inputCommunePrefecture();
 
 function inputCommuneLieuStage() {
     let commune = document.querySelector('#lieu_stage_nom_commune');
+  
     if (commune != null) {
         commune.addEventListener('keyup', function (e) {
             if (commune.textLength > 2) {
                 fetch("/admin/stage/lieucommune", {credentials: 'include'})
                 .then((reponse) => { 
+                   
                     return reponse.text();
                 })
                 .then((reponse) => {
+                    console.log(reponse);
                     if (reponse.length > 0) {
                     let data = new FormData();
                     data.append("lieu_stage_nom_commune", commune.value);
