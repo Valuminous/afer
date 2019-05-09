@@ -17,6 +17,8 @@ loadFormPrefectureService();
 loadFormPrefectureAutorite();
 loadFormAnimateurFonction();
 loadFormAnimateurStatut();
+
+// pop-up ajout dans ajout Stage
 loadFormTribunal();
 loadFormPrefecture();
 loadFormStagiaire();
@@ -781,7 +783,7 @@ function loadFormAnimateur() {
 }
 
 function loadFormLieuStage() {
-    let lieuStage = document.querySelector('#addLieuStage');
+    let lieuStage = document.querySelector('#addlieuStage');
     if (lieuStage != null) {
         fetch("/admin/stage/loadFormLieuStage", { credentials: 'include' })
         .then((reponse) => {

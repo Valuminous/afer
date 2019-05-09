@@ -62,6 +62,10 @@ function inputCommuneLieuStage() {
                     console.log(error);
                 });
             }
+            var div = document.getElementById('select');
+            while(div.firstChild){
+                div.removeChild(div.firstChild);
+            }
         });
     }
 }
