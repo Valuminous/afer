@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Stagiaire;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,24 @@ class StagiaireRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Stagiaire::class);
+    }
+
+     /**
+     *@param string|null $term
+    * @return Stagiaire[] Returns an array of Stagiaires objects
+     */
+    public function findAllWithSearch(?string $term)
+    {
+        $qb = $this->createQueryBuilder('q');
+        if ($term) {
+            $qb->andWhere('q.prenomStagiaire LIKE :term OR q.nomStagiaire LIKE :term ')
+                ->setParameter('term', '%' . $term . '%');
+        }
+        return $qb
+            ->orderBy('q.nomStagiaire', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     public function counter($value1,$value2,$value3)

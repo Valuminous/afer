@@ -29,7 +29,10 @@ class AnimateurType extends AbstractType
            ])
             ->add('nom_animateur')
             ->add('prenom_animateur')
-            ->add('raison_sociale_animateur')
+            ->add('raison_sociale_animateur', null, [
+                'required'   => false,
+                'empty_data' => 'Aucune raison sociale fournie',
+            ])
             ->add('gta_animateur', ChoiceType::class, [
                 'choices' => [
                     'Gestion technique et administrative' => [
@@ -42,12 +45,28 @@ class AnimateurType extends AbstractType
             ->add('region_animateur')
             ->add('rue_animateur')
             ->add('numero_rue_animateur')
-            ->add('numero_portable_animateur')
-            ->add('numero_fixe_animateur')
+            ->add('numero_portable_animateur', null, [
+                'required'   => false,
+                'empty_data' => '-- -- -- -- --',
+            ])
+            ->add('numero_fixe_animateur', null, [
+                'required'   => false,
+                'empty_data' => '-- -- -- -- --',
+            ])
             ->add('email_animateur')
-            ->add('urssaf_animateur')
-            ->add('siret_animateur')
-            ->add('observations_animateur', TextareaType::class)
+            ->add('urssaf_animateur', null, [
+                'required'   => false,
+                'empty_data' => 'Aucun numéro Urssaf fourni',
+            ])
+            ->add('siret_animateur', null, [
+                'required'   => false,
+                'empty_data' => 'Aucun numéro Siret fourni',
+            ])
+            ->add('observations_animateur', TextareaType::class, [
+                'required'   => false,
+                'empty_data' => 'Aucune observation'
+        
+            ])
             ->add('animateurStatut', EntityType::class, [
                 'class' => AnimateurStatut::class,
                 'choice_label' => 'nom',

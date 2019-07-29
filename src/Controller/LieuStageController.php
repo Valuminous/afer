@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 /**
  * @Route("/admin")
  * @IsGranted("ROLE_ADMIN")
@@ -85,9 +87,44 @@ class LieuStageController extends AbstractController {
         $communes= $crepo->findCommunes($commune);
       
         $response = new JsonResponse($communes); 
-        dump($response);
-        die;
+        // dump($response);
+        // die;
         return $response;
     }       
     
+    /**
+     * @Route("/stage/lieuStage/imprimer", name="lieuStage_imprimer", methods={"GET"})
+     */
+    public function print(LieuStageRepository $repo)
+    {
+       
+    // Configure Dompdf according to your needs
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $lieuStages = $repo->findAll();
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('lieuStage/pdf.html.twig', [
+        'lieuStages' => $lieuStages
+    ]);
+    
+    // Load HTML to Dompdf
+    
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+   
+    // Render the HTML as PDF
+    $dompdf->render();
+    
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("lieux_stage.pdf", [
+        "Attachment" => false
+    ]);
 }
+   
+    }
+

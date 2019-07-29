@@ -54,9 +54,19 @@ class Prefecture
      */
     private $stages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="prefecture")
+     */
+    private $stagiaires;
+
+    
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
+        $this->stagiaires = new ArrayCollection();
+        
+        
     }
 
     public function getId(): ?int
@@ -141,21 +151,21 @@ class Prefecture
      */
     public function getStages(): Collection
     {
-        return $this->Stages;
+        return $this->stages;
     }
 
     public function addStage(Stage $stage): self
     {
-        if (!$this->Stages->contains($stage)) {
-            $this->Stages[] = $stage;
+        if (!$this->stages->contains($stage)) {
+            $this->stages[] = $stage;
             // $stage->addStage($this);
         }
         return $this;
     }
     public function removeStage(Stage $stage): self
     {
-        if ($this->Stages->contains($stage)) {
-            $this->Stages->removeElement($stage);
+        if ($this->stages->contains($stage)) {
+            $this->stages->removeElement($stage);
              // set the owning side to null (unless already changed)
         //      if ($relation->getPrefecture() === $this) {
         //         $relation->setPrefecture(null);
@@ -164,4 +174,44 @@ class Prefecture
     }
         return $this;
     }
+
+    /**
+     * @return Collection|Stagiaire[]
+     */
+    public function getStagiaires(): Collection
+    {
+        return $this->stagiaires;
+    }
+
+    public function addStagiaire(Stagiaire $stagiaire): self
+    {
+        if (!$this->stagiaires->contains($stagiaire)) {
+            $this->stagiaires[] = $stagiaire;
+            $stagiaire->setPrefecture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStagiaire(Stagiaire $stagiaire): self
+    {
+        if ($this->stagiaires->contains($stagiaire)) {
+            $this->stagiaires->removeElement($stagiaire);
+            // set the owning side to null (unless already changed)
+            if ($stagiaire->getPrefecture() === $this) {
+                $stagiaire->setPrefecture(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+ /**
+     * toString
+     */
+    public function __toString() {
+        return $this->getNomPrefecture();
+    }
+    
 }

@@ -19,7 +19,8 @@ class Tribunal
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="Veuillez insérer le nom du tribunal.")
      * @Assert\Length(min = 2, max = 45, minMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères")
      */
     private $nomTribunal;
@@ -54,9 +55,18 @@ class Tribunal
      */
     private $stages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="tribunal")
+     */
+    private $stagiaires;
+
+    
+
     public function __construct()
     {
         $this->stage = new ArrayCollection();
+        $this->stagiaires = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -138,23 +148,23 @@ class Tribunal
    /**
      * @return Collection|Stage[]
      */
-    public function getStage(): Collection
+    public function getStages(): Collection
     {
-        return $this->stage;
+        return $this->stages;
     }
 
     public function addStage(Stage $stage): self
     {
-        if (!$this->stage->contains($stage)) {
-            $this->stage[] = $stage;
+        if (!$this->stages->contains($stage)) {
+            $this->stages[] = $stage;
             $stage->addStage($this);
         }
         return $this;
     }
     public function removeStage(Stage $stage): self
     {
-        if ($this->stage->contains($stage)) {
-            $this->stage->removeElement($stage);
+        if ($this->stages->contains($stage)) {
+            $this->stages->removeElement($stage);
              // set the owning side to null (unless already changed)
              if ($stage->getTribunal() === $this) {
                 $stage->setTribunal(null);
@@ -163,5 +173,44 @@ class Tribunal
     }
         return $this;
     }
+
+    /**
+     * @return Collection|Stagiaire[]
+     */
+    public function getStagiaires(): Collection
+    {
+        return $this->stagiaires;
+    }
+
+    public function addStagiaire(Stagiaire $stagiaire): self
+    {
+        if (!$this->stagiaires->contains($stagiaire)) {
+            $this->stagiaires[] = $stagiaire;
+            $stagiaire->addTribunal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStagiaire(Stagiaire $stagiaire): self
+    {
+        if ($this->stagiaires->contains($stagiaire)) {
+            $this->stagiaires->removeElement($stagiaire);
+            $stagiaire->removeTribunal($this);
+        }
+
+        return $this;
+    }
+
+      
+ /**
+     * toString
+     */
+    public function __toString() {
+        return $this->getNomTribunal();
+    }
+    
+
+
 
 }

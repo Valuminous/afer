@@ -22,6 +22,7 @@ class Stagiaire
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez insérer le nom du stagiaire.")
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
      * 
      */
@@ -29,6 +30,7 @@ class Stagiaire
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez insérer le prénom du stagiaire.")
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
      * 
      */
@@ -115,6 +117,7 @@ class Stagiaire
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaires")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $stages;
 
@@ -124,11 +127,65 @@ class Stagiaire
      */
     private $civilite;
 
+        
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numeroPermis;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $datePermis;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stagiaires")
+     * 
+     */
+    private $prefecture;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lieuInfraction;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateInfraction;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $heureInfraction;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\NatureInfraction", inversedBy="stagiaires")
+     */
+    private $natureInfraction;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numeroParquet;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCondamnation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stagiaires")
+     */
+    private $tribunal;
+
     
 
     public function __construct()
     {
         $this->stages = new ArrayCollection();
+        $this->infractions = new ArrayCollection();
        
     }
 
@@ -359,6 +416,159 @@ class Stagiaire
         $this->civilite = $civilite;
 
         return $this;
-    }   
+    }
+
+    
+    /**
+     * @return Collection|Infraction[]
+     */
+    public function getInfractions(): Collection
+    {
+        return $this->infractions;
+    }
+
+    public function addInfraction(Infraction $infraction): self
+    {
+        if (!$this->infractions->contains($infraction)) {
+            $this->infractions[] = $infraction;
+            $infraction->AddInfraction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInfraction(Infraction $infraction): self
+    {
+        if ($this->infractions->contains($infraction)) {
+            $this->infractions->removeElement($infraction);
+            // set the owning side to null (unless already changed)
+            if ($infraction->getStagiaire() === $this) {
+                $infraction->setStagiaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNumeroPermis(): ?string
+    {
+        return $this->numeroPermis;
+    }
+
+    public function setNumeroPermis(?string $numeroPermis): self
+    {
+        $this->numeroPermis = $numeroPermis;
+
+        return $this;
+    }
+
+    public function getDatePermis(): ?\DateTimeInterface
+    {
+        return $this->datePermis;
+    }
+
+    public function setDatePermis(?\DateTimeInterface $datePermis): self
+    {
+        $this->datePermis = $datePermis;
+
+        return $this;
+    }
+
+    public function getPrefecture(): ?Prefecture
+    {
+        return $this->prefecture;
+    }
+
+    public function setPrefecture(?Prefecture $prefecture): self
+    {
+        $this->prefecture = $prefecture;
+
+        return $this;
+    }
+
+    public function getLieuInfraction(): ?string
+    {
+        return $this->lieuInfraction;
+    }
+
+    public function setLieuInfraction(?string $lieuInfraction): self
+    {
+        $this->lieuInfraction = $lieuInfraction;
+
+        return $this;
+    }
+
+    public function getDateInfraction(): ?\DateTimeInterface
+    {
+        return $this->dateInfraction;
+    }
+
+    public function setDateInfraction(\DateTimeInterface $dateInfraction): self
+    {
+        $this->dateInfraction = $dateInfraction;
+
+        return $this;
+    }
+
+    public function getHeureInfraction(): ?\DateTimeInterface
+    {
+        return $this->heureInfraction;
+    }
+
+    public function setHeureInfraction(\DateTimeInterface $heureInfraction): self
+    {
+        $this->heureInfraction = $heureInfraction;
+
+        return $this;
+    }
+
+    public function getNatureInfraction(): ?NatureInfraction
+    {
+        return $this->natureInfraction;
+    }
+
+    public function setNatureInfraction(?NatureInfraction $natureInfraction): self
+    {
+        $this->natureInfraction = $natureInfraction;
+
+        return $this;
+    }
+
+    public function getNumeroParquet(): ?string
+    {
+        return $this->numeroParquet;
+    }
+
+    public function setNumeroParquet(?string $numeroParquet): self
+    {
+        $this->numeroParquet = $numeroParquet;
+
+        return $this;
+    }
+
+    public function getDateCondamnation(): ?\DateTimeInterface
+    {
+        return $this->dateCondamnation;
+    }
+
+    public function setDateCondamnation(?\DateTimeInterface $dateCondamnation): self
+    {
+        $this->dateCondamnation = $dateCondamnation;
+
+        return $this;
+    }
+
+    public function getTribunal(): ?Tribunal
+    {
+        return $this->tribunal;
+    }
+
+    public function setTribunal(?Tribunal $tribunal): self
+    {
+        $this->tribunal = $tribunal;
+
+        return $this;
+    }
+   
 }
 

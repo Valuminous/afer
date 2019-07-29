@@ -19,20 +19,19 @@ class Animateur
     private $id;
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
+     * @Assert\NotBlank(message="Veuillez insérer un nom.")
      *
      */
     private $nomAnimateur;
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
+     * @Assert\NotBlank(message="Veuillez insérer un prénom.")
      * 
      */
     private $prenomAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
-     * 
      */
     private $raisonSocialeAnimateur;
     /**
@@ -57,12 +56,14 @@ class Animateur
     private $rueAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Regex(pattern = "/^[0-9]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
+     * @Assert\Regex(pattern = "/^[0-9-]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
+     * 
      */
     private $numeroPortableAnimateur;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Regex(pattern = "/^[0-9]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
+     * @Assert\Regex(pattern = "/^[0-9-]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
+     * 
      */
     private $numeroFixeAnimateur;
     /**

@@ -42,7 +42,7 @@ function verifAutoriteTribunal(){
                         document.querySelector('.btn-danger').href = "/admin/tribunal/autorite/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette autorité car elle est utilisée dans un tribunal";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette autorité car elle est utilisée pour un tribunal";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxAutoriteTribunal.modal('show');
                     }
@@ -84,7 +84,7 @@ function verifServiceTribunal(){
                         document.querySelector('.btn-danger').href = "/admin/tribunal/service/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce service car il est utilisé dans un tribunal";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce service car il est utilisé pour un tribunal";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxServiceTribunal.modal('show');
                     }
@@ -126,7 +126,7 @@ function verifAutoritePrefecture(){
                         document.querySelector('.btn-danger').href = "/admin/prefecture/autorite/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette autorité car elle est utilisée dans une préfecture";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette autorité car elle est utilisée pour une préfecture";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxAutoritePrefecture.modal('show');
                     }
@@ -168,7 +168,7 @@ function verifServicePrefecture(){
                         document.querySelector('.btn-danger').href = "/admin/prefecture/service/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce service car il est utilisé dans une préfecture";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce service car il est utilisé pour une préfecture";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxServicePrefecture.modal('show');
                     }
@@ -210,7 +210,7 @@ function verifFonctionAnimateur(){
                         document.querySelector('.btn-danger').href = "/admin/animateur/fonction/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette fonction car elle est utilisée dans un animateur";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer cette fonction car elle est utilisée pour un animateur";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxFonctionAnimateur.modal('show');
                     }
@@ -252,7 +252,7 @@ function verifStatutAnimateur(){
                         document.querySelector('.btn-danger').href = "/admin/animateur/statut/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce statut car il est utilisé dans un animateur";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce statut car il est utilisé pour un animateur";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxStatutAnimateur.modal('show');
                     }
@@ -294,7 +294,7 @@ function verifLieuStage(){
                         document.querySelector('.btn-danger').href = "/admin/stage/lieuStage/"+id+"/supprimer";
                         document.querySelector('.btn-danger').style.display = 'block';
                     } else {
-                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce lieu de stage car il est utilisé dans un stage";
+                        document.querySelector('.modal-body').innerHTML = "Vous ne pouvez pas supprimer ce lieu de stage car il est utilisé pour un stage";
                         document.querySelector('.btn-danger').style.display = 'none';
                         myBoxLieuStage.modal('show');
                     }

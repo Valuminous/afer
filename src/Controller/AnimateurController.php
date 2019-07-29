@@ -25,6 +25,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/admin")
@@ -352,4 +354,37 @@ class AnimateurController extends AbstractController
 
         return $response;
     }   
+
+    /**
+     * @Route("/animateur/imprimer", name="animateur_imprimer", methods={"GET"})
+     */
+    public function print(AnimateurRepository $repo)
+    {
+       
+    // Configure Dompdf according to your needs
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $animateurs = $repo->findAll();
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('animateur/pdf.html.twig', [
+        'animateurs' => $animateurs
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("animateurs.pdf", [
+        "Attachment" => false
+    ]);
+}
 }

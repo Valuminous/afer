@@ -32,6 +32,7 @@ class TribunalService
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tribunal", mappedBy="tribunalService")
+     * @Assert\NotBlank(message="Veuillez insérer le nom d'un service.")
      */
     private $relation;
 

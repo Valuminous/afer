@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Tribunal;
 use App\Entity\TribunalService;
 use App\Entity\TribunalAutorite;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 
 
 class TribunalType extends AbstractType

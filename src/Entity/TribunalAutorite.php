@@ -24,8 +24,9 @@ class TribunalAutorite
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
-     * @Assert\Length(min = 2, max = 45 , minMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 45 caractères")
+     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="Veuillez insérer le nom d'une autorité.")
+     * @Assert\Length(min = 2, max = 100 , minMessage = "La valeur insérée doit être comprise entre 2 et 100 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 100 caractères")
      * 
      */
     private $nom;

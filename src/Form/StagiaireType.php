@@ -5,14 +5,17 @@ namespace App\Form;
 use App\Entity\Stage;
 use App\Entity\Civilite;
 use App\Entity\Stagiaire;
+use App\Entity\Prefecture;
+use App\Entity\Tribunal;
+use App\Entity\NatureInfraction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 class StagiaireType extends AbstractType
 {
@@ -66,14 +69,56 @@ class StagiaireType extends AbstractType
                     ],
                 ],
             ])
-            ->add('numeroAdresseStagiaire');
-            // ->add('stages', EntityType::class, [
-            //     'class' => Stage::class,
-            //     'choice_label' => 'stage',
-               
-               
-            //    ]);
-            
+            ->add('numeroAdresseStagiaire')
+           
+            ->add('stages', EntityType::class, [
+               'class' => Stage::class,
+               'choice_label' => 'numeroStage',
+               'placeholder' => 'Choisir un ou des stages',
+               'multiple' => 'true',
+                            
+               ])
+               ->add('numeroPermis')
+               ->add('datePermis', DateType::class, [
+                'widget' => 'single_text',
+                'format'=>'yyyy-MM-dd',
+                'html5' => true,
+            ])
+            ->add('prefecture', EntityType::class, [
+                'class' => Prefecture::class,
+                'choice_label' => 'nomPrefecture',
+                'placeholder' => 'Choisir une préfecture'
+            ])  
+            ->add('lieuInfraction')   
+            ->add('dateInfraction', DateType::class, [
+                'widget' => 'single_text',
+                'format'=>'yyyy-MM-dd',
+                'html5' => true,
+            ])
+            ->add('heureInfraction', TimeType::class, [
+                'widget' => 'choice'
+                
+            ])
+
+            ->add('natureInfraction', EntityType::class, [
+                'class' => NatureInfraction::class,
+                'choice_label' => 'nomInfraction',
+                'placeholder' => 'Choisir un type d\'infraction',
+                             
+                ])
+
+                ->add('numeroParquet')
+                ->add('dateCondamnation', DateType::class, [
+                    'widget' => 'single_text',
+                    'format'=>'yyyy-MM-dd',
+                    'html5' => true,
+                ])
+                ->add('tribunal', EntityType::class, [
+                    'class' => Tribunal::class,
+                    'choice_label' => 'nomTribunal',
+                    'placeholder' => 'Choisir un tribunal'
+                ])
+               ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -82,4 +127,6 @@ class StagiaireType extends AbstractType
             'data_class' => Stagiaire::class,
         ]);
     }
+
+    
 }

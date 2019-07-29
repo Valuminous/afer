@@ -32,6 +32,7 @@ const activeLieuStage = document.querySelector('.active_lieu_stage');
 const activeTribunalList = document.querySelector('.active_tribunal_liste');
 const activeTribunalAutorite = document.querySelector('.active_tribunal_autorite');
 const activeTribunalService = document.querySelector('.active_tribunal_service');
+const activeNatureInfraction = document.querySelector('.active_nature_infraction');
 const activeAnimateurList = document.querySelector('.active_animateur_liste');
 const activeAnimateurFonction = document.querySelector('.active_animateur_fonction');
 const activeAnimateurStatut = document.querySelector('.active_animateur_statut');
@@ -190,6 +191,16 @@ function changeActiveButton(){
         activeTribunalService.style.fontWeight = 'bold';
         blueArrowValue = 1;
     }
+
+    if (pathname == '/admin/nature_infraction') {
+        blueArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu2.style.display = 'block';
+        myDropdownMenu2.style.opacity = '1';
+        activeNatureInfraction.style.color = '#4098f3';
+        activeNatureInfraction.style.fontWeight = 'bold';
+        blueArrowValue = 1;
+    }
+   
 
     if (pathname == '/admin/animateur') {
         orangeArrow.style.transform = 'rotate(90deg)';

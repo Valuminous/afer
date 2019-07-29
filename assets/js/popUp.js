@@ -260,7 +260,7 @@ function loadFormPrefectureAutorite() {
                                             option.text = resultat.value;
                                             selectPrefectureAutorite.add(option);
                                             selectPrefectureAutorite.selectedIndex = selectPrefectureAutorite.length - 1;
-                                            close3.click();
+                                            close4.click();
                                         }
                                     }).catch((error) => {
                                         console.log(error);

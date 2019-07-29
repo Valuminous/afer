@@ -17,48 +17,51 @@
                 </div>
             </div>
         </form>
-        {% if is_granted('ROLE_ADMIN') %}
+         {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('stagiaire_ajouter')}}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
         {% endif %}
     </div>
 
-    <ul class="nav nav-pills pl-0 ">
+     <ul class="nav nav-pills pl-0">
     <li class="active btn btn-details"><a class="onglet" href="{{ path('stagiaire_index')}}">Coordonnées</a></li>
    
-    <li class="btn btn-permis"><a class="onglet" href="{{ path('stagiaire_permis_index')}}">Permis</a></li>
-     <li class="btn btn-infraction"><a class="onglet" href="{{ path('stagiaire_infraction_index')}}">Infraction</a></li>
-      <li class="btn btn-condamnation"><a class="onglet" href="{{ path('stagiaire_condamnation_index')}}">Condamnation</a></li>
+    <li class="btn btn-permis"><a class="ml-1 onglet" href="{{ path('stagiaire_permis_index')}}">Permis</a></li>
+    <li class="btn btn-infraction"><a class="onglet" href="{{ path('stagiaire_infraction_index')}}">Infraction</a></li>
+    <li class="btn btn-condamnation"><a class="onglet" href="{{ path('stagiaire_condamnation_index')}}">Condamnation</a></li>
   </ul>
     <table class="table table-striped">
         <thead>
             <tr class="background_stagiaire">
                 <th scope="col" class="pl-5 text-left">Nom</th>
                 <th scope="col" class="text-left">Prénom</th>
-                <th scope="col" class="text-left">Email</th>
-                <th scope="col" class="text-left">N° de portable</th>
-                <th scope="col" class="text-left">N° fixe</th>
-                <th scope="col" class="text-left">Nbre de stages</th>
+                <th scope="col" class="text-left">N° de parquet</th>
+                <th scope="col" class="text-left">Date de condamnation</th>
+                <th scope="col" class="text-left">Tribunal</th>
                 <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
+       
             {% for stagiaire in stagiaires %}
             <tr>
                 <td class="pl-5 text-left">{{ stagiaire.nomStagiaire }}</td>
                 <td class="text-left">{{ stagiaire.prenomStagiaire }}</td>
-                <td class="text-left">{{ stagiaire.emailStagiaire }}</td>
-                <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</p>
-                <td class="text-left">{{ stagiaire.numeroFixeStagiaire}}</p>
+                 
+                <td class="text-left">{{ stagiaire.numeroParquet }}</td>
+                <td class="text-left">{{ stagiaire.dateCondamnation|localizeddate('long', 'none', 'fr') }}</p>
+              
+            
+                <td class="text-left">{{ stagiaire.tribunal}}</p>
+             
                 <td class="text-left">
                
-                 {{ stagiaire.stages|length}}
-               
+                            
                 </td>
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Voir le stagiaire" href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i
                             class="far fa-eye eye_color"></i></a>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a data-toggle="tooltip" data-placement="top" title="Modifier le stagiaire" href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}"><i
+                    <a data-toggle="tooltip" data-placement="top" title="Modifier le stagiaire" href="{{  path('stagiaire_modifier', {'id': stagiaire.id}) }}#condamnation""><i
                             class="fas fa-pen pen_color pl-2 pr-2"></i></a>
                     <a data-toggle="modal" data-target="#stagiaireDelete{{ stagiaire.id }}" data-placement="top" title="Supprimer le stagiaire"
                         href="#"><i class="far fa-trash-alt trash_color"></i></a>
@@ -91,7 +94,7 @@
             {% else %}
 
 
-            <td class="pl-5 text-center">Il n'y a aucun stagiaire</td>
+            <td class="pl-5 text-center">Il n'y a aucune condamnation</td>
             <td class="text-center">...</td>
             <td class="text-center">...</td>
             <td class="text-center">...</td>

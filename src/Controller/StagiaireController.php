@@ -6,12 +6,12 @@ use App\Entity\Stagiaire;
 use App\Form\StagiaireType;
 use App\Repository\CommuneRepository;
 use App\Repository\StagiaireRepository;
+use App\Repository\PrefectureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,14 +23,19 @@ class StagiaireController extends AbstractController
 {
     /**
      * @Route("/stagiaire", name="stagiaire_index")
+     * 
      */
-    public function index(StagiaireRepository $repo)
+    public function index(StagiaireRepository $repo, Request $request) :Response
     {
-        $stagiaires = $repo->findAll();
+       
+        $s = $request->query->get('q');
+        $stagiaires = $repo->findAllWithSearch($s);
+
 
         return $this->render('stagiaire/index.html.twig', [
             'controller_name' => 'stagiaireController',
-            'stagiaires' => $stagiaires
+            'stagiaires' => $stagiaires,
+            
         ]);
     }
     /**
@@ -74,6 +79,8 @@ class StagiaireController extends AbstractController
             'formStagiaire' => $form->createView(),
             'editMode' => $stagiaire->getId() !== null
         ]);
+        
+       
     }
     /**
      *  @Route("/stagiaire/{id}/supprimer", name="stagiaire_supprimer")
@@ -106,4 +113,58 @@ class StagiaireController extends AbstractController
 
         return $response;
     }
-}
+
+    /**
+     * 
+     * @Route("/stagiaire/permis", name="stagiaire_permis_index")
+     */
+    public function permisIndex(StagiaireRepository $repo, PrefectureRepository $prepo, Request $request) :Response
+    {
+       
+        
+        $stagiaires = $repo->findAll();
+
+
+        return $this->render('stagiaire/permis.html.twig', [
+            'controller_name' => 'stagiaireController',
+            'stagiaires' => $stagiaires,
+           
+        ]);
+    }
+
+/**
+     * 
+     * @Route("/stagiaire/infraction", name="stagiaire_infraction_index")
+     */
+    public function infractionIndex(StagiaireRepository $repo, Request $request) :Response
+    {
+       
+        
+        $stagiaires = $repo->findAll();
+
+
+        return $this->render('stagiaire/infraction.html.twig', [
+            'controller_name' => 'stagiaireController',
+            'stagiaires' => $stagiaires,
+           
+        ]);
+    }
+
+    /**
+     * 
+     * @Route("/stagiaire/condamnation", name="stagiaire_condamnation_index")
+     */
+    public function condamnationIndex(StagiaireRepository $repo, Request $request) :Response
+    {
+       
+        
+        $stagiaires = $repo->findAll();
+
+
+        return $this->render('stagiaire/condamnation.html.twig', [
+            'controller_name' => 'stagiaireController',
+            'stagiaires' => $stagiaires,
+           
+        ]);
+    }
+    }

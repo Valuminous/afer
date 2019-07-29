@@ -23,12 +23,20 @@ class LieuStageType extends AbstractType
     {
         $builder
             ->add('nom_etablissement')
-            ->add('agrement')
+            ->add('agrement', null, [
+                'required'   => false,
+                'empty_data' => 'Aucun numéro d\'agrément fourni',
+            ])
             ->add('adresse_stage')
-            ->add('numero_adresse_stage')
+            ->add('numero_adresse_stage', null, [
+                'required'   => false
+            ])
             ->add('latitude')
             ->add('longitude')
-            ->add('telephone_stage')
+            ->add('telephone_stage', null, [
+                'required'   => false,
+                'empty_data' => '-- -- -- -- --',
+            ])
             ->add('divers')
             ->add('nom_commune')
             ;      

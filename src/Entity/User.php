@@ -56,7 +56,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8", minMessage="Votre mot de passe doit contenir au minimum 8 caractères")
+     * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au minimum 8 caractères")
      * @Assert\Regex(pattern = "/\d/", match = true, message = "Le mot de passe doit contenir un chiffre")
      * @Assert\Regex(pattern = "/[^A-Za-z0-9]/", match = true, message = "Le mot de passe doit contenir un caractère spécial")
      */

@@ -25,6 +25,7 @@ class PrefectureAutorite
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank(message="Veuillez insérer un nom.")
      * @Assert\Length(min = 2, max = 45, minMessage = "La valeur inséré doit être comprise entre 2 et 45 caractères", maxMessage = "La valeur inséré doit être comprise entre 2 et 45 caractères")
      * 
      */

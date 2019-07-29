@@ -7,7 +7,7 @@
         <h2 class="ml-5 h2_stage mt-5 mb-5">Liste des stages</h2>
         <a href="{{ path('stage_ajouter')}}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
     </div>
-
+<p class="ml-5 note">* - (P) = (Psychologue), (T) = (Technicien de la route)
     <table class="table table-striped">
         <thead>
             <tr class="background_stage">
@@ -15,7 +15,8 @@
                 <th scope="col" class="text-left">Date de début</th>
                 <th scope="col" class="text-left">Date de fin</th>
                 <th scope="col" class="text-left">Lieu de stage</th>
-                <th scope="col" class="text-left">Animateurs</th>
+                <th scope="col" class="text-left">Animateurs *</th>
+                <th scope="col" class="text-left">Nbre de stagiaires</th>
                 <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
@@ -24,50 +25,63 @@
             <tr>
                 <td class="pl-5 text-left">{{ stage.numeroStage }}</td>
                 <td class="text-left">
-                    {{ stage.dated|localizeddate('long', 'none', 'fr')}} 
+                    {{ stage.dated|localizeddate('long', 'none', 'fr')}}
                 </td>
                 <td class="text-left">
-                    {{ stage.datef|localizeddate('long', 'none', 'fr')}} 
+                    {{ stage.datef|localizeddate('long', 'none', 'fr')}}
                 </td>
                 <td class="text-left">
-                   
+
                     {{ stage.lieuStage.nomEtablissement }}
-                
+
                 </td>
                 <td class="text-left">
                     {% for animateur in stage.animateurs %}
-                    {{ animateur.prenomAnimateur }} {{ animateur.nomAnimateur }}
+                    <p class="table-margin">{{ animateur.prenomAnimateur }} {{ animateur.nomAnimateur }} 
+                        {% if animateur.animateurfonction.nom == 'Psychologue' %}
+                        (P)
+                        {% else %}
+                        (T)
+                        {% endif %}</p>
                     {% endfor %}
                 </td>
+                <td class="text-left">
+                    {{ stage.stagiaires|length }}
+                </td>
                 <td class="text-center">
-                    <a data-toggle="tooltip" data-placement="top" title="Voir le stage" href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye eye_color"></i></a>
-                    <a data-toggle="tooltip" data-placement="top" title="Modifier le stage" href="{{  path('stage_modifier', {'id': stage.id}) }}"><i class="fas fa-pen pen_color pl-2 pr-2"></i></a>
-                    <a data-toggle="modal" data-placement="top" data-target="#stageDelete{{ stage.id }}" title="Supprimer le stage" href="#"><i class="far fa-trash-alt trash_color"></i></a>
-                    
+                    <a data-toggle="tooltip" data-placement="top" title="Voir le stage"
+                        href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye eye_color"></i></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Modifier le stage"
+                        href="{{  path('stage_modifier', {'id': stage.id}) }}"><i
+                            class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+                    <a data-toggle="modal" data-placement="top" data-target="#stageDelete{{ stage.id }}"
+                        title="Supprimer le stage" href="#"><i class="far fa-trash-alt trash_color"></i></a>
+
                 </td>
             </tr>
 
-                <!-- Modal -->
-                    <div class="modal fade" id="stageDelete{{ stage.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Attention !</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Vous êtes sur le point de supprimer un stage
-                                </div>
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                    <a href="{{  path('stage_supprimer', {'id': stage.id}) }}" class="btn btn-danger">Confirmer</a>
-                                </div>
-                            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="stageDelete{{ stage.id }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Attention !</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Vous êtes sur le point de supprimer un stage
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <a href="{{  path('stage_supprimer', {'id': stage.id}) }}"
+                                class="btn btn-danger">Confirmer</a>
                         </div>
                     </div>
+                </div>
+            </div>
             {% else %}
             <td class="pl-5 text-left">Il n'y a aucun stage</td>
             <td class="text-center">...</td>
