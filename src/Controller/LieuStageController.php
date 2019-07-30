@@ -109,17 +109,16 @@ class LieuStageController extends AbstractController {
     $html = $this->renderView('lieuStage/pdf.html.twig', [
         'lieuStages' => $lieuStages
     ]);
-    
     // Load HTML to Dompdf
-    
     $dompdf->loadHtml($html);
-    
-    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+     // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
     $dompdf->setPaper('A4', 'landscape');
-   
     // Render the HTML as PDF
     $dompdf->render();
-    
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Liste des lieux de stage au $date", null, 10, array(0, 0, 0));
     // Output the generated PDF to Browser (force download)
     $dompdf->stream("lieux_stage.pdf", [
         "Attachment" => false

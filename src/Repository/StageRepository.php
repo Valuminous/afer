@@ -19,6 +19,17 @@ class StageRepository extends ServiceEntityRepository
         parent::__construct($registry, Stage::class);
     }
 
+    public function findAll()
+    {
+        return $this->createQueryBuilder('s')
+            // ->andWhere('s.dated >= :now')
+            ->orderBy('s.dated', 'ASC')
+            // ->setParameter('now', new \DateTime())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function counterLieu($value)
     {
         return $this->createQueryBuilder('t')

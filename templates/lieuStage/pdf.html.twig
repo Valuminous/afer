@@ -1,14 +1,17 @@
 
-
-
 <head>
 <style>
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
+ font-size:12;
 }
-th, td {
-  padding: 10px;
+th {
+  padding: 3px;
+  text-align: center;
+}
+td {
+  padding: 3px;
   text-align: left;
 }
 table {
@@ -38,7 +41,7 @@ table {
         <thead>
             <tr class="background_stage">
                 <th scope="col" class="pl-5 text-left">Nom de l'établissement</th>
-                <th scope="col" class="text-left">Commune</th>
+                <th scope="col" class="text-left">Adresse</th>
                 <th scope="col" class="text-left">N° de téléphone</th>
                 
             </tr>
@@ -47,7 +50,10 @@ table {
             {% for lieuStage in lieuStages %}
             <tr>
                 <td class="pl-5 text-left">{{ lieuStage.nomEtablissement }}</td>
-                <td class="text-left">{{ lieuStage.nomCommune }}</td>
+                 </td>
+                <td class="text-left">   
+{{ lieuStage.numeroAdresseStage }}, {{ lieuStage.AdresseStage }}<br> {{ lieuStage.nomCommune }}<p>
+                </td>
                 <td class="text-left">{{ lieuStage.telephoneStage }}</td>
 
                 
@@ -57,15 +63,3 @@ table {
 
 </section>
 {% endblock %}
-<footer>
-            Copyright &copy; AFER 
-           <script type="text/php">
-     if ( isset($dompdf) ) {       
- $font = Font_Metrics::get_font('helvetica', 'normal');
-        $size = 9;
-        $y = $pdf->get_height() - 24;
-        $x = $pdf->get_width() - 15 - Font_Metrics::get_text_width('1/1', $font, $size);
-        $pdf->page_text($x, $y, '{PAGE_NUM}/{PAGE_COUNT}', $font, $size);
-        }
-</script> 
-        </footer>

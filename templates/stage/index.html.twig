@@ -7,16 +7,18 @@
         <h2 class="ml-5 h2_stage mt-5 mb-5">Liste des stages</h2>
         <a href="{{ path('stage_ajouter')}}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
     </div>
-<p class="ml-5 note">* - (P) = (Psychologue), (T) = (Technicien de la route)
+    <div class="text-right" >
+        <a data-toggle="tooltip" data-placement="top" title="Imprimer cette page" target="_blank" href="{{ path('stage_imprimer')}}" <i class="mr-5 fas fa-print print_icon"></i></a>
+                </div>
+<p class="ml-5 note">* - (P) = (Psychologue), (T) = (Technicien de la route)</p>
     <table class="table table-striped">
         <thead>
             <tr class="background_stage">
                 <th scope="col" class="pl-5 text-left">Numéro de stage</th>
-                <th scope="col" class="text-left">Date de début</th>
-                <th scope="col" class="text-left">Date de fin</th>
+                <th scope="col" class="text-left">Dates du stage</th>
                 <th scope="col" class="text-left">Lieu de stage</th>
                 <th scope="col" class="text-left">Animateurs *</th>
-                <th scope="col" class="text-left">Nbre de stagiaires</th>
+                <th scope="col" class="text-left">Stagiaires</th>
                 <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
@@ -24,16 +26,14 @@
             {% for stage in stages %}
             <tr>
                 <td class="pl-5 text-left">{{ stage.numeroStage }}</td>
-                <td class="text-left">
-                    {{ stage.dated|localizeddate('long', 'none', 'fr')}}
-                </td>
-                <td class="text-left">
-                    {{ stage.datef|localizeddate('long', 'none', 'fr')}}
+                <td class="table-margin">
+                 Du  {{ stage.dated|localizeddate('full', 'none', 'fr')}} </br>au {{ stage.datef|localizeddate('full', 'none', 'fr')}}     
+                                   
                 </td>
                 <td class="text-left">
 
-                    {{ stage.lieuStage.nomEtablissement }}
-
+                    {{ stage.lieuStage.nomEtablissement }}</br>
+{{ stage.lieuStage.numeroAdresseStage }}, {{ stage.lieuStage.AdresseStage }} {{ stage.lieuStage.nomCommune }}
                 </td>
                 <td class="text-left">
                     {% for animateur in stage.animateurs %}

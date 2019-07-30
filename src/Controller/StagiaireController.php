@@ -7,6 +7,7 @@ use App\Form\StagiaireType;
 use App\Repository\CommuneRepository;
 use App\Repository\StagiaireRepository;
 use App\Repository\PrefectureRepository;
+use App\Repository\LicenceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -149,8 +150,7 @@ class StagiaireController extends AbstractController
            
         ]);
     }
-
-    /**
+/**
      * 
      * @Route("/stagiaire/condamnation", name="stagiaire_condamnation_index")
      */
@@ -164,6 +164,25 @@ class StagiaireController extends AbstractController
         return $this->render('stagiaire/condamnation.html.twig', [
             'controller_name' => 'stagiaireController',
             'stagiaires' => $stagiaires,
+           
+        ]);
+    }
+    
+    /**
+     * 
+     * @Route("/stagiaire/licence", name="stagiaire_licence_index")
+     */
+    public function licenceIndex(StagiaireRepository $repo, LicenceRepository $lrepo, Request $request) :Response
+    {
+       
+        
+        $stagiaires = $repo->findAll();
+        $licence = $lrepo->findAll();
+
+        return $this->render('stagiaire/licence.html.twig', [
+            'controller_name' => 'stagiaireController',
+            'stagiaires' => $stagiaires,
+            'licence' => $licence
            
         ]);
     }

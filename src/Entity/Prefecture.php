@@ -59,12 +59,18 @@ class Prefecture
      */
     private $stagiaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Licence", mappedBy="prefecture")
+     */
+    private $licences;
+
     
 
     public function __construct()
     {
         $this->stages = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
+        $this->licences = new ArrayCollection();
         
         
     }
@@ -212,6 +218,37 @@ class Prefecture
      */
     public function __toString() {
         return $this->getNomPrefecture();
+    }
+
+    /**
+     * @return Collection|Licence[]
+     */
+    public function getLicences(): Collection
+    {
+        return $this->licences;
+    }
+
+    public function addLicence(Licence $licence): self
+    {
+        if (!$this->licences->contains($licence)) {
+            $this->licences[] = $licence;
+            $licence->setPrefecture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLicence(Licence $licence): self
+    {
+        if ($this->licences->contains($licence)) {
+            $this->licences->removeElement($licence);
+            // set the owning side to null (unless already changed)
+            if ($licence->getPrefecture() === $this) {
+                $licence->setPrefecture(null);
+            }
+        }
+
+        return $this;
     }
     
 }

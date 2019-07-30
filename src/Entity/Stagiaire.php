@@ -180,12 +180,17 @@ class Stagiaire
      */
     private $tribunal;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Licence", mappedBy="stagiaire", cascade={"persist", "remove"})
+     */
+    private $licence;
+
     
 
     public function __construct()
     {
         $this->stages = new ArrayCollection();
-        $this->infractions = new ArrayCollection();
+        
        
     }
 
@@ -419,36 +424,7 @@ class Stagiaire
     }
 
     
-    /**
-     * @return Collection|Infraction[]
-     */
-    public function getInfractions(): Collection
-    {
-        return $this->infractions;
-    }
-
-    public function addInfraction(Infraction $infraction): self
-    {
-        if (!$this->infractions->contains($infraction)) {
-            $this->infractions[] = $infraction;
-            $infraction->AddInfraction($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInfraction(Infraction $infraction): self
-    {
-        if ($this->infractions->contains($infraction)) {
-            $this->infractions->removeElement($infraction);
-            // set the owning side to null (unless already changed)
-            if ($infraction->getStagiaire() === $this) {
-                $infraction->setStagiaire(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function getNumeroPermis(): ?string
     {
@@ -569,6 +545,31 @@ class Stagiaire
 
         return $this;
     }
+
+    public function getLicence(): ?Licence
+    {
+        return $this->licence;
+    }
+
+    public function setLicence(?Licence $licence): self
+    {
+        $this->licence = $licence;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newStagiaire = $licence === null ? null : $this;
+        if ($newStagiaire !== $licence->getStagiaire()) {
+            $licence->setStagiaire($newStagiaire);
+        }
+
+        return $this;
+    }
    
+       
+ /**
+     * toString
+     */
+    public function __toString() {
+        return $this->getNomStagiaire();
+    }
 }
 

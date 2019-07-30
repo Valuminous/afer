@@ -7,6 +7,7 @@ use App\Entity\Civilite;
 use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
 use App\Entity\Tribunal;
+use App\Entity\Licence;
 use App\Entity\NatureInfraction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -117,6 +118,11 @@ class StagiaireType extends AbstractType
                     'class' => Tribunal::class,
                     'choice_label' => 'nomTribunal',
                     'placeholder' => 'Choisir un tribunal'
+                ])
+
+                ->add('licence', EntityType::class, [
+                    'class' => Licence::class,
+                    'placeholder' => 'Numéro de permis'
                 ])
                ;
     }

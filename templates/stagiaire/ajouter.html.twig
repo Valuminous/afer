@@ -5,7 +5,7 @@
 <div class="container">
 
     {{ form_start(formStagiaire) }}
-
+ {{ form_errors(formStagiaire) }}
     <div>
         {% if editMode %}
         <h2 class="mt-5 mb-5 h2_stagiaire">Modifier un stagiaire</h2>
@@ -175,7 +175,11 @@
             {{ form_row(formStagiaire.dateCondamnation, {'label': "Date de la condamnation :", 'attr': {'placeholder':
             "Date de la condamnation"}}) }}
         </div>
-      
+       <div class="row">
+     <div class="col">
+            {{ form_row(formStagiaire.licence, {'label': "Numéro de permis :", 'attr': {'placeholder':
+            "Numéro de permis"}}) }}
+        </div>
         </div>
         </div> 
 
