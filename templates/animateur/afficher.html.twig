@@ -2,68 +2,64 @@
 
 {% block body %}
 
-<div class="container-fluid">
-    <div class="container w-50 animateur_border mt-2">
-        <h2 class="text-center background_animateur pt-2 pb-2 lieustage_margin">Animateur {{animateur.nomAnimateur}}</h2>
+<div class="mt-5 container-fluid">
+ <div class="text-right" >
+        <a data-toggle="tooltip" data-placement="top" title="Imprimer cette page" target="_blank" href="{{ path('animateur_afficher_imprimer', {'id': animateur.id}) }}" <i class="mr-5 fas fa-print print_icon"></i></a>
+                </div>
+    <div class="w-100 animateur_border">
+    {% if animateur.civilite.nomCivilite == 'Madame' %} 
+        <h2 class="text-center background_animateur pt-2 pb-2 lieustage_margin">Animatrice {{animateur.prenomAnimateur}} {{animateur.nomAnimateur}}</h2>
+        {% else %}
+        <h2 class="text-center background_animateur pt-2 pb-2 lieustage_margin">Animateur {{animateur.prenomAnimateur}} {{animateur.nomAnimateur}}</h3>
+        {% endif %}
+
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <td class="font-weight-bold">Civilité :</td>
-                    <td class="text-left">{{ animateur.civilite.nomCivilite }}</td>
-                </tr>
-                <tr>
+                    <td class="text-left">
+                   {{ animateur.civilite.nomCivilite }}</td>
                     <td class="font-weight-bold">Nom :</td>
                     <td class="text-left">{{ animateur.nomAnimateur}}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">Prénom :</td>
                     <td class="text-left">{{ animateur.prenomAnimateur }}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">N° de fixe :</td>
                     <td class="text-left">{{ animateur.numeroFixeAnimateur }}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">N° de portable :</td>
                     <td class="text-left">{{ animateur.numeroPortableAnimateur }}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">Email :</td>
-                    <td class="text-left">{{ animateur.emailAnimateur }}</td>
-                </tr>
-                <tr>
+                     <td class="text-left">{{ animateur.emailAnimateur }}</td>
+                     </tr>
+                <tr>              
                     <td class="font-weight-bold">Adresse :</td>
                     <td class="text-left">{{ animateur.numeroRueAnimateur }}, {{ animateur.rueAnimateur }}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">Commune :</td>
                     <td class="text-left">{{ animateur.communeAnimateur }}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">Région :</td>
                     <td class="text-left">{{ animateur.regionAnimateur}}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Statut :</td>
                     <td class="text-left">{{ animateur.animateurStatut}}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">Fonction :</td>
+                     {% if animateur.civilite.nomCivilite == 'Madame' and animateur.animateurFonction == 'Technicien de la route'%}
+                     
+                       <td class="text-left">Technicienne de la route</td>
+                       {% else %}
+                        
                     <td class="text-left">{{ animateur.animateurFonction}}</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">Raison sociale :</td>
-                    <td class="text-left">{{ animateur.raisonSocialeAnimateur }}</td>
-                </tr>
-                <tr>
+                    {% endif %}
+                    
                     <td class="font-weight-bold">Gestion technique administrative :</td>
                     <td class="text-left">{{ animateur.gtaAnimateur ? 'Oui' : 'Non'}}</td>
                 </tr>
                 <tr>
+                    <td class="font-weight-bold">Raison sociale :</td>
+                    <td class="text-left">{{ animateur.raisonSocialeAnimateur }}</td>
                     <td class="font-weight-bold">N° URSSAF :</td>
                     <td class="text-left">{{ animateur.urssafAnimateur }}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">N° SIRET :</td>
                     <td class="text-left">{{ animateur.siretAnimateur }}</td>
                 </tr>
@@ -74,7 +70,7 @@
             </tbody>
         </table>
     </div>
-    <a href="{{ path('animateur_index') }}" class="btn retour lieustage_button mt-3 mb-5">Retour</a>
+    <a href="{{ path('animateur_index') }}" class="btn retour mt-4">Retour</a>
 </div>
 
 {% endblock %}

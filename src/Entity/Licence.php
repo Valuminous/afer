@@ -88,4 +88,12 @@ class Licence
 
         return $this;
     }
+
+      
+ /**
+     * toString
+     */
+    public function __toString() {
+        return $this->getLicenceNumber();
+    }
 }

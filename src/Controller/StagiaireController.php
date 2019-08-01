@@ -121,10 +121,8 @@ class StagiaireController extends AbstractController
      */
     public function permisIndex(StagiaireRepository $repo, PrefectureRepository $prepo, Request $request) :Response
     {
-       
-        
-        $stagiaires = $repo->findAll();
-
+        $s = $request->query->get('q');
+        $stagiaires = $repo->findAllWithSearch($s);
 
         return $this->render('stagiaire/permis.html.twig', [
             'controller_name' => 'stagiaireController',
@@ -139,10 +137,8 @@ class StagiaireController extends AbstractController
      */
     public function infractionIndex(StagiaireRepository $repo, Request $request) :Response
     {
-       
-        
-        $stagiaires = $repo->findAll();
-
+        $s = $request->query->get('q');
+        $stagiaires = $repo->findAllWithSearch($s);
 
         return $this->render('stagiaire/infraction.html.twig', [
             'controller_name' => 'stagiaireController',
@@ -156,10 +152,8 @@ class StagiaireController extends AbstractController
      */
     public function condamnationIndex(StagiaireRepository $repo, Request $request) :Response
     {
-       
-        
-        $stagiaires = $repo->findAll();
-
+        $s = $request->query->get('q');
+        $stagiaires = $repo->findAllWithSearch($s);
 
         return $this->render('stagiaire/condamnation.html.twig', [
             'controller_name' => 'stagiaireController',
@@ -174,9 +168,8 @@ class StagiaireController extends AbstractController
      */
     public function licenceIndex(StagiaireRepository $repo, LicenceRepository $lrepo, Request $request) :Response
     {
-       
-        
-        $stagiaires = $repo->findAll();
+        $s = $request->query->get('q');
+        $stagiaires = $repo->findAllWithSearch($s);
         $licence = $lrepo->findAll();
 
         return $this->render('stagiaire/licence.html.twig', [
@@ -186,4 +179,39 @@ class StagiaireController extends AbstractController
            
         ]);
     }
+
+        /**
+     * @Route("/stagiaire/imprimer", name="stagiaire_imprimer", methods={"GET"})
+     */
+    public function print(StagiaireRepository $repo)
+    {
+       
+    // Configure Dompdf according to your needs
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $stagiaires = $repo->findAll();
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf.html.twig', [
+        'stagiaires' => $stagiaires
+    ]);
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Liste des stagiaires au $date", null, 10, array(0, 0, 0));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("liste_stagiaires.pdf", [
+        "Attachment" => false
+    ]);
+}
     }

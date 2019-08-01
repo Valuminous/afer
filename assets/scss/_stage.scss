@@ -11,9 +11,7 @@
 }
 
 .lieustage_border{
-    margin-top: 10%;
-    padding: 0;
-    border: solid 1px #cdcdcd;
+       border: solid 1px #cdcdcd;
 }
 
 .lieustage_button{
@@ -48,3 +46,43 @@ table{
 .table-margin {
     margin-bottom: 0px !important;
 }
+
+.btn-stage-tous {
+    border: solid;
+    border-width: 1px;
+    border-color: rgba(255, 87, 68, 0.3);
+    background-color: rgba(255, 87, 68, 0.116);
+    margin-right: 0.5rem !important;
+    padding-bottom: 0.8rem;
+
+    &:hover{
+        background-color: rgba(255, 87, 68, 0.3);
+    }
+    &::before{
+        font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f362";
+        font-size: 1rem;
+        margin-right: 0.5rem;
+    color: #ff5744;
+    
+    }
+    }
+
+    .btn-stage-futur {
+        border: solid;
+        border-width: 1px;
+        border-color: rgba(255, 87, 68, 0.3);
+    background-color: rgba(255, 87, 68, 0.116);
+        margin-right: 0.5rem !important;
+        padding-bottom: 0.8rem;
+    
+        &:hover{
+            background-color: rgba(255, 87, 68, 0.3);
+        }
+        &::before{
+            font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f30b";
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        color: #ff5744;
+        
+        }
+        }

@@ -49,7 +49,7 @@ class StageController extends AbstractController
      */
     public function index(StageRepository $repo)
     {
-        $stages = $repo->findAll();
+        $stages = $repo->findAllToCome();
 
         return $this->render('stage/index.html.twig', [
             'controller_name' => 'StageController',
@@ -465,7 +465,7 @@ class StageController extends AbstractController
     
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
-    $stages = $repo->findAll();
+    $stages = $repo->findAllToCome();
     // Retrieve the HTML generated in our twig file
     $html = $this->renderView('stage/pdf.html.twig', [
         'stages' => $stages
@@ -479,12 +479,59 @@ class StageController extends AbstractController
     // add the header
     $canvas = $dompdf->get_canvas();
     $date = date("d-m-Y");
-    $canvas->page_text(750, 575, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-    $canvas->page_text(50, 574, "Liste des stages au $date", null, 10, array(0, 0, 0));
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Liste des stages à venir au $date", null, 10, array(0, 0, 0));
     // Output the generated PDF to Browser (force download)
-    $dompdf->stream("stages.pdf", [
+    $dompdf->stream("liste_stages.pdf", [
         "Attachment" => false
     ]);
 }
+    /**
+     * 
+     * @Route("/stage/tous", name="stage_tous")
+     */
+    public function stageTous(StageRepository $repo, Request $request) :Response
+    {
+       
+        $stages = $repo->findAll();
+
+        return $this->render('stage/tous.html.twig', [
+            'controller_name' => 'StageController',
+            'stages' => $stages
+        ]);
+    }
+
+    /**
+     * @Route("/stage/tous_imprimer", name="stage_tous_imprimer", methods={"GET"})
+     */
+    public function printAll(StageRepository $repo)
+    {
+       
+    // Configure Dompdf according to your needs
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
     
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $stages = $repo->findAll();
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stage/pdf_tous.html.twig', [
+        'stages' => $stages
+    ]);
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+    // Render the HTML as PDF
+    $dompdf->render();
+    // add the header
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Liste des stages au $date", null, 10, array(0, 0, 0));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("liste_stages_tous.pdf", [
+        "Attachment" => false
+    ]);
+}
 }

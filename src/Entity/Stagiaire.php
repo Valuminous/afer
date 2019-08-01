@@ -77,21 +77,19 @@ class Stagiaire
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
-     * @Assert\Regex(pattern = "/^[0-9]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
+     * @Assert\Regex(pattern = "/^[0-9-]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
      */
     private $numeroPortableStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(min = 2, max = 255, minMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères", maxMessage = "La valeur insérée doit être comprise entre 2 et 255 caractères")
-     * @Assert\Regex(pattern = "/^[0-9]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
+     * @Assert\Regex(pattern = "/^[0-9-]/", match = true, message = "Vous avez inséré autre chose qu'un chiffre")
      */
     private $numeroFixeStagiaire;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Email(message = "L'adresse email saisie n'est pas valide")
+     * @Assert\Email(message = "L'adresse email '{{ value }}' n'est pas valide")
      */
     private $emailStagiaire;
 

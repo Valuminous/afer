@@ -2,65 +2,69 @@
 
 {% block body %}
 
-<div class="container-fluid">
-    <div class="container w-75 stagiaire_border mt-2">
-        <h2 class="text-center background_stagiaire pt-2 pb-2 lieustage_margin">Stagiaire {{stagiaire.nomStagiaire}}</h2>
+<div class="mt-5 container-fluid">
+    <div class=" w-100 stagiaire_border">
+        <h2 class="text-center background_stagiaire pt-2 pb-2 lieustage_margin">Stagiaire
+            {{ stagiaire.prenomStagiaire }} {{stagiaire.nomStagiaire}}</h2>
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <td class="font-weight-bold">Civilité :</td>
                     <td class="text-left">{{ stagiaire.civilite.nomCivilite }}</td>
-                    <td class="font-weight-bold">Nom de naissance :</td>
-                    <td class="text-left">{{ stagiaire.nomNaissanceStagiaire }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Nom :</td>
                     <td class="text-left">{{ stagiaire.nomStagiaire }}</td>
                     <td class="font-weight-bold">Prénom :</td>
                     <td class="text-left">{{ stagiaire.prenomStagiaire }}</td>
+                    <td class="font-weight-bold">Nom de naissance :</td>
+                    <td class="text-left">{{ stagiaire.nomNaissanceStagiaire }}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Date de naissance :</td>
                     <td class="text-left">{{ stagiaire.dateNaissanceStagiaire|localizeddate('long', 'none', 'fr')}}</td>
                     <td class="font-weight-bold">Lieu de naissance :</td>
                     <td class="text-left">{{ stagiaire.lieuNaissanceStagiaire }}</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">N° de fixe :</td>
-                    <td class="text-left">{{ stagiaire.numeroFixeStagiaire }}</td>
-
-                    <td class="font-weight-bold">N° de portable :</td>
-                    <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">Email :</td>
-                    <td class="text-left">{{ stagiaire.emailStagiaire }}</td>
                     <td class="font-weight-bold">Nationalité :</td>
                     <td class="text-left">{{ stagiaire.nationaliteStagiaire }}</td>
                 </tr>
                 <tr>
+                    <td class="font-weight-bold">N° de fixe :</td>
+                    <td class="text-left">{{ stagiaire.numeroFixeStagiaire }}</td>
+                    <td class="font-weight-bold">N° de portable :</td>
+                    <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</td>
+                    <td class="font-weight-bold">Email :</td>
+                    <td class="text-left">{{ stagiaire.emailStagiaire }}</td>
+                </tr>
+                <tr>
                     <td class="font-weight-bold">Adresse :</td>
-                    <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}, {{
-                        stagiaire.communeStagiaire }}</td>
+                    <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}</td>
+                    <td class="font-weight-bold">Commune :</td>
+                    <td class="text-left">{{stagiaire.communeStagiaire }}</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Titulaire carte jeune :</td>
                     <td class="text-left">{{ stagiaire.carteJeuneStagiaire ? 'Oui' : 'Non' }}</td>
                     <td class="font-weight-bold">Partenaire :</td>
                     <td class="text-left">{{ stagiaire.partenaireStagiaire ? 'Oui' : 'Non' }}</td>
-                <tr>
                     <td class="font-weight-bold">Adhérent :</td>
                     <td class="text-left">{{ stagiaire.adherentStagiaire ? 'Oui' : 'Non' }}</td>
-  </tr>
-    <tr>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Numéro(s) de stage : </td>
                     {% for stage in stagiaire.stages %}
-
-                    <td class="font-weight-bold">Numéro de stage :</td>
-                    <td class="text-left">{{ stage.numeroStage }}</td>
+                    <td>{{ stage.numeroStage }}</td>
                     {% endfor %}
                 </tr>
-
-                  
             </tbody>
         </table>
     </div>

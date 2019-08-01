@@ -14,6 +14,7 @@
     <table class="table table-striped">
         <thead>
             <tr class="background_stage">
+             <th scope="col" class="text-left">Stagiaire</th>
                 <th scope="col" class="pl-5 text-left">Nom de l'établissement</th>
                 <th scope="col" class="text-left">Commune</th>
                 <th scope="col" class="text-left">N° de téléphone</th>
@@ -23,6 +24,7 @@
         <tbody>
             {% for licence in licence %}
             <tr>
+            <td class="pl-5 text-left">{{ licence.stagiaire.nomstagiaire }}</td>
                 <td class="pl-5 text-left">{{ licence.licencenumber }}</td>
                 <td class="text-left">{{ licence.licencedate|localizeddate('long', 'none', 'fr') }}</td>
                 <td class="text-left">{{ licence.stagiaire }}</td>

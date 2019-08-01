@@ -30,6 +30,17 @@ class StageRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllToCome()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dated >= :now')
+            ->orderBy('s.dated', 'ASC')
+            ->setParameter('now', new \DateTime())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function counterLieu($value)
     {
         return $this->createQueryBuilder('t')

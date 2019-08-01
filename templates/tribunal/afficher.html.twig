@@ -2,8 +2,8 @@
 
 {% block body %}
 
-<div class="container-fluid">
-    <div class="container w-50 tribunal_border mt-2">
+<div class="mt-5 container-fluid">
+    <div class="w-100 tribunal_border">
         <h2 class="text-center background_tribunal pt-2 pb-2 lieustage_margin">{{tribunal.nomtribunal}}</h2>
         <table class="table table-striped">
             <tbody>
@@ -14,17 +14,12 @@
                 <tr>
                     <td class="font-weight-bold">Autorité :</td>
                     <td class="text-left">{{ tribunal.tribunalAutorite }}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">Service :</td>
                     <td class="text-left">{{ tribunal.tribunalService }}</td>
                 </tr>
-    
                 <tr>
                     <td class="font-weight-bold">Adresse :</td>
                     <td class="text-left">{{ tribunal.numeroAdressetribunal }}, {{ tribunal.adressetribunal }}</td>
-                </tr>
-                <tr>
                     <td class="font-weight-bold">Commune :</td>
                     <td class="text-left">{{ tribunal.communeTribunal }}</td>
                 </tr>

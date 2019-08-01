@@ -361,4 +361,38 @@ class PrefectureController extends AbstractController
             $response = JsonResponse::fromJsonString('{"error":"exception"}');
         } 
     }   
+
+    /**
+     * @Route("/prefecture/imprimer", name="prefecture_imprimer", methods={"GET"})
+     */
+    public function print(PrefectureRepository $repo)
+    {
+       
+    // Configure Dompdf according to your needs
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $prefectures = $repo->findAll();
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('prefecture/pdf.html.twig', [
+        'prefectures' => $prefectures
+    ]);
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+    // Render the HTML as PDF
+    $dompdf->render();
+    // add the header
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Liste des prefectures au $date", null, 10, array(0, 0, 0));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("liste_prefectures.pdf", [
+        "Attachment" => false
+    ]);
+}
 }

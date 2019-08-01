@@ -72,7 +72,6 @@ class AnimateurController extends AbstractController
             // $civilite = $repoCivilite->find($animateurCivilite);
 
             if($animateur->getId() === null && $nbr === "0"){
-                $animateur->setCivilite($civilite);
                 $manager->persist($animateur);
                 $manager->flush();
             }else if($animateur->getId() !== null){
@@ -367,7 +366,7 @@ class AnimateurController extends AbstractController
     
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
-    $animateurs = $repo->findAll();
+    $animateurs = $repo->FindAll();
     // Retrieve the HTML generated in our twig file
     $html = $this->renderView('animateur/pdf.html.twig', [
         'animateurs' => $animateurs
@@ -381,9 +380,47 @@ class AnimateurController extends AbstractController
 
     // Render the HTML as PDF
     $dompdf->render();
-
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Liste des animateurs au $date", null, 10, array(0, 0, 0));
     // Output the generated PDF to Browser (force download)
-    $dompdf->stream("animateurs.pdf", [
+    $dompdf->stream("liste_animateurs.pdf", [
+        "Attachment" => false
+    ]);
+}
+
+/**
+     * @Route("/animateur/{id}/imprimer", name="animateur_afficher_imprimer")
+     */
+    public function imprimerShowOne(Animateur $animateur, Request $request)
+    {
+        $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+   $animateur ->getId();
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('animateur/pdf_show.html.twig', [
+        'animateur' => $animateur
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Détails - {$animateur} au $date", null, 10, array(0, 0, 0));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("details_animateur.pdf", [
         "Attachment" => false
     ]);
 }

@@ -30,7 +30,6 @@ class StagiaireType extends AbstractType
             ])
             ->add('nomStagiaire')
             ->add('prenomStagiaire')
-            ->add('communeStagiaire')
             ->add('nomNaissanceStagiaire')
             ->add('dateNaissanceStagiaire',BirthdayType::class, [
                 'placeholder' => [
@@ -42,10 +41,20 @@ class StagiaireType extends AbstractType
                 ])
             ->add('lieuNaissanceStagiaire')
             ->add('adresseStagiaire')
+            ->add('communeStagiaire')
             ->add('nationaliteStagiaire')
-            ->add('numeroPortableStagiaire')
-            ->add('numeroFixeStagiaire')
-            ->add('emailStagiaire')
+            ->add('numeroPortableStagiaire', null, [
+                'required'   => false,
+                'empty_data' => '-- -- -- -- --',
+            ])
+            ->add('numeroFixeStagiaire', null, [
+                'required'   => false,
+                'empty_data' => '-- -- -- -- --',
+            ])
+            ->add('emailStagiaire', null, [
+                'required'   => false,
+                
+            ])
             ->add('carteJeuneStagiaire', ChoiceType::class, [
                 'choices' => [
                     'Carte jeune' => [
@@ -120,10 +129,11 @@ class StagiaireType extends AbstractType
                     'placeholder' => 'Choisir un tribunal'
                 ])
 
-                ->add('licence', EntityType::class, [
-                    'class' => Licence::class,
-                    'placeholder' => 'Numéro de permis'
-                ])
+                // ->add('licence', EntityType::class, [
+                //     'class' => Licence::class,
+                //     'placeholder' => 'Numéro de permis'
+                // ])
+                ->add('licence')
                ;
     }
 

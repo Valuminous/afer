@@ -117,10 +117,10 @@ class LieuStageController extends AbstractController {
     $dompdf->render();
     $canvas = $dompdf->get_canvas();
     $date = date("d-m-Y");
-    $canvas->page_text(750, 575, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
     $canvas->page_text(50, 574, "Liste des lieux de stage au $date", null, 10, array(0, 0, 0));
     // Output the generated PDF to Browser (force download)
-    $dompdf->stream("lieux_stage.pdf", [
+    $dompdf->stream("liste_lieux_stage.pdf", [
         "Attachment" => false
     ]);
 }
