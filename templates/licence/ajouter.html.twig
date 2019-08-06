@@ -13,25 +13,26 @@
     </div>
 
     {{ form_start(formLicence) }}
-
+  <div class="row">
+        <div class="col">
+            {{ form_row(formLicence.stagiaire, {'label': "Numéro de permis :", 'attr': {'placeholder':
+            "Numéro de permis"}}) }}
+        </div>
+        </div>
     <div class="row">
         <div class="col">
-            {{ form_row(formLicence.licenceNumber, {'label': "Nom de l'établissement :", 'attr': {'placeholder':
-            "Nom de l'établissement"}}) }}
+            {{ form_row(formLicence.licenceNumber, {'label': "Numéro de permis :", 'attr': {'placeholder':
+            "Numéro de permis"}}) }}
         </div>
         <div class="col">
-            {{ form_row(formLicence.licenceDate, {'label': "N° d'agrément :", 'attr': {'placeholder': "N°
-            d'agrément"}})}}
+            {{ form_row(formLicence.licenceDate, {'label': "Date de délivrance du permis :", 'attr': {'placeholder': "Date de délivrance du permis"}})}}
         </div>
     </div>
 
     <div class="row">
-        <div class="col-2">
-            {{ form_row(formLicence.stagiaire, {'label': "N° de rue :", 'attr': {'placeholder': "N° de
-            rue"}}) }}
-        </div>
-        <div class="col-10">
-            {{ form_row(formLicence.prefecture, {'label': "Adresse :", 'attr': {'placeholder': "Adresse"}}) }}
+        
+        <div class="col">
+            {{ form_row(formLicence.prefecture, {'label': "Préfecture :", 'attr': {'placeholder': "Préfecture"}}) }}
         </div>
     </div>
 

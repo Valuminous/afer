@@ -36,20 +36,37 @@ class LicenceController extends AbstractController
      *  @Route("/stagiaire/licence/ajouter", name="licence_ajouter")
      *  @Route("/stagiaire/licence/{id}/modifier", name="licence_modifier")
      */
-    public function licenceForm(Licence $licence = null, Request $request, ObjectManager $manager)
+    public function licenceForm(Licence $licence = null, LicenceRepository $repoLicence, Request $request, ObjectManager $manager)
     {
-        if(!$licence){
-        $licence = new licence();
-        }
-        $form = $this->createForm(licenceType::class, $licence);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            // dump($request);
-            // die();
-            $manager->persist($licence);
-            $manager->flush();
+            if(!$licence){
+            $licence = new licence();
+            }
+            $form = $this->createForm(licenceType::class, $licence);
+            $form->handleRequest($request);
+            
+            if($form->isSubmitted() && $form->isValid()){
+
+       $licenceNumber = $licence->getLicenceNumber();
+            $licenceDate = $licence->getLicenceDate();
+            $nbrs = $repoLicence->counter($licenceNumber,$licenceDate);
+            $nbr = $nbrs[0][1];
+      
+            if($licence->getId() === null && $nbr === "0"){
+                $manager->persist($licence);
+                $manager->flush();
+            }else if($licence->getId() !== null){
+                $manager->persist($licence);
+                $manager->flush();
+            }else{
+            return $this->render('licence/ajouter.html.twig', [
+                'formLicence' => $form->createView(),
+                'editMode' => $licence->getId() !== null,
+                'error' => 'error'
+                ]);
+            }
             return $this->redirectToRoute('licence_index');
         }
+       
         return $this->render('licence/ajouter.html.twig', [
             'formLicence' => $form->createView(),
             'editMode' => $licence->getId() !== null

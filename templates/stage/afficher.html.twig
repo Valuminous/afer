@@ -219,7 +219,7 @@
    <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Stagiaires</h2>
    {% for stagiaire in stage.stagiaires %}
   
-   <a href="#vue_stagiaire" class="btn btn_stagiaire" data-toggle="collapse"> {{ stagiaire.nomStagiaire }}</a>
+   <a href="#vue_stagiaire" class="btn btn_stagiaire" data-toggle="collapse">{{ stagiaire.prenomStagiaire }} {{ stagiaire.nomStagiaire }}</a>
 
    <div id="vue_stagiaire" class="collapse info_stagiaire">
       <div class="d-flex justify-content-center">

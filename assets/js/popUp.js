@@ -9,7 +9,7 @@ const closePrefecture = document.querySelector('.closePrefecture');
 const closeStagiaire = document.querySelector('.closeStagiaire');
 const closeAnimateur = document.querySelector('.closeAnimateur');
 const closeLieuStage = document.querySelector('.closeLieuStage');
-
+const closeLicence = document.querySelector('.closeLicence');
 // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 loadFormAutoriteTribunal();
 loadFormTribunalService();
@@ -22,6 +22,7 @@ loadFormPrefecture();
 loadFormStagiaire();
 loadFormLieuStage();
 loadFormAnimateur();
+loadFormLicence();
 
 function loadFormAutoriteTribunal() {
     let autorite = document.querySelector('#addAutoriteTribunal');
@@ -522,7 +523,7 @@ function loadFormPrefecture() {
                                 data.append("prefecture_prefectureAutorite", prefectureAutorite.value);
                                 data.append("prefecture_prefectureService", prefectureService.value);
                                 data.append("prefecture__token", token.value);
-
+                              
                                 fetch("/admin/stage/loadFormPrefecture", {
                                         method: "POST",
                                         body: data,
@@ -782,6 +783,7 @@ function loadFormAnimateur() {
 
 function loadFormLieuStage() {
     let lieuStage = document.querySelector('#addLieuStage');
+ 
     if (lieuStage != null) {
         fetch("/admin/stage/loadFormLieuStage", { credentials: 'include' })
         .then((reponse) => {
@@ -810,7 +812,7 @@ function loadFormLieuStage() {
                                 let commune = document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune');
                                 let telephone = document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage');
                                 let token = document.querySelector('form[name="lieu_stage"] #lieu_stage__token');
-
+                           
                                 let data = new FormData();
                                 data.append("lieu_stage_nom_etablissement", nom.value);
                                 data.append("lieu_stage_agrement", agrement.value);
@@ -912,5 +914,79 @@ function inputCommuneLieuStage() {
                 });
             }
         });
+    }
+}
+
+function loadFormLicence() {
+    let licence = document.querySelector('#addLicence');
+ 
+    if (licence != null) {
+        fetch("/admin/stagiaire/loadFormLicence", { 
+            credentials: 'include' 
+        })
+        .then((reponse) => {
+            return reponse.text();
+           
+        })
+       
+        .then((reponse) => {
+                if (reponse.length > 0) {
+                    document.querySelector('#modalLicence .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalLicence .modal-body button');
+                      if (btn != null) {
+                        btn.addEventListener('click', function (e) {
+                            e.preventDefault();
+
+                            if (document.querySelector('form[name="licence"] #licence_licenceNumber').value.length != 0 &&
+                                 document.querySelector('form[name="licence"] #licence_licenceDate').value.length != 0 &&
+                                 document.querySelector('form[name="licence"] #licence_prefecture').value.length != "")
+                                
+                             {
+
+                                let licenceNumber = document.querySelector('form[name="licence"] #licence_licenceNumber');
+                                
+                                let licenceDate = document.querySelector('form[name="licence"] #licence_licenceDate');
+                                let prefecture = document.querySelector('form[name="licence"] #licence_prefecture');
+                                let token = document.querySelector('form[name="licence"] #licence__token');
+                               
+                                let data = new FormData();
+                                data.append("licence_licenceNumber", licenceNumber.value);
+                                data.append("licence_licenceDate", licenceDate.value);
+                                data.append("licence_prefecture", prefecture.value);
+                                data.append("licence__token", token.value);
+                                fetch("/admin/stagiaire/loadFormLicence", {
+                                        method: "POST",
+                                        body: data,
+                                        credentials: 'include'
+                                    })
+
+                                    .then((resultat) => {
+                                        return resultat.json();
+                                    })
+                                    .then((resultat) => {
+                                        if (resultat.error != null) {
+                                            document.querySelector('#errorLicence').innerHTML = "Le permis existe déjà";
+                                        } else if (resultat.value != null) {
+                                            console.log(resultat.value);
+                                            const selectLicence_list = document.querySelector('#stagiaire_licence');
+                                            let option = document.createElement("option");
+                                            option.setAttribute('value', resultat.id)
+                                            option.text = resultat.value;
+                                            selectLicence_list.add(option);
+                                            $('#stagiaire_licence').trigger("chosen:updated");
+                                            closeLicence.click();
+                                        }
+                                    }).catch((error) => {
+                                        console.log(error);
+                                    });
+                            } else {
+                                document.querySelector('#errorLicence').innerHTML = "Veuillez remplir tous les champs";
+                            }
+                        })
+                    }
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 }

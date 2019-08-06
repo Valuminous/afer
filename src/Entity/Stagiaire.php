@@ -149,12 +149,12 @@ class Stagiaire
     private $lieuInfraction;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateInfraction;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $heureInfraction;
 
@@ -179,7 +179,7 @@ class Stagiaire
     private $tribunal;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Licence", mappedBy="stagiaire", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Licence", inversedBy="stagiaire")
      */
     private $licence;
 
@@ -552,17 +552,11 @@ class Stagiaire
     public function setLicence(?Licence $licence): self
     {
         $this->licence = $licence;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newStagiaire = $licence === null ? null : $this;
-        if ($newStagiaire !== $licence->getStagiaire()) {
-            $licence->setStagiaire($newStagiaire);
-        }
+       
 
         return $this;
     }
    
-       
  /**
      * toString
      */

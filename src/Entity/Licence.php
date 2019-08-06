@@ -27,7 +27,7 @@ class Licence
     private $licenceDate;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Stagiaire", inversedBy="licence", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Stagiaire", mappedBy="licence")
      */
     private $stagiaire;
 
@@ -73,7 +73,12 @@ class Licence
     public function setStagiaire(?Stagiaire $stagiaire): self
     {
         $this->stagiaire = $stagiaire;
-
+        
+        // set (or unset) the owning side of the relation if necessary
+//$newLicence = $stagiaire === null ? null : $this;
+//if ($newLicence !== $stagiaire->getStagiaire()) {
+//$stagiaire->setStagiaire($newLicence);
+// }
         return $this;
     }
 

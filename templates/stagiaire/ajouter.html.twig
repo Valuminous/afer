@@ -5,7 +5,7 @@
 <div class="container">
 
     {{ form_start(formStagiaire) }}
- {{ form_errors(formStagiaire) }}
+
     <div>
         {% if editMode %}
         <h2 class="mt-5 mb-5 h2_stagiaire">Modifier un stagiaire</h2>
@@ -67,10 +67,7 @@
         </div>
     </div>
     <div class="row">
-        {# <div class="col">
-            {{ form_row(formStagiaire.cpStagiaire, {'label': "Code postal :", 'attr': {'placeholder': "Code postal"}}) }}
-        </div> #}
-        <div class="col">
+               <div class="col">
             {{ form_row(formStagiaire.communeStagiaire, {'label': "Commune :", 'attr': {'placeholder': "Commune"}}) }}
             <div id="selectStagiaire" class="listeHidden"></div>
         </div>
@@ -106,6 +103,7 @@
             }}
         </div>
           </div>
+          
         <div class="row">
         <div class="col">
             {{ form_row(formStagiaire.stages, {'label': "Stage :", 'attr': {'placeholder': "Stage"}}) }}
@@ -175,14 +173,22 @@
             {{ form_row(formStagiaire.dateCondamnation, {'label': "Date de la condamnation :", 'attr': {'placeholder':
             "Date de la condamnation"}}) }}
         </div>
-       <div class="row">
-     <div class="col">
-            {{ form_row(formStagiaire.licence, {'label': "Numéro de permis :", 'attr': {'placeholder':
-            "Numéro de permis"}}) }}
-        </div>
-        </div>
-        </div> 
+         </div>
 
+         <h3 id="licence">Ajouter le permis de conduire</h3>
+ <div class="row">
+ <div class="col-11">
+            {{ form_row(formStagiaire.licence, {'label': 'Permis de conduire'}) }}
+        </div>
+          <div class="col-1">
+              Ajouter le permis de conduire
+            <button type="button" id="addLicence" class="btn btn-success tribunal_add" data-toggle="modal"
+                data-target="#modalLicence">
+                +
+            </button>
+        </div>
+  </div>
+     
         {% if editMode %}
         <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
             Modifier
@@ -192,13 +198,31 @@
             Enregistrer
         </button>
         {% endif %}
+</div>
+
+       
 
 
-        {{ form_end(formStagiaire) }}
 
-
-    </div>
-
+{{ form_end(formStagiaire) }}
+<!-- Modal: modalCart -->
+<div class="modal fade" id="modalLicence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter le permis</h4>
+                <button type="button" class="closeLicence" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger text-center pb-3" id="errorLicence"></div>
+        </div>
+        <!--Body-->
+      </div> 
+  </div>
     {% endblock %}
 
     {% block javascripts %}

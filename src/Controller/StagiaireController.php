@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Stagiaire;
 use App\Form\StagiaireType;
+use App\Entity\Licence;
+use App\Form\LicenceType;
 use App\Repository\CommuneRepository;
 use App\Repository\StagiaireRepository;
 use App\Repository\PrefectureRepository;
@@ -16,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  * @Route("/admin")
@@ -53,7 +56,8 @@ class StagiaireController extends AbstractController
            $form->handleRequest($request);
    
            if($form->isSubmitted() && $form->isValid()){
-   
+     // dump($request);
+            // die();
             $stagiaireNom = $stagiaire->getNomStagiaire();
             $stagiairePrenom = $stagiaire->getPrenomStagiaire();
             $stagiaireDateNaissance = $stagiaire->getDateNaissanceStagiaire();
@@ -83,6 +87,7 @@ class StagiaireController extends AbstractController
         
        
     }
+    
     /**
      *  @Route("/stagiaire/{id}/supprimer", name="stagiaire_supprimer")
      *  @IsGranted("ROLE_ADMIN")
@@ -214,4 +219,56 @@ class StagiaireController extends AbstractController
         "Attachment" => false
     ]);
 }
+
+    /**
+    *  @Route("/stagiaire/loadFormLicence", name="stagiaire_licence")
+    */
+    public function popLicence(Licence $licence = null, LicenceRepository $repoLicence, PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager)
+    {
+        if(!$licence){
+            $licence = new Licence();
+        }
+
+        $form = $this->createForm( LicenceType::class, $licence, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+            
+            $licenceNumber = $request->request->get('licence_licenceNumber');
+            $licenceDate = $request->request->get('licence_licenceDate');
+            $prefecture = $request->request->get('licence_prefecture');
+           
+            $year = substr($licenceDate, 0, 10);
+            $date = (\DateTime::createFromFormat('Y-m-d', $year));
+
+            $prefecture = $repoPrefecture->find($prefecture);
+
+            $nbrs = $repoLicence->counter($licenceNumber,$year);
+            $nbr = $nbrs[0][1];
+    
+            if(strlen($licenceNumber) > 0 && strlen($licenceDate) != "" && strlen($prefecture) != "0" && $nbr === "0"){
+
+                $licence->setLicenceNumber($licenceNumber);
+                $licence->setLicenceDate($date);
+                $licence->setPrefecture($prefecture);
+              
+                $manager->persist($licence);
+                
+                $manager->flush();
+
+                $response = new Response();
+                
+                $response = JsonResponse::fromJsonString('{"id":'.$licence->getId().', "value":"'.$licence->getLicenceNumber().'"}');
+               
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+            
+        }  
+        return $this->render('stagiaire/popLicence.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
     }

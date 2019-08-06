@@ -70,7 +70,9 @@ class StageType extends AbstractType
             ])
             ->add('stagiaires', EntityType::class, [
                 'class' => Stagiaire::class,
-                'choice_label' => 'nomStagiaire',
+                'choice_label' => function (Stagiaire $stagiaire) {
+                    return $stagiaire->getPrenomStagiaire() . ' ' . $stagiaire->getNomStagiaire();
+                },
                 'placeholder' => 'Choisir un ou des stagiaires',
                 'multiple' => 'true',
                 'attr' => array('class' => 'stagiaire-select'),

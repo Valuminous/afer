@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Licence;
+use App\Entity\Stagiaire;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,8 +21,14 @@ class LicenceType extends AbstractType
                 'format'=>'yyyy-MM-dd',
                 'html5' => true,
             ])
-            ->add('stagiaire')
-            ->add('prefecture')
+            ->add('prefecture')  
+            ->add('stagiaire', EntityType::class, [
+                'class' => Stagiaire::class,
+                'choice_label' => function (Stagiaire $stagiaire) {
+                    return $stagiaire->getPrenomStagiaire() . ' ' . $stagiaire->getNomStagiaire();
+                },
+                'placeholder' => 'Choisir un ou des stagiaires'
+                ])  
         ;
     }
 

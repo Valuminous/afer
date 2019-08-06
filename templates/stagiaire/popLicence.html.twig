@@ -1,0 +1,41 @@
+{# {{ form_start(form) }}
+{{ form_row(form.licenceNumber) }}
+
+<button class="btn btn-success" type="submit">Ajouter le permis</button>
+
+    {% if error is defined %}
+        <p class="text-danger text-error-identifiant pt-3 envoi">Veuillez renseigner tous les champs!</p>
+    {% endif %}
+    
+{{ form_end(form) }}#}
+
+<div class="container">
+
+    
+
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.licenceNumber, {'label': "Numéro de permis :", 'attr': {'placeholder':
+            "Numéro de permis"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.licenceDate, {'label': "Date de délivrance du permis :", 'attr': {'placeholder': "Date de délivrance du permis"}})}}
+        </div>
+    </div>
+
+        <div class="col-10">
+            {{ form_row(form.prefecture, {'label': "Préfecture :", 'attr': {'placeholder': "Préfecture"}}) }}
+        </div> 
+    </div>
+
+   
+   
+   <button type="submit" class="btn btn-primary">Ajouter le permis de conduire</button>
+  
+
+
+    {{ form_end(form) }}
+</div> 
+

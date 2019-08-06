@@ -22,6 +22,20 @@ class LicenceRepository extends ServiceEntityRepository
     // /**
     //  * @return Licence[] Returns an array of Licence objects
     //  */
+    
+
+    public function counter($value1,$value2)
+    {
+        return $this->createQueryBuilder('l')
+            ->select('count(l.id)')
+            ->andWhere('l.licenceNumber = :val1')
+            ->andWhere('l.licenceDate = :val2')
+            ->setParameter('val1', $value1)
+            ->setParameter('val2', $value2)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     /*
     public function findByExampleField($value)
     {

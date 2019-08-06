@@ -15,19 +15,19 @@
         <thead>
             <tr class="background_stage">
              <th scope="col" class="text-left">Stagiaire</th>
-                <th scope="col" class="pl-5 text-left">Nom de l'établissement</th>
-                <th scope="col" class="text-left">Commune</th>
-                <th scope="col" class="text-left">N° de téléphone</th>
+                <th scope="col" class="pl-5 text-left">Numéro de permis</th>
+                <th scope="col" class="text-left">Date de délivrance</th>
+                <th scope="col" class="text-left">Préfecture</th>
                 <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>
         <tbody>
             {% for licence in licence %}
             <tr>
-            <td class="pl-5 text-left">{{ licence.stagiaire.nomstagiaire }}</td>
-                <td class="pl-5 text-left">{{ licence.licencenumber }}</td>
-                <td class="text-left">{{ licence.licencedate|localizeddate('long', 'none', 'fr') }}</td>
-                <td class="text-left">{{ licence.stagiaire }}</td>
+            <td class="pl-5 text-left">{{ licence.stagiaire }}</td>
+                <td class="pl-5 text-left">{{ licence.licenceNumber }}</td>
+                <td class="text-left">{{ licence.licenceDate|localizeddate('long', 'none', 'fr') }}</td>
+                <td class="text-left">{{ licence.prefecture }}</td>
 
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Voir le permis" href="{{  path('licence_afficher', {'id': licence.id}) }}"><i
