@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Stagiaire;
+use App\Entity\Avantage;
 use App\Form\StagiaireType;
 use App\Entity\Licence;
 use App\Form\LicenceType;
+use App\Form\AvantageType;
 use App\Repository\CommuneRepository;
 use App\Repository\StagiaireRepository;
 use App\Repository\PrefectureRepository;
 use App\Repository\LicenceRepository;
+use App\Repository\AvantageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +21,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/admin")
@@ -271,4 +275,112 @@ class StagiaireController extends AbstractController
             ['form' => $form->createView()
             ]);
     }
+
+
+    /**
+     * @Route("/stagiaire/avantage", name="avantage_index")
+     */
+    public function avantageIndex(AvantageRepository $arepo)
+    {
+        $avantage = $arepo->findAll();
+        return $this->render('stagiaire/avantage/index.html.twig', [
+            'avantage' => $avantage,
+        ]);
+    }
+
+     /**
+     *  @Route("/stage/avantage/ajouter", name="avantage_ajouter")
+     *  @Route("/stage/avantage/{id}/modifier", name="avantage_modifier")
+     */
+    public function avantageForm(Avantage $avantage = null, Request $request, ObjectManager $manager)
+    {
+        if(!$avantage){
+        $avantage = new avantage();
+        }
+        $form = $this->createForm(AvantageType::class, $avantage);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+        
+            $manager->persist($avantage);
+            $manager->flush();
+            return $this->redirectToRoute('avantage_index');
+        }
+        return $this->render('stagiaire/avantage/ajouter.html.twig', [
+            'formAvantage' => $form->createView(),
+            'editMode' => $avantage->getId() !== null
+        ]);
+    }
+
+    /**
+     * @Route("/stagiaire/{id}/imprimer", name="stagiaire_afficher_imprimer")
+     */
+    public function imprimerShowOne(stagiaire $stagiaire, Request $request)
+    {
+        $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+   $stagiaire ->getId();
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf_show.html.twig', [
+        'stagiaire' => $stagiaire
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Détails - {$stagiaire} au $date", null, 10, array(0, 0, 0));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("details_{$stagiaire}.pdf", [
+        "Attachment" => false
+    ]);
+}
+
+/**
+     * @Route("/stagiaire/{id}/facture", name="stagiaire_facture")
+     */
+    public function facture(stagiaire $stagiaire, Request $request)
+    {
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+   $stagiaire ->getId();
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf_facture.html.twig', [
+        'stagiaire' => $stagiaire
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(450, 80, "Besançon, le $date", null, 10, array(0, 0, 0));
+    $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(0, 0, 0));
+    $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(0, 0, 10));
+    $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(0, 0, 0));
+    $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(0, 0, 10));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("facture_{$stagiaire}.pdf", [
+        "Attachment" => false
+    ]);
+}
     }

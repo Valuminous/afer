@@ -90,7 +90,7 @@
 
     <h3>Avantages</h3>
     <div class="row">
-        <div class="col">
+        {# <div class="col">
             {{ form_row(formStagiaire.carteJeuneStagiaire, {'label': "Carte jeune stagiaire :", 'attr': {'placeholder': "Carte jeune stagiaire"}})
             }}
         </div>
@@ -101,8 +101,18 @@
         <div class="col">
             {{ form_row(formStagiaire.adherentStagiaire, {'label': "Stagiaire adhérent :", 'attr': {'placeholder': "Stagiaire adhérent"}})
             }}
-        </div>
+        </div> #}
           </div>
+          <div class="row">
+        <div class="col">
+            {{ form_row(formStagiaire.avantage, {'label': "Avantage :", 'attr': {'placeholder': "Avantage"}})
+            }}
+        </div></div>
+        {# <div class="row">
+        <div class="col">
+            {{ form_row(formStagiaire.avantages, {'label': "Avantages :", 'attr': {'placeholder': "Avantages"}})
+            }}
+        </div></div> #}
           
         <div class="row">
         <div class="col">
@@ -127,6 +137,16 @@
         </div> 
 
     </div>
+     <h3 id="typeStage">Type de stage</h3>
+            
+
+     <div class="row">
+             <div class="col">
+            {{ form_row(formStagiaire.cas, {'label': "Stage :", 'attr': {'placeholder':
+            "Stage"}}) }}
+        </div>
+        
+        </div>
 
     
         <h3 id="infraction">Infractions</h3>

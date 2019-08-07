@@ -1,0 +1,159 @@
+<head>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            font-size: 20px;
+            text-align: right;
+            width: auto;
+        }
+
+        table {
+            margin-left: 10px;
+            width: 90%;
+        }
+
+        img {
+            height: 100px;
+            border-collapse: collapse;
+            padding-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 30px;
+        }
+
+        p {
+            padding: 10px;
+            text-align: left;
+            font-size: 18px;
+        }
+    </style>
+</head>
+{% block body %}
+<img src="./build/static/logo.png" alt="Logo AFER">
+<hr>
+<h3 align="center">FACTURE N° [ 000/2019 ] </h3>
+
+<p>
+    {{ stagiaire.civilite.nomCivilite }} {{stagiaire.prenomStagiaire}} {{stagiaire.nomStagiaire}}<br>
+    {{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}<br>
+    {{ stagiaire.communeStagiaire }}</p>
+
+<p>Stage Sécurité Routière -
+    {% for stage in stagiaire.stages%}
+    Du {{ stage.dated|localizeddate('full', 'none', 'fr')}} au {{ stage.datef|localizeddate('full', 'none', 'fr')}}
+    {% endfor %}</p>
+
+<p>Avantages :
+    {{ stagiaire.avantage.avantage}}</p>
+
+{% if stagiaire.avantage.avantage == 'Aucun' %}
+
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            {% for cas in stagiaire.cas %}
+            <td align="left">{{ cas.numeroCas}} </td>
+            <td align="left">{{ cas.intituleCas}}</td>
+        </tr>>
+        <tr>
+            <td>Montant HT :</td>
+            <td>{{ cas.tarifs.montantHt|localizedcurrency('EUR')}}</td>
+
+        </tr>>
+        <tr>
+            <td>TVA :</td>
+            <td>{{ cas.tarifs.tva|localizedcurrency('EUR')}}</td>
+
+        </tr>>
+        <tr>
+            <td>Montant TTC :</td>
+            <td>{{ cas.tarifs.montantTtc|localizedcurrency('EUR')}}</td>
+            </td>
+
+        </tr>>
+    </tbody>
+</table>
+{% endfor %}
+{% endif %}
+
+{% if stagiaire.avantage.avantage == 'Carte Avantages Jeune' %}
+
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            {% for cas in stagiaire.cas %}
+            <td align="left">{{ cas.numeroCas}} </td>
+            <td align="left">{{ cas.intituleCas}}</td>
+        </tr>>
+        <tr>
+            <td class="font-weight-bold">Montant HT :</td>
+            <td class="text-right">
+                {{ "%cas.tarifs.montantHt%"|replace({'%cas.tarifs.montantHt%': '160'|localizedcurrency('EUR') }) }}
+            </td>
+
+        </tr>>
+        <tr>
+            <td class="font-weight-bold">TVA :</td>
+            <td class="text-right">
+                {{ "%cas.tarifs.tva%"|replace({'%cas.tarifs.tva%': '40'|localizedcurrency('EUR') }) }}</td>
+
+        </tr>>
+        <tr>
+            <td class="font-weight-bold">Montant TTC :</td>
+            <td class="text-right">
+                {{ "%cas.tarifs.montantTtc%"|replace({'%cas.tarifs.montantTtc%': '200'|localizedcurrency('EUR') }) }}
+            </td>
+            </td>
+
+        </tr>>
+    </tbody>
+</table>{% endfor %}
+{% endif %}
+
+{% if stagiaire.avantage.avantage == 'Partenaire' or stagiaire.avantage.avantage == 'Adhérent'%}
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            {% for cas in stagiaire.cas %}
+            <td align="left">{{ cas.numeroCas}} </td>
+            <td align="left">{{ cas.intituleCas}}</td>
+        </tr>>
+        <tr>
+            <td class="font-weight-bold">Montant HT :</td>
+            <td class="text-right">
+                {{ "%cas.tarifs.montantHt%"|replace({'%cas.tarifs.montantHt%': '144'|localizedcurrency('EUR') }) }}
+            </td>
+
+        </tr>>
+        <tr>
+            <td class="font-weight-bold">TVA :</td>
+            <td class="text-right">
+                {{ "%cas.tarifs.tva%"|replace({'%cas.tarifs.tva%': '36'|localizedcurrency('EUR') }) }}
+            </td>
+
+        </tr>>
+        <tr>
+            <td class="font-weight-bold">Montant TTC :</td>
+            <td class="text-right">
+                {{ "%cas.tarifs.montantTtc%"|replace({'%cas.tarifs.montantTtc%': '180'|localizedcurrency('EUR') }) }}
+            </td>
+            </td>
+
+        </tr>>
+    </tbody>
+</table>{% endfor %}
+{% endif %}
+
+{% endblock %}

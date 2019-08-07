@@ -299,6 +299,6 @@ class Animateur
      * toString
      */
     public function __toString() {
-        return $this->getNomAnimateur();
+        return $this->getPrenomAnimateur() . ' ' . $this->getNomAnimateur();
     }
 }

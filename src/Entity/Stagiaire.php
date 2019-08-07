@@ -93,22 +93,7 @@ class Stagiaire
      */
     private $emailStagiaire;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $carteJeuneStagiaire;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $partenaireStagiaire;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $adherentStagiaire;
-
-    /**
+      /**
      * @ORM\Column(type="string", length=25)
      */
     private $numeroAdresseStagiaire;
@@ -183,11 +168,22 @@ class Stagiaire
      */
     private $licence;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avantage", inversedBy="stagiaires")
+     */
+    private $avantage;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Cas", inversedBy="stagiaires")
+     */
+    private $cas;
+
     
 
     public function __construct()
     {
         $this->stages = new ArrayCollection();
+        $this->cas = new ArrayCollection();
         
        
     }
@@ -329,41 +325,6 @@ class Stagiaire
         return $this;
     }
 
-    public function getCarteJeuneStagiaire(): ?bool
-    {
-        return $this->carteJeuneStagiaire;
-    }
-
-    public function setCarteJeuneStagiaire(bool $carteJeuneStagiaire): self
-    {
-        $this->carteJeuneStagiaire = $carteJeuneStagiaire;
-
-        return $this;
-    }
-
-    public function getPartenaireStagiaire(): ?bool
-    {
-        return $this->partenaireStagiaire;
-    }
-
-    public function setPartenaireStagiaire(bool $partenaireStagiaire): self
-    {
-        $this->partenaireStagiaire = $partenaireStagiaire;
-
-        return $this;
-    }
-
-    public function getAdherentStagiaire(): ?bool
-    {
-        return $this->adherentStagiaire;
-    }
-
-    public function setAdherentStagiaire(bool $adherentStagiaire): self
-    {
-        $this->adherentStagiaire = $adherentStagiaire;
-
-        return $this;
-    }
 
     public function getNumeroAdresseStagiaire(): ?string
     {
@@ -561,7 +522,45 @@ class Stagiaire
      * toString
      */
     public function __toString() {
-        return $this->getNomStagiaire();
+        return $this->getPrenomStagiaire() . ' ' . $this->getNomStagiaire();
+    }
+
+    public function getAvantage(): ?Avantage
+    {
+        return $this->avantage;
+    }
+
+    public function setAvantage(?Avantage $avantage): self
+    {
+        $this->avantage = $avantage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cas[]
+     */
+    public function getCas(): Collection
+    {
+        return $this->cas;
+    }
+
+    public function addCa(Cas $ca): self
+    {
+        if (!$this->cas->contains($ca)) {
+            $this->cas[] = $ca;
+        }
+
+        return $this;
+    }
+
+    public function removeCa(Cas $ca): self
+    {
+        if ($this->cas->contains($ca)) {
+            $this->cas->removeElement($ca);
+        }
+
+        return $this;
     }
 }
 

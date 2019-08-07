@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Cas
      * @ORM\ManyToOne(targetEntity="App\Entity\Tarif", inversedBy="cas")
      */
     private $tarifs;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Stagiaire", mappedBy="cas")
+     */
+    private $stagiaires;
+
+    public function __construct()
+    {
+        $this->stagiaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,5 +82,41 @@ class Cas
         $this->tarifs = $tarifs;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Stagiaire[]
+     */
+    public function getStagiaires(): Collection
+    {
+        return $this->stagiaires;
+    }
+
+    public function addStagiaire(Stagiaire $stagiaire): self
+    {
+        if (!$this->stagiaires->contains($stagiaire)) {
+            $this->stagiaires[] = $stagiaire;
+            $stagiaire->addCa($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStagiaire(Stagiaire $stagiaire): self
+    {
+        if ($this->stagiaires->contains($stagiaire)) {
+            $this->stagiaires->removeElement($stagiaire);
+            $stagiaire->removeCa($this);
+        }
+
+        return $this;
+    }
+
+       
+ /**
+     * toString
+     */
+    public function __toString() {
+        return $this->getNumeroCas();
     }
 }

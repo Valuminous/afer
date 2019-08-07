@@ -8,6 +8,8 @@ use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
 use App\Entity\Tribunal;
 use App\Entity\Licence;
+use App\Entity\Avantage;
+use App\Entity\Cas;
 use App\Entity\NatureInfraction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -55,30 +57,7 @@ class StagiaireType extends AbstractType
                 'required'   => false,
                 
             ])
-            ->add('carteJeuneStagiaire', ChoiceType::class, [
-                'choices' => [
-                    'Carte jeune' => [
-                        'Non' => false,
-                        'Oui' => true,
-                    ],
-                ],
-            ])
-            ->add('partenaireStagiaire', ChoiceType::class, [
-                'choices' => [
-                    'Partenaire' => [
-                        'Non' => false,
-                        'Oui' => true,
-                    ],
-                ],
-            ])
-            ->add('adherentStagiaire', ChoiceType::class, [
-                'choices' => [
-                    'Adherent' => [
-                        'Non' => false,
-                        'Oui' => true,
-                    ],
-                ],
-            ])
+            
             ->add('numeroAdresseStagiaire')
            
             ->add('stages', EntityType::class, [
@@ -149,6 +128,27 @@ class StagiaireType extends AbstractType
                  'required'   => false,
                 ])
                
+                ->add('avantage',EntityType::class, [
+                    'class' => Avantage::class,
+                    'choice_label' => 'avantage',
+                   'placeholder' => 'Avantages',
+
+                   'expanded' => 'true'
+                    
+                  
+                ])
+                ->add('cas',EntityType::class, [
+                    'class' => Cas::class,
+                    'choice_label' => 'numeroCas',
+                   'placeholder' => 'Cas',
+                   'expanded' => 'true',
+                   'multiple' => 'true'
+                    
+                  
+                ])
+
+               
+                
                ;
     }
 
