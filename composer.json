@@ -12,6 +12,7 @@
         "eternicode/bootstrap-datepicker": "^1.8",
         "fzaninotto/faker": "^1.8",
         "harvesthq/chosen": "^1.8",
+        "knplabs/knp-paginator-bundle": "^4.0",
         "pugx/autocompleter-bundle": "^1.4",
         "select2/select2": "^4.0",
         "sensio/framework-extra-bundle": "^5.2",

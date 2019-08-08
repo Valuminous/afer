@@ -32,9 +32,10 @@ class StagiaireRepository extends ServiceEntityRepository
                 ->setParameter('term', '%' . $term . '%');
         }
         return $qb
+        ->orderBy('q.prenomStagiaire', 'ASC')
             ->orderBy('q.nomStagiaire', 'ASC')
             ->getQuery()
-            ->getResult()
+            // ->getResult()
         ;
     }
 

@@ -2,42 +2,44 @@
 
 namespace App\Controller;
 
-use DateTime;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Stage;
 use App\Form\StageType;
 use App\Entity\Tribunal;
 use App\Entity\Animateur;
+use App\Entity\LieuStage;
 use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
 use App\Form\TribunalType;
 use App\Form\AnimateurType;
+use App\Form\LieuStageType;
 use App\Form\StagiaireType;
 use App\Form\PrefectureType;
 use App\Repository\StageRepository;
-use App\Repository\TribunalRepository;
-use App\Repository\PrefectureRepository;
-use App\Repository\AnimateurRepository;
-use App\Repository\StagiaireRepository;
 use App\Repository\CiviliteRepository;
+use App\Repository\TribunalRepository;
+use App\Repository\AnimateurRepository;
+use App\Repository\LieuStageRepository;
+use App\Repository\StagiaireRepository;
+use App\Repository\PrefectureRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\AnimateurStatutRepository;
-use App\Repository\AnimateurFonctionRepository;
-use App\Repository\TribunalAutoriteRepository;
 use App\Repository\TribunalServiceRepository;
-use App\Repository\PrefectureAutoriteRepository;
-use App\Repository\PrefectureServiceRepository;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\TribunalAutoriteRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\AnimateurFonctionRepository;
+use App\Repository\PrefectureServiceRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\PrefectureAutoriteRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\LieuStage;
-use App\Form\LieuStageType;
-use App\Repository\LieuStageRepository;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+
 /**
  * @Route("/admin")
  * @IsGranted("ROLE_ADMIN")
@@ -47,12 +49,45 @@ class StageController extends AbstractController
     /**
      * @Route("/stage", name="stage_index")
      */
-    public function index(StageRepository $repo)
+    public function index(StageRepository $repo, PaginatorInterface $paginator, Request $request) 
     {
-        $stages = $repo->findAllToCome();
+        $allStages = $repo->findAllToCome();
 
+        $stages = $paginator->paginate(
+            $allStages,
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+        $stages ->setCustomParameters([
+            'position' => 'centered',
+            'size' => 'small',
+            'rounded' => true,
+        ]);
         return $this->render('stage/index.html.twig', [
-            'controller_name' => 'StageController',
+                       'stages' => $stages
+        ]);
+    }
+    /**
+     * 
+     * @Route("/stage/tous", name="stage_tous")
+     * 
+     */
+    public function stageTous(StageRepository $repo, PaginatorInterface $paginator, Request $request) 
+    {
+        $allStagesQuery = $repo->findAllQuery();
+        
+
+        $stages = $paginator->paginate(
+            $allStagesQuery,
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+        $stages ->setCustomParameters([
+            'position' => 'centered',
+            'size' => 'small',
+            'rounded' => true,
+        ]);
+        return $this->render('stage/tous.html.twig', [   
             'stages' => $stages
         ]);
     }
@@ -486,20 +521,7 @@ class StageController extends AbstractController
         "Attachment" => false
     ]);
 }
-    /**
-     * 
-     * @Route("/stage/tous", name="stage_tous")
-     */
-    public function stageTous(StageRepository $repo, Request $request) :Response
-    {
-       
-        $stages = $repo->findAll();
-
-        return $this->render('stage/tous.html.twig', [
-            'controller_name' => 'StageController',
-            'stages' => $stages
-        ]);
-    }
+    
 
     /**
      * @Route("/stage/tous_imprimer", name="stage_tous_imprimer", methods={"GET"})

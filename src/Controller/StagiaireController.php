@@ -23,7 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/admin")
  */
@@ -33,17 +33,41 @@ class StagiaireController extends AbstractController
      * @Route("/stagiaire", name="stagiaire_index")
      * 
      */
-    public function index(StagiaireRepository $repo, Request $request) :Response
+    // public function index(StagiaireRepository $repo, Request $request) :Response
+    // {
+       
+    //     $s = $request->query->get('q');
+    //     $allstagiaires = $repo->findAllWithSearch($s);
+
+
+    //     return $this->render('stagiaire/index.html.twig', [
+    //         'controller_name' => 'stagiaireController',
+    //         'stagiaires' => $stagiaires,
+            
+    //     ]);
+    // }
+    public function index(StagiaireRepository $repo, PaginatorInterface $paginator, Request $request) 
     {
        
         $s = $request->query->get('q');
-        $stagiaires = $repo->findAllWithSearch($s);
+        $allstagiaires = $repo->findAllWithSearch($s);
+          
 
-
+        $stagiaires = $paginator->paginate(
+            $allstagiaires,
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+    
+        $stagiaires ->setCustomParameters([
+            'position' => 'centered',
+            'size' => 'small',
+            'rounded' => true,
+        ]);
+       
         return $this->render('stagiaire/index.html.twig', [
-            'controller_name' => 'stagiaireController',
+           
             'stagiaires' => $stagiaires,
-            
         ]);
     }
     /**

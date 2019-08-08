@@ -50,7 +50,7 @@
 <p>Stage Sécurité Routière -
     {% for stage in stagiaire.stages%}
     Du {{ stage.dated|localizeddate('full', 'none', 'fr')}} au {{ stage.datef|localizeddate('full', 'none', 'fr')}}
-    {% endfor %}</p>
+   
 
 <p>Avantages :
     {{ stagiaire.avantage.avantage}}</p>
@@ -155,5 +155,5 @@
     </tbody>
 </table>{% endfor %}
 {% endif %}
-
+ {% endfor %}</p>
 {% endblock %}

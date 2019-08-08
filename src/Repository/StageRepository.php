@@ -19,14 +19,30 @@ class StageRepository extends ServiceEntityRepository
         parent::__construct($registry, Stage::class);
     }
 
-    public function findAll()
+    // public function findAll()
+    // {
+    //     return $this->createQueryBuilder('s')
+    //         // ->andWhere('s.dated >= :now')
+    //         ->orderBy('s.numerostage', 'ASC')
+    //         ->orderBy('s.dated', 'ASC')
+    //         // ->setParameter('now', new \DateTime())
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+/**
+ * 
+ */
+    public function findAllQuery()
     {
         return $this->createQueryBuilder('s')
-            // ->andWhere('s.dated >= :now')
-            ->orderBy('s.dated', 'ASC')
-            // ->setParameter('now', new \DateTime())
-            ->getQuery()
-            ->getResult()
+        // ->andWhere('s.dated >= :now')
+        ->orderBy('s.numeroStage', 'ASC')
+        ->orderBy('s.dated', 'ASC')
+        
+        // ->setParameter('now', new \DateTime())
+        ->getQuery()
+            
         ;
     }
 
@@ -37,7 +53,7 @@ class StageRepository extends ServiceEntityRepository
             ->orderBy('s.dated', 'ASC')
             ->setParameter('now', new \DateTime())
             ->getQuery()
-            ->getResult()
+            
         ;
     }
 

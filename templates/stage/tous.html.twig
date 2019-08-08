@@ -3,8 +3,9 @@
 {% block body %}
 
 <section class="stage">
+
     <div class=" mb-3 d-flex justify-content-between align-items-end">
-        <h2 class="ml-5 h2_stage mt-5">Liste des stages</h2>
+        <h2 class="ml-5 h2_stage mt-5">Liste de tous les stages - Total de {{ stages.getTotalItemCount }}</h2>
         <a href="{{ path('stage_ajouter')}}" class="btn mr-5 add_icon d-flex align-items-center">Ajouter</a>
     </div>
     <ul class="nav nav-pills pl-0 d-flex justify-content-between align-items-center">
@@ -21,8 +22,9 @@
     <table class="table table-striped">
         <thead>
             <tr class="background_stage">
-                <th scope="col" class="pl-5 text-left">Numéro de stage</th>
-                <th scope="col" class="text-left">Dates du stage</th>
+           
+                <th scope="col" class="pl-5 text-left"{{ knp_pagination_sortable(stages, 'Numéro de stage', 's.numeroStage') }}</th>
+                <th scope="col" class="text-left">{{ knp_pagination_sortable(stages, 'Dates du stage', 's.dated') }}</th>
                 <th scope="col" class="text-left">Lieu de stage</th>
                 <th scope="col" class="text-left" data-toggle="tooltip" data-placement="top"
                     title="(P) = (Psychologue), (T) = (Technicien de la route)">Animateurs *</th>
@@ -101,6 +103,10 @@
             {% endfor %}
         </tbody>
     </table>
-
+<div>
+<div class="d-flex justify-content-center pagination">
+ {{ knp_pagination_render(stages) }}</div>
+ </div>
 </section>
+
 {% endblock %}

@@ -51,14 +51,14 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr>
+                {# <tr>
                     <td class="font-weight-bold">Titulaire carte jeune :</td>
                     <td class="text-left">{{ stagiaire.carteJeuneStagiaire ? 'Oui' : 'Non' }}</td>
                     <td class="font-weight-bold">Partenaire :</td>
                     <td class="text-left">{{ stagiaire.partenaireStagiaire ? 'Oui' : 'Non' }}</td>
                     <td class="font-weight-bold">Adhérent :</td>
                     <td class="text-left">{{ stagiaire.adherentStagiaire ? 'Oui' : 'Non' }}</td>
-                </tr>
+                </tr> #}
                 <tr>
                     <td class="font-weight-bold">Numéro(s) de stage : </td>
                     {% for stage in stagiaire.stages %}
@@ -72,5 +72,7 @@
     </div>
     <a href="{{ path('stagiaire_index') }}" class="btn retour lieustage_button mt-3">Retour</a>
 </div>
-
+ <div>
+    <a href="{{ path('stagiaire_facture', {'id': stagiaire.id}) }}" class="btn retour lieustage_button mt-3">facture</a>
+</div>
 {% endblock %}

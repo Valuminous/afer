@@ -3,7 +3,7 @@
 
 <section class="stagiaire">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="ml-5 h2_stagiaire mt-5 mb-5">Liste des stagiaires</h2>
+        <h2 class="ml-5 h2_stagiaire mt-5 mb-5">Liste des stagiaires - Total de {{ stagiaires.getTotalItemCount }}</h2>
                 <form>
             <div class="input-group mb-3">
                 <input type="text" id="myInput" value="{{ app.request.query.get('q') }}" name="q" class="form-control search" placeholder="Rechercher un stagiaire...">
@@ -33,8 +33,8 @@
     <table class="table table-striped">
         <thead>
             <tr class="background_stagiaire">
-                <th scope="col" class="pl-5 text-left">Nom</th>
-                <th scope="col" class="text-left">Prénom</th>
+                <th scope="col" class="pl-5 text-left">{{ knp_pagination_sortable(stagiaires, 'Nom', 'q.nomStagiaire') }}</th>
+                <th scope="col" class="text-left">{{ knp_pagination_sortable(stagiaires, 'Prénom', 'q.prenomStagiaire') }}</th>
                 <th scope="col" class="text-left">Email</th>
                 <th scope="col" class="text-left">N° de portable</th>
                 <th scope="col" class="text-left">N° fixe</th>
@@ -100,6 +100,7 @@
             {% endfor %}
         </tbody>
     </table>
-
+<div class="d-flex justify-content-center pagination">
+ {{ knp_pagination_render(stagiaires) }}</div>
 </section>
 {% endblock %}
