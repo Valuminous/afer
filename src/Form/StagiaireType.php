@@ -39,7 +39,6 @@ class StagiaireType extends AbstractType
             ],
                 'format' => 'd M y'
                 
-               
                 ])
             ->add('lieuNaissanceStagiaire')
             ->add('adresseStagiaire')
@@ -67,74 +66,20 @@ class StagiaireType extends AbstractType
                'multiple' => 'true',
                             
                ])
-               ->add('numeroPermis')
-               ->add('datePermis', DateType::class, [
-                'widget' => 'single_text',
-                'format'=>'yyyy-MM-dd',
-                'html5' => true,
-                'required'   => false,
-                'empty_data' => '---------',      
-                ])
-
-           
-            ->add('prefecture', EntityType::class, [
-                'class' => Prefecture::class,
-                'choice_label' => 'nomPrefecture',
-                'placeholder' => 'Choisir une préfecture',
-                'required'   => false,
-                'empty_data' => 'Aucune préfecture',      
-                ])
-            ->add('lieuInfraction')   
-            ->add('dateInfraction', DateType::class, [
-                'widget' => 'single_text',
-                'format'=>'yyyy-MM-dd',
-                'html5' => true,
-                'required'   => false,
-                'empty_data' => '---------',      
-                ])
-            ->add('heureInfraction', TimeType::class, [
-                'widget' => 'choice'
-                
-            ])
-
-            ->add('natureInfraction', EntityType::class, [
-                'class' => NatureInfraction::class,
-                'choice_label' => 'nomInfraction',
-                'placeholder' => 'Choisir un type d\'infraction',
-                'required'   => false,
-                'empty_data' => 'Aucune infraction',      
-                ])
-
-                ->add('numeroParquet')
-                ->add('dateCondamnation', DateType::class, [
-                    'widget' => 'single_text',
-                    'format'=>'yyyy-MM-dd',
-                    'html5' => true,
-                    'required'   => false,
-                    'empty_data' => 0000-01-01      
-                    ])
-                ->add('tribunal', EntityType::class, [
-                    'class' => Tribunal::class,
-                    'choice_label' => 'nomTribunal',
-                    'placeholder' => 'Choisir un tribunal',
-                    'required'   => false,
-                    'empty_data' => 'Aucun tribunal',      
-                    ])
-
+                    
                 ->add('licence', EntityType::class, [
                   'class' => Licence::class,
-                  'choice_label' => 'licenceNumber',
                  'placeholder' => 'Numéro de permis',
                  'required'   => false,
+                 'disabled' => true,
+                 
                 ])
                
                 ->add('avantage',EntityType::class, [
                     'class' => Avantage::class,
                     'choice_label' => 'avantage',
                    'placeholder' => 'Avantages',
-
-                   'expanded' => 'true'
-                    
+                   'expanded' => 'true' 
                   
                 ])
                 ->add('cas',EntityType::class, [
@@ -144,10 +89,7 @@ class StagiaireType extends AbstractType
                    'expanded' => 'true',
                    'multiple' => 'true'
                     
-                  
                 ])
-
-               
                 
                ;
     }

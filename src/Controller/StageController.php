@@ -47,6 +47,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class StageController extends AbstractController
 {
     /**
+     * Controller pour les stages à venir avec pagination
      * @Route("/stage", name="stage_index")
      */
     public function index(StageRepository $repo, PaginatorInterface $paginator, Request $request) 
@@ -68,7 +69,7 @@ class StageController extends AbstractController
         ]);
     }
     /**
-     * 
+     * Controller pour les stages terminés avec pagination
      * @Route("/stage/tous", name="stage_tous")
      * 
      */
@@ -202,7 +203,7 @@ class StageController extends AbstractController
      /**
      *  @Route("/stage/loadFormStagiaire", name="stage_stagiaire")
      */
-    public function popStagiaire(Stagiaire $stagiaire = null,CiviliteRepository $repoCivilite,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
+    public function popStagiaire(Stagiaire $stagiaire = null, CiviliteRepository $repoCivilite, StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
             $stagiaire = new Stagiaire();
@@ -225,9 +226,6 @@ class StageController extends AbstractController
             $stagiaireNumeroFixe = $request->request->get('stagiaire_numeroFixeStagiaire');
             $stagiaireNumeroAdresse = $request->request->get('stagiaire_numeroAdresseStagiaire');
             $stagiaireEmail = $request->request->get('stagiaire_emailStagiaire');
-            $stagiaireCarteJeune = $request->request->get('stagiaire_carteJeuneStagiaire');
-            $stagiairePartenaire = $request->request->get('stagiaire_partenaireStagiaire');
-            $stagiaireAdherent = $request->request->get('stagiaire_adherentStagiaire');
             $stagiaireCivilite = $request->request->get('stagiaire_civilite');
         
             $year = substr($stagiaireDateNaissance, 0, 10);
@@ -258,10 +256,7 @@ class StageController extends AbstractController
                 
                 $stagiaire->setDateNaissanceStagiaire($date);
                 $stagiaire->setCivilite($civilite);
-                $stagiaire->setCarteJeuneStagiaire($stagiaireCarteJeune);
-                $stagiaire->setPartenaireStagiaire($stagiairePartenaire);
-                $stagiaire->setAdherentStagiaire($stagiaireAdherent);
-
+               
                 $manager->persist($stagiaire);
                 $manager->flush();
 
@@ -400,6 +395,8 @@ class StageController extends AbstractController
 
 
                 $manager->persist($lieuStage);
+                var_dump($lieuStage);
+                die();
                 $manager->flush();
 
                 $response = new Response();
@@ -425,6 +422,7 @@ class StageController extends AbstractController
         if(!$stage){
         $stage = new Stage();
         }
+        $date = date("d-m-Y");
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
         
@@ -436,7 +434,9 @@ class StageController extends AbstractController
         }
         return $this->render('stage/ajouter.html.twig', [
             'formStage' => $form->createView(),
-            'editMode' => $stage->getId() !== null
+            'editMode' => $stage->getId() !== null,
+            $stage->getDated() > $date
+            
         ]);
     }
     /**
@@ -444,10 +444,12 @@ class StageController extends AbstractController
      */
     public function delete(Stage $stage, ObjectManager $manager)
     {
+        $date = date("d-m-Y");
+        if ($stage->getDated() > $date) { 
         $manager->remove($stage);
         $manager->flush();
         return $this->redirectToRoute('stage_index');
-    }
+    }}
     /**
      * @Route("/stage/{id}/afficher", name="stage_afficher")
      */
@@ -487,6 +489,9 @@ class StageController extends AbstractController
         }
         
     }
+/**
+ * Options PDF
+ */
 
     /**
      * @Route("/stage/imprimer", name="stage_imprimer", methods={"GET"})

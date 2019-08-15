@@ -21,7 +21,7 @@
     <table class="table table-striped">
         <thead>
             <tr class="background_stage">
-                <th scope="col" class="pl-5 text-left"{{ knp_pagination_sortable(stages, 'Numéro de stage', 's.numeroStage') }}</th>
+                <th scope="col" class="pl-5 text-left">{{ knp_pagination_sortable(stages, 'Numéro de stage', 's.numeroStage') }}</th>
                 <th scope="col" class="text-left">{{ knp_pagination_sortable(stages, 'Dates du stage', 's.dated') }}</th>
                 <th scope="col" class="text-left">Lieu de stage</th>
                 <th scope="col" class="text-left" data-toggle="tooltip" data-placement="top" title="(P) = (Psychologue), (T) = (Technicien de la route)">Animateurs *</th>
@@ -60,7 +60,7 @@
                         href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye eye_color"></i></a>
                     <a data-toggle="tooltip" data-placement="top" title="Modifier le stage"
                         href="{{  path('stage_modifier', {'id': stage.id}) }}"><i
-                            class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+                            class="fas fa-pen pen_color pl-2 mr-2"></i></a>
                     <a data-toggle="modal" data-placement="top" data-target="#stageDelete{{ stage.id }}"
                         title="Supprimer le stage" href="#"><i class="far fa-trash-alt trash_color"></i></a>
 

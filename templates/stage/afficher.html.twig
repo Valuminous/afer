@@ -144,10 +144,17 @@
       </div>
       
 </section>
-<section>
+<section> 
+
    <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Animateurs</h2>
    {% for animateur in stage.animateurs %}
-   <a href="#vue_animateur" class="btn btn_animateur" data-toggle="collapse">{{ animateur.animateurFonction}}</a>
+   <a href="#vue_animateur" class="btn btn_animateur" data-toggle="collapse"> {% if animateur.civilite.nomCivilite == 'Madame' and animateur.animateurFonction == 'Technicien de la route'%}
+                     
+                       <td class="text-left">Technicienne de la route</td>
+                       {% else %}
+                        
+                    <td class="text-left">{{ animateur.animateurFonction}}</td>
+                    {% endif %}</a>
    <div id="vue_animateur" class="collapse info_animateur">
 
       <div class="d-flex justify-content-center">
@@ -157,7 +164,11 @@
                
                <tr>
                   <td class="font-weight-bold">Animateur : </td>
-                  <td class="text-left">{{ animateur.prenomAnimateur }} {{ animateur.nomAnimateur }}
+                  <td class="text-left">{% if animateur.civilite.nomCivilite == 'Madame' %} 
+        Animatrice {{animateur.prenomAnimateur}} {{animateur.nomAnimateur}}</td>
+        {% else %}
+        Animateur {{animateur.prenomAnimateur}} {{animateur.nomAnimateur}}</td>
+        {% endif %}
                </tr>
                <tr>
                   <td class="font-weight-bold">N° de portable :</td>
@@ -267,18 +278,7 @@
                   <td class="font-weight-bold">Commune :</td>
                   <td class="text-left">{{ stagiaire.communeStagiaire }}</td>
                </tr>
-               <tr>
-                  <td class="font-weight-bold">Titulaire carte jeune :</td>
-                  <td class="text-left">{{ stagiaire.carteJeuneStagiaire ? 'Oui' : 'Non' }}</td>
-               </tr>
-               <tr>
-                  <td class="font-weight-bold">Partenaire :</td>
-                  <td class="text-left">{{ stagiaire.partenaireStagiaire ? 'Oui' : 'Non' }}</td>
-               </tr>
-               <tr>
-                  <td class="font-weight-bold">Adhérent :</td>
-                  <td class="text-left">{{ stagiaire.adherentStagiaire ? 'Oui' : 'Non' }}</td>
-               </tr>
+              
             </tbody>
          </table>
       </div>

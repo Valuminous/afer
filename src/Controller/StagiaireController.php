@@ -75,7 +75,7 @@ class StagiaireController extends AbstractController
      *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
      *  @IsGranted("ROLE_ADMIN")
      */
-    public function stagiaireForm(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
+    public function stagiaireForm(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Licence $licence, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
            $stagiaire = new stagiaire();
@@ -84,8 +84,7 @@ class StagiaireController extends AbstractController
            $form->handleRequest($request);
    
            if($form->isSubmitted() && $form->isValid()){
-     // dump($request);
-            // die();
+     
             $stagiaireNom = $stagiaire->getNomStagiaire();
             $stagiairePrenom = $stagiaire->getPrenomStagiaire();
             $stagiaireDateNaissance = $stagiaire->getDateNaissanceStagiaire();
@@ -100,8 +99,11 @@ class StagiaireController extends AbstractController
                 $manager->flush();
             }else{
                 return $this->render('stagiaire/ajouter.html.twig', [
+                    
                     'formStagiaire' => $form->createView(),
                     'editMode' => $stagiaire->getId() !== null,
+                    'stagiaire' => $stagiaire,
+                    'licence' => $licence,
                     'error' => 'error'
                 ]);
             }
@@ -110,7 +112,9 @@ class StagiaireController extends AbstractController
        
         return $this->render('stagiaire/ajouter.html.twig', [
             'formStagiaire' => $form->createView(),
-            'editMode' => $stagiaire->getId() !== null
+            'editMode' => $stagiaire->getId() !== null,
+            'stagiaire' => $stagiaire,
+            'licence' => $licence,
         ]);
         
        
@@ -132,7 +136,8 @@ class StagiaireController extends AbstractController
     public function showOne(Stagiaire $stagiaire)
     {
         return $this->render('stagiaire/afficher.html.twig', [
-            'stagiaire' => $stagiaire
+            'stagiaire' => $stagiaire,
+            
         ]);
     }
 
@@ -152,14 +157,34 @@ class StagiaireController extends AbstractController
      * 
      * @Route("/stagiaire/permis", name="stagiaire_permis_index")
      */
-    public function permisIndex(StagiaireRepository $repo, PrefectureRepository $prepo, Request $request) :Response
+    public function permisIndex(StagiaireRepository $repo, PaginatorInterface $paginator, LicenceRepository $lRepo, PrefectureRepository $pRepo, Request $request) :Response
     {
+      
+        
+        $licence = $lRepo->findAll();
+        $prefecture = $pRepo->findAll();
         $s = $request->query->get('q');
-        $stagiaires = $repo->findAllWithSearch($s);
+        $allstagiaires = $repo->findAllWithSearch($s);
+          
+
+        $stagiaires = $paginator->paginate(
+            $allstagiaires,
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+    
+        $stagiaires ->setCustomParameters([
+            'position' => 'centered',
+            'size' => 'small',
+            'rounded' => true,
+        ]);
+       
 
         return $this->render('stagiaire/permis.html.twig', [
-            'controller_name' => 'stagiaireController',
+           
             'stagiaires' => $stagiaires,
+            'licence' => $licence,
+            'prefecture' => $prefecture
            
         ]);
     }
@@ -195,23 +220,7 @@ class StagiaireController extends AbstractController
         ]);
     }
     
-    /**
-     * 
-     * @Route("/stagiaire/licence", name="stagiaire_licence_index")
-     */
-    public function licenceIndex(StagiaireRepository $repo, LicenceRepository $lrepo, Request $request) :Response
-    {
-        $s = $request->query->get('q');
-        $stagiaires = $repo->findAllWithSearch($s);
-        $licence = $lrepo->findAll();
-
-        return $this->render('stagiaire/licence.html.twig', [
-            'controller_name' => 'stagiaireController',
-            'stagiaires' => $stagiaires,
-            'licence' => $licence
-           
-        ]);
-    }
+    
 
         /**
      * @Route("/stagiaire/imprimer", name="stagiaire_imprimer", methods={"GET"})
@@ -274,18 +283,16 @@ class StagiaireController extends AbstractController
             $nbrs = $repoLicence->counter($licenceNumber,$year);
             $nbr = $nbrs[0][1];
     
-            if(strlen($licenceNumber) > 0 && strlen($licenceDate) != "" && strlen($prefecture) != "0" && $nbr === "0"){
+            if(strlen($licenceNumber) > 0 && strlen($licenceDate) != "" && strlen($prefecture) > 0  && $nbr === "0"){
 
                 $licence->setLicenceNumber($licenceNumber);
                 $licence->setLicenceDate($date);
                 $licence->setPrefecture($prefecture);
               
                 $manager->persist($licence);
-                
                 $manager->flush();
 
                 $response = new Response();
-                
                 $response = JsonResponse::fromJsonString('{"id":'.$licence->getId().', "value":"'.$licence->getLicenceNumber().'"}');
                
             }else{
@@ -336,6 +343,7 @@ class StagiaireController extends AbstractController
     }
 
     /**
+     * PDF liste des stagiaires
      * @Route("/stagiaire/{id}/imprimer", name="stagiaire_afficher_imprimer")
      */
     public function imprimerShowOne(stagiaire $stagiaire, Request $request)
@@ -370,7 +378,8 @@ class StagiaireController extends AbstractController
     ]);
 }
 
-/**
+    /**
+    * PDF détails stagiaire
      * @Route("/stagiaire/{id}/facture", name="stagiaire_facture")
      */
     public function facture(stagiaire $stagiaire, Request $request)
@@ -407,4 +416,81 @@ class StagiaireController extends AbstractController
         "Attachment" => false
     ]);
 }
+
+/**Permis de conduire */
+
+  /**
+     * 
+     * @Route("/stagiaire/licence", name="stagiaire_licence_index")
+     */
+    public function licenceIndex(StagiaireRepository $repo, LicenceRepository $lrepo, Request $request) :Response
+    {
+        $s = $request->query->get('q');
+        $stagiaires = $repo->findAllWithSearch($s);
+        $licence = $lrepo->findAll();
+
+        return $this->render('stagiaire/licence.html.twig', [
+            'controller_name' => 'stagiaireController',
+            'stagiaires' => $stagiaires,
+            'licence' => $licence
+           
+        ]);
+    }
+     /**
+     *  @Route("/stagiaire/licence/ajouter", name="licence_ajouter")
+     *  @Route("/stagiaire/licence/{id}/modifier", name="licence_modifier")
+     */
+    public function licenceForm(Licence $licence = null, LicenceRepository $repoLicence, Request $request, ObjectManager $manager)
+    {
+            if(!$licence){
+            $licence = new licence();
+            }
+            $form = $this->createForm(licenceType::class, $licence);
+            $form->handleRequest($request);
+            
+            if($form->isSubmitted() && $form->isValid()){
+
+                $licenceNumber = $licence->getLicenceNumber();
+                $licenceDate = $licence->getLicenceDate();
+                $prefecture = $licence->getPrefecture();
+                $nbrs = $repoLicence->counter($licenceNumber,$licenceDate,$prefecture);
+                $nbr = $nbrs[0][1];
+          
+                if($licence->getId() === null && $nbr === "0"){
+                    $manager->persist($licence);
+                    $manager->flush();
+                }else if($licence->getId() !== null){
+                    $manager->persist($licence);
+                    $manager->flush();
+                }else{
+                    return $this->render('stagiaire/licence/ajouter.html.twig', [
+                        
+                        'formLicence' => $form->createView(),
+                        'edit' => $licence->getId() !== null,
+                        'stagiaire' => $licence,
+                        'error' => 'error'
+                    ]);
+                }
+                return $this->redirectToRoute('stagiaire_index');
+            }
+           
+        
+            return $this->render('stagiaire/licence/ajouter.html.twig', [
+                'formLicence' => $form->createView(),
+                'edit' => $licence->getId() !== null,
+                'licence' => $licence,
+                // 'error' => 'error'
+                ]);
+            }
+        
+    /**
+     *  @Route("/stagiaire/licence/{id}/supprimer", name="licence_supprimer")
+     */
+    public function licenceDelete(Licence $licence, ObjectManager $manager)
+    {
+        $manager->remove($licence);
+        $manager->flush();
+        return $this->redirectToRoute('stagiaire/licence_index');
+    }
+    
     }

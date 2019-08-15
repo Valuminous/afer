@@ -3,12 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Licence;
-use App\Entity\Stagiaire;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class LicenceType extends AbstractType
 {
@@ -16,19 +14,15 @@ class LicenceType extends AbstractType
     {
         $builder
             ->add('licenceNumber')
-            ->add('licenceDate', DateType::class, [
-                'widget' => 'single_text',
-                'format'=>'yyyy-MM-dd',
-                'html5' => true,
-            ])
+            ->add('licenceDate',BirthdayType::class, [
+                'placeholder' => [
+                'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année'
+            ],
+                'format' => 'd M y'
+                
+                ])
             ->add('prefecture')  
-            ->add('stagiaire', EntityType::class, [
-                'class' => Stagiaire::class,
-                'choice_label' => function (Stagiaire $stagiaire) {
-                    return $stagiaire->getPrenomStagiaire() . ' ' . $stagiaire->getNomStagiaire();
-                },
-                'placeholder' => 'Choisir un ou des stagiaires'
-                ])  
+            
         ;
     }
 

@@ -109,55 +109,14 @@ class Stagiaire
      * @ORM\JoinColumn(nullable=true)
      */
     private $civilite;
-
-        
-    
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $numeroPermis;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datePermis;
-
+     
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stagiaires")
      * 
      */
     private $prefecture;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lieuInfraction;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateInfraction;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $heureInfraction;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\NatureInfraction", inversedBy="stagiaires")
-     */
-    private $natureInfraction;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $numeroParquet;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateCondamnation;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stagiaires")
      */
@@ -383,31 +342,6 @@ class Stagiaire
     }
 
     
-    
-
-    public function getNumeroPermis(): ?string
-    {
-        return $this->numeroPermis;
-    }
-
-    public function setNumeroPermis(?string $numeroPermis): self
-    {
-        $this->numeroPermis = $numeroPermis;
-
-        return $this;
-    }
-
-    public function getDatePermis(): ?\DateTimeInterface
-    {
-        return $this->datePermis;
-    }
-
-    public function setDatePermis(?\DateTimeInterface $datePermis): self
-    {
-        $this->datePermis = $datePermis;
-
-        return $this;
-    }
 
     public function getPrefecture(): ?Prefecture
     {
@@ -421,78 +355,7 @@ class Stagiaire
         return $this;
     }
 
-    public function getLieuInfraction(): ?string
-    {
-        return $this->lieuInfraction;
-    }
-
-    public function setLieuInfraction(?string $lieuInfraction): self
-    {
-        $this->lieuInfraction = $lieuInfraction;
-
-        return $this;
-    }
-
-    public function getDateInfraction(): ?\DateTimeInterface
-    {
-        return $this->dateInfraction;
-    }
-
-    public function setDateInfraction(\DateTimeInterface $dateInfraction): self
-    {
-        $this->dateInfraction = $dateInfraction;
-
-        return $this;
-    }
-
-    public function getHeureInfraction(): ?\DateTimeInterface
-    {
-        return $this->heureInfraction;
-    }
-
-    public function setHeureInfraction(\DateTimeInterface $heureInfraction): self
-    {
-        $this->heureInfraction = $heureInfraction;
-
-        return $this;
-    }
-
-    public function getNatureInfraction(): ?NatureInfraction
-    {
-        return $this->natureInfraction;
-    }
-
-    public function setNatureInfraction(?NatureInfraction $natureInfraction): self
-    {
-        $this->natureInfraction = $natureInfraction;
-
-        return $this;
-    }
-
-    public function getNumeroParquet(): ?string
-    {
-        return $this->numeroParquet;
-    }
-
-    public function setNumeroParquet(?string $numeroParquet): self
-    {
-        $this->numeroParquet = $numeroParquet;
-
-        return $this;
-    }
-
-    public function getDateCondamnation(): ?\DateTimeInterface
-    {
-        return $this->dateCondamnation;
-    }
-
-    public function setDateCondamnation(?\DateTimeInterface $dateCondamnation): self
-    {
-        $this->dateCondamnation = $dateCondamnation;
-
-        return $this;
-    }
-
+   
     public function getTribunal(): ?Tribunal
     {
         return $this->tribunal;
@@ -512,11 +375,20 @@ class Stagiaire
 
     public function setLicence(?Licence $licence): self
     {
-        $this->licence = $licence;
+        if ($this->licence) {
+            $this->licence->setStagiaire(null);
+          }
+        
+          if ($licence !== null && $this !== $licence->getStagiaire()) {
+            $licence->setStagiaire($this);
+          }
+        
+          $this->licence = $licence;
+        
+          return $this;
+        }
        
 
-        return $this;
-    }
    
  /**
      * toString
@@ -545,19 +417,19 @@ class Stagiaire
         return $this->cas;
     }
 
-    public function addCa(Cas $ca): self
+    public function addCas(Cas $cas): self
     {
-        if (!$this->cas->contains($ca)) {
-            $this->cas[] = $ca;
+        if (!$this->cas->contains($cas)) {
+            $this->cas[] = $cas;
         }
 
         return $this;
     }
 
-    public function removeCa(Cas $ca): self
+    public function removeCas(Cas $cas): self
     {
-        if ($this->cas->contains($ca)) {
-            $this->cas->removeElement($ca);
+        if ($this->cas->contains($cas)) {
+            $this->cas->removeElement($cas);
         }
 
         return $this;

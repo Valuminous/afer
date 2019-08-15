@@ -606,9 +606,6 @@ function loadFormStagiaire() {
                                 let stagiaireNumeroPortable = document.querySelector('form[name="stagiaire"] #stagiaire_numeroPortableStagiaire');
                                 let stagiaireNumeroFixe = document.querySelector('form[name="stagiaire"] #stagiaire_numeroFixeStagiaire');
                                 let stagiaireEmail = document.querySelector('form[name="stagiaire"] #stagiaire_emailStagiaire');
-                                let stagiaireCarteJeune = document.querySelector('form[name="stagiaire"] #stagiaire_carteJeuneStagiaire');
-                                let stagiairePartenaire = document.querySelector('form[name="stagiaire"] #stagiaire_partenaireStagiaire');
-                                let stagiaireAdherent = document.querySelector('form[name="stagiaire"] #stagiaire_adherentStagiaire');
                                 let stagiaireNumeroAdresse = document.querySelector('form[name="stagiaire"] #stagiaire_numeroAdresseStagiaire');
                                 let stagiaireCivilite = document.querySelector('form[name="stagiaire"] #stagiaire_civilite');
                                 let token = document.querySelector('form[name="stagiaire"] #stagiaire__token');
@@ -625,9 +622,6 @@ function loadFormStagiaire() {
                                 data.append("stagiaire_numeroPortableStagiaire", stagiaireNumeroPortable.value);
                                 data.append("stagiaire_numeroFixeStagiaire", stagiaireNumeroFixe.value);
                                 data.append("stagiaire_emailStagiaire", stagiaireEmail.value);
-                                data.append("stagiaire_carteJeuneStagiaire", stagiaireCarteJeune.value);
-                                data.append("stagiaire_partenaireStagiaire", stagiairePartenaire.value);
-                                data.append("stagiaire_adherentStagiaire", stagiaireAdherent.value);
                                 data.append("stagiaire_numeroAdresseStagiaire", stagiaireNumeroAdresse.value);
                                 data.append("stagiaire_civilite", stagiaireCivilite.value);
                                 data.append("stagiaire", token.value);
@@ -639,7 +633,10 @@ function loadFormStagiaire() {
                                     })
                                     .then((resultat) => {
                                         return resultat.json();
+                                       
+
                                     })
+                                   
                                     .then((resultat) => {
                                         if (resultat.error != null) {
                                             document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
@@ -742,15 +739,17 @@ function loadFormAnimateur() {
                                 data.append("animateur_animateurStatut", AnimateurStatut.value);
                                 data.append("animateur_observations_animateur", AnimateurObservations.value);
                                 data.append("animateur__token", token.value);
-
+                               
                                 fetch("/admin/stage/loadFormAnimateur", {
                                         method: "POST",
                                         body: data,
                                         credentials: 'include'
                                     })
+                                    
                                     .then((resultat) => {
                                         return resultat.json();
                                     })
+                                    console.log(resultat.json())
                                     .then((resultat) => {
 
                                         if (resultat.error != null) {
@@ -938,44 +937,54 @@ function loadFormLicence() {
                             e.preventDefault();
 
                             if (document.querySelector('form[name="licence"] #licence_licenceNumber').value.length != 0 &&
-                                 document.querySelector('form[name="licence"] #licence_licenceDate').value.length != 0 &&
+                                 document.querySelector('form[name="licence"] #licence_licenceDate_day').value.length != "" &&
+                                 document.querySelector('form[name="licence"] #licence_licenceDate_month').value.length != "" &&
+                                 document.querySelector('form[name="licence"] #licence_licenceDate_year').value.length != "" &&
                                  document.querySelector('form[name="licence"] #licence_prefecture').value.length != "")
                                 
                              {
 
                                 let licenceNumber = document.querySelector('form[name="licence"] #licence_licenceNumber');
-                                
-                                let licenceDate = document.querySelector('form[name="licence"] #licence_licenceDate');
+                                let licenceDate = document.querySelector('form[name="licence"] #licence_licenceDate_year').value + "-" +
+                                document.querySelector('form[name="licence"] #licence_licenceDate_month').value + "-" +
+                                document.querySelector('form[name="licence"] #licence_licenceDate_day').value;
                                 let prefecture = document.querySelector('form[name="licence"] #licence_prefecture');
-                                let token = document.querySelector('form[name="licence"] #licence__token');
-                               
+                                
                                 let data = new FormData();
+                               
                                 data.append("licence_licenceNumber", licenceNumber.value);
-                                data.append("licence_licenceDate", licenceDate.value);
+                                data.append("licence_licenceDate", licenceDate);
                                 data.append("licence_prefecture", prefecture.value);
-                                data.append("licence__token", token.value);
+                               
+                                console.log( licenceNumber.value);
+                                console.log( licenceDate);
+                                console.log( prefecture.value);
+                                
                                 fetch("/admin/stagiaire/loadFormLicence", {
                                         method: "POST",
                                         body: data,
                                         credentials: 'include'
                                     })
-
+                                    
                                     .then((resultat) => {
                                         return resultat.json();
                                     })
+                                  
                                     .then((resultat) => {
                                         if (resultat.error != null) {
                                             document.querySelector('#errorLicence').innerHTML = "Le permis existe déjà";
                                         } else if (resultat.value != null) {
-                                            console.log(resultat.value);
-                                            const selectLicence_list = document.querySelector('#stagiaire_licence');
+                                           
+                                            const selectLicence = document.querySelector('#stagiaire_licence');
                                             let option = document.createElement("option");
                                             option.setAttribute('value', resultat.id)
                                             option.text = resultat.value;
-                                            selectLicence_list.add(option);
-                                            $('#stagiaire_licence').trigger("chosen:updated");
+                                            // selectLicence.add(option);
+                                            selectLicence.selectedIndex = selectLicence.length - 1;
                                             closeLicence.click();
+
                                         }
+                                        console.log(licenceNumber.value);
                                     }).catch((error) => {
                                         console.log(error);
                                     });

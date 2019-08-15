@@ -74,11 +74,6 @@ class Licence
     {
         $this->stagiaire = $stagiaire;
         
-        // set (or unset) the owning side of the relation if necessary
-//$newLicence = $stagiaire === null ? null : $this;
-//if ($newLicence !== $stagiaire->getStagiaire()) {
-//$stagiaire->setStagiaire($newLicence);
-// }
         return $this;
     }
 

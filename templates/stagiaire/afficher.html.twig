@@ -48,17 +48,14 @@
                     <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}</td>
                     <td class="font-weight-bold">Commune :</td>
                     <td class="text-left">{{stagiaire.communeStagiaire }}</td>
-                    <td></td>
-                    <td></td>
+                    
+
+                    
                 </tr>
-                {# <tr>
-                    <td class="font-weight-bold">Titulaire carte jeune :</td>
-                    <td class="text-left">{{ stagiaire.carteJeuneStagiaire ? 'Oui' : 'Non' }}</td>
-                    <td class="font-weight-bold">Partenaire :</td>
-                    <td class="text-left">{{ stagiaire.partenaireStagiaire ? 'Oui' : 'Non' }}</td>
-                    <td class="font-weight-bold">Adhérent :</td>
-                    <td class="text-left">{{ stagiaire.adherentStagiaire ? 'Oui' : 'Non' }}</td>
-                </tr> #}
+                <td class="font-weight-bold">Permis :</td>
+                 <td class="text-left">numéro {{ stagiaire.licence.licenceNumber }}  </td>
+                <td class="font-weight-bold">attribué : </td>
+                 <td class="text-left">le {{ stagiaire.licence.licenceDate|localizeddate('long', 'none', 'fr')}} par la {{ stagiaire.licence.prefecture }}</td>
                 <tr>
                     <td class="font-weight-bold">Numéro(s) de stage : </td>
                     {% for stage in stagiaire.stages %}

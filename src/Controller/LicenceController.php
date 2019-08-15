@@ -46,32 +46,18 @@ class LicenceController extends AbstractController
             
             if($form->isSubmitted() && $form->isValid()){
 
-       $licenceNumber = $licence->getLicenceNumber();
-            $licenceDate = $licence->getLicenceDate();
-            $nbrs = $repoLicence->counter($licenceNumber,$licenceDate);
-            $nbr = $nbrs[0][1];
-      
-            if($licence->getId() === null && $nbr === "0"){
+           
                 $manager->persist($licence);
                 $manager->flush();
-            }else if($licence->getId() !== null){
-                $manager->persist($licence);
-                $manager->flush();
-            }else{
+            
+            }
             return $this->render('licence/ajouter.html.twig', [
                 'formLicence' => $form->createView(),
                 'editMode' => $licence->getId() !== null,
-                'error' => 'error'
+                // 'error' => 'error'
                 ]);
             }
-            return $this->redirectToRoute('licence_index');
-        }
-       
-        return $this->render('licence/ajouter.html.twig', [
-            'formLicence' => $form->createView(),
-            'editMode' => $licence->getId() !== null
-        ]);
-    }
+        
     /**
      *  @Route("/stagiaire/licence/{id}/supprimer", name="licence_supprimer")
      */

@@ -5,7 +5,7 @@
 <div class="container">
 
     <div>
-        {% if editMode %}
+        {% if edit %}
         <h2 class="mt-5 mb-5 h2_stage">Modifier un permis</h2>
         {% else %}
         <h2 class="mt-5 mb-5 h2_stage">Ajouter un permis</h2>
@@ -14,10 +14,7 @@
 
     {{ form_start(formLicence) }}
   <div class="row">
-        <div class="col">
-            {{ form_row(formLicence.stagiaire, {'label': "Numéro de permis :", 'attr': {'placeholder':
-            "Numéro de permis"}}) }}
-        </div>
+       
         </div>
     <div class="row">
         <div class="col">
@@ -40,7 +37,7 @@
    
    
 
-    {% if editMode %}
+    {% if edit %}
     <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
         Enregistrer
     </button>

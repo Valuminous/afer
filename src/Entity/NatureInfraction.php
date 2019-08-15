@@ -23,19 +23,7 @@ class NatureInfraction
      */
     private $nomInfraction;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="natureInfraction")
-     */
-    private $stagiaires;
-
-    public function __construct()
-    {
-        $this->stagiaires = new ArrayCollection();
-    }
-
-    
-
-   
+       
 
     public function getId(): ?int
     {
@@ -54,36 +42,7 @@ class NatureInfraction
         return $this;
     }
 
-    /**
-     * @return Collection|Stagiaire[]
-     */
-    public function getStagiaires(): Collection
-    {
-        return $this->stagiaires;
-    }
-
-    public function addStagiaire(Stagiaire $stagiaire): self
-    {
-        if (!$this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires[] = $stagiaire;
-            $stagiaire->setNatureInfraction($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStagiaire(Stagiaire $stagiaire): self
-    {
-        if ($this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires->removeElement($stagiaire);
-            // set the owning side to null (unless already changed)
-            if ($stagiaire->getNatureInfraction() === $this) {
-                $stagiaire->setNatureInfraction(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     /**
      * toString
