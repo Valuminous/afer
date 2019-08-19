@@ -2,23 +2,24 @@
 
 namespace App\Form;
 
+use App\Entity\Cas;
 use App\Entity\Stage;
-use App\Entity\Civilite;
-use App\Entity\Stagiaire;
-use App\Entity\Prefecture;
-use App\Entity\Tribunal;
 use App\Entity\Licence;
 use App\Entity\Avantage;
-use App\Entity\Cas;
-use App\Entity\NatureInfraction;
+use App\Entity\Civilite;
+use App\Entity\Tribunal;
+use App\Entity\Stagiaire;
+use App\Entity\Infraction;
+use App\Entity\Prefecture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class StagiaireType extends AbstractType
 {
@@ -70,27 +71,37 @@ class StagiaireType extends AbstractType
                 ->add('licence', EntityType::class, [
                   'class' => Licence::class,
                  'placeholder' => 'Numéro de permis',
+                 'label'   => false,
                  'required'   => false,
-                 'disabled' => true,
-                 
+              
+                //  'choice_label' => function (Licence $licence) {
+                //     return 'Permis numéro' . $licence->getLicenceNumber() . ' attribué par la ' . $licence->getPrefecture();
+                // },
                 ])
                
                 ->add('avantage',EntityType::class, [
                     'class' => Avantage::class,
                     'choice_label' => 'avantage',
                    'placeholder' => 'Avantages',
-                   'expanded' => 'true' 
-                  
+                   'expanded' => 'true' ,
+                   'label'   => false,
                 ])
                 ->add('cas',EntityType::class, [
                     'class' => Cas::class,
                     'choice_label' => 'numeroCas',
                    'placeholder' => 'Cas',
                    'expanded' => 'true',
-                   'multiple' => 'true'
-                    
+                   'multiple' => 'true',
+                   'label'   => false, 
                 ])
+                ->add('infraction', EntityType::class, [
+                    'class' => Infraction::class,
+                   'placeholder' => 'Infraction',
+                   'label'   => false,
+                   'required'   => false,
                 
+                   
+                  ])
                ;
     }
 

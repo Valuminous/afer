@@ -10,6 +10,7 @@ const closeStagiaire = document.querySelector('.closeStagiaire');
 const closeAnimateur = document.querySelector('.closeAnimateur');
 const closeLieuStage = document.querySelector('.closeLieuStage');
 const closeLicence = document.querySelector('.closeLicence');
+const closeInfraction = document.querySelector('.closeInfraction');
 // pop-up ajout service/autorité/statut/fonction dans entité tribunal/préfécture/animateur
 loadFormAutoriteTribunal();
 loadFormTribunalService();
@@ -23,6 +24,7 @@ loadFormStagiaire();
 loadFormLieuStage();
 loadFormAnimateur();
 loadFormLicence();
+loadFormInfraction();
 
 function loadFormAutoriteTribunal() {
     let autorite = document.querySelector('#addAutoriteTribunal');
@@ -990,6 +992,90 @@ function loadFormLicence() {
                                     });
                             } else {
                                 document.querySelector('#errorLicence').innerHTML = "Veuillez remplir tous les champs";
+                            }
+                        })
+                    }
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+}
+
+function loadFormInfraction() {
+    let infraction = document.querySelector('#addInfraction');
+ 
+    if (infraction != null) {
+        fetch("/admin/stagiaire/loadFormInfraction", { 
+            credentials: 'include' 
+        })
+        .then((reponse) => {
+            return reponse.text();
+           
+        })
+       
+        .then((reponse) => {
+                if (reponse.length > 0) {
+                    document.querySelector('#modalInfraction .modal-body').innerHTML = reponse;
+                    btn = document.querySelector('#modalInfraction .modal-body button');
+                      if (btn != null) {
+                        btn.addEventListener('click', function (e) {
+                            e.preventDefault();
+
+                            if (document.querySelector('form[name="infraction"] #infraction_lieuInfraction').value.length != 0 &&
+                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_day').value.length != "" &&
+                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_month').value.length != "" &&
+                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_year').value.length != "" &&
+                                 document.querySelector('form[name="infraction"] #infraction_natureInfraction').value.length != "")
+                                
+                             {
+
+                                let lieuInfraction = document.querySelector('form[name="infraction"] #infraction_lieuInfraction');
+                                let dateInfraction = document.querySelector('form[name="infraction"] #infraction_dateInfraction_year').value + "-" +
+                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_month').value + "-" +
+                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_day').value;
+                                let natureInfraction = document.querySelector('form[name="infraction"] #infraction_natureInfraction');
+                                
+                                let data = new FormData();
+                               
+                                data.append("infraction_lieuInfraction", lieuInfraction.value);
+                                data.append("infraction_dateInfraction", dateInfraction);
+                                data.append("infraction_natureInfraction", natureInfraction.value);
+                                
+                               
+                                console.log( lieuInfraction.value);
+                                 console.log( dateInfraction);
+                                console.log( natureInfraction.value);
+                            
+                                fetch("/admin/stagiaire/loadFormInfraction", {
+                                        method: "POST",
+                                        body: data,
+                                        credentials: 'include'
+                                    })
+                                    
+                                    .then((resultat) => {
+                                        return resultat.json();
+                                    })
+                                  
+                                    .then((resultat) => {
+                                        if (resultat.error != null) {
+                                            document.querySelector('#errorInfraction').innerHTML = "Cette infraction existe déjà";
+                                        } else if (resultat.value != null) {
+                                           
+                                            const selectInfraction = document.querySelector('#stagiaire_infraction');
+                                            let option = document.createElement("option");
+                                            option.setAttribute('value', resultat.id)
+                                            option.text = resultat.value;
+                                            selectInfraction.selectedIndex = selectInfraction.length - 1;
+                                            closeInfraction.click();
+
+                                        }
+                                        console.log(lieuInfraction.value);
+                                    }).catch((error) => {
+                                        console.log(error);
+                                    });
+                            } else {
+                                document.querySelector('#errorInfraction').innerHTML = "Veuillez remplir tous les champs";
                             }
                         })
                     }

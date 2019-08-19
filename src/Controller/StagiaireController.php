@@ -6,12 +6,16 @@ use App\Entity\Stagiaire;
 use App\Entity\Avantage;
 use App\Form\StagiaireType;
 use App\Entity\Licence;
+use App\Entity\Infraction;
 use App\Form\LicenceType;
+use App\Form\InfractionType;
 use App\Form\AvantageType;
 use App\Repository\CommuneRepository;
 use App\Repository\StagiaireRepository;
 use App\Repository\PrefectureRepository;
 use App\Repository\LicenceRepository;
+use App\Repository\InfractionRepository;
+use App\Repository\NatureInfractionRepository;
 use App\Repository\AvantageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -31,21 +35,9 @@ class StagiaireController extends AbstractController
 {
     /**
      * @Route("/stagiaire", name="stagiaire_index")
-     * 
+     * avec barre de recherche et pagination
      */
-    // public function index(StagiaireRepository $repo, Request $request) :Response
-    // {
-       
-    //     $s = $request->query->get('q');
-    //     $allstagiaires = $repo->findAllWithSearch($s);
-
-
-    //     return $this->render('stagiaire/index.html.twig', [
-    //         'controller_name' => 'stagiaireController',
-    //         'stagiaires' => $stagiaires,
-            
-    //     ]);
-    // }
+   
     public function index(StagiaireRepository $repo, PaginatorInterface $paginator, Request $request) 
     {
        
@@ -82,7 +74,6 @@ class StagiaireController extends AbstractController
         }
            $form = $this->createForm(stagiaireType::class, $stagiaire);
            $form->handleRequest($request);
-   
            if($form->isSubmitted() && $form->isValid()){
      
             $stagiaireNom = $stagiaire->getNomStagiaire();
@@ -102,8 +93,9 @@ class StagiaireController extends AbstractController
                     
                     'formStagiaire' => $form->createView(),
                     'editMode' => $stagiaire->getId() !== null,
-                    'stagiaire' => $stagiaire,
+                    'stagiaire' => $stagiaire, 
                     'licence' => $licence,
+                        
                     'error' => 'error'
                 ]);
             }
@@ -115,6 +107,8 @@ class StagiaireController extends AbstractController
             'editMode' => $stagiaire->getId() !== null,
             'stagiaire' => $stagiaire,
             'licence' => $licence,
+           
+            
         ]);
         
        
@@ -130,6 +124,7 @@ class StagiaireController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('stagiaire_index');
     }
+
     /**
      * @Route("/stagiaire/{id}/afficher", name="stagiaire_afficher")
      */
@@ -153,57 +148,9 @@ class StagiaireController extends AbstractController
         return $response;
     }
 
-    /**
-     * 
-     * @Route("/stagiaire/permis", name="stagiaire_permis_index")
-     */
-    public function permisIndex(StagiaireRepository $repo, PaginatorInterface $paginator, LicenceRepository $lRepo, PrefectureRepository $pRepo, Request $request) :Response
-    {
-      
-        
-        $licence = $lRepo->findAll();
-        $prefecture = $pRepo->findAll();
-        $s = $request->query->get('q');
-        $allstagiaires = $repo->findAllWithSearch($s);
-          
-
-        $stagiaires = $paginator->paginate(
-            $allstagiaires,
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
-        );
     
-        $stagiaires ->setCustomParameters([
-            'position' => 'centered',
-            'size' => 'small',
-            'rounded' => true,
-        ]);
-       
 
-        return $this->render('stagiaire/permis.html.twig', [
-           
-            'stagiaires' => $stagiaires,
-            'licence' => $licence,
-            'prefecture' => $prefecture
-           
-        ]);
-    }
 
-/**
-     * 
-     * @Route("/stagiaire/infraction", name="stagiaire_infraction_index")
-     */
-    public function infractionIndex(StagiaireRepository $repo, Request $request) :Response
-    {
-        $s = $request->query->get('q');
-        $stagiaires = $repo->findAllWithSearch($s);
-
-        return $this->render('stagiaire/infraction.html.twig', [
-            'controller_name' => 'stagiaireController',
-            'stagiaires' => $stagiaires,
-           
-        ]);
-    }
 /**
      * 
      * @Route("/stagiaire/condamnation", name="stagiaire_condamnation_index")
@@ -257,55 +204,6 @@ class StagiaireController extends AbstractController
     ]);
 }
 
-    /**
-    *  @Route("/stagiaire/loadFormLicence", name="stagiaire_licence")
-    */
-    public function popLicence(Licence $licence = null, LicenceRepository $repoLicence, PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager)
-    {
-        if(!$licence){
-            $licence = new Licence();
-        }
-
-        $form = $this->createForm( LicenceType::class, $licence, array('method'=>'POST'));
-        $form->handleRequest( $request );
-
-        if($request->isMethod('POST')){
-            
-            $licenceNumber = $request->request->get('licence_licenceNumber');
-            $licenceDate = $request->request->get('licence_licenceDate');
-            $prefecture = $request->request->get('licence_prefecture');
-           
-            $year = substr($licenceDate, 0, 10);
-            $date = (\DateTime::createFromFormat('Y-m-d', $year));
-
-            $prefecture = $repoPrefecture->find($prefecture);
-
-            $nbrs = $repoLicence->counter($licenceNumber,$year);
-            $nbr = $nbrs[0][1];
-    
-            if(strlen($licenceNumber) > 0 && strlen($licenceDate) != "" && strlen($prefecture) > 0  && $nbr === "0"){
-
-                $licence->setLicenceNumber($licenceNumber);
-                $licence->setLicenceDate($date);
-                $licence->setPrefecture($prefecture);
-              
-                $manager->persist($licence);
-                $manager->flush();
-
-                $response = new Response();
-                $response = JsonResponse::fromJsonString('{"id":'.$licence->getId().', "value":"'.$licence->getLicenceNumber().'"}');
-               
-            }else{
-                $response = new Response();
-                $response = JsonResponse::fromJsonString('{"error":"existe"}');
-            }      
-            return $response;
-            
-        }  
-        return $this->render('stagiaire/popLicence.html.twig', 
-            ['form' => $form->createView()
-            ]);
-    }
 
 
     /**
@@ -419,23 +317,95 @@ class StagiaireController extends AbstractController
 
 /**Permis de conduire */
 
-  /**
-     * 
-     * @Route("/stagiaire/licence", name="stagiaire_licence_index")
-     */
-    public function licenceIndex(StagiaireRepository $repo, LicenceRepository $lrepo, Request $request) :Response
-    {
-        $s = $request->query->get('q');
-        $stagiaires = $repo->findAllWithSearch($s);
-        $licence = $lrepo->findAll();
 
-        return $this->render('stagiaire/licence.html.twig', [
-            'controller_name' => 'stagiaireController',
+    /**
+    *  @Route("/stagiaire/loadFormLicence", name="stagiaire_licence")
+    */
+    public function popLicence(Licence $licence = null, LicenceRepository $repoLicence, PrefectureRepository $repoPrefecture, Request $request, ObjectManager $manager)
+    {
+        if(!$licence){
+            $licence = new Licence();
+        }
+
+        $form = $this->createForm( LicenceType::class, $licence, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+            
+            $licenceNumber = $request->request->get('licence_licenceNumber');
+            $licenceDate = $request->request->get('licence_licenceDate');
+            $prefecture = $request->request->get('licence_prefecture');
+           
+            $year = substr($licenceDate, 0, 10);
+            $date = (\DateTime::createFromFormat('Y-m-d', $year));
+
+            $prefecture = $repoPrefecture->find($prefecture);
+
+            $nbrs = $repoLicence->counter($licenceNumber,$year);
+            $nbr = $nbrs[0][1];
+    
+            if(strlen($licenceNumber) > 0 && strlen($licenceDate) != "" && strlen($prefecture) > 0  && $nbr === "0"){
+
+                $licence->setLicenceNumber($licenceNumber);
+                $licence->setLicenceDate($date);
+                $licence->setPrefecture($prefecture);
+              
+                $manager->persist($licence);
+              
+                $manager->flush();
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$licence->getId().', "value":"'.$licence->getLicenceNumber().'"}');
+               
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+            
+        }  
+        return $this->render('stagiaire/popLicence.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+    /**
+     * 
+     * @Route("/stagiaire/permis", name="stagiaire_permis_index")
+     */
+    public function permisIndex(StagiaireRepository $repo, PaginatorInterface $paginator, LicenceRepository $lRepo, PrefectureRepository $pRepo, Request $request) :Response
+    {
+      
+        
+        $licence = $lRepo->findAll();
+        $prefecture = $pRepo->findAll();
+        $s = $request->query->get('q');
+        $allstagiaires = $repo->findAllWithSearch($s);
+          
+
+        $stagiaires = $paginator->paginate(
+            $allstagiaires,
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+    
+        $stagiaires ->setCustomParameters([
+            'position' => 'centered',
+            'size' => 'small',
+            'rounded' => true,
+        ]);
+       
+
+        return $this->render('stagiaire/permis.html.twig', [
+           
             'stagiaires' => $stagiaires,
-            'licence' => $licence
+            'licence' => $licence,
+            'prefecture' => $prefecture
            
         ]);
     }
+
+  
      /**
      *  @Route("/stagiaire/licence/ajouter", name="licence_ajouter")
      *  @Route("/stagiaire/licence/{id}/modifier", name="licence_modifier")
@@ -445,7 +415,7 @@ class StagiaireController extends AbstractController
             if(!$licence){
             $licence = new licence();
             }
-            $form = $this->createForm(licenceType::class, $licence);
+            $form = $this->createForm(LicenceType::class, $licence);
             $form->handleRequest($request);
             
             if($form->isSubmitted() && $form->isValid()){
@@ -467,7 +437,7 @@ class StagiaireController extends AbstractController
                         
                         'formLicence' => $form->createView(),
                         'edit' => $licence->getId() !== null,
-                        'stagiaire' => $licence,
+                        'licence' => $licence,
                         'error' => 'error'
                     ]);
                 }
@@ -493,4 +463,138 @@ class StagiaireController extends AbstractController
         return $this->redirectToRoute('stagiaire/licence_index');
     }
     
+
+/**Infraction */
+
+    /**
+    *  @Route("/stagiaire/loadFormInfraction", name="stagiaire_infraction")
+    */
+    public function popInfraction(Infraction $infraction = null, InfractionRepository $repoInfraction, NatureInfractionRepository $repoNature, Request $request, ObjectManager $manager)
+    {
+        if(!$infraction){
+            $infraction = new Infraction();
+        }
+
+        $form = $this->createForm( InfractionType::class, $infraction, array('method'=>'POST'));
+        $form->handleRequest( $request );
+
+        if($request->isMethod('POST')){
+            
+            $lieuInfraction = $request->request->get('infraction_lieuInfraction');
+            $dateInfraction = $request->request->get('infraction_dateInfraction');
+            $natureInfraction = $request->request->get('infraction_natureInfraction');
+           
+            $year = substr($dateInfraction, 0, 10);
+            $date = (\DateTime::createFromFormat('Y-m-d', $year));
+           
+
+            $natureInfraction = $repoNature->find($natureInfraction);
+
+            $nbrs = $repoInfraction->counter($lieuInfraction,$year);
+            $nbr = $nbrs[0][1];
+    
+            if(strlen($lieuInfraction) > 0 && strlen($dateInfraction) != "" && strlen($natureInfraction) > 0  && $nbr === "0"){
+
+                $infraction->setLieuInfraction($lieuInfraction);
+                $infraction->setDateInfraction($date);
+                $infraction->setNatureInfraction($natureInfraction);
+              
+                $manager->persist($infraction);
+                $manager->flush();
+
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"id":'.$infraction->getId().', "value":"'.$infraction->getLieuInfraction().'"}');
+               
+            }else{
+                $response = new Response();
+                $response = JsonResponse::fromJsonString('{"error":"existe"}');
+            }      
+            return $response;
+            
+        }  
+        return $this->render('stagiaire/popInfraction.html.twig', 
+            ['form' => $form->createView()
+            ]);
+    }
+
+    /**
+     * 
+     * @Route("/stagiaire/infraction", name="stagiaire_infraction_index")
+     */
+
+    
+    public function infractionIndex(StagiaireRepository $repo, PaginatorInterface $paginator, InfractionRepository $iRepo, NatureInfractionrepository $natRepo, Request $request) :Response
+    {
+       
+            $infraction = $iRepo->findAll();
+            $natureInfraction = $natRepo->findAll();
+            $s = $request->query->get('q');
+            $allstagiaires = $repo->findAllWithSearch($s);
+              
+    
+            $stagiaires = $paginator->paginate(
+                $allstagiaires,
+                $request->query->getInt('page', 1), /*page number*/
+                5 /*limit per page*/
+            );
+        
+            $stagiaires ->setCustomParameters([
+                'position' => 'centered',
+                'size' => 'small',
+                'rounded' => true,
+            ]);
+           
+    
+            return $this->render('stagiaire/infraction.html.twig', [
+                'stagiaires' => $stagiaires,
+                'infraction' => $infraction,
+                'natureInfraction' => $natureInfraction
+               
+            ]);
+        }
+
+    /**
+     *  @Route("/stagiaire/infraction/ajouter", name="infraction_ajouter")
+     *  @Route("/stagiaire/infraction/{id}/modifier", name="infraction_modifier")
+     */
+    public function infractionForm(Infraction $infraction = null, InfractionRepository $repoInfraction, Request $request, ObjectManager $manager)
+    {
+            if(!$infraction){
+            $infraction = new infraction();
+            }
+            $form = $this->createForm(InfractionType::class, $infraction);
+            $form->handleRequest($request);
+            
+            if($form->isSubmitted() && $form->isValid()){
+
+                $lieuInfraction = $infraction->getLieuInfraction();
+                $dateInfraction = $infraction->getDateInfraction();
+                $natureInfraction = $infraction->getNatureInfraction();
+                $nbrs = $repoInfraction->counter($lieuInfraction,$dateInfraction,$natureInfraction);
+                $nbr = $nbrs[0][1];
+          
+                if($infraction->getId() === null && $nbr === "0"){
+                    $manager->persist($infraction);
+                    $manager->flush();
+                }else if($infraction->getId() !== null){
+                    $manager->persist($infraction);
+                    $manager->flush();
+                }else{
+                    return $this->render('stagiaire/infraction/ajouter.html.twig', [
+                        
+                        'formInfraction' => $form->createView(),
+                        'edit' => $infraction->getId() !== null,
+                        'infraction' => $infraction,
+                        'error' => 'error'
+                    ]);
+                }
+                return $this->redirectToRoute('stagiaire_index');
+            }
+            return $this->render('stagiaire/infraction/ajouter.html.twig', [
+                'formInfraction' => $form->createView(),
+                'edit' => $infraction->getId() !== null,
+                'infraction' => $infraction
+                // 'error' => 'error'
+                ]);
+            }
     }

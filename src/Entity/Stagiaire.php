@@ -137,6 +137,11 @@ class Stagiaire
      */
     private $cas;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Infraction", inversedBy="stagiaire")
+     */
+    private $infraction;
+
     
 
     public function __construct()
@@ -144,7 +149,6 @@ class Stagiaire
         $this->stages = new ArrayCollection();
         $this->cas = new ArrayCollection();
         
-       
     }
 
     public function getId(): ?int
@@ -434,5 +438,25 @@ class Stagiaire
 
         return $this;
     }
+
+    public function getInfraction(): ?Infraction
+    {
+        return $this->infraction;
+    }
+
+    public function setInfraction(?Infraction $infraction): self
+    {
+        if ($this->infraction) {
+            $this->infraction->setStagiaire(null);
+          }
+        
+          if ($infraction !== null && $this !== $infraction->getStagiaire()) {
+            $infraction->setStagiaire($this);
+          }
+        
+          $this->infraction = $infraction;
+        
+          return $this;
+        }
 }
 

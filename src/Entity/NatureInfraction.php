@@ -23,6 +23,16 @@ class NatureInfraction
      */
     private $nomInfraction;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Infraction", mappedBy="natureInfraction")
+     */
+    private $infractions;
+
+    public function __construct()
+    {
+        $this->infractions = new ArrayCollection();
+    }
+
        
 
     public function getId(): ?int
@@ -49,5 +59,33 @@ class NatureInfraction
      */
     public function __toString() {
         return $this->getNomInfraction();
+    }
+
+    /**
+     * @return Collection|Infraction[]
+     */
+    public function getInfractions(): Collection
+    {
+        return $this->infractions;
+    }
+
+    public function addInfraction(Infraction $infraction): self
+    {
+        if (!$this->infractions->contains($infraction)) {
+            $this->infractions[] = $infraction;
+            $infraction->addNatureInfraction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInfraction(Infraction $infraction): self
+    {
+        if ($this->infractions->contains($infraction)) {
+            $this->infractions->removeElement($infraction);
+            $infraction->removeNatureInfraction($this);
+        }
+
+        return $this;
     }
 }

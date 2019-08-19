@@ -82,53 +82,90 @@
             }}
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            {{ form_row(formStagiaire.avantage, {'label': "Avantage :", 'attr': {'placeholder': "Avantage"}})
-            }}
+    <h3 id="avantage" class=" ">Avantage</h3>
+    <div class="flex-row ">
+            {{ form_row(formStagiaire.avantage) }}
         </div>
-        <div class="row">
-            <div class="col">
-                {{ form_row(formStagiaire.stages, {'label': "Stage :", 'attr': {'placeholder': "Stage"}}) }}
-            </div>
-        </div>
-    </div>
-    <h3 id="typeStage">Type de stage</h3>
-    <div class="row">
-        <div class="col">
-            {{ form_row(formStagiaire.cas, {'label': "Stage :", 'attr': {'placeholder':
-            "Stage"}}) }}
-        </div>
+      
+  
+    <h3 id="typeStage" class=" ">Type de stage</h3>
+    <div class="flex-row ">
+       
+            {{ form_row(formStagiaire.cas) }}
+        
     </div>
    
     <h3 id="licence">Permis de conduire</h3>
-    {% if stagiaire.licence is not null %}
-    <div class="row">
-        <div class="col-8">
-            Numéro {{ stagiaire.licence.licenceNumber }} attribué le
-            {{ stagiaire.licence.licenceDate|localizeddate('long', 'none', 'fr')}} par la
+     {% if stagiaire.licence is not null %}
+    <div class="row d-flex align-items-center justify-content-start"> 
+      
+        <div class="hidden">
+       {{ form_widget(formStagiaire.licence, {'attr': {'class': 'hidden-row'} }) }}
+       </div>
+          <div class="col-6">
+           Numéro {{ stagiaire.licence.licenceNumber }}  attribué le {{ stagiaire.licence.licenceDate|localizeddate('long', 'none', 'fr')}} par la
             {{ stagiaire.licence.prefecture }}
 
-        </div>
-        <div class="col-4">
-        </div>
+        </div> 
+         <div class="col-1">
+       
         <a data-toggle="tooltip" data-placement="top" title="Modifier le permis de conduire"
             href="{{  path('licence_modifier', {'id': stagiaire.licence.id}) }}"><i
                 class="fas fa-pen pen_color pl-2 pr-2"></i></a>
         <a data-toggle="modal" data-target="#licenceDelete{{ stagiaire.licence.id }}" data-placement="top"
             title="Supprimer le permis" href="#"><i class="far fa-trash-alt trash_color"></i></a>
-
-        </button>
-        {% else %}
+ </div> 
+         </div>
+         {% else %} 
+          <div class="col-4">
+         {{ form_row(formStagiaire.licence) }}
+        </div>
         <div class="col-4">
             <button type="button" id="addLicence" class="btn btn-success tribunal_add" data-toggle="modal"
                 data-target="#modalLicence">
                 Ajouter le permis de conduire
             </button>
         </div>
-        {% endif %}
-    </div>
-</div>
+         {% endif %} 
+  
+
+     <h3 id="infraction">Infraction</h3>
+     {% if stagiaire.infraction is not null %}  
+    <div class="row d-flex align-items-center justify-content-start">
+               <div class="hidden">
+                 {{ form_widget(formStagiaire.infraction, {'attr': {'class': 'hidden-row'} }) }}
+       </div>
+         <div class="col-6">
+           Infraction commise à {{ stagiaire.infraction.lieuInfraction }} le {{ stagiaire.infraction.dateInfraction|localizeddate('long', 'none', 'fr')}} <br>
+           Nature de l'infraction : {{ stagiaire.infraction.natureInfraction }}  
+
+        </div>  
+         <div class="col-1">
+       
+         <a data-toggle="tooltip" data-placement="top" title="Modifier le permis de conduire"
+            href="{{  path('infraction_modifier', {'id': stagiaire.infraction.id}) }}"><i
+                class="fas fa-pen pen_color pl-2 pr-2"></i></a>
+        <a data-toggle="modal" data-target="#licenceDelete{{ stagiaire.infraction.id }}" data-placement="top"
+            title="Supprimer le permis" href="#"><i class="far fa-trash-alt trash_color"></i></a>   
+ </div> 
+   </div> 
+                  {% else %}   
+             
+         <div class="col-4">
+            <button type="button" id="addInfraction" class="btn btn-success tribunal_add" data-toggle="modal"
+                data-target="#modalInfraction">
+                Ajouter une infraction
+            </button> 
+             </div>
+            <div class="col-4">
+          {{ form_row(formStagiaire.infraction) }}  
+                </div> 
+       
+        {% endif %}   
+   
+
+
+
 
 {% if editMode %}
 <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
@@ -141,6 +178,7 @@
 {% endif %}
 
 {{ form_end(formStagiaire) }}
+ </div> 
 <!-- Modal: modalCart -->
 <div class="modal fade" id="modalLicence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -160,6 +198,24 @@
         <!--Body-->
     </div>
 </div>
+
+<div class="modal fade" id="modalInfraction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Ajouter une infraction</h4>
+                <button type="button" class="closeInfraction" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body"></div>
+            <div class="text-danger text-center pb-3" id="errorInfraction"></div>
+        </div>
+        <!--Body-->
+    </div>
 </div>
 {% endblock %}
 

@@ -395,8 +395,8 @@ class StageController extends AbstractController
 
 
                 $manager->persist($lieuStage);
-                var_dump($lieuStage);
-                die();
+                // var_dump($lieuStage);
+                // die();
                 $manager->flush();
 
                 $response = new Response();

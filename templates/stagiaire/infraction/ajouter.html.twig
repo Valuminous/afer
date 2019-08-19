@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+    <div>
+        {% if edit %}
+        <h2 class="mt-5 mb-5 h2_stage">Modifier une infraction</h2>
+        {% else %}
+        <h2 class="mt-5 mb-5 h2_stage">Ajouter  une infraction</h2>
+        {% endif %}
+    </div>
+
+    {{ form_start(formInfraction) }}
+  <div class="row">
+       
+        </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(formInfraction.lieuInfraction, {'label': "Lieu de l'infraction :", 'attr': {'placeholder':
+            "Lieu de l'infraction"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(formInfraction.dateInfraction, {'label': "Date de l'infraction :", 'attr': {'placeholder': "Date de l'infraction"}})}}
+        </div>
+       
+    </div>
+
+    <div class="row">
+        
+        <div class="col">
+            {{ form_row(formInfraction.natureInfraction, {'label': "Nature de l'infraction :", 'attr': {'placeholder': "Nature de l'infraction"}}) }}
+        </div>
+    </div>
+
+   
+   
+   
+
+    {% if edit %}
+    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
+        Enregistrer
+    </button>
+    {% else %}
+    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
+        Enregistrer
+    </button>
+    {% endif %}
+
+
+    {{ form_end(formInfraction) }}
+</div>
+
+{% endblock %}
+
+{% block selectjs %}
+    <script src="{{ asset('build/select.js') }}"></script>
+ {% endblock %}

@@ -1,0 +1,41 @@
+{# {{ form_start(form) }}
+{{ form_row(form.licenceNumber) }}
+
+<button class="btn btn-success" type="submit">Ajouter le permis</button>
+
+    {% if error is defined %}
+        <p class="text-danger text-error-identifiant pt-3 envoi">Veuillez renseigner tous les champs!</p>
+    {% endif %}
+    
+{{ form_end(form) }}#}
+
+<div class="container">
+
+    
+
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.lieuInfraction, {'label': "Lieu de l'infraction :", 'attr': {'placeholder':
+            "Lieu de l'infraction"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.dateInfraction, {'label': "Date de l'infraction :", 'attr': {'placeholder': "Date de l'infraction"}})}}
+        </div>
+
+ 
+        <div class="col-10">
+            {{ form_row(form.natureInfraction, {'label': "Nature de l'infraction :", 'attr': {'placeholder': "Nature"}}) }}
+        </div> 
+    </div>
+
+   
+   
+   <button type="submit" class="btn btn-primary">Ajouter l'infraction</button>
+  
+
+
+    {{ form_end(form) }}
+</div> 
+

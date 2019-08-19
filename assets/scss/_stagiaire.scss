@@ -114,3 +114,30 @@
             .onglet {
                 font-size: 1rem;
             }
+
+            #stagiaire_cas {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                
+                .form-check-label {
+                    padding-right: 1.5rem;
+                }
+            }
+
+            #stagiaire_avantage {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                
+                .form-check-label {
+                    padding-right: 1.5rem;
+                } 
+
+            }
+
+            .hidden {
+                display: none;
+            }
