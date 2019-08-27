@@ -144,10 +144,13 @@ class Stagiaire
 
     
 
+    
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
         $this->cas = new ArrayCollection();
+       
         
     }
 
@@ -458,5 +461,7 @@ class Stagiaire
         
           return $this;
         }
+
+    
 }
 

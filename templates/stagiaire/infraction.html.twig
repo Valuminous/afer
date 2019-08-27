@@ -34,8 +34,8 @@
             <tr class="background_stagiaire">
                 <th scope="col" class="pl-5 text-left">{{ knp_pagination_sortable(stagiaires, 'Nom', 'q.nomStagiaire') }}</th>
                 <th scope="col" class="text-left">{{ knp_pagination_sortable(stagiaires, 'Prénom', 'q.prenomStagiaire') }}</th>
-                 <th scope="col" class="text-left">Nature de l'infraction</th>
-                <th scope="col" class="text-left">Lieu de l'infraction</th>
+                 <th scope="col" class="text-left">{{ knp_pagination_sortable(stagiaires, 'Nature de l\'infraction', 'n.nomInfraction') }}</th>
+                <th scope="col" class="text-left">{{ knp_pagination_sortable(stagiaires, 'Lieu de l\'infraction', 'i.lieuInfraction') }}</th>
                 <th scope="col" class="text-left">Date</th>
                 <th scope="col" class="text-left">Horaire </th>
                 <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>

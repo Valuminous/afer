@@ -32,7 +32,7 @@
     
     }
 }
-    #select, #selectStagiaire, #selectTribunal,  #selectAnimateur, #selectPrefecture{
+    #select, #selectStagiaire, #selectTribunal,  #selectAnimateur, #selectPrefecture, #selectInfraction{
         position: absolute;
         height: 35vh;
         overflow: auto;
@@ -48,7 +48,7 @@
     border: 1px solid #ced4da;
     border-radius: .25rem;
 }
-#select p:hover, #selectStagiaire p:hover, #selectTribunal p:hover, #selectAnimateur p:hover, #selectPrefecture p:hover{
+#select p:hover, #selectStagiaire p:hover, #selectTribunal p:hover, #selectAnimateur p:hover, #selectPrefecture p:hover, #selectInfraction p:hover{
     background-color: rgba(82, 75, 75,0.2);
     cursor: pointer;
 }

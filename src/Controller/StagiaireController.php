@@ -43,10 +43,9 @@ class StagiaireController extends AbstractController
        
         $s = $request->query->get('q');
         $allstagiaires = $repo->findAllWithSearch($s);
-          
-
+        
         $stagiaires = $paginator->paginate(
-            $allstagiaires,
+            $allstagiaires, 
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
@@ -60,6 +59,7 @@ class StagiaireController extends AbstractController
         return $this->render('stagiaire/index.html.twig', [
            
             'stagiaires' => $stagiaires,
+            
         ]);
     }
     /**
@@ -67,7 +67,7 @@ class StagiaireController extends AbstractController
      *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
      *  @IsGranted("ROLE_ADMIN")
      */
-    public function stagiaireForm(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Licence $licence, Request $request, ObjectManager $manager)
+    public function stagiaireForm(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
            $stagiaire = new stagiaire();
@@ -94,7 +94,7 @@ class StagiaireController extends AbstractController
                     'formStagiaire' => $form->createView(),
                     'editMode' => $stagiaire->getId() !== null,
                     'stagiaire' => $stagiaire, 
-                    'licence' => $licence,
+                    // 'licence' => $licence,
                         
                     'error' => 'error'
                 ]);
@@ -106,11 +106,9 @@ class StagiaireController extends AbstractController
             'formStagiaire' => $form->createView(),
             'editMode' => $stagiaire->getId() !== null,
             'stagiaire' => $stagiaire,
-            'licence' => $licence,
-           
             
-        ]);
-        
+            
+        ]); 
        
     }
     
@@ -149,8 +147,6 @@ class StagiaireController extends AbstractController
     }
 
     
-
-
 /**
      * 
      * @Route("/stagiaire/condamnation", name="stagiaire_condamnation_index")
@@ -166,8 +162,6 @@ class StagiaireController extends AbstractController
            
         ]);
     }
-    
-    
 
         /**
      * @Route("/stagiaire/imprimer", name="stagiaire_imprimer", methods={"GET"})
@@ -205,7 +199,6 @@ class StagiaireController extends AbstractController
 }
 
 
-
     /**
      * @Route("/stagiaire/avantage", name="avantage_index")
      */
@@ -218,8 +211,8 @@ class StagiaireController extends AbstractController
     }
 
      /**
-     *  @Route("/stage/avantage/ajouter", name="avantage_ajouter")
-     *  @Route("/stage/avantage/{id}/modifier", name="avantage_modifier")
+     *  @Route("/stagiaire/avantage/ajouter", name="avantage_ajouter")
+     *  @Route("/stagiaire/avantage/{id}/modifier", name="avantage_modifier")
      */
     public function avantageForm(Avantage $avantage = null, Request $request, ObjectManager $manager)
     {
@@ -316,7 +309,6 @@ class StagiaireController extends AbstractController
 }
 
 /**Permis de conduire */
-
 
     /**
     *  @Route("/stagiaire/loadFormLicence", name="stagiaire_licence")
@@ -441,15 +433,14 @@ class StagiaireController extends AbstractController
                         'error' => 'error'
                     ]);
                 }
-                return $this->redirectToRoute('stagiaire_index');
+                return $this->redirectToRoute('stagiaire_permis_index');
             }
-           
         
             return $this->render('stagiaire/licence/ajouter.html.twig', [
                 'formLicence' => $form->createView(),
                 'edit' => $licence->getId() !== null,
                 'licence' => $licence,
-                // 'error' => 'error'
+             
                 ]);
             }
         
@@ -482,15 +473,15 @@ class StagiaireController extends AbstractController
             
             $lieuInfraction = $request->request->get('infraction_lieuInfraction');
             $dateInfraction = $request->request->get('infraction_dateInfraction');
+           
             $natureInfraction = $request->request->get('infraction_natureInfraction');
            
-            $year = substr($dateInfraction, 0, 10);
-            $date = (\DateTime::createFromFormat('Y-m-d', $year));
-           
-
+            $year = substr($dateInfraction, 0, 16);
+            $format = 'd-m-Y H:i';
+            $date = (\DateTime::createFromFormat($format, $year));
             $natureInfraction = $repoNature->find($natureInfraction);
 
-            $nbrs = $repoInfraction->counter($lieuInfraction,$year);
+            $nbrs = $repoInfraction->counter($lieuInfraction, $year);
             $nbr = $nbrs[0][1];
     
             if(strlen($lieuInfraction) > 0 && strlen($dateInfraction) != "" && strlen($natureInfraction) > 0  && $nbr === "0"){
@@ -521,7 +512,6 @@ class StagiaireController extends AbstractController
      * 
      * @Route("/stagiaire/infraction", name="stagiaire_infraction_index")
      */
-
     
     public function infractionIndex(StagiaireRepository $repo, PaginatorInterface $paginator, InfractionRepository $iRepo, NatureInfractionrepository $natRepo, Request $request) :Response
     {
@@ -531,7 +521,6 @@ class StagiaireController extends AbstractController
             $s = $request->query->get('q');
             $allstagiaires = $repo->findAllWithSearch($s);
               
-    
             $stagiaires = $paginator->paginate(
                 $allstagiaires,
                 $request->query->getInt('page', 1), /*page number*/
@@ -544,7 +533,6 @@ class StagiaireController extends AbstractController
                 'rounded' => true,
             ]);
            
-    
             return $this->render('stagiaire/infraction.html.twig', [
                 'stagiaires' => $stagiaires,
                 'infraction' => $infraction,
@@ -570,7 +558,7 @@ class StagiaireController extends AbstractController
                 $lieuInfraction = $infraction->getLieuInfraction();
                 $dateInfraction = $infraction->getDateInfraction();
                 $natureInfraction = $infraction->getNatureInfraction();
-                $nbrs = $repoInfraction->counter($lieuInfraction,$dateInfraction,$natureInfraction);
+                $nbrs = $repoInfraction->counter($lieuInfraction, $dateInfraction, $natureInfraction);
                 $nbr = $nbrs[0][1];
           
                 if($infraction->getId() === null && $nbr === "0"){
@@ -588,13 +576,13 @@ class StagiaireController extends AbstractController
                         'error' => 'error'
                     ]);
                 }
-                return $this->redirectToRoute('stagiaire_index');
+                return $this->redirectToRoute('stagiaire_infraction_index');
             }
             return $this->render('stagiaire/infraction/ajouter.html.twig', [
                 'formInfraction' => $form->createView(),
                 'edit' => $infraction->getId() !== null,
-                'infraction' => $infraction
-                // 'error' => 'error'
+                'infraction' => $infraction,
+                'error' => 'error'
                 ]);
             }
     }

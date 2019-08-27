@@ -3,6 +3,7 @@ inputCommuneStagiaire();
 inputCommuneTribunal();
 inputCommuneAnimateur();
 inputCommunePrefecture();
+inputCommuneInfraction();
 
 function inputCommuneLieuStage() {
     let commune = document.querySelector('#lieu_stage_nom_commune');
@@ -17,7 +18,7 @@ function inputCommuneLieuStage() {
                         return reponse.text();
                     })
                     .then((reponse) => {
-                        console.log(reponse);
+                        
                         if (reponse.length > 0) {
                             let data = new FormData();
                             data.append("lieu_stage_nom_commune", commune.value);
@@ -27,8 +28,8 @@ function inputCommuneLieuStage() {
                                     body: data,
                                     credentials: 'include'
                                 })
-                                .then((reponse) => {
-                                    return reponse.text();
+                                .then((resultat) => {
+                                    return resultat.json();
                                 })
                                 .then((resultat) => {
 
@@ -86,6 +87,7 @@ function inputCommuneStagiaire() {
                         return reponse.text();
                     })
                     .then((reponse) => {
+                        console.log(reponse);
                         if (reponse.length > 0) {
                             let data = new FormData();
                             data.append("stagiaire_communeStagiaire", communeStagiaire.value);
@@ -300,6 +302,7 @@ function inputCommunePrefecture() {
                                     let villePrefecture;
 
                                     for (let i = 0; i < resultat.length; i++) {
+                                        
                                         villePrefecture = document.createElement("p");
                                         villePrefecture.textContent = resultat[i]['nomCommune'] + " (" + resultat[i]['cp'] + ")";
                                         villePrefecture.id = i;
@@ -315,6 +318,78 @@ function inputCommunePrefecture() {
                                         element.addEventListener('click', function (e) {
                                             communePrefecture.value = resultat[p[i].id]['nomCommune'] + " (" + resultat[p[i].id]['cp'] + ")";
                                             selectionPrefecture.classList.add('listeHidden');
+                                        })
+                                    }
+                                }).catch((error) => {
+                                    console.log(error);
+                                });
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+            }
+        });
+    }
+}
+
+function inputCommuneInfraction() {
+    let communeInfraction = document.querySelector('#infraction_lieuInfraction');
+    if (communeInfraction != null) {
+        communeInfraction.addEventListener('keyup', function (e) {
+            if (communeInfraction.textLength > 2) {
+                fetch("/admin/stagiaire/infraction/lieucommune", {
+                        credentials: 'include'
+                    })
+                    .then((reponse) => {
+                        return reponse.text();
+                    })
+   
+                    .then((reponse) => {
+                       
+                        if (reponse.length > 0) {
+                            let data = new FormData();
+                            data.append("infraction_lieuInfraction", communeInfraction.value);
+
+                            fetch("/admin/stagiaire/infraction/lieucommune", {
+                                    method: "POST",
+                                    body: data,
+                                    credentials: 'include'
+                                })
+                                .then((resultat) => {
+                                    return resultat.json();
+                                })
+                                .then((resultat) => {
+
+                                    let selectionInfraction = document.getElementById('selectInfraction');
+                                    
+                                    selectionInfraction.style.top = (communeInfraction.offsetTop + communeInfraction.scrollHeight) + "px";
+                                    console.log(communeInfraction.scrollHeight);
+                                    selectionInfraction.style.left = communeInfraction.offsetLeft + "px";
+                                    selectionInfraction.style.width = communeInfraction.offsetWidth + "px";
+                                    let villeInfraction;
+
+                                    for (let i = 0; i < resultat.length; i++) {
+                                        
+                                        villeInfraction = document.createElement("p");
+                                        villeInfraction.textContent = resultat[i]['nomCommune'] + " (" + resultat[i]['cp'] + ")";
+                                        villeInfraction.id = i;
+                                      
+                                        selectionInfraction.appendChild(villeInfraction);
+                                        selectionInfraction.classList.remove('listeHidden');
+                                    }
+
+                                    let p = selectionInfraction.getElementsByTagName('p');
+                                    
+
+                                    for (let i = 0; i < p.length; i++) {
+                                        const element = p[i];
+
+                                        element.addEventListener('click', function (e) {
+                                            console.log(communeInfraction.value);
+                                            communeInfraction.value = resultat[p[i].id]['nomCommune'] + " (" + resultat[p[i].id]['cp'] + ")";
+                                            selectionInfraction.classList.add('listeHidden');
+                                            
+                                          
                                         })
                                     }
                                 }).catch((error) => {

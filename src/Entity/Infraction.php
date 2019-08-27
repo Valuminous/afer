@@ -28,7 +28,7 @@ class Infraction
      */
     private $dateInfraction;
 
-    
+       
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\NatureInfraction", inversedBy="infractions")
      */
@@ -38,6 +38,11 @@ class Infraction
      * @ORM\OneToOne(targetEntity="App\Entity\Stagiaire", mappedBy="infraction")
      */
     private $stagiaire;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Condamnation", mappedBy="infraction", cascade={"persist", "remove"})
+     */
+    private $condamnation;
 
     
     public function getId(): ?int
@@ -69,7 +74,7 @@ class Infraction
         return $this;
     }
 
-    
+        
     public function getNatureInfraction(): ?NatureInfraction
     {
         return $this->natureInfraction;
@@ -99,5 +104,28 @@ class Infraction
      */
     public function __toString() {
         return $this->getLieuInfraction();
+       
     }
+
+    public function getCondamnation(): ?Condamnation
+    {
+        return $this->condamnation;
+    }
+
+    public function setCondamnation(?Condamnation $condamnation): self
+    {
+        $this->condamnation = $condamnation;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newInfraction = $condamnation === null ? null : $this;
+        if ($newInfraction !== $condamnation->getInfraction()) {
+            $condamnation->setInfraction($newInfraction);
+        }
+
+        return $this;
+    }
+
+    
+ 
+   
 }

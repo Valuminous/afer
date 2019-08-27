@@ -96,63 +96,89 @@
     </div>
    
     <h3 id="licence">Permis de conduire</h3>
-     {% if stagiaire.licence is not null %}
+     
     <div class="row d-flex align-items-center justify-content-start"> 
-      
+      {% if stagiaire.licence is not null %}
         <div class="hidden">
        {{ form_widget(formStagiaire.licence, {'attr': {'class': 'hidden-row'} }) }}
        </div>
-          <div class="col-6">
-           Numéro {{ stagiaire.licence.licenceNumber }}  attribué le {{ stagiaire.licence.licenceDate|localizeddate('long', 'none', 'fr')}} par la
-            {{ stagiaire.licence.prefecture }}
+        
+          <table class="table table-striped">
+           
+            <thead>
+                <tr>
+                    <th scope="col" class="pl-5 text-left">Numéro de permis</th>
+                    <th scope="col" class="text-left">attribué le</th>
+                    <th scope="col" class="text-left">par la</th>
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                    </tr>
+                     </thead>
+        <tbody>
+                    <tr>
+                    <td class="pl-5 text-left">{{ stagiaire.licence.licenceNumber }}</td>
+                    <td class="text-left">{{ stagiaire.licence.licenceDate|localizeddate('long', 'none', 'fr')}}</td>
+                 <td class="text-left"> {{ stagiaire.licence.prefecture }}</td>
 
-        </div> 
-         <div class="col-1">
-       
-        <a data-toggle="tooltip" data-placement="top" title="Modifier le permis de conduire"
+        <td class="text-center">
+               <a data-toggle="tooltip" data-placement="top" title="Modifier le permis de conduire"
             href="{{  path('licence_modifier', {'id': stagiaire.licence.id}) }}"><i
                 class="fas fa-pen pen_color pl-2 pr-2"></i></a>
         <a data-toggle="modal" data-target="#licenceDelete{{ stagiaire.licence.id }}" data-placement="top"
-            title="Supprimer le permis" href="#"><i class="far fa-trash-alt trash_color"></i></a>
- </div> 
-         </div>
+            title="Supprimer le permis" href="#"><i class="far fa-trash-alt trash_color"></i></a></td>
+ </tr> 
+ <tbody>
+ </table>
+        
          {% else %} 
-          <div class="col-4">
-         {{ form_row(formStagiaire.licence) }}
-        </div>
+         
         <div class="col-4">
-            <button type="button" id="addLicence" class="btn btn-success tribunal_add" data-toggle="modal"
+            <button type="button" id="addLicence" class="btn btn-success" data-toggle="modal"
                 data-target="#modalLicence">
                 Ajouter le permis de conduire
             </button>
         </div>
+         <div class="col-4">
+         {{ form_row(formStagiaire.licence) }}
+        </div>
          {% endif %} 
-  
+   </div>
 
      <h3 id="infraction">Infraction</h3>
-     {% if stagiaire.infraction is not null %}  
+    
     <div class="row d-flex align-items-center justify-content-start">
+     {% if stagiaire.infraction is not null %}  
                <div class="hidden">
                  {{ form_widget(formStagiaire.infraction, {'attr': {'class': 'hidden-row'} }) }}
        </div>
-         <div class="col-6">
-           Infraction commise à {{ stagiaire.infraction.lieuInfraction }} le {{ stagiaire.infraction.dateInfraction|localizeddate('long', 'none', 'fr')}} <br>
-           Nature de l'infraction : {{ stagiaire.infraction.natureInfraction }}  
-
-        </div>  
-         <div class="col-1">
-       
-         <a data-toggle="tooltip" data-placement="top" title="Modifier le permis de conduire"
+       <table class="table table-striped">
+           
+            <thead>
+                <tr>
+                    <th scope="col" class="pl-5 text-left">Infraction commise à </th>
+                    <th scope="col" class="text-left">le</th>
+                    <th scope="col" class="text-left">Nature de l'infraction</th>
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                    </tr>
+                     </thead>
+        <tbody>
+                    <tr>
+                    <td class="pl-5 text-left">{{ stagiaire.infraction.lieuInfraction }}</td>
+                    <td class="text-left">{{ stagiaire.infraction.dateInfraction|localizeddate('long', 'none', 'fr')}}</td>
+                 <td class="text-left">{{ stagiaire.infraction.natureInfraction }}</td>
+ <td class="text-center">
+                    <a data-toggle="tooltip" data-placement="top" title="Modifier le permis de conduire"
             href="{{  path('infraction_modifier', {'id': stagiaire.infraction.id}) }}"><i
                 class="fas fa-pen pen_color pl-2 pr-2"></i></a>
         <a data-toggle="modal" data-target="#licenceDelete{{ stagiaire.infraction.id }}" data-placement="top"
-            title="Supprimer le permis" href="#"><i class="far fa-trash-alt trash_color"></i></a>   
- </div> 
-   </div> 
+            title="Supprimer le permis" href="#"><i class="far fa-trash-alt trash_color"></i></a></td>
+ </tr> 
+ <tbody>
+ </table>
+  
                   {% else %}   
              
          <div class="col-4">
-            <button type="button" id="addInfraction" class="btn btn-success tribunal_add" data-toggle="modal"
+            <button type="button" id="addInfraction" class="btn btn-success" data-toggle="modal"
                 data-target="#modalInfraction">
                 Ajouter une infraction
             </button> 
@@ -160,13 +186,15 @@
             <div class="col-4">
           {{ form_row(formStagiaire.infraction) }}  
                 </div> 
-       
+      
         {% endif %}   
-   
+     </div> 
 
-
-
-
+  <h3 id="Stage">Stage</h3>
+    
+    <div class="row d-flex align-items-center justify-content-start">
+ {{ form_row(formStagiaire.stages) }} 
+ </div> 
 {% if editMode %}
 <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
     Modifier

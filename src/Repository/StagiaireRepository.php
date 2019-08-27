@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Stagiaire;
-
+use App\Entity\Licence;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -26,14 +26,31 @@ class StagiaireRepository extends ServiceEntityRepository
      */
     public function findAllWithSearch(?string $term)
     {
-        $qb = $this->createQueryBuilder('q');
+        $qb = $this->createQueryBuilder('q')
+        ->leftJoin('q.licence', 'l')
+        ->addSelect('l')
+        ->leftJoin('l.prefecture', 'p')
+        ->addSelect('p')
+        
+        ->leftJoin('q.infraction', 'i')
+        ->addSelect('i')
+        ->leftJoin('i.natureInfraction', 'n')
+        ->addSelect('n');
+
         if ($term) {
-            $qb->andWhere('q.prenomStagiaire LIKE :term OR q.nomStagiaire LIKE :term ')
+            $qb->andWhere('q.prenomStagiaire LIKE :term OR q.nomStagiaire LIKE :term 
+            OR l.licenceNumber LIKE :term OR p.nomPrefecture LIKE :term 
+            OR i.lieuInfraction LIKE :term OR n.nomInfraction LIKE :term')
+            
                 ->setParameter('term', '%' . $term . '%');
         }
         return $qb
         ->orderBy('q.prenomStagiaire', 'ASC')
             ->orderBy('q.nomStagiaire', 'ASC')
+            // ->orderBy('q.licence', 'ASC')
+            // ->orderBy('q.infraction', 'ASC')
+            // ->orderBy('l.prefecture', 'ASC')
+            // ->orderBy('i.natureInfraction', 'ASC')
             ->getQuery()
             // ->getResult()
         ;

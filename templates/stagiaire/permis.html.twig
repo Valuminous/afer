@@ -34,9 +34,9 @@
             <tr class="background_stagiaire">
                <th scope="col" class="pl-5 text-left">{{ knp_pagination_sortable(stagiaires, 'Nom', 'q.nomStagiaire') }}</th>
                 <th scope="col" class="text-left">{{ knp_pagination_sortable(stagiaires, 'Prénom', 'q.prenomStagiaire') }}</th>
-                <th scope="col" class="text-left">N° de permis</th>
+                <th scope="col" class="text-left">{{ knp_pagination_sortable(stagiaires, 'N° de permis', 'l.licenceNumber') }}</th>
                 <th scope="col" class="text-left">Délivré le</th>
-                <th scope="col" class="text-left">Délivré par </th>
+                <th scope="col" class="text-left">{{ knp_pagination_sortable(stagiaires, 'Délivré par', 'p.nomPrefecture') }}</th>
                 <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
             </tr>
         </thead>

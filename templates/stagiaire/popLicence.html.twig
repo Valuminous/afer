@@ -1,13 +1,4 @@
-{# {{ form_start(form) }}
-{{ form_row(form.licenceNumber) }}
 
-<button class="btn btn-success" type="submit">Ajouter le permis</button>
-
-    {% if error is defined %}
-        <p class="text-danger text-error-identifiant pt-3 envoi">Veuillez renseigner tous les champs!</p>
-    {% endif %}
-    
-{{ form_end(form) }}#}
 
 <div class="container">
 
@@ -28,7 +19,7 @@
         <div class="col-10">
             {{ form_row(form.prefecture, {'label': "Préfecture :", 'attr': {'placeholder': "Préfecture"}}) }}
         </div> 
-    </div>
+   
 
    
    
@@ -37,5 +28,6 @@
 
 
     {{ form_end(form) }}
-</div> 
 
+
+ </div>

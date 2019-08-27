@@ -27,6 +27,7 @@ class StageType extends AbstractType
                 'format'=>'yyyy-MM-dd',
                 'html5' => true,
             ])
+            
             ->add('datef', DateType::class, [
                 'widget' => 'single_text',
                 'format'=>'yyyy-MM-dd',
@@ -58,7 +59,9 @@ class StageType extends AbstractType
             ])    
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,
-                'choice_label' => 'nomAnimateur',
+                'choice_label' => function (Animateur $animateur) {
+                    return $animateur->getAnimateurFonction() . ' ' . $animateur->getPrenomAnimateur() . ' ' . $animateur->getNomAnimateur();
+                },
                 'placeholder' => 'Choisir un ou deux animateurs',
                 'attr' => array('class' => 'animateur-select'),
                 'multiple' => 'true',
@@ -71,7 +74,7 @@ class StageType extends AbstractType
             ->add('stagiaires', EntityType::class, [
                 'class' => Stagiaire::class,
                 'choice_label' => function (Stagiaire $stagiaire) {
-                    return $stagiaire->getPrenomStagiaire() . ' ' . $stagiaire->getNomStagiaire();
+                    return $stagiaire->getCivilite() . ' ' . $stagiaire->getPrenomStagiaire() . ' ' . $stagiaire->getNomStagiaire();
                 },
                 'placeholder' => 'Choisir un ou des stagiaires',
                 'multiple' => 'true',

@@ -20,6 +20,7 @@
         <div class="col">
             {{ form_row(formInfraction.lieuInfraction, {'label': "Lieu de l'infraction :", 'attr': {'placeholder':
             "Lieu de l'infraction"}}) }}
+             <div id="selectInfraction" class="listeHidden"></div>
         </div>
         <div class="col">
             {{ form_row(formInfraction.dateInfraction, {'label': "Date de l'infraction :", 'attr': {'placeholder': "Date de l'infraction"}})}}
@@ -33,10 +34,6 @@
             {{ form_row(formInfraction.natureInfraction, {'label': "Nature de l'infraction :", 'attr': {'placeholder': "Nature de l'infraction"}}) }}
         </div>
     </div>
-
-   
-   
-   
 
     {% if edit %}
     <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
@@ -53,7 +50,6 @@
 </div>
 
 {% endblock %}
-
 {% block selectjs %}
     <script src="{{ asset('build/select.js') }}"></script>
  {% endblock %}

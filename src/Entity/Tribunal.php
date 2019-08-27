@@ -60,12 +60,18 @@ class Tribunal
      */
     private $stagiaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Condamnation", mappedBy="tribumal")
+     */
+    private $condamnations;
+
     
 
     public function __construct()
     {
         $this->stage = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
+        $this->condamnations = new ArrayCollection();
        
     }
 
@@ -208,6 +214,37 @@ class Tribunal
      */
     public function __toString() {
         return $this->getNomTribunal();
+    }
+
+    /**
+     * @return Collection|Condamnation[]
+     */
+    public function getCondamnations(): Collection
+    {
+        return $this->condamnations;
+    }
+
+    public function addCondamnation(Condamnation $condamnation): self
+    {
+        if (!$this->condamnations->contains($condamnation)) {
+            $this->condamnations[] = $condamnation;
+            $condamnation->setTribumal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCondamnation(Condamnation $condamnation): self
+    {
+        if ($this->condamnations->contains($condamnation)) {
+            $this->condamnations->removeElement($condamnation);
+            // set the owning side to null (unless already changed)
+            if ($condamnation->getTribumal() === $this) {
+                $condamnation->setTribumal(null);
+            }
+        }
+
+        return $this;
     }
     
 

@@ -19,19 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class LicenceController extends AbstractController
 {
-    /**
-     * @Route("/stagiaire/licence", name="licence_index")
-     */
-    public function index(LicenceRepository $repo)
-    {
-
-        $licence = $repo->findAll();
-
-        return $this->render('licence/index.html.twig', [
-            'controller_name' => 'LicenceController',
-            'licence' => $licence
-        ]);
-    }
+    
      /**
      *  @Route("/stagiaire/licence/ajouter", name="licence_ajouter")
      *  @Route("/stagiaire/licence/{id}/modifier", name="licence_modifier")
@@ -65,7 +53,7 @@ class LicenceController extends AbstractController
     {
         $manager->remove($licence);
         $manager->flush();
-        return $this->redirectToRoute('licence_index');
+        return $this->redirectToRoute('stagiaire/permis_index');
     }
     /**
      * @Route("/stagiaire/licence/{id}/afficher", name="licence_afficher")

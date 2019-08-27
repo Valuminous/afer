@@ -72,13 +72,12 @@ class Stage
      */
     private $lieuStage;
 
-    
 
     public function __construct()
     {
         $this->animateurs = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
-       
+               
     }
     public function getId(): ?int
     {
@@ -211,6 +210,6 @@ class Stage
         return $this;
     }
 
-    
+       
 
 }

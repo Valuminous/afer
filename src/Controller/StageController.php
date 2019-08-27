@@ -69,7 +69,7 @@ class StageController extends AbstractController
         ]);
     }
     /**
-     * Controller pour les stages terminés avec pagination
+     * Controller pour tous les stages terminés et à venir avec pagination
      * @Route("/stage/tous", name="stage_tous")
      * 
      */
@@ -422,7 +422,7 @@ class StageController extends AbstractController
         if(!$stage){
         $stage = new Stage();
         }
-        $date = date("d-m-Y");
+        $date = date("d-m-Y H:i");
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
         

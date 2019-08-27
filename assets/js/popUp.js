@@ -36,7 +36,7 @@ function loadFormAutoriteTribunal() {
                 return reponse.text();
             })
             .then((reponse) => {
-               
+
                 if (reponse.length > 0) {
                     document.querySelector('#modalCart .modal-body').innerHTML = reponse;
                     btn = document.querySelector('#modalCart .modal-body button');
@@ -525,7 +525,7 @@ function loadFormPrefecture() {
                                 data.append("prefecture_prefectureAutorite", prefectureAutorite.value);
                                 data.append("prefecture_prefectureService", prefectureService.value);
                                 data.append("prefecture__token", token.value);
-                              
+
                                 fetch("/admin/stage/loadFormPrefecture", {
                                         method: "POST",
                                         body: data,
@@ -635,10 +635,10 @@ function loadFormStagiaire() {
                                     })
                                     .then((resultat) => {
                                         return resultat.json();
-                                       
+
 
                                     })
-                                   
+
                                     .then((resultat) => {
                                         if (resultat.error != null) {
                                             document.querySelector('#errorStagiaire').innerHTML = "Le stagiaire existe déjà";
@@ -667,7 +667,7 @@ function loadFormStagiaire() {
             });
     }
 }
-                   
+
 function loadFormAnimateur() {
     let animateur = document.querySelector('#addAnimateur');
     if (animateur != null) {
@@ -741,17 +741,17 @@ function loadFormAnimateur() {
                                 data.append("animateur_animateurStatut", AnimateurStatut.value);
                                 data.append("animateur_observations_animateur", AnimateurObservations.value);
                                 data.append("animateur__token", token.value);
-                               
+
                                 fetch("/admin/stage/loadFormAnimateur", {
                                         method: "POST",
                                         body: data,
                                         credentials: 'include'
                                     })
-                                    
+
                                     .then((resultat) => {
                                         return resultat.json();
                                     })
-                                    console.log(resultat.json())
+                                console.log(resultat.json())
                                     .then((resultat) => {
 
                                         if (resultat.error != null) {
@@ -784,13 +784,15 @@ function loadFormAnimateur() {
 
 function loadFormLieuStage() {
     let lieuStage = document.querySelector('#addLieuStage');
- 
+
     if (lieuStage != null) {
-        fetch("/admin/stage/loadFormLieuStage", { credentials: 'include' })
-        .then((reponse) => {
-            return reponse.text();
-        })
-        .then((reponse) => {
+        fetch("/admin/stage/loadFormLieuStage", {
+                credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.text();
+            })
+            .then((reponse) => {
                 if (reponse.length > 0) {
                     document.querySelector('#modalCartLieuStage .modal-body').innerHTML = reponse;
                     btn = document.querySelector('#modalCartLieuStage .modal-body button');
@@ -800,11 +802,11 @@ function loadFormLieuStage() {
                             e.preventDefault();
 
                             if (document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_etablissement').value.length != 0 &&
-                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_agrement').value.length != 0 &&
-                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_numero_adresse_stage').value.length != 0 &&
-                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_adresse_stage').value.length != 0 &&
-                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune').value.length != 0 &&
-                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage').value.length != 0) {
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_agrement').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_numero_adresse_stage').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_adresse_stage').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage').value.length != 0) {
 
                                 let nom = document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_etablissement');
                                 let agrement = document.querySelector('form[name="lieu_stage"] #lieu_stage_agrement');
@@ -813,7 +815,7 @@ function loadFormLieuStage() {
                                 let commune = document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune');
                                 let telephone = document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage');
                                 let token = document.querySelector('form[name="lieu_stage"] #lieu_stage__token');
-                           
+
                                 let data = new FormData();
                                 data.append("lieu_stage_nom_etablissement", nom.value);
                                 data.append("lieu_stage_agrement", agrement.value);
@@ -847,7 +849,7 @@ function loadFormLieuStage() {
                                     }).catch((error) => {
                                         console.log(error);
                                     });
-                            } 
+                            }
                         })
                     }
                 }
@@ -856,63 +858,70 @@ function loadFormLieuStage() {
             });
     }
 }
+
 function inputCommuneLieuStage() {
     let commune = document.querySelector('#lieu_stage_nom_commune');
     if (commune != null) {
         commune.addEventListener('keyup', function (e) {
             if (commune.textLength > 2) {
-                fetch("/admin/stage/lieucommune", {credentials: 'include'})
-                .then((reponse) => { 
-                    return reponse.text();
-                })
-                .then((reponse) => {
-                    if (reponse.length > 0) {
-                    let data = new FormData();
-                    data.append("lieu_stage_nom_commune", commune.value);
-                    
-                    fetch("/admin/stage/lieucommune", {method: "POST",body: data,credentials: 'include'})
-                        .then((resultat) => {
-                            return resultat.json();
-                        })
-                        .then((resultat) => {
+                fetch("/admin/stage/lieucommune", {
+                        credentials: 'include'
+                    })
+                    .then((reponse) => {
+                        return reponse.text();
+                    })
+                    .then((reponse) => {
+                        if (reponse.length > 0) {
+                            let data = new FormData();
+                            data.append("lieu_stage_nom_commune", commune.value);
 
-                            let selection = document.getElementById('select');
-                            selection.style.top = (commune.offsetTop+commune.scrollHeight)+"px";
-                            selection.style.left = commune.offsetLeft+"px";
-                            selection.style.width = commune.offsetWidth+"px";
-                            let ville;
-
-                        for (let i = 0; i < resultat.length; i++) {
-                            ville = document.createElement("p");
-                            ville.textContent = resultat[i]['nomCommune']+" ("+resultat[i]['cp']+")";
-                            ville.id = i;
-                            selection.appendChild(ville);
-                            selection.classList.remove('listeHidden');
-                            }
-
-                            let p = selection.getElementsByTagName('p');
-                            let longitude = document.getElementById('lieu_stage_longitude');
-                            let latitude = document.getElementById('lieu_stage_latitude');
-                        
-
-                            for (let i = 0; i < p.length; i++) {
-                                const element = p[i];
-                                
-                                element.addEventListener('click', function (e) {
-                                    commune.value = resultat[p[i].id]['nomCommune']+" ("+resultat[p[i].id]['cp']+")";
-                                    selection.classList.add('listeHidden');
-            
-                                    longitude.value = resultat[p[i].id]['longitude'];
-                                    latitude.value = resultat[p[i].id]['latitude'];
+                            fetch("/admin/stage/lieucommune", {
+                                    method: "POST",
+                                    body: data,
+                                    credentials: 'include'
                                 })
-                            }
-                        }).catch((error) => {
-                            console.log(error);
-                        });
-                    }
-                }).catch((error) => {
-                    console.log(error);
-                });
+                                .then((resultat) => {
+                                    return resultat.json();
+                                })
+                                .then((resultat) => {
+
+                                    let selection = document.getElementById('select');
+                                    selection.style.top = (commune.offsetTop + commune.scrollHeight) + "px";
+                                    selection.style.left = commune.offsetLeft + "px";
+                                    selection.style.width = commune.offsetWidth + "px";
+                                    let ville;
+
+                                    for (let i = 0; i < resultat.length; i++) {
+                                        ville = document.createElement("p");
+                                        ville.textContent = resultat[i]['nomCommune'] + " (" + resultat[i]['cp'] + ")";
+                                        ville.id = i;
+                                        selection.appendChild(ville);
+                                        selection.classList.remove('listeHidden');
+                                    }
+
+                                    let p = selection.getElementsByTagName('p');
+                                    let longitude = document.getElementById('lieu_stage_longitude');
+                                    let latitude = document.getElementById('lieu_stage_latitude');
+
+
+                                    for (let i = 0; i < p.length; i++) {
+                                        const element = p[i];
+
+                                        element.addEventListener('click', function (e) {
+                                            commune.value = resultat[p[i].id]['nomCommune'] + " (" + resultat[p[i].id]['cp'] + ")";
+                                            selection.classList.add('listeHidden');
+
+                                            longitude.value = resultat[p[i].id]['longitude'];
+                                            latitude.value = resultat[p[i].id]['latitude'];
+                                        })
+                                    }
+                                }).catch((error) => {
+                                    console.log(error);
+                                });
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    });
             }
         });
     }
@@ -920,63 +929,63 @@ function inputCommuneLieuStage() {
 
 function loadFormLicence() {
     let licence = document.querySelector('#addLicence');
- 
+
     if (licence != null) {
-        fetch("/admin/stagiaire/loadFormLicence", { 
-            credentials: 'include' 
-        })
-        .then((reponse) => {
-            return reponse.text();
-           
-        })
-       
-        .then((reponse) => {
+        fetch("/admin/stagiaire/loadFormLicence", {
+                credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.text();
+
+            })
+
+            .then((reponse) => {
                 if (reponse.length > 0) {
                     document.querySelector('#modalLicence .modal-body').innerHTML = reponse;
                     btn = document.querySelector('#modalLicence .modal-body button');
-                      if (btn != null) {
+                    if (btn != null) {
                         btn.addEventListener('click', function (e) {
                             e.preventDefault();
 
                             if (document.querySelector('form[name="licence"] #licence_licenceNumber').value.length != 0 &&
-                                 document.querySelector('form[name="licence"] #licence_licenceDate_day').value.length != "" &&
-                                 document.querySelector('form[name="licence"] #licence_licenceDate_month').value.length != "" &&
-                                 document.querySelector('form[name="licence"] #licence_licenceDate_year').value.length != "" &&
-                                 document.querySelector('form[name="licence"] #licence_prefecture').value.length != "")
-                                
-                             {
+                                document.querySelector('form[name="licence"] #licence_licenceDate_day').value.length != "" &&
+                                document.querySelector('form[name="licence"] #licence_licenceDate_month').value.length != "" &&
+                                document.querySelector('form[name="licence"] #licence_licenceDate_year').value.length != "" &&
+                                document.querySelector('form[name="licence"] #licence_prefecture').value.length != "")
+
+                            {
 
                                 let licenceNumber = document.querySelector('form[name="licence"] #licence_licenceNumber');
                                 let licenceDate = document.querySelector('form[name="licence"] #licence_licenceDate_year').value + "-" +
-                                document.querySelector('form[name="licence"] #licence_licenceDate_month').value + "-" +
-                                document.querySelector('form[name="licence"] #licence_licenceDate_day').value;
+                                    document.querySelector('form[name="licence"] #licence_licenceDate_month').value + "-" +
+                                    document.querySelector('form[name="licence"] #licence_licenceDate_day').value;
                                 let prefecture = document.querySelector('form[name="licence"] #licence_prefecture');
-                                
+
                                 let data = new FormData();
-                               
+
                                 data.append("licence_licenceNumber", licenceNumber.value);
                                 data.append("licence_licenceDate", licenceDate);
                                 data.append("licence_prefecture", prefecture.value);
-                               
-                                console.log( licenceNumber.value);
-                                console.log( licenceDate);
-                                console.log( prefecture.value);
-                                
+
+                                console.log(licenceNumber.value);
+                                console.log(licenceDate);
+                                console.log(prefecture.value);
+
                                 fetch("/admin/stagiaire/loadFormLicence", {
                                         method: "POST",
                                         body: data,
                                         credentials: 'include'
                                     })
-                                    
+
                                     .then((resultat) => {
                                         return resultat.json();
                                     })
-                                  
+
                                     .then((resultat) => {
                                         if (resultat.error != null) {
                                             document.querySelector('#errorLicence').innerHTML = "Le permis existe déjà";
                                         } else if (resultat.value != null) {
-                                           
+
                                             const selectLicence = document.querySelector('#stagiaire_licence');
                                             let option = document.createElement("option");
                                             option.setAttribute('value', resultat.id)
@@ -1004,73 +1013,73 @@ function loadFormLicence() {
 
 function loadFormInfraction() {
     let infraction = document.querySelector('#addInfraction');
- 
+
     if (infraction != null) {
-        fetch("/admin/stagiaire/loadFormInfraction", { 
-            credentials: 'include' 
-        })
-        .then((reponse) => {
-            return reponse.text();
-           
-        })
-       
-        .then((reponse) => {
+        fetch("/admin/stagiaire/loadFormInfraction", {
+                credentials: 'include'
+            })
+            .then((reponse) => {
+                return reponse.text();
+            })
+
+            .then((reponse) => {
                 if (reponse.length > 0) {
                     document.querySelector('#modalInfraction .modal-body').innerHTML = reponse;
                     btn = document.querySelector('#modalInfraction .modal-body button');
-                      if (btn != null) {
+                    inputCommuneInfraction();
+                    if (btn != null) {
                         btn.addEventListener('click', function (e) {
                             e.preventDefault();
 
                             if (document.querySelector('form[name="infraction"] #infraction_lieuInfraction').value.length != 0 &&
-                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_day').value.length != "" &&
-                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_month').value.length != "" &&
-                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_year').value.length != "" &&
-                                 document.querySelector('form[name="infraction"] #infraction_natureInfraction').value.length != "")
-                                
-                             {
+                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_date_day').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_date_month').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_date_year').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_hour').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_minute').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_natureInfraction').value.length != "")
 
+                            {
                                 let lieuInfraction = document.querySelector('form[name="infraction"] #infraction_lieuInfraction');
-                                let dateInfraction = document.querySelector('form[name="infraction"] #infraction_dateInfraction_year').value + "-" +
-                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_month').value + "-" +
-                                document.querySelector('form[name="infraction"] #infraction_dateInfraction_day').value;
+                                let dateInfraction = document.querySelector('form[name="infraction"] #infraction_dateInfraction_date_day').value + "-" +
+                                    document.querySelector('form[name="infraction"] #infraction_dateInfraction_date_month').value + "-" +
+                                    document.querySelector('form[name="infraction"] #infraction_dateInfraction_date_year').value + " " +
+                                    document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_hour').value + ":" +
+                                    document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_minute').value;
                                 let natureInfraction = document.querySelector('form[name="infraction"] #infraction_natureInfraction');
-                                
                                 let data = new FormData();
-                               
+
                                 data.append("infraction_lieuInfraction", lieuInfraction.value);
                                 data.append("infraction_dateInfraction", dateInfraction);
                                 data.append("infraction_natureInfraction", natureInfraction.value);
-                                
-                               
-                                console.log( lieuInfraction.value);
-                                 console.log( dateInfraction);
-                                console.log( natureInfraction.value);
-                            
+
                                 fetch("/admin/stagiaire/loadFormInfraction", {
                                         method: "POST",
                                         body: data,
                                         credentials: 'include'
                                     })
-                                    
+
                                     .then((resultat) => {
                                         return resultat.json();
+
                                     })
-                                  
+
                                     .then((resultat) => {
                                         if (resultat.error != null) {
+                                            console.log(resultat.error);
                                             document.querySelector('#errorInfraction').innerHTML = "Cette infraction existe déjà";
                                         } else if (resultat.value != null) {
-                                           
+
                                             const selectInfraction = document.querySelector('#stagiaire_infraction');
-                                            let option = document.createElement("option");
+                                            const option = document.createElement("option");
                                             option.setAttribute('value', resultat.id)
                                             option.text = resultat.value;
+                                            selectInfraction.add(option);
                                             selectInfraction.selectedIndex = selectInfraction.length - 1;
                                             closeInfraction.click();
 
                                         }
-                                        console.log(lieuInfraction.value);
+
                                     }).catch((error) => {
                                         console.log(error);
                                     });
@@ -1083,5 +1092,76 @@ function loadFormInfraction() {
             }).catch((error) => {
                 console.log(error);
             });
+    }
+}
+
+function inputCommuneInfraction() {
+    let communeInfraction = document.querySelector('#infraction_lieuInfraction');
+    if (communeInfraction != null) {
+        communeInfraction.addEventListener('keyup', function (e) {
+            if (communeInfraction.textLength > 2) {
+                fetch("/admin/stagiaire/infraction/lieucommune", {
+                        credentials: 'include'
+                    })
+                    .then((reponse) => {
+                        return reponse.text();
+                    })
+
+                    .then((reponse) => {
+
+                        if (reponse.length > 0) {
+                            let data = new FormData();
+                            data.append("infraction_lieuInfraction", communeInfraction.value);
+
+                            fetch("/admin/stagiaire/infraction/lieucommune", {
+                                    method: "POST",
+                                    body: data,
+                                    credentials: 'include'
+                                })
+                                .then((resultat) => {
+                                    return resultat.json();
+                                })
+                                .then((resultat) => {
+
+                                    let selectionInfraction = document.getElementById('selectInfraction');
+
+                                    selectionInfraction.style.top = (communeInfraction.offsetTop + communeInfraction.scrollHeight) + "px";
+                                    selectionInfraction.style.left = communeInfraction.offsetLeft + "px";
+                                    selectionInfraction.style.width = communeInfraction.offsetWidth + "px";
+                                    let villeInfraction;
+
+                                    for (let i = 0; i < resultat.length; i++) {
+
+                                        villeInfraction = document.createElement("p");
+                                        villeInfraction.textContent = resultat[i]['nomCommune'] + " (" + resultat[i]['cp'] + ")";
+                                        villeInfraction.id = i;
+
+                                        selectionInfraction.appendChild(villeInfraction);
+                                        selectionInfraction.classList.remove('listeHidden');
+                                    }
+
+                                    let p = selectionInfraction.getElementsByTagName('p');
+
+
+                                    for (let i = 0; i < p.length; i++) {
+                                        const element = p[i];
+
+                                        element.addEventListener('click', function (e) {
+                                            console.log(communeInfraction.value);
+                                            communeInfraction.value = resultat[p[i].id]['nomCommune'] + " (" + resultat[p[i].id]['cp'] + ")";
+                                            selectionInfraction.classList.add('listeHidden');
+
+
+                                        })
+                                    }
+                                }).catch((error) => {
+                                    console.log(error);
+                                });
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+            }
+        });
     }
 }
