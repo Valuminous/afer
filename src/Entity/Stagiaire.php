@@ -98,11 +98,7 @@ class Stagiaire
      */
     private $numeroAdresseStagiaire;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaires")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $stages;
+  
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Civilite", inversedBy="stagiaires")
@@ -142,14 +138,20 @@ class Stagiaire
      */
     private $infraction;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participation", mappedBy="stagiaire", cascade={"persist"})
+     */
+    private $participations;
+
     
 
     
 
     public function __construct()
     {
-        $this->stages = new ArrayCollection();
+       
         $this->cas = new ArrayCollection();
+        $this->participations = new ArrayCollection();
        
         
     }
@@ -304,37 +306,7 @@ class Stagiaire
         return $this;
     }
 
-    /**
-    * @return Collection|Stage[]
-    */
-
-    public function getStages(): Collection
-    {
-        return $this->stages;
-    }
-
-    public function addStage(Stage $stage): self
-    {
-        if (!$this->stages->contains($stage)) {
-            $this->stages[] = $stage;
-            $stage->addStage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStage(Stage $stage): self
-    {
-        if (!$this->stages->contains($stage)) {
-            $this->stages->removeElement($stage);
-            if ($stage->getStage() === $this) {
-                $stage->setStage(null);
-           
-        }
-        }
-
-        return $this;
-    }
+    
 
     public function getCivilite(): ?Civilite
     {
@@ -401,7 +373,7 @@ class Stagiaire
      * toString
      */
     public function __toString() {
-        return $this->getPrenomStagiaire() . ' ' . $this->getNomStagiaire();
+        return $this->getCivilite() . ' ' . $this->getPrenomStagiaire() . ' ' . $this->getNomStagiaire();
     }
 
     public function getAvantage(): ?Avantage
@@ -461,6 +433,45 @@ class Stagiaire
         
           return $this;
         }
+
+    /**
+     * @param mixed $fparticipations
+     */
+    public function getParticipations()
+    {
+        return $this->participations;
+    }
+
+    public function setParticipations( $participations)
+    {
+        $this->participations = $participations;
+    }
+
+    // On récupère participations pour les injecter dans notre champs "stage"
+    // Permet de marquer les stages déjà sélectionnés dans la DB
+    public function getStage()
+    {
+        $stages = new ArrayCollection();
+        foreach($this->participations as $p)
+        {
+            $stages[] = $p->getStage();
+        }
+        return $stages;
+    }
+    public function setStage($stages)
+    { 
+        $this->stages = $stages;
+
+        return $this;
+    }
+    public function addParticipation($participations)
+    {
+        $this->participations[] = $participations;
+    }
+    public function removeParticipation($participations)
+    {
+        $this->participations->removeElement($participations);
+    }
 
     
 }

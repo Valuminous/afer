@@ -8,6 +8,8 @@ use App\Entity\Animateur;
 use App\Entity\LieuStage;
 use App\Entity\Stagiaire;
 use App\Entity\Prefecture;
+use App\Entity\Participation;
+use App\Form\ParticipationType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +17,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class StageType extends AbstractType
 {
@@ -71,22 +74,22 @@ class StageType extends AbstractType
                 },
             
             ])
-            ->add('stagiaires', EntityType::class, [
-                'class' => Stagiaire::class,
-                'choice_label' => function (Stagiaire $stagiaire) {
-                    return $stagiaire->getCivilite() . ' ' . $stagiaire->getPrenomStagiaire() . ' ' . $stagiaire->getNomStagiaire();
-                },
-                'placeholder' => 'Choisir un ou des stagiaires',
-                'multiple' => 'true',
-                'attr' => array('class' => 'stagiaire-select'),
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('stag')
-                        ->orderBy('stag.nomStagiaire', 'ASC');
+             ->add('stagiaire', EntityType::class, [
+                 'class' => Stagiaire::class,
+                 'choice_label' => function (Stagiaire $stagiaire) {
+                     return $stagiaire->getCivilite() . ' ' . $stagiaire->getPrenomStagiaire() . ' ' . $stagiaire->getNomStagiaire();
+                 },
+                 'placeholder' => 'Choisir un ou des stagiaires',
+                 'multiple' => 'true',
+                 'attr' => array('class' => 'stagiaire-select'),
+                 'query_builder' => function (EntityRepository $er) {
+                     return $er->createQueryBuilder('stag')
+                         ->orderBy('stag.nomStagiaire', 'ASC');
                        
-                },
-                
-                
-            ]);
+                 },
+                 ])
+                                   
+            ;
 
     }
             

@@ -10,10 +10,18 @@
             "Lieu de l'infraction"}}) }}
              <div id="selectInfraction" class="listeHidden"></div>
         </div>
+         </div>
+        <div class="row">
         <div class="col">
-            {{ form_row(form.dateInfraction, {'label': "Date de l'infraction :", 'attr': {'placeholder': "Date de l'infraction"}})}}
+            {{ form_row(form.dateInfraction.date, {'label': "Date de l'infraction :", 'attr': {'placeholder': "Date de l'infraction"}})}}
         </div>
-
+          </div>
+        <div class="row">
+        <div class="col">
+            {{ form_row(form.dateInfraction.time, {'label': "Horaire de l'infraction :", 'attr': {'placeholder': "Horaire de l'infraction"}})}}
+        </div>
+         </div>
+<div class="row">
         <div class="col-10">
             {{ form_row(form.natureInfraction, {'label': "Nature de l'infraction :", 'attr': {'placeholder': "Nature"}}) }}
         </div> 

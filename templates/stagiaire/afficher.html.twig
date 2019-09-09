@@ -3,6 +3,11 @@
 {% block body %}
 
 <div class="mt-5 container-fluid">
+    <div class="text-right">
+        <a data-toggle="tooltip" data-placement="top" title="Imprimer cette page" target="_blank"
+            href="{{ path('stagiaire_afficher_imprimer', {'id': stagiaire.id}) }}" <i
+            class="mr-5 fas fa-print print_icon"></i></a>
+    </div>
     <div class=" w-100 stagiaire_border">
         <h2 class="text-center background_stagiaire pt-2 pb-2 lieustage_margin">Stagiaire
             {{ stagiaire.prenomStagiaire }} {{stagiaire.nomStagiaire}}</h2>
@@ -17,7 +22,6 @@
                     <td></td>
                 </tr>
                 <tr>
-
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Nom :</td>
@@ -48,62 +52,77 @@
                     <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}</td>
                     <td class="font-weight-bold">Commune :</td>
                     <td class="text-left">{{stagiaire.communeStagiaire }}</td>
-                    
-
-                    
                 </tr>
                 <tr>
-                {% if stagiaire.licence is not null %}
-                <td class="font-weight-bold">Permis :</td>
-                
-                 <td class="text-left">numéro {{ stagiaire.licence.licenceNumber }}  </td>
-                <td class="font-weight-bold">attribué : </td>
-                 <td class="text-left">le {{ stagiaire.licence.licenceDate|localizeddate('long', 'none', 'fr')}}</td>
-              <td class="font-weight-bold">par la : </td>
-              <td class="text-left">{{ stagiaire.licence.prefecture }}</td>
-              {% else %}
-               <td class="font-weight-bold">Aucun permis enregistré</td>
-               <td></td>
-               <td></td>
-                 <td></td>
-               <td></td>
-                 <td></td>
-            
-                {% endif %}
-               </tr>
-               <tr>
-                {% if stagiaire.infraction is not null %}
-                <td class="font-weight-bold">Infraction commise à :</td>
-                
-                 <td class="text-left">{{ stagiaire.infraction.lieuinfraction }}  </td>
-                <td class="font-weight-bold">le </td>
-                 <td class="text-left">{{ stagiaire.infraction.dateInfraction|localizeddate('long', 'short', 'fr')}}</td>
-              <td class="font-weight-bold">Nature de l'infraction : </td>
-              <td class="text-left">{{ stagiaire.infraction.natureInfraction }}</td>
-              {% else %}
-               <td class="font-weight-bold">Aucune infraction enregistrée</td>
-               <td></td>
-               <td></td>
-                 <td></td>
-               <td></td>
-                 <td></td>
-            
-                {% endif %}
-               </tr>
+                    {% if stagiaire.licence is not null %}
+                    <td class="font-weight-bold">Permis :</td>
+                    <td class="text-left">numéro {{ stagiaire.licence.licenceNumber }} </td>
+                    <td class="font-weight-bold">attribué : </td>
+                    <td class="text-left">le {{ stagiaire.licence.licenceDate|localizeddate('long', 'none', 'fr')}}</td>
+                    <td class="font-weight-bold">par la : </td>
+                    <td class="text-left">{{ stagiaire.licence.prefecture }}</td>
+                    {% else %}
+                    <td class="font-weight-bold">Aucun permis enregistré</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    {% endif %}
+                </tr>
                 <tr>
-                    <td class="font-weight-bold">Numéro(s) de stage : </td>
-                    {% for stage in stagiaire.stages %}
-                    <td>{{ stage.numeroStage }}</td>
+                    {% if stagiaire.infraction is not null %}
+                    <td class="font-weight-bold">Infraction commise à :</td>
+                    <td class="text-left">{{ stagiaire.infraction.lieuinfraction }} </td>
+                    <td class="font-weight-bold">le </td>
+                    <td class="text-left">{{ stagiaire.infraction.dateInfraction|localizeddate('long', 'short', 'fr')}}
+                    </td>
+                    <td class="font-weight-bold">Nature de l'infraction : </td>
+                    <td class="text-left">{{ stagiaire.infraction.natureInfraction }}</td>
+                    {% else %}
+                    <td class="font-weight-bold">Aucune infraction enregistrée</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    {% endif %}
+                </tr>
+                <tr>
+                
+                    {% if stagiaire.participations is not empty %}
+                 {% for participation in stagiaire.participations %}
+                 {% if participation.stage.dated < date() %}
+                    <td class="font-weight-bold">Stages précédents</td>
+                    <td>{{ participation.stage.numeroStage }}</td>
+                    <td class="font-weight-bold">du : </td>
+                    <td>{{ participation.stage.dated|localizeddate('long', 'none', 'fr')}}</td>
+                    <td class="font-weight-bold">au : </td>
+                    <td>{{ participation.stage.datef|localizeddate('long', 'none', 'fr')}}</td>
+                    {% else %}
+                    <td class="font-weight-bold">Stages à venir</td>
+                    <td>{{ participation.stage.numeroStage }}</td>
+                    <td class="font-weight-bold">du : </td>
+                    <td>{{ participation.stage.dated|localizeddate('long', 'none', 'fr')}}</td>
+                    <td class="font-weight-bold">au : </td>
+                    <td>{{ participation.stage.datef|localizeddate('long', 'none', 'fr')}}</td>
+                     {% endif %}
                     {% endfor %}
+                    {% else %}
+                    <td class="font-weight-bold">Aucun stage défini</td>
+                      <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    {% endif %}
                 </tr>
             </tbody>
         </table>
-
-        
     </div>
     <a href="{{ path('stagiaire_index') }}" class="btn retour lieustage_button mt-3">Retour</a>
 </div>
- <div>
+<div>
     <a href="{{ path('stagiaire_facture', {'id': stagiaire.id}) }}" class="btn retour lieustage_button mt-3">facture</a>
 </div>
 {% endblock %}

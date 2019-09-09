@@ -11,6 +11,7 @@ use App\Entity\Tribunal;
 use App\Entity\Stagiaire;
 use App\Entity\Infraction;
 use App\Entity\Prefecture;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -55,17 +56,27 @@ class StagiaireType extends AbstractType
             ])
             ->add('emailStagiaire', null, [
                 'required'   => false,
-                
             ])
             
             ->add('numeroAdresseStagiaire')
            
-            ->add('stages', EntityType::class, [
+            ->add('stage', EntityType::class, [
                'class' => Stage::class,
                'choice_label' => 'numeroStage',
+               'choice_label' => function (Stage $stage) {
+                return $stage->getNumeroStage() . ' du ' . $stage->getdated()->format('d-m-Y'). ' au ' . $stage->getdatef()->format('d-m-Y');;
+            },
+               
                'placeholder' => 'Choisir un ou des stages',
+               'attr' => array('class' => 'stage-select'),
                'multiple' => 'true',
-                            
+               'expanded' => 'true',   
+               'query_builder' => function (EntityRepository $er) {
+                     return $er->createQueryBuilder('s')
+                       ->andWhere('s.dated >= :now')
+                        ->orderBy('s.dated', 'ASC')
+                        ->setParameter('now', new \DateTime());  
+               },                
                ])
                     
                 ->add('licence', EntityType::class, [
@@ -73,10 +84,6 @@ class StagiaireType extends AbstractType
                  'placeholder' => 'Numéro de permis',
                  'label'   => false,
                  'required'   => false,
-              
-                //  'choice_label' => function (Licence $licence) {
-                //     return 'Permis numéro' . $licence->getLicenceNumber() . ' attribué par la ' . $licence->getPrefecture();
-                // },
                 ])
                
                 ->add('avantage',EntityType::class, [
@@ -86,6 +93,7 @@ class StagiaireType extends AbstractType
                    'expanded' => 'true' ,
                    'label'   => false,
                 ])
+
                 ->add('cas',EntityType::class, [
                     'class' => Cas::class,
                     'choice_label' => 'numeroCas',
@@ -94,13 +102,12 @@ class StagiaireType extends AbstractType
                    'multiple' => 'true',
                    'label'   => false, 
                 ])
+
                 ->add('infraction', EntityType::class, [
                     'class' => Infraction::class,
                    'placeholder' => 'Infraction',
                    'label'   => false,
-                   'required'   => false,
-                
-                   
+                   'required'   => false,                   
                   ])
                ;
     }

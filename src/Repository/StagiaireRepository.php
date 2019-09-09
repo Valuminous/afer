@@ -27,6 +27,7 @@ class StagiaireRepository extends ServiceEntityRepository
     public function findAllWithSearch(?string $term)
     {
         $qb = $this->createQueryBuilder('q')
+
         ->leftJoin('q.licence', 'l')
         ->addSelect('l')
         ->leftJoin('l.prefecture', 'p')
@@ -47,10 +48,7 @@ class StagiaireRepository extends ServiceEntityRepository
         return $qb
         ->orderBy('q.prenomStagiaire', 'ASC')
             ->orderBy('q.nomStagiaire', 'ASC')
-            // ->orderBy('q.licence', 'ASC')
-            // ->orderBy('q.infraction', 'ASC')
-            // ->orderBy('l.prefecture', 'ASC')
-            // ->orderBy('i.natureInfraction', 'ASC')
+           
             ->getQuery()
             // ->getResult()
         ;

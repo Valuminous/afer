@@ -58,8 +58,9 @@
                     {% endfor %}
                 </td>
                 <td class="text-left">
-                    {{ stage.stagiaires|length }}
-                </td>
+               
+                    {{ stage.participations|length }}
+                                     </td>
                 <td class="text-center pr-5">
                     <a data-toggle="tooltip" data-placement="top" title="Voir le stage"
                         href="{{  path('stage_afficher', {'id': stage.id}) }}"><i class="far fa-eye eye_color"></i></a>

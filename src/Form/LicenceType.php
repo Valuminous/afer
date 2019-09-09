@@ -16,9 +16,10 @@ class LicenceType extends AbstractType
             ->add('licenceNumber')
             ->add('licenceDate',BirthdayType::class, [
                 'placeholder' => [
-                'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année'
+                'day' => 'Jour', 'month' => 'Mois', 'year' => 'Année',
             ],
-                'format' => 'd M y'
+                'format' => 'd M y',
+                'years' => range(1940, date('Y'))
                 
                 ])
             ->add('prefecture')  

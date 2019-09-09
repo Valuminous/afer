@@ -228,9 +228,10 @@
 
 <section>
    <h2  class="text-center background_stage pt-2 pb-2 stage_margin">Stagiaires</h2>
-   {% for stagiaire in stage.stagiaires %}
-  
-   <a href="#vue_stagiaire" class="btn btn_stagiaire" data-toggle="collapse">{{ stagiaire.prenomStagiaire }} {{ stagiaire.nomStagiaire }}</a>
+ 
+   {% for participation in stage.participations %}
+
+   <a href="#vue_stagiaire" class="btn btn_stagiaire" data-toggle="collapse">{{ participation.stagiaire.prenomStagiaire }} {{ participation.stagiaire.nomStagiaire }}</a>
 
    <div id="vue_stagiaire" class="collapse info_stagiaire">
       <div class="d-flex justify-content-center">
@@ -240,43 +241,43 @@
                
                <tr>
                   <td class="font-weight-bold">Nationalité :</td>
-                  <td class="text-left">{{ stagiaire.nationaliteStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.nationaliteStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Nom :</td>
-                  <td class="text-left">{{ stagiaire.prenomStagiaire }} {{ stagiaire.nomStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.prenomStagiaire }} {{ participation.stagiaire.nomStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">N° de fixe :</td>
-                  <td class="text-left">{{ stagiaire.numeroFixeStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.numeroFixeStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">N° de portable :</td>
-                  <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</td>
+                  <td class="text-left">{{participation.stagiaire.numeroPortableStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Email :</td>
-                  <td class="text-left">{{ stagiaire.emailStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.emailStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Nom de naissance :</td>
-                  <td class="text-left">{{ stagiaire.nomNaissanceStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.nomNaissanceStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Date de naissance :</td>
-                  <td class="text-left">{{ stagiaire.dateNaissanceStagiaire|localizeddate('long', 'none', 'fr')}}</td>
+                  <td class="text-left">{{ participation.stagiaire.dateNaissanceStagiaire|localizeddate('long', 'none', 'fr')}}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Lieu de naissance :</td>
-                  <td class="text-left">{{ stagiaire.lieuNaissanceStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.lieuNaissanceStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Adresse :</td>
-                  <td class="text-left">{{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.numeroAdresseStagiaire }}, {{ participation.stagiaire.adresseStagiaire }}</td>
                </tr>
                <tr>
                   <td class="font-weight-bold">Commune :</td>
-                  <td class="text-left">{{ stagiaire.communeStagiaire }}</td>
+                  <td class="text-left">{{ participation.stagiaire.communeStagiaire }}</td>
                </tr>
               
             </tbody>
@@ -284,6 +285,7 @@
       </div>
    </div>
      {% endfor %}
+     
    </section>
  </div>
 

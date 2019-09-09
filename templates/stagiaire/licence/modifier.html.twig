@@ -1,21 +1,12 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-
 <div class="container">
-
     <div>
-        {% if edit %}
         <h2 class="mt-5 mb-5 h2_stage">Modifier un permis</h2>
-        {% else %}
-        <h2 class="mt-5 mb-5 h2_stage">Ajouter un permis</h2>
-        {% endif %}
     </div>
-
     {{ form_start(formLicence) }}
-  <div class="row">
-       
-        </div>
+    <div class="row">
+    </div>
     <div class="row">
         <div class="col">
             {{ form_row(formLicence.licenceNumber, {'label': "Numéro de permis :", 'attr': {'placeholder':
@@ -25,34 +16,15 @@
             {{ form_row(formLicence.licenceDate, {'label': "Date de délivrance du permis :", 'attr': {'placeholder': "Date de délivrance du permis"}})}}
         </div>
     </div>
-
     <div class="row">
-        
         <div class="col">
             {{ form_row(formLicence.prefecture, {'label': "Préfecture :", 'attr': {'placeholder': "Préfecture"}}) }}
         </div>
     </div>
-
-   
-   
-   
-
-    {% if edit %}
-    <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
-        Enregistrer
-    </button>
-    {% else %}
-    <button type="submit" class="btn btn-success btn-link text-white mb-5 mt-3">
-        Enregistrer
-    </button>
-    {% endif %}
-
-
+    <button type="submit" class="btn btn-warning btn-link text-white mb-5 mt-3">Modifier</button>
     {{ form_end(formLicence) }}
 </div>
-
 {% endblock %}
-
 {% block selectjs %}
-    <script src="{{ asset('build/select.js') }}"></script>
- {% endblock %}
+<script src="{{ asset('build/select.js') }}"></script>
+{% endblock %}

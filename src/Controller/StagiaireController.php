@@ -2,32 +2,36 @@
 
 namespace App\Controller;
 
-use App\Entity\Stagiaire;
-use App\Entity\Avantage;
-use App\Form\StagiaireType;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Entity\Stage;
 use App\Entity\Licence;
-use App\Entity\Infraction;
+use App\Entity\Avantage;
+use App\Entity\Stagiaire;
 use App\Form\LicenceType;
-use App\Form\InfractionType;
+use App\Entity\Infraction;
 use App\Form\AvantageType;
+use App\Form\StagiaireType;
+use App\Form\InfractionType;
+use App\Entity\Participation;
 use App\Repository\CommuneRepository;
-use App\Repository\StagiaireRepository;
-use App\Repository\PrefectureRepository;
 use App\Repository\LicenceRepository;
-use App\Repository\InfractionRepository;
-use App\Repository\NatureInfractionRepository;
 use App\Repository\AvantageRepository;
+use App\Repository\StagiaireRepository;
+use App\Repository\InfractionRepository;
+use App\Repository\PrefectureRepository;
+use App\Repository\ParticipationRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\NatureInfractionRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Provider\ka_GE\DateTime;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Dompdf\Dompdf;
-use Dompdf\Options;
-use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/admin")
  */
@@ -67,15 +71,47 @@ class StagiaireController extends AbstractController
      *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
      *  @IsGranted("ROLE_ADMIN")
      */
-    public function stagiaireForm(Stagiaire $stagiaire = null,StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
+    public function stagiaireForm(Stagiaire $stagiaire = null,  ParticipationRepository $prepo, StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
            $stagiaire = new stagiaire();
         }
+        
            $form = $this->createForm(stagiaireType::class, $stagiaire);
            $form->handleRequest($request);
            if($form->isSubmitted() && $form->isValid()){
-     
+      // Ajout des stages du stagiaire
+            // On parcours les stages sélectionnés
+            foreach($form->get('stage')->getData() as $s)
+            {
+                if(!$stagiaire->getStage()->contains($s))
+                {
+                    // On ajoute ce stage
+                    $newParticipations = new Participation();
+                    $newParticipations->setStagiaire($stagiaire);
+                    $newParticipations->setStage($s);
+                    $stagiaire->addParticipation($newParticipations);
+                   
+                }
+            }
+
+            // Suppression des stages du stagiaire
+            // On parcours les stages de la DB
+                foreach($stagiaire->getStage() as $s)
+               
+            {
+                if(!$form->get('stage')->getData()->contains($s))
+                {  
+            // On supprime ce stage
+                    $oldParticipations = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'stage' => $s->getId()));
+                   
+
+                    $manager->remove($oldParticipations);                     
+                    $manager->flush();
+           
+                }
+            }
+
             $stagiaireNom = $stagiaire->getNomStagiaire();
             $stagiairePrenom = $stagiaire->getPrenomStagiaire();
             $stagiaireDateNaissance = $stagiaire->getDateNaissanceStagiaire();
@@ -94,7 +130,7 @@ class StagiaireController extends AbstractController
                     'formStagiaire' => $form->createView(),
                     'editMode' => $stagiaire->getId() !== null,
                     'stagiaire' => $stagiaire, 
-                    // 'licence' => $licence,
+                    
                         
                     'error' => 'error'
                 ]);
@@ -106,7 +142,7 @@ class StagiaireController extends AbstractController
             'formStagiaire' => $form->createView(),
             'editMode' => $stagiaire->getId() !== null,
             'stagiaire' => $stagiaire,
-            
+           
             
         ]); 
        
@@ -273,7 +309,7 @@ class StagiaireController extends AbstractController
     * PDF détails stagiaire
      * @Route("/stagiaire/{id}/facture", name="stagiaire_facture")
      */
-    public function facture(stagiaire $stagiaire, Request $request)
+    public function facture(stagiaire $stagiaire, Request $request, ObjectManager $manager)
     {
     $pdfOptions = new Options();
     $pdfOptions->set('defaultFont', 'Arial');
@@ -281,10 +317,21 @@ class StagiaireController extends AbstractController
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
    $stagiaire ->getId();
+   //Ajout de la date de la facture
+   foreach($stagiaire ->getParticipations() as $p) 
+    { 
+        if (is_null($p->getDateFacture())) { 
+            $p->setDateFacture((new \DateTime()));
+    
+            $manager->persist($p);
+            $manager->flush();
+        }        
+   }
    
     // Retrieve the HTML generated in our twig file
     $html = $this->renderView('stagiaire/pdf_facture.html.twig', [
-        'stagiaire' => $stagiaire
+        'stagiaire' => $stagiaire,
+        
     ]);
     
     // Load HTML to Dompdf
@@ -297,7 +344,7 @@ class StagiaireController extends AbstractController
     $dompdf->render();
     $canvas = $dompdf->get_canvas();
     $date = date("d-m-Y");
-    $canvas->page_text(450, 80, "Besançon, le $date", null, 10, array(0, 0, 0));
+    // $canvas->page_text(450, 80, "Besançon, le $date", null, 10, array(0, 0, 0));
     $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(0, 0, 0));
     $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(0, 0, 10));
     $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(0, 0, 0));
@@ -407,6 +454,7 @@ class StagiaireController extends AbstractController
             if(!$licence){
             $licence = new licence();
             }
+            
             $form = $this->createForm(LicenceType::class, $licence);
             $form->handleRequest($request);
             
@@ -425,7 +473,7 @@ class StagiaireController extends AbstractController
                     $manager->persist($licence);
                     $manager->flush();
                 }else{
-                    return $this->render('stagiaire/licence/ajouter.html.twig', [
+                    return $this->render('stagiaire/licence/modifier.html.twig', [
                         
                         'formLicence' => $form->createView(),
                         'edit' => $licence->getId() !== null,
@@ -436,11 +484,12 @@ class StagiaireController extends AbstractController
                 return $this->redirectToRoute('stagiaire_permis_index');
             }
         
-            return $this->render('stagiaire/licence/ajouter.html.twig', [
+            return $this->render('stagiaire/licence/modifier.html.twig', [
                 'formLicence' => $form->createView(),
                 'edit' => $licence->getId() !== null,
                 'licence' => $licence,
-             
+               
+                'error' => 'error'
                 ]);
             }
         
@@ -568,7 +617,7 @@ class StagiaireController extends AbstractController
                     $manager->persist($infraction);
                     $manager->flush();
                 }else{
-                    return $this->render('stagiaire/infraction/ajouter.html.twig', [
+                    return $this->render('stagiaire/infraction/modifier.html.twig', [
                         
                         'formInfraction' => $form->createView(),
                         'edit' => $infraction->getId() !== null,
@@ -578,7 +627,7 @@ class StagiaireController extends AbstractController
                 }
                 return $this->redirectToRoute('stagiaire_infraction_index');
             }
-            return $this->render('stagiaire/infraction/ajouter.html.twig', [
+            return $this->render('stagiaire/infraction/modifier.html.twig', [
                 'formInfraction' => $form->createView(),
                 'edit' => $infraction->getId() !== null,
                 'infraction' => $infraction,

@@ -61,22 +61,23 @@ class Stage
      */
     private $animateurs;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Stagiaire", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $stagiaires;
-
-    /**
+        /**
      * @ORM\ManyToOne(targetEntity="App\Entity\LieuStage", inversedBy="stages")
      */
     private $lieuStage;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participation", mappedBy="stage", cascade={"persist"})
+     */
+    private $participations;
+
+ 
 
     public function __construct()
     {
         $this->animateurs = new ArrayCollection();
-        $this->stagiaires = new ArrayCollection();
+       
+        $this->participations = new ArrayCollection();
                
     }
     public function getId(): ?int
@@ -172,31 +173,7 @@ class Stage
         return $this;
     }
 
-    /**
-     * @return Collection|Stagiaire[]
-     */
-    public function getStagiaires(): Collection
-    {
-        return $this->stagiaires;
-    }
-
-    public function addStagiaire(Stagiaire $stagiaire): self
-    {
-        if (!$this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires[] = $stagiaire;
-            $stagiaire->addStagiaire($this);
-        }
-        return $this;
-    }
-    public function removeStagiaire(Stagiaire $stagiaire): self
-    {
-        if ($this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires->removeElement($stagiaire);
-            $stagiaire->removeStagiaire($this);
-           
-        }
-        return $this;
-    }
+    
 
     public function getLieuStage(): ?LieuStage
     {
@@ -210,6 +187,56 @@ class Stage
         return $this;
     }
 
+   /**
+     * @param mixed $fparticipations
+     */
+    public function getParticipations()
+    {
        
+        return $this->participations;
+    }
+
+    public function setParticipations($participations)
+    {
+        
+            $this->
+            $participations->$participations;
+        }
+        
+// On récupère participations pour les injecter dans notre champs "stagiaire"
+    // Permet de marquer les stagiaires déjà sélectionnés dans la DB
+    public function getStagiaire()
+    {
+        $stagiaires = new ArrayCollection();
+        foreach($this->participations as $p)
+        {
+            $stagiaires[] = $p->getStagiaire();
+        }
+        return $stagiaires;
+    }
+    public function setStagiaire($stagiaires)
+    { 
+        $this->stagiaires = $stagiaires;
+
+        return $this;
+    }
+    public function addParticipation($participations)
+    {
+        $this->participations[] = $participations;
+    }
+    public function removeParticipation($participations)
+    {
+        $this->participations->removeElement($participations);
+    }
+
+
+   
+
+       /**
+     * toString
+     */
+    public function __toString() {
+        return $this->getNumeroStage();
+    }
 
 }

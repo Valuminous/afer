@@ -17,6 +17,8 @@ use App\Form\AnimateurType;
 use App\Form\LieuStageType;
 use App\Form\StagiaireType;
 use App\Form\PrefectureType;
+use App\Entity\Participation;
+use App\Form\ParticipationType;
 use App\Repository\StageRepository;
 use App\Repository\CiviliteRepository;
 use App\Repository\TribunalRepository;
@@ -24,6 +26,7 @@ use App\Repository\AnimateurRepository;
 use App\Repository\LieuStageRepository;
 use App\Repository\StagiaireRepository;
 use App\Repository\PrefectureRepository;
+use App\Repository\ParticipationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\AnimateurStatutRepository;
 use App\Repository\TribunalServiceRepository;
@@ -47,7 +50,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class StageController extends AbstractController
 {
     /**
-     * Controller pour les stages à venir avec pagination
+     * Index pour les stages à venir avec pagination
      * @Route("/stage", name="stage_index")
      */
     public function index(StageRepository $repo, PaginatorInterface $paginator, Request $request) 
@@ -57,7 +60,7 @@ class StageController extends AbstractController
         $stages = $paginator->paginate(
             $allStages,
             $request->query->getInt('page', 1), /*page number*/
-            2 /*limit per page*/
+            5 /*limit per page*/
         );
         $stages ->setCustomParameters([
             'position' => 'centered',
@@ -69,7 +72,7 @@ class StageController extends AbstractController
         ]);
     }
     /**
-     * Controller pour tous les stages terminés et à venir avec pagination
+     * Index pour tous les stages (terminés et à venir) avec pagination
      * @Route("/stage/tous", name="stage_tous")
      * 
      */
@@ -94,6 +97,7 @@ class StageController extends AbstractController
     }
 
      /**
+      * Pop-up ajouter un tribunal
      *  @Route("/stage/loadFormTribunal", name="stage_tribunal")
      */
     public function popTribunal(Tribunal $tribunal = null, TribunalAutoriteRepository $repoAutorite, TribunalServiceRepository $repoService, TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
@@ -146,6 +150,7 @@ class StageController extends AbstractController
     }
 
      /**
+      * Pop-up ajouter une prefecture
      *  @Route("/stage/loadFormPrefecture", name="stage_prefecture")
      */
     public function popPrefecture(Prefecture $prefecture = null,PrefectureRepository $repoPrefecture,PrefectureAutoriteRepository $repoAutorite,PrefectureServiceRepository $repoService, Request $request, ObjectManager $manager)
@@ -201,6 +206,7 @@ class StageController extends AbstractController
 
 
      /**
+      * Pop-up ajouter un stagiaire
      *  @Route("/stage/loadFormStagiaire", name="stage_stagiaire")
      */
     public function popStagiaire(Stagiaire $stagiaire = null, CiviliteRepository $repoCivilite, StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
@@ -275,6 +281,7 @@ class StageController extends AbstractController
 
 
     /**
+     * Pop-up ajouter un animateur
     *  @Route("/stage/loadFormAnimateur", name="stage_animateur")
     */
     public function popAnimateur(Animateur $animateur = null, AnimateurFonctionRepository $repoFonction, AnimateurStatutRepository $repoStatut, CiviliteRepository $repoCivilite, AnimateurRepository $repoAnimateur, Request $request, ObjectManager $manager)
@@ -359,6 +366,7 @@ class StageController extends AbstractController
     }
 
     /**
+     * Pop-up ajouter un lieu de stage
     *  @Route("/stage/loadFormLieuStage", name="stage_lieu")
     */
     public function popLieuStage(LieuStage $lieuStage = null, LieuStageRepository $repoLieu, Request $request, ObjectManager $manager)
@@ -417,26 +425,57 @@ class StageController extends AbstractController
      *  @Route("/stage/ajouter", name="stage_ajouter")
      *  @Route("/stage/{id}/modifier", name="stage_modifier")
      */
-    public function stageForm(Stage $stage = null, Request $request, ObjectManager $manager)
+    public function stageForm(Stage $stage = null, ParticipationRepository $prepo, Request $request, ObjectManager $manager)
     {
         if(!$stage){
         $stage = new Stage();
+       
         }
         $date = date("d-m-Y H:i");
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
         
+        
         if($form->isSubmitted() && $form->isValid()){
-  
+           // Ajout des stagiaires au stage
+            // On parcours les stagiaires sélectionnés
+            foreach($form->get('stagiaire')->getData() as $s)
+            {
+                if(!$stage->getStagiaire()->contains($s))
+                {
+                    // On ajoute ce stagiaire
+                    $newParticipations = new Participation();
+                    $newParticipations->setStage($stage);
+                    $newParticipations->setStagiaire($s);
+                    $stage->addParticipation($newParticipations);
+                }
+            }
+
+            // Suppression des stagiaires au stage
+            // On parcours les stagiaires de la DB
+                foreach($stage->getStagiaire() as $s)
+            {
+                if(!$form->get('stagiaire')->getData()->contains($s))
+                { 
+            // On supprime ce stagiaire
+                    $oldParticipations = $prepo->findOneBy(array('stage' => $stage->getId(),'stagiaire' => $s->getId()));
+                                      
+                    $manager->remove($oldParticipations);                     
+                    $manager->flush();
+           
+                }
+            }
+            
             $manager->persist($stage);
             $manager->flush();
+           
+                        
             return $this->redirectToRoute('stage_index');
         }
         return $this->render('stage/ajouter.html.twig', [
             'formStage' => $form->createView(),
             'editMode' => $stage->getId() !== null,
             $stage->getDated() > $date
-            
         ]);
     }
     /**
@@ -446,8 +485,7 @@ class StageController extends AbstractController
     {
         $date = date("d-m-Y");
         if ($stage->getDated() > $date) { 
-        $manager->remove($stage);
-        $manager->flush();
+       
         return $this->redirectToRoute('stage_index');
     }}
     /**
@@ -561,4 +599,5 @@ class StageController extends AbstractController
         "Attachment" => false
     ]);
 }
+
 }
