@@ -88,12 +88,6 @@
         </div>
       
   
-    <h3 id="typeStage" class=" ">Type de stage</h3>
-    <div class="flex-row ">
-       
-            {{ form_row(formStagiaire.cas) }}
-        
-    </div>
    
     <h3 id="licence">Permis de conduire</h3>
      
@@ -195,6 +189,15 @@
     <div class="row d-flex align-items-center justify-content-start">
  {{ form_row(formStagiaire.stage) }} 
  </div> 
+
+
+    <h3 id="typeStage" class=" ">Type de stage</h3>
+    <div class="flex-row ">
+       
+            {{ form_row(formStagiaire.cas) }}
+        
+    </div>
+    
 {% if editMode %}
 <button type="submit" class="btn btn-warning btn-link text-black mb-5 mt-3">
     Modifier

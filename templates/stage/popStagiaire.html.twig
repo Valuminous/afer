@@ -61,17 +61,21 @@
         </div>
     </div>
 
-    {# <div class="row">
-        <div class="col">
-            {{ form_row(form.carteJeuneStagiaire, {'label': "Carte jeune  :", 'attr': {'placeholder': "Carte jeune "}}) }}
-        </div>
-        <div class="col">
-            {{ form_row(form.partenaireStagiaire, {'label': "Stagiaire partenaire :", 'attr': {'placeholder': "Stagiaire partenaire"}}) }}
-        </div>
-        <div class="col">
-            {{ form_row(form.adherentStagiaire, {'label': "Stagiaire adhérent :", 'attr': {'placeholder': "Stagiaire adhérent"}}) }}
-        </div>
-    </div> #}
+      <div class="hidden">
+                 {{ form_widget(form.stage, {'attr': {'class': 'hidden-row'} }) }}
+       </div>
+        <div class="hidden">
+                 {{ form_widget(form.licence, {'attr': {'class': 'hidden-row'} }) }}
+       </div>
+        <div class="hidden">
+                 {{ form_widget(form.infraction, {'attr': {'class': 'hidden-row'} }) }}
+       </div>
+        <div class="hidden">
+                 {{ form_widget(form.avantage, {'attr': {'class': 'hidden-row'} }) }}
+       </div>
+        <div class="hidden">
+                 {{ form_widget(form.cas, {'attr': {'class': 'hidden-row'} }) }}
+       </div>
 
     <button type="submit" class="btn btn-primary">Ajouter le stagiaire</button>
 

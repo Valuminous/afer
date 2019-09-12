@@ -21,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class StagiaireType extends AbstractType
 {
@@ -99,7 +100,7 @@ class StagiaireType extends AbstractType
                     'choice_label' => 'numeroCas',
                    'placeholder' => 'Cas',
                    'expanded' => 'true',
-                   'multiple' => 'true',
+                //    'multiple' => 'true',
                    'label'   => false, 
                 ])
 

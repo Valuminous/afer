@@ -94,6 +94,10 @@ class Licence
      * toString
      */
     public function __toString() {
+        if(is_null($this->getLicenceNumber())) {
+            return 'NULL';
+        }
+        
         return $this->getLicenceNumber();
     }
 }

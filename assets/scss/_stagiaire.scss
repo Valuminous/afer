@@ -115,17 +115,7 @@
                 font-size: 1rem;
             }
 
-            #stagiaire_cas {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-                
-                .form-check-label {
-                    padding-right: 1.5rem;
-                }
-            }
-
+           
             #stagiaire_avantage {
                 display: flex;
                 flex-direction: row;
@@ -140,4 +130,61 @@
 
             .hidden {
                 display: none;
+            }
+
+            .bill{
+                border: solid;
+                border-width: 1px;
+                border-color: rgba(0, 150, 136, 0.3);
+                background-color: rgba(0, 150, 136, 0.116);
+                margin: auto;
+    
+                &:hover{
+                    background-color: rgba(0, 150, 136, 0.3);
+                }
+                &::before{
+                    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f153";
+                    font-size: 1rem;
+                    margin-right: 0.5rem;
+                color:#009688;
+                
+                }
+            }
+
+            .confirm{
+                border: solid;
+                border-width: 1px;
+                border-color: rgba(0, 150, 136, 0.3);
+                background-color: rgba(0, 150, 136, 0.116);
+                margin: auto;
+    
+                &:hover{
+                    background-color: rgba(0, 150, 136, 0.3);
+                }
+                &::before{
+                    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f058";
+                    font-size: 1rem;
+                    margin-right: 0.5rem;
+                color:#009688;
+                
+                }
+            }
+
+            .notice{
+                border: solid;
+                border-width: 1px;
+                border-color: rgba(0, 150, 136, 0.3);
+                background-color: rgba(0, 150, 136, 0.116);
+                margin: auto;
+    
+                &:hover{
+                    background-color: rgba(0, 150, 136, 0.3);
+                }
+                &::before{
+                    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f658";
+                    font-size: 1rem;
+                    margin-right: 0.5rem;
+                color:#009688;
+                
+                }
             }

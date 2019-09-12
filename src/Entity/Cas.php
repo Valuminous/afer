@@ -34,13 +34,14 @@ class Cas
     private $tarifs;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Stagiaire", mappedBy="cas")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participation", mappedBy="cas", cascade={"persist"})
      */
-    private $stagiaires;
+    private $participations;
+
 
     public function __construct()
     {
-        $this->stagiaires = new ArrayCollection();
+        $this->participations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,38 +86,46 @@ class Cas
     }
 
     /**
-     * @return Collection|Stagiaire[]
+     * @param mixed $participations
      */
-    public function getStagiaires(): Collection
+    public function getParticipations()
     {
-        return $this->stagiaires;
-    }
-
-    public function addStagiaire(Stagiaire $stagiaire): self
-    {
-        if (!$this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires[] = $stagiaire;
-            $stagiaire->addCa($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStagiaire(Stagiaire $stagiaire): self
-    {
-        if ($this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires->removeElement($stagiaire);
-            $stagiaire->removeCa($this);
-        }
-
-        return $this;
-    }
-
        
- /**
-     * toString
-     */
-    public function __toString() {
-        return $this->getNumeroCas();
+        return $this->participations;
     }
+
+    public function setParticipations($participations)
+    {
+        
+            $this->
+            $participations->$participations;
+        }
+        
+// On récupère participations pour les injecter dans notre champs "cas"
+    // Permet de marquer les cas déjà sélectionnés dans la DB
+    public function getStagiaire()
+    {
+        $stagiaires = new ArrayCollection();
+        foreach($this->participations as $p)
+        {
+            $stagiaires[] = $p->getStagiaire();
+        }
+        return $stagiaires;
+    }
+    public function setStagiaire($stagiaires)
+    { 
+        $this->stagiaires = $stagiaires;
+
+        return $this;
+    }
+    public function addParticipation($participations)
+    {
+        $this->participations[] = $participations;
+    }
+    public function removeParticipation($participations)
+    {
+        $this->participations->removeElement($participations);
+    }
+
+
 }

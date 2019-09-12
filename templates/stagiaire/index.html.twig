@@ -63,13 +63,13 @@
                 <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</td>
                 <td class="text-left">{{ stagiaire.numeroFixeStagiaire}}</td>
 
-                {% if stagiaire.cas is not empty %}
-                {% for cas in stagiaire.cas %}
-                <td class="text-left">{{ cas.numeroCas }}</td>
+                 {# {% if stagiaire.participations is not empty %}
+                 {% for participation in stagiaire.participations %}
+                <td class="text-left">{{ participation.cas.numeroCas }}</td>
                 {% endfor %}
                 {% else %}
                 <td class="text-left">Aucun cas défini</td>
-                {% endif %}
+                {% endif %} 
  
                 {% if stagiaire.participations is not empty %}
                  {% for participation in stagiaire.participations %}
@@ -81,7 +81,7 @@
                 {% endfor %}
                  {% else %}
                 <td class="text-left">Aucun stage défini</td>  
-                {% endif %} 
+                {% endif %}  #}
                 
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Voir le stagiaire"
@@ -130,7 +130,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <div class="d-flex justify-content-center pagination">
+    <div class="pt-4 d-flex justify-content-center pagination">
         {{ knp_pagination_render(stagiaires) }}</div>
 </section>
 {% endblock %}

@@ -86,3 +86,13 @@ table{
         
         }
         }
+        #stage_cas {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            
+            .form-check-label {
+                padding-right: 1.5rem;
+            }
+        }

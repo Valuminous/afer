@@ -1,0 +1,82 @@
+<head>
+    <style>
+        
+
+        img {
+            height: 100px;
+           
+            border-collapse: collapse;
+            padding-bottom: 20px;
+        }
+
+        h4 {
+            font-size: 15px;
+            padding: 10px;
+        }
+
+        h5{
+            
+            text-align: right;
+            font-size: 15px;
+            margin-right: 20px;
+        }
+
+        p {
+           
+            text-align: left;
+            font-size: 15px;
+            margin-right: 20px;
+
+        }
+ul,li {
+     padding: 10px;
+            text-align: left;
+            font-size: 15px;
+            margin-right: 20px;
+}
+        div{
+            padding-top: 50px;
+            float: right;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+{% block body %}
+<img src="./build/static/logo.png" alt="Logo AFER">
+{% for participation in stagiaire.participations %}
+<div>Besançon, le {{ participation.dateInscription|localizeddate('long', 'none', 'fr')}}</div>
+{% endfor %}
+<hr>
+<h5>
+    {{ stagiaire.civilite.nomCivilite }} {{stagiaire.prenomStagiaire}} {{stagiaire.nomStagiaire}}<br>
+    {{ stagiaire.numeroAdresseStagiaire }}, {{ stagiaire.adresseStagiaire }}<br>
+    {{ stagiaire.communeStagiaire }}</h5>
+
+<h4>Objet : Convocation stage Sécurité Routière</h4>
+
+<p>{{ stagiaire.civilite.nomCivilite }},<br><br>
+Vous avez manifesté le souhait de participer à un stage de Sécurité Routière. Nous sommes en mesure de répondre favorablement à votre demande.
+Vous trouverez en pièce jointe un bulletin d’inscription. Nous vous prions de bien vouloir nous le retourner,  <SPAN STYLE="color:red; text-decoration:underline">sous cinq jours maximum</SPAN>, à l'adresse :</p>
+
+<p STYLE="text-align: center"><SPAN STYLE="color:red">Association Franc-Comtoise d’Éducation Routière<br>
+7 Square Saint Amour<br>
+25000 BESANCON</SPAN></p>
+
+<ul style="list-style-type:square;">
+<li>Le bulletin complété et signé</li>
+<li>La copie de votre dernière notification de retrait de points (courrier précisant la dernière perte et le solde de points de votre permis) ou de votre relevé intégral d'information (délivré en Préfecture)</li>
+<li>La copie du permis de conduite (Recto et Verso) ou du document attestant de la rétention ou de la suspension du permis de conduire</li>
+<li>
+{% for cas in stagiaire.cas %}
+Votre règlement de {{ cas.tarifs.montantTtc|localizedcurrency('EUR')}}
+{% endfor %}</ul>
+</ul><br>
+<p>Nous vous adressons dans ce courrier la convocation. Toutefois cette dernière n'est valide qu'au retour des documents et du règlement.
+N'hésitez pas à nous contacter en cas de difficultés ou pour toutes questions que ce courrier pourrait générer.
+Veuillez agréer, {{ stagiaire.civilite.nomCivilite }}, l'expression de nos sentiments distingués.</p>
+
+
+<p>PS : La récupération de 4 points est soumise à deux conditions disposer d’un délai de 1 an minimum entre deux stages ayant permis la récupération de points, et disposer d’un solde de points au moment de la formation compris entre 1 et 8 (se référer à la dernière notification de la Préfecture).</p>
+
+
+{% endblock %}

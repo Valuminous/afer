@@ -26,6 +26,10 @@ class Participation
      */
     //private $stagiaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="cas", cascade={"persist"})
+     */
+    //private $stagiaires;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Stage", inversedBy="participations")
@@ -36,6 +40,7 @@ class Participation
      * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="stagiaire", cascade={"persist"})
      */
     //private $stages;
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -45,6 +50,31 @@ class Participation
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $datefacture;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateInscription;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateConvocation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateAttestation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cas", inversedBy="participations")
+     */
+    private $cas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cas", mappedBy="stagiaire", cascade={"persist"})
+     */
+    //private $cass;
 
     public function __construct()
     {
@@ -132,6 +162,64 @@ class Participation
         return $this;
     }
 
+    public function getDateInscription(): ?\DateTimeInterface
+    {
+        return $this->dateInscription;
+    }
+
+    public function setDateInscription(?\DateTimeInterface $dateInscription): self
+    {
+        $this->dateInscription = $dateInscription;
+
+        return $this;
+    }
+
+    public function getDateConvocation(): ?\DateTimeInterface
+    {
+        return $this->dateConvocation;
+    }
+
+    public function setDateConvocation(?\DateTimeInterface $dateConvocation): self
+    {
+        $this->dateConvocation = $dateConvocation;
+
+        return $this;
+    }
+
+    public function getDateAttestation(): ?\DateTimeInterface
+    {
+        return $this->dateAttestation;
+    }
+
+    public function setDateAttestation(?\DateTimeInterface $dateAttestation): self
+    {
+        $this->dateAttestation = $dateAttestation;
+
+        return $this;
+    }
+
+    public function getCas(): ?Cas
+    {
+        return $this->cas;
+    }
+
+    public function setCas(?Cas $cas): self
+    {
+        $this->cas = $cas;
+
+        return $this;
+    }
     
+    public function getCass()
+    {
+        return $this->cass;
+    }
+
+    public function setCass($cass)
+    {
+        $this->cass = $cass;
+
+        return $this;
+    }
 
 }

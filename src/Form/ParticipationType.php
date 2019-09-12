@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Cas;
 use App\Entity\Stage;
 use App\Entity\Stagiaire;
 use App\Entity\Participation;
@@ -34,6 +35,12 @@ class ParticipationType extends AbstractType
                 
                 
              ])
+             ->add('cass',EntityType::class, [
+                'class' => Cas::class,
+                'choice_label' => 'numeroCas',
+               'placeholder' => 'Cas',
+               
+            ])
         ;
     }
 

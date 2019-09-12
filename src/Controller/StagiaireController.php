@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Dompdf\Dompdf;
+use App\Entity\Cas;
 use Dompdf\Options;
 use App\Entity\Stage;
 use App\Entity\Licence;
@@ -14,6 +15,7 @@ use App\Form\AvantageType;
 use App\Form\StagiaireType;
 use App\Form\InfractionType;
 use App\Entity\Participation;
+use Faker\Provider\ka_GE\DateTime;
 use App\Repository\CommuneRepository;
 use App\Repository\LicenceRepository;
 use App\Repository\AvantageRepository;
@@ -25,7 +27,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\NatureInfractionRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Provider\ka_GE\DateTime;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -75,42 +76,68 @@ class StagiaireController extends AbstractController
     {
         if(!$stagiaire){
            $stagiaire = new stagiaire();
-        }
+          
+                }
         
            $form = $this->createForm(stagiaireType::class, $stagiaire);
            $form->handleRequest($request);
            if($form->isSubmitted() && $form->isValid()){
       // Ajout des stages du stagiaire
             // On parcours les stages sélectionnés
+             foreach($form->get('cas')->getData() as $cas)
+             {
+                                      // On ajoute ce cas
+                     $newParticipations = new Participation();
+                     $newParticipations->setStagiaire($stagiaire);
+                     $newParticipations->setCas($cas);
+                     $stagiaire->addParticipation($newParticipations);
+                   
+                    }
+            
             foreach($form->get('stage')->getData() as $s)
             {
                 if(!$stagiaire->getStage()->contains($s))
-                {
-                    // On ajoute ce stage
+                {                     // On ajoute ce stage
                     $newParticipations = new Participation();
                     $newParticipations->setStagiaire($stagiaire);
                     $newParticipations->setStage($s);
                     $stagiaire->addParticipation($newParticipations);
                    
-                }
-            }
-
-            // Suppression des stages du stagiaire
-            // On parcours les stages de la DB
-                foreach($stagiaire->getStage() as $s)
+                   }}
+                   
+                    // dump($stagiaire);
+                    // die();
+            //  Suppression des stages du stagiaire
+            //  On parcours les stages de la DB
+            //      foreach($stagiaire->getStage() as $s)
                
-            {
-                if(!$form->get('stage')->getData()->contains($s))
-                {  
-            // On supprime ce stage
-                    $oldParticipations = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'stage' => $s->getId()));
+            //  {
+            //      if(!$form->get('stage')->getData()->contains($s))
+            //      {  
+            //  // On supprime ce stage
+            //          $oldParticipations = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'stage' => $s->getId()));
                    
 
-                    $manager->remove($oldParticipations);                     
-                    $manager->flush();
+            //          $manager->remove($oldParticipations);                     
+            //          $manager->flush();
            
-                }
-            }
+            //      }
+            //  }
+
+            //  for($stagiaire->getCas() as $cas)
+               
+            //  {
+            //      if(!$form->get('cas')->getData()->contains($cas))
+            //      {  
+            //  // On supprime ce stage
+            //          $oldParticipations = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'cas' => $cas->getId()));
+                   
+
+            //          $manager->remove($oldParticipations);                     
+            //          $manager->flush();
+           
+            //      }
+            //  }
 
             $stagiaireNom = $stagiaire->getNomStagiaire();
             $stagiairePrenom = $stagiaire->getPrenomStagiaire();
@@ -121,6 +148,7 @@ class StagiaireController extends AbstractController
             if($stagiaire->getId() === null && $nbr === "0"){
                 $manager->persist($stagiaire);
                 $manager->flush();
+                
             }else if($stagiaire->getId() !== null){
                 $manager->persist($stagiaire);
                 $manager->flush();
@@ -199,40 +227,6 @@ class StagiaireController extends AbstractController
         ]);
     }
 
-        /**
-     * @Route("/stagiaire/imprimer", name="stagiaire_imprimer", methods={"GET"})
-     */
-    public function print(StagiaireRepository $repo)
-    {
-       
-    // Configure Dompdf according to your needs
-    $pdfOptions = new Options();
-    $pdfOptions->set('defaultFont', 'Arial');
-    
-    // Instantiate Dompdf with our options
-    $dompdf = new Dompdf($pdfOptions);
-    $stagiaires = $repo->findAll();
-    // Retrieve the HTML generated in our twig file
-    $html = $this->renderView('stagiaire/pdf.html.twig', [
-        'stagiaires' => $stagiaires
-    ]);
-    // Load HTML to Dompdf
-    $dompdf->loadHtml($html);
-    
-    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-    $dompdf->setPaper('A4', 'landscape');
-
-    // Render the HTML as PDF
-    $dompdf->render();
-    $canvas = $dompdf->get_canvas();
-    $date = date("d-m-Y");
-    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
-    $canvas->page_text(50, 574, "Liste des stagiaires au $date", null, 10, array(0, 0, 0));
-    // Output the generated PDF to Browser (force download)
-    $dompdf->stream("liste_stagiaires.pdf", [
-        "Attachment" => false
-    ]);
-}
 
 
     /**
@@ -269,91 +263,7 @@ class StagiaireController extends AbstractController
         ]);
     }
 
-    /**
-     * PDF liste des stagiaires
-     * @Route("/stagiaire/{id}/imprimer", name="stagiaire_afficher_imprimer")
-     */
-    public function imprimerShowOne(stagiaire $stagiaire, Request $request)
-    {
-        $pdfOptions = new Options();
-    $pdfOptions->set('defaultFont', 'Arial');
     
-    // Instantiate Dompdf with our options
-    $dompdf = new Dompdf($pdfOptions);
-   $stagiaire ->getId();
-   
-    // Retrieve the HTML generated in our twig file
-    $html = $this->renderView('stagiaire/pdf_show.html.twig', [
-        'stagiaire' => $stagiaire
-    ]);
-    
-    // Load HTML to Dompdf
-    $dompdf->loadHtml($html);
-    
-    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-    $dompdf->setPaper('A4', 'landscape');
-
-    // Render the HTML as PDF
-    $dompdf->render();
-    $canvas = $dompdf->get_canvas();
-    $date = date("d-m-Y");
-    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
-    $canvas->page_text(50, 574, "Détails - {$stagiaire} au $date", null, 10, array(0, 0, 0));
-    // Output the generated PDF to Browser (force download)
-    $dompdf->stream("details_{$stagiaire}.pdf", [
-        "Attachment" => false
-    ]);
-}
-
-    /**
-    * PDF détails stagiaire
-     * @Route("/stagiaire/{id}/facture", name="stagiaire_facture")
-     */
-    public function facture(stagiaire $stagiaire, Request $request, ObjectManager $manager)
-    {
-    $pdfOptions = new Options();
-    $pdfOptions->set('defaultFont', 'Arial');
-    
-    // Instantiate Dompdf with our options
-    $dompdf = new Dompdf($pdfOptions);
-   $stagiaire ->getId();
-   //Ajout de la date de la facture
-   foreach($stagiaire ->getParticipations() as $p) 
-    { 
-        if (is_null($p->getDateFacture())) { 
-            $p->setDateFacture((new \DateTime()));
-    
-            $manager->persist($p);
-            $manager->flush();
-        }        
-   }
-   
-    // Retrieve the HTML generated in our twig file
-    $html = $this->renderView('stagiaire/pdf_facture.html.twig', [
-        'stagiaire' => $stagiaire,
-        
-    ]);
-    
-    // Load HTML to Dompdf
-    $dompdf->loadHtml($html);
-    
-    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-    $dompdf->setPaper('A4', 'portrait');
-
-    // Render the HTML as PDF
-    $dompdf->render();
-    $canvas = $dompdf->get_canvas();
-    $date = date("d-m-Y");
-    // $canvas->page_text(450, 80, "Besançon, le $date", null, 10, array(0, 0, 0));
-    $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(0, 0, 0));
-    $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(0, 0, 10));
-    $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(0, 0, 0));
-    $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(0, 0, 10));
-    // Output the generated PDF to Browser (force download)
-    $dompdf->stream("facture_{$stagiaire}.pdf", [
-        "Attachment" => false
-    ]);
-}
 
 /**Permis de conduire */
 
@@ -373,6 +283,7 @@ class StagiaireController extends AbstractController
             
             $licenceNumber = $request->request->get('licence_licenceNumber');
             $licenceDate = $request->request->get('licence_licenceDate');
+           
             $prefecture = $request->request->get('licence_prefecture');
            
             $year = substr($licenceDate, 0, 10);
@@ -522,12 +433,12 @@ class StagiaireController extends AbstractController
             
             $lieuInfraction = $request->request->get('infraction_lieuInfraction');
             $dateInfraction = $request->request->get('infraction_dateInfraction');
-           
             $natureInfraction = $request->request->get('infraction_natureInfraction');
            
             $year = substr($dateInfraction, 0, 16);
             $format = 'd-m-Y H:i';
             $date = (\DateTime::createFromFormat($format, $year));
+           
             $natureInfraction = $repoNature->find($natureInfraction);
 
             $nbrs = $repoInfraction->counter($lieuInfraction, $year);
@@ -609,7 +520,7 @@ class StagiaireController extends AbstractController
                 $natureInfraction = $infraction->getNatureInfraction();
                 $nbrs = $repoInfraction->counter($lieuInfraction, $dateInfraction, $natureInfraction);
                 $nbr = $nbrs[0][1];
-          
+         
                 if($infraction->getId() === null && $nbr === "0"){
                     $manager->persist($infraction);
                     $manager->flush();
@@ -634,4 +545,224 @@ class StagiaireController extends AbstractController
                 'error' => 'error'
                 ]);
             }
+
+    /**
+     * PDF Liste des stagiaires
+     * @Route("/stagiaire/imprimer", name="stagiaire_imprimer", methods={"GET"})
+     */
+    public function print(StagiaireRepository $repo)
+    {
+       
+    // Configure Dompdf according to your needs
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $stagiaires = $repo->findAll();
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf.html.twig', [
+        'stagiaires' => $stagiaires
+    ]);
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Liste des stagiaires au $date", null, 10, array(0, 0, 0));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("liste_stagiaires.pdf", [
+        "Attachment" => false
+    ]);
+}
+
+/**
+     * PDF détails stagiaires
+     * @Route("/stagiaire/{id}/imprimer", name="stagiaire_afficher_imprimer")
+     */
+    public function imprimerShowOne(stagiaire $stagiaire, Request $request)
+    {
+        $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+   $stagiaire ->getId();
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf_show.html.twig', [
+        'stagiaire' => $stagiaire
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    $canvas->page_text(750, 575, "Page {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    $canvas->page_text(50, 574, "Détails - {$stagiaire} au $date", null, 10, array(0, 0, 0));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("details_{$stagiaire}.pdf", [
+        "Attachment" => false
+    ]);
+}
+
+    /**
+    * PDF facture stagiaire
+     * @Route("/stagiaire/{id}/facture", name="stagiaire_facture")
+     */
+    public function facture(stagiaire $stagiaire, Request $request, ObjectManager $manager)
+    {
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+   $stagiaire ->getId();
+   //Ajout de la date de la facture
+   foreach($stagiaire ->getParticipations() as $p) 
+    { 
+        if (is_null($p->getDateFacture())) { 
+            $p->setDateFacture((new \DateTime()));
+    
+            $manager->persist($p);
+            $manager->flush();
+        }        
+   }
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf_facture.html.twig', [
+        'stagiaire' => $stagiaire,
+        
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    $date = date("d-m-Y");
+    // $canvas->page_text(450, 80, "Besançon, le $date", null, 10, array(0, 0, 0));
+    $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(.4, .4, .8));
+    $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(.4, .4, .8));
+    $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(.4, .4, .8));
+    $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(.4, .4, .8));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("facture_{$stagiaire}.pdf", [
+        "Attachment" => false
+    ]);
+}
+
+    /**
+    * PDF inscription stagiaire
+     * @Route("/stagiaire/{id}/inscription", name="stagiaire_inscription")
+     */
+    public function inscription(stagiaire $stagiaire, Request $request, ObjectManager $manager)
+    {
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+   $stagiaire ->getId();
+   //Ajout de la date de la facture
+   foreach($stagiaire ->getParticipations() as $p) 
+    { 
+        if (is_null($p->getDateInscription())) { 
+            $p->setDateInscription((new \DateTime()));
+    
+            $manager->persist($p);
+            $manager->flush();
+        }        
+   }
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf_inscription.html.twig', [
+        'stagiaire' => $stagiaire,
+        
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    
+    $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(.4, .4, .8));
+    $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(.4, .4, .8));
+    $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(.4, .4, .8));
+    $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(.4, .4, .8));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("inscription_{$stagiaire}.pdf", [
+        "Attachment" => false
+    ]);
+}
+
+/**
+    * PDF convocation stagiaire
+     * @Route("/stagiaire/{id}/convocation", name="stagiaire_convocation")
+     */
+    public function convocation(stagiaire $stagiaire, Request $request, ObjectManager $manager)
+    {
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+   $stagiaire ->getId();
+   //Ajout de la date de la facture
+   foreach($stagiaire ->getParticipations() as $p) 
+    { 
+        if (is_null($p->getDateConvocation())) { 
+            $p->setDateConvocation((new \DateTime()));
+    
+            $manager->persist($p);
+            $manager->flush();
+        }        
+   }
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stagiaire/pdf_convocation.html.twig', [
+        'stagiaire' => $stagiaire,
+        
+    ]);
+    
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+    
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+    
+    $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(.4, .4, .8));
+    $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(.4, .4, .8));
+    $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(.4, .4, .8));
+    $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(.4, .4, .8));
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream("convocation_{$stagiaire}.pdf", [
+        "Attachment" => false
+    ]);
+}
     }

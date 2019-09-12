@@ -76,7 +76,6 @@ class Stage
     public function __construct()
     {
         $this->animateurs = new ArrayCollection();
-       
         $this->participations = new ArrayCollection();
                
     }
@@ -188,7 +187,7 @@ class Stage
     }
 
    /**
-     * @param mixed $fparticipations
+     * @param mixed $participations
      */
     public function getParticipations()
     {

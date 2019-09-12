@@ -61,26 +61,42 @@
                                     </li>
                                     <li class="background_stage pt-2 pb-2">
                                         <a href="{{ path('lieuStage_index') }}"
-                                            class="stage_hover active_lieu_stage">Lieux
-                                            de stage</a>
+                                            class="stage_hover active_lieu_stage">Lieux de stage</a>
+                                    </li>
+                                    <li>
+                                        <hr class="color_red">
+                                    </li>
+                                    <li class="background_stage pt-2 pb-2">
+                                        <a href="{{ path('cas_index') }}" class="stage_hover active_stage_cas">Cas</a>
                                     </li>
                                 </ul>
                             </li>
 
-                            <li class="mb-5">
-                                <a href="{{ path('stagiaire_index') }}"><i class="fas fa-users"></i>Stagiaires</a>
+                            <li class="mb-5 onclick_stagiaire">
+                                <a class="turn_arrow_green"><i class="fas fa-users"></i>Stagiaires</a>
+                                <i class="fas fa-angle-right ml-4 angle_green"></i>
+                                <ul class="ul_without_padding list_stagiaires">
+                                    <li class="background_stagiaire pb-2 pt-2">
+                                        <a href="{{ path('stagiaire_index') }}"
+                                            class="stagiaire_hover active_stagiaire_liste">Liste
+                                            des stagiaires</a>
+                                    </li>
+                                    <li>
+                                        <hr class="color_green">
+                                    </li>
+                                    <li class="background_stagiaire pb-2 pt-2">
+                                        <a href="{{ path('avantage_index') }}"
+                                            class="stagiaire_hover active_stagiaire_avantage">Avantage</a>
+                                    </li>
+                                </ul>
                             </li>
-
-
-
                             <li class="mb-5 onclick_animateur">
                                 <a class="turn_arrow_orange"><i class="fas fa-graduation-cap"></i>Animateurs</a>
                                 <i class="fas fa-angle-right ml-4 angle_orange"></i>
                                 <ul class="ul_without_padding list_animateurs">
                                     <li class="background_animateur pb-2 pt-2">
                                         <a href="{{ path('animateur_index') }}"
-                                            class="animateur_hover active_animateur_liste">Liste
-                                            des animateurs</a>
+                                            class="animateur_hover active_animateur_liste">Liste des animateurs</a>
                                     </li>
                                     <li>
                                         <hr class="color_orange">
@@ -149,14 +165,14 @@
                                         <a href="{{ path('tribunalService_index') }}"
                                             class="tribunaux_hover active_tribunal_service">Services</a>
                                     </li>
-                                     <li>
+                                    <li>
                                         <hr class="color_blue">
                                     </li>
                                     <li class="background_tribunaux pb-2 pt-2">
                                         <a href="{{ path('nature_infraction_index') }}"
                                             class="tribunaux_hover active_nature_infraction">Natures d'infraction</a>
                                     </li>
-                                
+
                                 </ul>
                             </li>
 

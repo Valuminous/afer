@@ -13,22 +13,28 @@ require('../js/modal.js');
 
 
 const onclickStage = document.querySelector('.onclick_stage');
+const onclickStagiaire = document.querySelector('.onclick_stagiaire');
 const onclickTribunaux = document.querySelector('.onclick_tribunaux');
 const onclickAnimateur = document.querySelector('.onclick_animateur');
 const onclickPrefecture = document.querySelector('.onclick_prefecture');
 
 const blueArrow = document.querySelector('.angle_blue');
+const greenArrow = document.querySelector('.angle_green');
 const orangeArrow = document.querySelector('.angle_orange');
 const purpleArrow = document.querySelector('.angle_purple');
 const redArrow = document.querySelector('.angle_red');
 
 const myDropdownMenu1 = document.querySelector('.list_stages');
+const myDropdownMenu5 = document.querySelector('.list_stagiaires');
 const myDropdownMenu2 = document.querySelector('.list_tribunaux');
 const myDropdownMenu3 = document.querySelector('.list_animateurs');
 const myDropdownMenu4 = document.querySelector('.list_prefectures');
 
 const activeStageList = document.querySelector('.active_stage_liste');
 const activeLieuStage = document.querySelector('.active_lieu_stage');
+const activeStageCas = document.querySelector('.active_stage_cas');
+const activeStagiaireList = document.querySelector('.active_stagiaire_liste');
+const activeStagiaireAvantage = document.querySelector('.active_stagiaire_avantage');
 const activeTribunalList = document.querySelector('.active_tribunal_liste');
 const activeTribunalAutorite = document.querySelector('.active_tribunal_autorite');
 const activeTribunalService = document.querySelector('.active_tribunal_service');
@@ -41,6 +47,7 @@ const activePrefectureAutorite = document.querySelector('.active_prefecture_auto
 const activePrefectureService = document.querySelector('.active_prefecture_service');
 
 let blueArrowValue = 0;
+let greenArrowValue = 0;
 let orangeArrowValue = 0;
 let purpleArrowValue = 0;
 let redArrowValue = 0;
@@ -53,6 +60,7 @@ window.onload = changeActiveButton();
 onclickStage.addEventListener('click', function(){
     if(redArrowValue == 0){
         redArrow.style.transform = 'rotate(90deg)';
+        greenArrow.style.transform = 'rotate(0deg)';
         blueArrow.style.transform = 'rotate(0deg)';
         orangeArrow.style.transform = 'rotate(0deg)';
         purpleArrow.style.transform = 'rotate(0deg)';
@@ -60,8 +68,10 @@ onclickStage.addEventListener('click', function(){
         myDropdownMenu2.style.display = 'none';
         myDropdownMenu3.style.display = 'none';
         myDropdownMenu4.style.display = 'none';
+        myDropdownMenu5.style.display = 'none';
         myDropdownMenu1.style.opacity = '1';
         redArrowValue = 1;
+        greenArrowValue = 0;
         blueArrowValue = 0;
         orangeArrowValue = 0;
         purpleArrowValue = 0;
@@ -74,18 +84,48 @@ onclickStage.addEventListener('click', function(){
     }
 })
 
+onclickStagiaire.addEventListener('click', function(){
+    if(greenArrowValue == 0){
+        greenArrow.style.transform = 'rotate(90deg)';
+        redArrow.style.transform = 'rotate(0deg)';
+        blueArrow.style.transform = 'rotate(0deg)';
+        orangeArrow.style.transform = 'rotate(0deg)';
+        purpleArrow.style.transform = 'rotate(0deg)';
+        myDropdownMenu5.style.display = 'block';
+        myDropdownMenu1.style.display = 'none';
+        myDropdownMenu2.style.display = 'none';
+        myDropdownMenu3.style.display = 'none';
+        myDropdownMenu4.style.display = 'none';
+        myDropdownMenu5.style.opacity = '1';
+        greenArrowValue = 1;
+        redArrowValue = 0;
+        blueArrowValue = 0;
+        orangeArrowValue = 0;
+        purpleArrowValue = 0;
+    }
+    else{
+        greenArrow.style.transform = 'rotate(0deg)';
+        myDropdownMenu5.style.display = 'none';
+        myDropdownMenu5.style.opacity = '0';
+        greenArrowValue = 0;
+    }
+})
+
 onclickTribunaux.addEventListener('click', function(){
     if(blueArrowValue == 0){
         blueArrow.style.transform = 'rotate(90deg)';
         redArrow.style.transform = 'rotate(0deg)';
+        greenArrow.style.transform = 'rotate(0deg)';
         orangeArrow.style.transform = 'rotate(0deg)';
         purpleArrow.style.transform = 'rotate(0deg)';
         myDropdownMenu1.style.display = 'none';
         myDropdownMenu2.style.display = 'block';
         myDropdownMenu3.style.display = 'none';
         myDropdownMenu4.style.display = 'none';
+        myDropdownMenu5.style.display = 'none';
         myDropdownMenu2.style.opacity = '1';
         redArrowValue = 0;
+        greenArrowValue = 0;
         blueArrowValue = 1;
         orangeArrowValue = 0;
         purpleArrowValue = 0;
@@ -102,14 +142,17 @@ onclickAnimateur.addEventListener('click', function(){
     if(orangeArrowValue == 0){
         blueArrow.style.transform = 'rotate(0deg)';
         redArrow.style.transform = 'rotate(0deg)';
+        greenArrow.style.transform = 'rotate(0deg)';
         orangeArrow.style.transform = 'rotate(90deg)';
         purpleArrow.style.transform = 'rotate(0deg)';
         myDropdownMenu1.style.display = 'none';
         myDropdownMenu2.style.display = 'none';
         myDropdownMenu3.style.display = 'block';
         myDropdownMenu4.style.display = 'none';
+        myDropdownMenu5.style.display = 'none';
         myDropdownMenu3.style.opacity = '1';
         redArrowValue = 0;
+        greenArrowValue = 0;
         blueArrowValue = 0;
         orangeArrowValue = 1;
         purpleArrowValue = 0;
@@ -126,14 +169,17 @@ onclickPrefecture.addEventListener('click', function(){
     if(purpleArrowValue == 0){
         blueArrow.style.transform = 'rotate(0deg)';
         redArrow.style.transform = 'rotate(0deg)';
+        greenArrow.style.transform = 'rotate(0deg)';
         orangeArrow.style.transform = 'rotate(0deg)';
         purpleArrow.style.transform = 'rotate(90deg)';
         myDropdownMenu1.style.display = 'none';
         myDropdownMenu2.style.display = 'none';
         myDropdownMenu3.style.display = 'none';
         myDropdownMenu4.style.display = 'block';
+        myDropdownMenu5.style.display = 'none';
         myDropdownMenu4.style.opacity = '1';
         redArrowValue = 0;
+        greenArrowValue = 0;
         blueArrowValue = 0;
         orangeArrowValue = 0;
         purpleArrowValue = 1;
@@ -163,6 +209,52 @@ function changeActiveButton(){
         activeLieuStage.style.color = '#ff5744';
         activeLieuStage.style.fontWeight = 'bold';
         redArrowValue = 1;
+    }
+
+    if (pathname == '/admin/cas') {
+        redArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu1.style.display = 'block';
+        myDropdownMenu1.style.opacity = '1';
+        activeStageCas.style.color = '#ff5744';
+        activeStageCas.style.fontWeight = 'bold';
+        redArrowValue = 1;
+    }
+
+    if (pathname == '/admin/stagiaire') {
+        greenArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu5.style.display = 'block';
+        myDropdownMenu5.style.opacity = '1';
+        activeStagiaireList.style.color = '#009688';
+        activeStagiaireList.style.fontWeight = 'bold';
+        greenArrowValue = 1;
+    }
+
+    if (pathname == '/admin/stagiaire/permis') {
+        greenArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu5.style.display = 'block';
+        myDropdownMenu5.style.opacity = '1';
+        activeStagiaireList.style.color = '#009688';
+        activeStagiaireList.style.fontWeight = 'bold';
+        greenArrowValue = 1;
+    }
+    
+    if (pathname == '/admin/stagiaire/infraction') {
+        greenArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu5.style.display = 'block';
+        myDropdownMenu5.style.opacity = '1';
+        activeStagiaireList.style.color = '#009688';
+        activeStagiaireList.style.fontWeight = 'bold';
+        greenArrowValue = 1;
+    }
+
+    
+    if (pathname == '/admin/stagiaire/avantage') {
+        greenArrow.style.transform = 'rotate(90deg)';
+        myDropdownMenu5.style.display = 'block';
+        myDropdownMenu5.style.opacity = '1';
+        activeStagiaireAvantage.style.color = '#009688';
+        activeStagiaireAvantage.style.fontWeight = 'bold';
+        greenArrowValue = 1;
     }
 
     if (pathname == '/admin/tribunal') {

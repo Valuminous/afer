@@ -967,9 +967,7 @@ function loadFormLicence() {
                                 data.append("licence_licenceDate", licenceDate);
                                 data.append("licence_prefecture", prefecture.value);
 
-                                console.log(licenceNumber.value);
-                                console.log(licenceDate);
-                                console.log(prefecture.value);
+                              
 
                                 fetch("/admin/stagiaire/loadFormLicence", {
                                         method: "POST",
@@ -990,12 +988,12 @@ function loadFormLicence() {
                                             let option = document.createElement("option");
                                             option.setAttribute('value', resultat.id)
                                             option.text = resultat.value;
-                                            // selectLicence.add(option);
+                                            selectLicence.add(option);
                                             selectLicence.selectedIndex = selectLicence.length - 1;
                                             closeLicence.click();
 
                                         }
-                                        console.log(licenceNumber.value);
+                                       
                                     }).catch((error) => {
                                         console.log(error);
                                     });
@@ -1053,6 +1051,8 @@ function loadFormInfraction() {
                                 data.append("infraction_dateInfraction", dateInfraction);
                                 data.append("infraction_natureInfraction", natureInfraction.value);
 
+                                console.log(dateInfraction);
+                                
                                 fetch("/admin/stagiaire/loadFormInfraction", {
                                         method: "POST",
                                         body: data,
@@ -1074,7 +1074,7 @@ function loadFormInfraction() {
                                             const option = document.createElement("option");
                                             option.setAttribute('value', resultat.id)
                                             option.text = resultat.value;
-                                            selectInfraction.add(option);
+                                            //selectInfraction.add(option);
                                             selectInfraction.selectedIndex = selectInfraction.length - 1;
                                             closeInfraction.click();
 

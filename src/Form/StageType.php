@@ -68,8 +68,10 @@ class StageType extends AbstractType
                 'placeholder' => 'Choisir un ou deux animateurs',
                 'attr' => array('class' => 'animateur-select'),
                 'multiple' => 'true',
+                'expanded' => 'true',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
+                        ->orderBy('anim.animateurFonction', 'ASC')
                         ->orderBy('anim.nomAnimateur', 'ASC');
                 },
             

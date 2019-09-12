@@ -128,11 +128,7 @@ class Stagiaire
      */
     private $avantage;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Cas", inversedBy="stagiaires")
-     */
-    private $cas;
-
+    
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Infraction", inversedBy="stagiaire")
      */
@@ -143,14 +139,13 @@ class Stagiaire
      */
     private $participations;
 
-    
 
     
 
     public function __construct()
     {
        
-        $this->cas = new ArrayCollection();
+       
         $this->participations = new ArrayCollection();
        
         
@@ -388,32 +383,7 @@ class Stagiaire
         return $this;
     }
 
-    /**
-     * @return Collection|Cas[]
-     */
-    public function getCas(): Collection
-    {
-        return $this->cas;
-    }
-
-    public function addCas(Cas $cas): self
-    {
-        if (!$this->cas->contains($cas)) {
-            $this->cas[] = $cas;
-        }
-
-        return $this;
-    }
-
-    public function removeCas(Cas $cas): self
-    {
-        if ($this->cas->contains($cas)) {
-            $this->cas->removeElement($cas);
-        }
-
-        return $this;
-    }
-
+    
     public function getInfraction(): ?Infraction
     {
         return $this->infraction;
@@ -435,7 +405,7 @@ class Stagiaire
         }
 
     /**
-     * @param mixed $fparticipations
+     * @param mixed $participations
      */
     public function getParticipations()
     {
@@ -464,6 +434,24 @@ class Stagiaire
 
         return $this;
     }
+// On récupère participations pour les injecter dans notre champs "cas"
+    // Permet de marquer le cas déjà sélectionnés dans la DB
+    public function getCas()
+    {
+        $cas = new ArrayCollection();
+        foreach($this->participations as $p)
+        {
+            $cas = $p->getCas();
+        }
+        return $cas;
+    }
+    public function setCas($cas)
+    { 
+        $this->cas = $cas;
+
+        return $this;
+    }
+
     public function addParticipation($participations)
     {
         $this->participations[] = $participations;

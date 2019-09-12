@@ -180,6 +180,12 @@ html {
                                 }
                             }
 
+                            .stagiaire_hover {
+                                &:hover {
+                                    color: #009688;
+                                }
+                            }
+
                             .tribunaux_hover {
                                 &:hover {
                                     color: #4098f3;
@@ -202,6 +208,10 @@ html {
                                 background-color: rgba(255, 87, 68, 0.1);
                             }
 
+                            .background_stagiaire {
+                                background-color: rgba(0, 150, 136, 0.116);
+                            }
+
                             .background_tribunaux {
                                 background-color: rgba(64, 152, 243, 0.1);
                             }
@@ -217,6 +227,16 @@ html {
 
                         .angle_blue {
                             color: #4098f3;
+                            font-size: 2rem;
+                            transition: .5s;
+                            cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                            margin-top: 4px;
+                        }
+
+                        .angle_green {
+                            color: #009688;
                             font-size: 2rem;
                             transition: .5s;
                             cursor: pointer;

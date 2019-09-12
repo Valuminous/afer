@@ -119,10 +119,14 @@
                 </tr>
             </tbody>
         </table>
+        
     </div>
+    <div class="row d-flex align-items-center">
+     <a href="{{ path('stagiaire_inscription', {'id': stagiaire.id}) }}" class="btn confirm lieustage_button mt-3">Créer l'inscription</a>
+     <a href="{{ path('stagiaire_convocation', {'id': stagiaire.id}) }}" class="btn notice lieustage_button mt-3">Créer la convocation</a>
+    <a href="{{ path('stagiaire_facture', {'id': stagiaire.id}) }}" class="btn bill lieustage_button mt-3">Créer la facture</a>
+</div>
     <a href="{{ path('stagiaire_index') }}" class="btn retour lieustage_button mt-3">Retour</a>
 </div>
-<div>
-    <a href="{{ path('stagiaire_facture', {'id': stagiaire.id}) }}" class="btn retour lieustage_button mt-3">facture</a>
-</div>
+
 {% endblock %}
