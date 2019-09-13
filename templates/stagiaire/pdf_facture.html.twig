@@ -70,29 +70,29 @@
 <table class="table table-striped">
     <tbody>
         <tr>
-            {% for cas in stagiaire.cas %}
-            <td align="left">{{ cas.numeroCas}} </td>
-            <td align="left">{{ cas.intituleCas}}</td>
+            
+            <td align="left">{{ participation.cas.numeroCas}} </td>
+            <td align="left">{{ participation.cas.intituleCas}}</td>
         </tr>>
         <tr>
             <td>Montant HT :</td>
-            <td>{{ cas.tarifs.montantHt|localizedcurrency('EUR')}}</td>
+            <td>{{ participation.cas.tarifs.montantHt|localizedcurrency('EUR')}}</td>
 
         </tr>>
         <tr>
             <td>TVA :</td>
-            <td>{{ cas.tarifs.tva|localizedcurrency('EUR')}}</td>
+            <td>{{ participation.cas.tarifs.tva|localizedcurrency('EUR')}}</td>
 
         </tr>>
         <tr>
             <td>Montant TTC :</td>
-            <td>{{ cas.tarifs.montantTtc|localizedcurrency('EUR')}}</td>
+            <td>{{ participation.cas.tarifs.montantTtc|localizedcurrency('EUR')}}</td>
             </td>
 
         </tr>>
     </tbody>
 </table>
-{% endfor %}
+
 {% endif %}
 
 {% if stagiaire.avantage.avantage == 'Carte Avantages Jeune' %}
@@ -101,33 +101,33 @@
 <table class="table table-striped">
     <tbody>
         <tr>
-            {% for cas in stagiaire.cas %}
-            <td align="left">{{ cas.numeroCas}} </td>
-            <td align="left">{{ cas.intituleCas}}</td>
+           
+            <td align="left">{{ participation.cas.numeroCas}} </td>
+            <td align="left">{{ participation.cas.intituleCas}}</td>
         </tr>>
         <tr>
             <td class="font-weight-bold">Montant HT :</td>
             <td class="text-right">
-                {{ "%cas.tarifs.montantHt%"|replace({'%cas.tarifs.montantHt%': '160'|localizedcurrency('EUR') }) }}
+                {{ "%participation.cas.tarifs.montantHt%"|replace({'%participation.cas.tarifs.montantHt%': '160'|localizedcurrency('EUR') }) }}
             </td>
 
         </tr>>
         <tr>
             <td class="font-weight-bold">TVA :</td>
             <td class="text-right">
-                {{ "%cas.tarifs.tva%"|replace({'%cas.tarifs.tva%': '40'|localizedcurrency('EUR') }) }}</td>
+                {{ "%participation.cas.tarifs.tva%"|replace({'%participation.cas.tarifs.tva%': '40'|localizedcurrency('EUR') }) }}</td>
 
         </tr>>
         <tr>
             <td class="font-weight-bold">Montant TTC :</td>
             <td class="text-right">
-                {{ "%cas.tarifs.montantTtc%"|replace({'%cas.tarifs.montantTtc%': '200'|localizedcurrency('EUR') }) }}
+                {{ "%participation.cas.tarifs.montantTtc%"|replace({'%participation.cas.tarifs.montantTtc%': '200'|localizedcurrency('EUR') }) }}
             </td>
             </td>
 
         </tr>>
     </tbody>
-</table>{% endfor %}
+</table>
 {% endif %}
 
 {% if stagiaire.avantage.avantage == 'Partenaire' or stagiaire.avantage.avantage == 'Adhérent'%}
@@ -135,34 +135,34 @@
 <table class="table table-striped">
     <tbody>
         <tr>
-            {% for cas in stagiaire.cas %}
-            <td align="left">{{ cas.numeroCas}} </td>
-            <td align="left">{{ cas.intituleCas}}</td>
+           
+            <td align="left">{{ participation.cas.numeroCas}} </td>
+            <td align="left">{{ participation.cas.intituleCas}}</td>
         </tr>>
         <tr>
             <td class="font-weight-bold">Montant HT :</td>
             <td class="text-right">
-                {{ "%cas.tarifs.montantHt%"|replace({'%cas.tarifs.montantHt%': '144'|localizedcurrency('EUR') }) }}
+                {{ "%participation.cas.tarifs.montantHt%"|replace({'%participation.cas.tarifs.montantHt%': '144'|localizedcurrency('EUR') }) }}
             </td>
 
         </tr>>
         <tr>
             <td class="font-weight-bold">TVA :</td>
             <td class="text-right">
-                {{ "%cas.tarifs.tva%"|replace({'%cas.tarifs.tva%': '36'|localizedcurrency('EUR') }) }}
+                {{ "%participation.cas.tarifs.tva%"|replace({'%participation.cas.tarifs.tva%': '36'|localizedcurrency('EUR') }) }}
             </td>
 
         </tr>>
         <tr>
             <td class="font-weight-bold">Montant TTC :</td>
             <td class="text-right">
-                {{ "%cas.tarifs.montantTtc%"|replace({'%cas.tarifs.montantTtc%': '180'|localizedcurrency('EUR') }) }}
+                {{ "%participation.cas.tarifs.montantTtc%"|replace({'%participation.cas.tarifs.montantTtc%': '180'|localizedcurrency('EUR') }) }}
             </td>
             </td>
 
         </tr>>
     </tbody>
-</table>{% endfor %}
+</table>
 {% endif %}
  {% endfor %}</p>
 {% endblock %}
