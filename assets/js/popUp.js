@@ -806,6 +806,10 @@ function loadFormLieuStage() {
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_numero_adresse_stage').value.length != 0 &&
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_adresse_stage').value.length != 0 &&
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_latitude').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_longitude').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_latitude').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_longitude').value.length != 0 &&
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage').value.length != 0) {
 
                                 let nom = document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_etablissement');
@@ -813,6 +817,10 @@ function loadFormLieuStage() {
                                 let numeroAdresse = document.querySelector('form[name="lieu_stage"] #lieu_stage_numero_adresse_stage');
                                 let adresse = document.querySelector('form[name="lieu_stage"] #lieu_stage_adresse_stage');
                                 let commune = document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune');
+                                let latitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_latitude');
+                                let longitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_longitude');
+                                let dmsLatitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_latitude');
+                                let dmsLongitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_longitude');
                                 let telephone = document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage');
                                 let token = document.querySelector('form[name="lieu_stage"] #lieu_stage__token');
 
@@ -822,6 +830,10 @@ function loadFormLieuStage() {
                                 data.append("lieu_stage_numero_adresse_stage", numeroAdresse.value);
                                 data.append("lieu_stage_adresse_stage", adresse.value);
                                 data.append("lieu_stage_nom_commune", commune.value);
+                                data.append("lieu_stage_latitude", commune.value);
+                                data.append("lieu_stage_longitude", commune.value);
+                                data.append("lieu_stage_dms_latitude", commune.value);
+                                data.append("lieu_stage_dms_longitude", commune.value);
                                 data.append("lieu_stage_telephone_stage", telephone.value);
                                 data.append("lieu_stage__token", token.value);
 

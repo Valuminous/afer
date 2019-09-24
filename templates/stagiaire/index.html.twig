@@ -63,26 +63,32 @@
                 <td class="text-left">{{ stagiaire.numeroPortableStagiaire }}</td>
                 <td class="text-left">{{ stagiaire.numeroFixeStagiaire}}</td>
 
-                 {# {% if stagiaire.participations is not empty %}
-                 {% for participation in stagiaire.participations %}
+                {% if stagiaire.participations is not empty %}
+                {% for participation in stagiaire.participations %}
+                {% if participation.cas.numeroCas is defined %}
                 <td class="text-left">{{ participation.cas.numeroCas }}</td>
-                {% endfor %}
                 {% else %}
                 <td class="text-left">Aucun cas défini</td>
-                {% endif %} 
- 
-                {% if stagiaire.participations is not empty %}
-                 {% for participation in stagiaire.participations %}
-                 {% if participation.stage.dated < date() %}
+                {% endif %}
+ {% endfor %}
+  {% else %}
+                <td class="text-left">----------</td>
+                 {% endif %}
+                 {% if stagiaire.participations is not empty %}
+                {% for participation in stagiaire.participations %}
+               
+                {% if participation.stage.dated < date() %}
                 <td class="text-left">Terminé</td></br>
-                {% else %} 
+                {% else %}
                 <td class="text-left">{{ participation.stage.dated|localizeddate('long', 'none', 'fr')}} </td>
-                 {% endif %} 
+                 {% endif %}
                 {% endfor %}
-                 {% else %}
-                <td class="text-left">Aucun stage défini</td>  
-                {% endif %}  #}
+                {% else %}
+                <td class="text-left">Aucun stage défini</td>
                 
+                {% endif %}
+               
+
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Voir le stagiaire"
                         href="{{  path('stagiaire_afficher', {'id': stagiaire.id}) }}"><i

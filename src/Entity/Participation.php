@@ -27,11 +27,6 @@ class Participation
     //private $stagiaires;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="cas", cascade={"persist"})
-     */
-    //private $stagiaires;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Stage", inversedBy="participations")
      */
     private $stage;

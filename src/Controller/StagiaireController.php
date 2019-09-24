@@ -72,72 +72,73 @@ class StagiaireController extends AbstractController
      *  @Route("/stagiaire/{id}/modifier", name="stagiaire_modifier")
      *  @IsGranted("ROLE_ADMIN")
      */
-    public function stagiaireForm(Stagiaire $stagiaire = null,  ParticipationRepository $prepo, StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
+    public function stagiaireForm(Stagiaire $stagiaire = null, Participation $participation = null, ParticipationRepository $prepo, StagiaireRepository $repoStagiaire, Request $request, ObjectManager $manager)
     {
         if(!$stagiaire){
            $stagiaire = new stagiaire();
-          
-                }
+        }
         
            $form = $this->createForm(stagiaireType::class, $stagiaire);
            $form->handleRequest($request);
            if($form->isSubmitted() && $form->isValid()){
-      // Ajout des stages du stagiaire
+            // Ajout des stages du stagiaire
             // On parcours les stages sélectionnés
-             foreach($form->get('cas')->getData() as $cas)
-             {
-                                      // On ajoute ce cas
-                     $newParticipations = new Participation();
-                     $newParticipations->setStagiaire($stagiaire);
-                     $newParticipations->setCas($cas);
-                     $stagiaire->addParticipation($newParticipations);
-                   
-                    }
-            
-            foreach($form->get('stage')->getData() as $s)
-            {
+                        
+            foreach ($form->get('stage')->getData() as $s)
+            { 
+                
                 if(!$stagiaire->getStage()->contains($s))
-                {                     // On ajoute ce stage
-                    $newParticipations = new Participation();
-                    $newParticipations->setStagiaire($stagiaire);
-                    $newParticipations->setStage($s);
-                    $stagiaire->addParticipation($newParticipations);
-                   
-                   }}
-                   
-                    // dump($stagiaire);
-                    // die();
-            //  Suppression des stages du stagiaire
-            //  On parcours les stages de la DB
-            //      foreach($stagiaire->getStage() as $s)
-               
-            //  {
-            //      if(!$form->get('stage')->getData()->contains($s))
-            //      {  
-            //  // On supprime ce stage
-            //          $oldParticipations = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'stage' => $s->getId()));
-                   
+                {   
+                    $participation = new Participation();
+                    // On ajoute ce stage
+                    $participation->setStagiaire($stagiaire);
+                    $participation->setStage($s);
+                    $stagiaire->addParticipation($participation);                  
+                }
+            }       
 
-            //          $manager->remove($oldParticipations);                     
-            //          $manager->flush();
+            //Suppression des stages du stagiaire
+             //On parcours les stages de la DB
+            foreach($stagiaire->getStage() as $s)
+            {
+                if(!$form->get('stage')->getData()->contains($s))
+                {  
+                // On supprime ce stage
+                    $oldParticipation = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'stage' => $s->getId()));
+                   
+                      $manager->remove($oldParticipation);                     
+                      $manager->flush();
            
-            //      }
-            //  }
-
-            //  for($stagiaire->getCas() as $cas)
-               
-            //  {
-            //      if(!$form->get('cas')->getData()->contains($cas))
-            //      {  
-            //  // On supprime ce stage
-            //          $oldParticipations = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'cas' => $cas->getId()));
+                }
+            }
+            // Ajout des cas du stagiaire
+            // On parcours les cas sélectionnés
+            foreach($form->get('cas')->getData() as $c)
+            {   
+                if(!$stagiaire->getCas()->contains($c))
+                {
+                    if(!$participation){
+                    $participation = new Participation();
+                    }   
+                        $participation->setStagiaire($stagiaire);
+                        $participation->setCas($c);    
+                        $stagiaire->addParticipation($participation);    
+                    }
+            }
                    
-
-            //          $manager->remove($oldParticipations);                     
-            //          $manager->flush();
-           
-            //      }
-            //  }
+            //Suppression des cas du stagiaire
+            //On parcours les cas de la DB  
+            foreach($stagiaire->getCas() as $cas)
+            {
+                if(!$form->get('cas')->getData()->contains($cas))
+                {  
+                // On supprime ce cas
+                    $oldParticipation = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'cas' => $cas->getId()));
+                   
+                    $manager->remove($oldParticipation);                     
+                    $manager->flush();
+                }
+            }
 
             $stagiaireNom = $stagiaire->getNomStagiaire();
             $stagiairePrenom = $stagiaire->getPrenomStagiaire();
@@ -170,10 +171,8 @@ class StagiaireController extends AbstractController
             'formStagiaire' => $form->createView(),
             'editMode' => $stagiaire->getId() !== null,
             'stagiaire' => $stagiaire,
-           
-            
-        ]); 
-       
+               
+        ]);  
     }
     
     /**
@@ -594,7 +593,7 @@ class StagiaireController extends AbstractController
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
    $stagiaire ->getId();
-   
+  
     // Retrieve the HTML generated in our twig file
     $html = $this->renderView('stagiaire/pdf_show.html.twig', [
         'stagiaire' => $stagiaire
@@ -630,6 +629,8 @@ class StagiaireController extends AbstractController
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
    $stagiaire ->getId();
+//    dump($stagiaire);
+//    die();
    //Ajout de la date de la facture
    foreach($stagiaire ->getParticipations() as $p) 
     { 
@@ -679,7 +680,7 @@ class StagiaireController extends AbstractController
     
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
-   $stagiaire ->getId();
+    $stagiaire ->getId();
    //Ajout de la date de la facture
    foreach($stagiaire ->getParticipations() as $p) 
     { 
@@ -725,10 +726,11 @@ class StagiaireController extends AbstractController
     {
     $pdfOptions = new Options();
     $pdfOptions->set('defaultFont', 'Arial');
-    
+    $pdfOptions->set('isRemoteEnabled', TRUE);
+    $pdfOptions->set('isHtml5ParserEnabled', TRUE);
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
-   $stagiaire ->getId();
+    $stagiaire ->getId();
    //Ajout de la date de la facture
    foreach($stagiaire ->getParticipations() as $p) 
     { 
@@ -737,7 +739,8 @@ class StagiaireController extends AbstractController
     
             $manager->persist($p);
             $manager->flush();
-        }        
+        }  
+        
    }
    
     // Retrieve the HTML generated in our twig file
@@ -766,3 +769,5 @@ class StagiaireController extends AbstractController
     ]);
 }
     }
+
+   

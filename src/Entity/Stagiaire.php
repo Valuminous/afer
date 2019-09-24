@@ -438,16 +438,16 @@ class Stagiaire
     // Permet de marquer le cas déjà sélectionnés dans la DB
     public function getCas()
     {
-        $cas = new ArrayCollection();
+        $cass = new ArrayCollection();
         foreach($this->participations as $p)
         {
-            $cas = $p->getCas();
+            $cass[] = $p->getCas();
         }
-        return $cas;
+        return $cass;
     }
-    public function setCas($cas)
+    public function setCas($cass)
     { 
-        $this->cas = $cas;
+        $this->cass = $cass;
 
         return $this;
     }

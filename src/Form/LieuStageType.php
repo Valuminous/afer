@@ -33,6 +33,8 @@ class LieuStageType extends AbstractType
             ])
             ->add('latitude')
             ->add('longitude')
+            ->add('dmsLatitude')
+            ->add('dmsLongitude')
             ->add('telephone_stage', null, [
                 'required'   => false,
                 'empty_data' => '-- -- -- -- --',

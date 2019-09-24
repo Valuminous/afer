@@ -27,10 +27,18 @@
             <div id="select" class="listeHidden"></div>
         </div>
         <div class="col">
-            {{ form_row(form.latitude, {'label': "Latitude :", 'attr': {'placeholder': "Latitude"}}) }}
+            {{ form_row(form.latitude, {'label': "Latitude Décimaux:", 'attr': {'placeholder': "Latitude Décimaux"}}) }}
         </div>
         <div class="col">
-            {{ form_row(form.longitude, {'label': "Longitude :", 'attr': {'placeholder': "Longitude"}}) }}
+            {{ form_row(form.longitude, {'label': "Longitude Décimaux:", 'attr': {'placeholder': "Longitude Décimaux"}}) }}
+        </div>
+        </div>
+         <div class="row">
+         <div class="col">
+            {{ form_row(form.dmsLatitude, {'label': "Latitude DMS:", 'attr': {'placeholder': "Latitude DMS"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.dmsLongitude, {'label': "Longitude DMS:", 'attr': {'placeholder': "Longitude DMS"}}) }}
         </div>
     </div>
     <div class="row">

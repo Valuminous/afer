@@ -46,7 +46,7 @@
 {% block body %}
 <img src="./build/static/logo.png" alt="Logo AFER">
 {% for participation in stagiaire.participations %}
-<div>Besançon, le {{ participation.dateFacture|localizeddate('full', 'none', 'fr')}}</div>
+<div>Besançon, le {{ participation.dateFacture|localizeddate('long', 'none', 'fr')}}</div>
 <hr>
 
 <h3 align="center">FACTURE N° [ {{ participation.facture }}/{{ participation.createdAt|date('Y')}} ] </h3>
@@ -139,8 +139,9 @@
             <td align="left">{{ participation.cas.numeroCas}} </td>
             <td align="left">{{ participation.cas.intituleCas}}</td>
         </tr>>
+        
         <tr>
-            <td class="font-weight-bold">Montant HT :</td>
+             <td class="font-weight-bold">Montant HT :</td>
             <td class="text-right">
                 {{ "%participation.cas.tarifs.montantHt%"|replace({'%participation.cas.tarifs.montantHt%': '144'|localizedcurrency('EUR') }) }}
             </td>
@@ -158,7 +159,10 @@
             <td class="text-right">
                 {{ "%participation.cas.tarifs.montantTtc%"|replace({'%participation.cas.tarifs.montantTtc%': '180'|localizedcurrency('EUR') }) }}
             </td>
-            </td>
+            </td> 
+
+
+
 
         </tr>>
     </tbody>

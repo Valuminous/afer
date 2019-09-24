@@ -97,10 +97,9 @@ class StagiaireType extends AbstractType
 
                 ->add('cas',EntityType::class, [
                     'class' => Cas::class,
-                    'choice_label' => 'numeroCas',
                    'placeholder' => 'Cas',
                    'expanded' => 'true',
-                //    'multiple' => 'true',
+                   'multiple' => 'true',
                    'label'   => false, 
                 ])
 

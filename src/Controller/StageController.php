@@ -386,6 +386,10 @@ class StageController extends AbstractController
             $lieuStageNumeroAdresse = $request->request->get('lieu_stage_numero_adresse_stage');
             $lieuStageAdresse = $request->request->get('lieu_stage_adresse_stage');
             $lieuStageCommune = $request->request->get('lieu_stage_nom_commune');
+            $lieuStageLatitude = $request->request->get('lieu_stage_latitude');
+            $lieuStageLongitude= $request->request->get('lieu_stage_longitude');
+            $lieuStageDmsLatitude = $request->request->get('lieu_stage_dms_latitude');
+            $lieuStageDmsLongitude= $request->request->get('lieu_stage_dms_longitude');
             $lieuStageTelephone = $request->request->get('lieu_stage_telephone_stage');
                         
             $nbrs = $repoLieu->counter($lieuStageNom,$lieuStageAgrement);
@@ -399,6 +403,10 @@ class StageController extends AbstractController
                 $lieuStage->setAdresseStage($lieuStageAdresse);
                 $lieuStage->setNumeroAdresseStage($lieuStageNumeroAdresse);
                 $lieuStage->setNomCommune($lieuStageCommune);
+                $lieuStage->setLatitude($lieuStageLatitude);
+                $lieuStage->setLongitude($lieuStageLongitude);
+                $lieuStage->setDmsLatitude($lieuStageDmsLatitude);
+                $lieuStage->setDmsLongitude($lieuStageDmsLongitude);
                 $lieuStage->setTelephoneStage($lieuStageTelephone);
 
 
@@ -444,15 +452,15 @@ class StageController extends AbstractController
                 if(!$stage->getStagiaire()->contains($s))
                 {
                     // On ajoute ce stagiaire
-                    $newParticipations = new Participation();
-                    $newParticipations->setStage($stage);
-                    $newParticipations->setStagiaire($s);
-                    $stage->addParticipation($newParticipations);
+                    $participation = new Participation();
+                    $participation->setStage($stage);
+                    $participation->setStagiaire($s);
+                    $stage->addParticipation($participation);
                 }
             }
 
             // Suppression des stagiaires au stage
-            // On parcours les stagiaires de la DB
+            // On parcours les stagiaires de la DBforeach
                 foreach($stage->getStagiaire() as $s)
             {
                 if(!$form->get('stagiaire')->getData()->contains($s))

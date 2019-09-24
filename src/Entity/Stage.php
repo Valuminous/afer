@@ -228,9 +228,6 @@ class Stage
         $this->participations->removeElement($participations);
     }
 
-
-   
-
        /**
      * toString
      */

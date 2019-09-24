@@ -127,5 +127,12 @@ class Cas
         $this->participations->removeElement($participations);
     }
 
+ 
+ /**
+     * toString
+     */
+    public function __toString() {
+        return $this->getNumeroCas();
+    }
 
 }

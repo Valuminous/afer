@@ -61,6 +61,14 @@ class LieuStage
     private $longitude;
     
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dmsLatitude;
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dmsLongitude;
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="lieuStage")
      */
     private $stages;
@@ -171,6 +179,30 @@ class LieuStage
         return $this;
     }
 
+    public function getDmsLatitude(): ?string
+    {
+        return $this->dmsLatitude;
+    }
+
+    public function setDmsLatitude(?string $dmsLatitude): self
+    {
+        $this->dmsLatitude = $dmsLatitude;
+
+        return $this;
+    }
+
+    public function getDmsLongitude(): ?string
+    {
+        return $this->dmsLongitude;
+    }
+
+    public function setDmsLongitude(?string $dmsLongitude): self
+    {
+        $this->dmsLongitude = $dmsLongitude;
+
+        return $this;
+    }
+
     public function getDivers(): ?string
     {
         return $this->divers;
@@ -214,6 +246,48 @@ class LieuStage
         return $this;
     }
 
-
-     
+    public function longDECtoDMS($longitude)
+    {
+       
+        $longitudeDirection = $longitude < 0 ? 'W': 'E';
+      
+        $longitudeNotation = $longitude < 0 ? '-': '';
+    
+        $longitudeInDegrees = floor(abs($longitude));
+    
+        $longitudeDecimal = abs($longitude)-$longitudeInDegrees;
+    
+        $_precision = 3;
+       
+        $longitudeMinutes = round($longitudeDecimal*60,$_precision);
+    
+        return sprintf('%s%s° %s %s',
+            $longitudeNotation,
+            $longitudeInDegrees,
+            $longitudeMinutes,
+            $longitudeDirection
+        );
+    
+    }
+    public function latDECtoDMS($latitude)
+    {
+        $latitudeDirection = $latitude < 0 ? 'S': 'N';
+       
+        $latitudeNotation = $latitude < 0 ? '-': '';
+       
+        $latitudeInDegrees = floor(abs($latitude));
+    
+        $latitudeDecimal = abs($latitude)-$latitudeInDegrees;
+    
+        $_precision = 3;
+        $latitudeMinutes = round($latitudeDecimal*60,$_precision);
+    
+        return sprintf('%s%s° %s %s',
+            $latitudeNotation,
+            $latitudeInDegrees,
+            $latitudeMinutes,
+            $latitudeDirection
+        );
+    
+    }
 }
