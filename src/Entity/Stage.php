@@ -43,17 +43,17 @@ class Stage
      */
     private $stageProgrammeOfficiel;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $prefecture;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stages")
+    //  * @ORM\JoinColumn(nullable=true)
+    //  */
+    // private $prefecture;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stages")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $tribunal;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stages")
+    //  * @ORM\JoinColumn(nullable=true)
+    //  */
+    // private $tribunal;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Animateur", inversedBy="stages")
@@ -120,29 +120,29 @@ class Stage
         return $this;
     }
 
-    public function getPrefecture(): ?prefecture
-    {
-        return $this->prefecture;
-    }
+    // public function getPrefecture(): ?prefecture
+    // {
+    //     return $this->prefecture;
+    // }
 
-    public function setPrefecture(?prefecture $prefecture): self
-    {
-        $this->prefecture = $prefecture;
+    // public function setPrefecture(?prefecture $prefecture): self
+    // {
+    //     $this->prefecture = $prefecture;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getTribunal(): ?tribunal
-    {
-        return $this->tribunal;
-    }
+    // public function getTribunal(): ?tribunal
+    // {
+    //     return $this->tribunal;
+    // }
 
-    public function setTribunal(?tribunal $tribunal): self
-    {
-        $this->tribunal = $tribunal;
+    // public function setTribunal(?tribunal $tribunal): self
+    // {
+    //     $this->tribunal = $tribunal;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection|Animateur[]

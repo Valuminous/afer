@@ -96,113 +96,113 @@ class StageController extends AbstractController
         ]);
     }
 
-     /**
-      * Pop-up ajouter un tribunal
-     *  @Route("/stage/loadFormTribunal", name="stage_tribunal")
-     */
-    public function popTribunal(Tribunal $tribunal = null, TribunalAutoriteRepository $repoAutorite, TribunalServiceRepository $repoService, TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
-    {
-        if(!$tribunal){
-            $tribunal = new Tribunal();
-        }
+    //  /**
+    //   * Pop-up ajouter un tribunal
+    //  *  @Route("/stage/loadFormTribunal", name="stage_tribunal")
+    //  */
+    // public function popTribunal(Tribunal $tribunal = null, TribunalAutoriteRepository $repoAutorite, TribunalServiceRepository $repoService, TribunalRepository $repoTribunal, Request $request, ObjectManager $manager)
+    // {
+    //     if(!$tribunal){
+    //         $tribunal = new Tribunal();
+    //     }
 
-        $form = $this->createForm( TribunalType::class, $tribunal, array('method'=>'POST'));
-        $form->handleRequest( $request );
+    //     $form = $this->createForm( TribunalType::class, $tribunal, array('method'=>'POST'));
+    //     $form->handleRequest( $request );
 
-        if($request->isMethod('POST')){
-            $tribunalNom = $request->request->get('tribunal_nom_tribunal');
-            $tribunalAdresse = $request->request->get('tribunal_adresse_tribunal');
-            $tribunalNumeroAdresse = $request->request->get('tribunal_numero_adresse_tribunal');
-            $tribunalCommune = $request->request->get('tribunal_commune_tribunal');
-            $tribunalAutorite = $request->request->get('tribunal_tribunal_autorite');
-            $tribunalService = $request->request->get('tribunal_tribunal_service');
+    //     if($request->isMethod('POST')){
+    //         $tribunalNom = $request->request->get('tribunal_nom_tribunal');
+    //         $tribunalAdresse = $request->request->get('tribunal_adresse_tribunal');
+    //         $tribunalNumeroAdresse = $request->request->get('tribunal_numero_adresse_tribunal');
+    //         $tribunalCommune = $request->request->get('tribunal_commune_tribunal');
+    //         $tribunalAutorite = $request->request->get('tribunal_tribunal_autorite');
+    //         $tribunalService = $request->request->get('tribunal_tribunal_service');
       
-            $autorite = $repoAutorite->find($tribunalAutorite);
-            $service = $repoService->find($tribunalService);
+    //         $autorite = $repoAutorite->find($tribunalAutorite);
+    //         $service = $repoService->find($tribunalService);
 
-             $nbrs = $repoTribunal->counter($tribunalNom,$tribunalCommune);
-             $nbr = $nbrs[0][1];
+    //          $nbrs = $repoTribunal->counter($tribunalNom,$tribunalCommune);
+    //          $nbr = $nbrs[0][1];
 
-            if(strlen($tribunalNom) > 0 && strlen($tribunalAdresse) > 0 && strlen($tribunalNumeroAdresse) > 0 &&
-                strlen($tribunalCommune) > 0 && strlen($tribunalAutorite) > 0 && strlen($tribunalService) > 0 && $nbr === "0"){
+    //         if(strlen($tribunalNom) > 0 && strlen($tribunalAdresse) > 0 && strlen($tribunalNumeroAdresse) > 0 &&
+    //             strlen($tribunalCommune) > 0 && strlen($tribunalAutorite) > 0 && strlen($tribunalService) > 0 && $nbr === "0"){
                 
-                $tribunal->setNomTribunal($tribunalNom);
-                $tribunal->setAdresseTribunal($tribunalAdresse);
-                $tribunal->setNumeroAdresseTribunal($tribunalNumeroAdresse);
-                $tribunal->setCommuneTribunal($tribunalCommune);
-                $tribunal->setTribunalService($service);
-                $tribunal->setTribunalAutorite($autorite);
+    //             $tribunal->setNomTribunal($tribunalNom);
+    //             $tribunal->setAdresseTribunal($tribunalAdresse);
+    //             $tribunal->setNumeroAdresseTribunal($tribunalNumeroAdresse);
+    //             $tribunal->setCommuneTribunal($tribunalCommune);
+    //             $tribunal->setTribunalService($service);
+    //             $tribunal->setTribunalAutorite($autorite);
 
-                $manager->persist( $tribunal );
-                $manager->flush();
+    //             $manager->persist( $tribunal );
+    //             $manager->flush();
 
-                $response = new Response();
-                $response = JsonResponse::fromJsonString('{"id":'.$tribunal->getId().', "value":"'.$tribunal->getNomTribunal().'"}');
-            }else{
-                $response = new Response();
-                $response = JsonResponse::fromJsonString('{"error":"existe"}');
-            }
-            return $response;
-        }        
-        return $this->render('stage/popTribunal.html.twig', 
-            ['form' => $form->createView()
-            ]);
-    }
+    //             $response = new Response();
+    //             $response = JsonResponse::fromJsonString('{"id":'.$tribunal->getId().', "value":"'.$tribunal->getNomTribunal().'"}');
+    //         }else{
+    //             $response = new Response();
+    //             $response = JsonResponse::fromJsonString('{"error":"existe"}');
+    //         }
+    //         return $response;
+    //     }        
+    //     return $this->render('stage/popTribunal.html.twig', 
+    //         ['form' => $form->createView()
+    //         ]);
+    // }
 
-     /**
-      * Pop-up ajouter une prefecture
-     *  @Route("/stage/loadFormPrefecture", name="stage_prefecture")
-     */
-    public function popPrefecture(Prefecture $prefecture = null,PrefectureRepository $repoPrefecture,PrefectureAutoriteRepository $repoAutorite,PrefectureServiceRepository $repoService, Request $request, ObjectManager $manager)
-    {
-        if(!$prefecture){
-            $prefecture = new Prefecture();
-        }
+    //  /**
+    //   * Pop-up ajouter une prefecture
+    //  *  @Route("/stage/loadFormPrefecture", name="stage_prefecture")
+    //  */
+    // public function popPrefecture(Prefecture $prefecture = null,PrefectureRepository $repoPrefecture,PrefectureAutoriteRepository $repoAutorite,PrefectureServiceRepository $repoService, Request $request, ObjectManager $manager)
+    // {
+    //     if(!$prefecture){
+    //         $prefecture = new Prefecture();
+    //     }
 
-        $form = $this->createForm( PrefectureType::class, $prefecture, array('method'=>'POST'));
-        $form->handleRequest( $request );
+    //     $form = $this->createForm( PrefectureType::class, $prefecture, array('method'=>'POST'));
+    //     $form->handleRequest( $request );
 
-        if($request->isMethod('POST')){
+    //     if($request->isMethod('POST')){
           
-            $prefectureNom = $request->request->get('prefecture_nomPrefecture');
-            $prefectureAdresse = $request->request->get('prefecture_adressePrefecture');
-            $prefectureNumeroAdresse = $request->request->get('prefecture_numeroAdressePrefecture');
-            $prefectureCommune = $request->request->get('prefecture_communePrefecture');
-            $prefectureAutorite = $request->request->get('prefecture_prefectureAutorite');
-            $prefectureService = $request->request->get('prefecture_prefectureService');
+    //         $prefectureNom = $request->request->get('prefecture_nomPrefecture');
+    //         $prefectureAdresse = $request->request->get('prefecture_adressePrefecture');
+    //         $prefectureNumeroAdresse = $request->request->get('prefecture_numeroAdressePrefecture');
+    //         $prefectureCommune = $request->request->get('prefecture_communePrefecture');
+    //         $prefectureAutorite = $request->request->get('prefecture_prefectureAutorite');
+    //         $prefectureService = $request->request->get('prefecture_prefectureService');
 
-            $autorite = $repoAutorite->find($prefectureAutorite);
-            $service = $repoService->find($prefectureService);
-            // dump($autorite);
-            // die();
-            $nbrs = $repoPrefecture->counter($prefectureNom,$prefectureCommune);
-            $nbr = $nbrs[0][1];
+    //         $autorite = $repoAutorite->find($prefectureAutorite);
+    //         $service = $repoService->find($prefectureService);
+    //         // dump($autorite);
+    //         // die();
+    //         $nbrs = $repoPrefecture->counter($prefectureNom,$prefectureCommune);
+    //         $nbr = $nbrs[0][1];
             
-            if(strlen($prefectureNom) > 0 && strlen($prefectureAdresse) > 0 && strlen($prefectureNumeroAdresse) > 0 &&
-                strlen($prefectureCommune) > 0 && strlen($prefectureAutorite) > 0 &&
-                strlen($prefectureService) > 0 && $nbr === "0"){
-                $prefecture->setNomPrefecture($prefectureNom);
-                $prefecture->setAdressePrefecture($prefectureAdresse);
-                $prefecture->setNumeroAdressePrefecture($prefectureNumeroAdresse);
-                $prefecture->setCommunePrefecture($prefectureCommune);
-                $prefecture->setPrefectureService($service);
-                $prefecture->setPrefectureAutorite($autorite);
+    //         if(strlen($prefectureNom) > 0 && strlen($prefectureAdresse) > 0 && strlen($prefectureNumeroAdresse) > 0 &&
+    //             strlen($prefectureCommune) > 0 && strlen($prefectureAutorite) > 0 &&
+    //             strlen($prefectureService) > 0 && $nbr === "0"){
+    //             $prefecture->setNomPrefecture($prefectureNom);
+    //             $prefecture->setAdressePrefecture($prefectureAdresse);
+    //             $prefecture->setNumeroAdressePrefecture($prefectureNumeroAdresse);
+    //             $prefecture->setCommunePrefecture($prefectureCommune);
+    //             $prefecture->setPrefectureService($service);
+    //             $prefecture->setPrefectureAutorite($autorite);
 
-                $manager->persist($prefecture);
-                $manager->flush();
+    //             $manager->persist($prefecture);
+    //             $manager->flush();
 
-                $response = new Response();
-                $response = JsonResponse::fromJsonString('{"id":'.$prefecture->getId().', "value":"'.$prefecture->getNomPrefecture().'"}');
-            }else{
-                $response = new Response();
-                $response = JsonResponse::fromJsonString('{"error":"existe"}');
-            }      
-            return $response;
-        }  
-        return $this->render('stage/popPrefecture.html.twig', 
-            ['form' => $form->createView()
-            ]);
-    }
+    //             $response = new Response();
+    //             $response = JsonResponse::fromJsonString('{"id":'.$prefecture->getId().', "value":"'.$prefecture->getNomPrefecture().'"}');
+    //         }else{
+    //             $response = new Response();
+    //             $response = JsonResponse::fromJsonString('{"error":"existe"}');
+    //         }      
+    //         return $response;
+    //     }  
+    //     return $this->render('stage/popPrefecture.html.twig', 
+    //         ['form' => $form->createView()
+    //         ]);
+    // }
 
 
      /**
@@ -388,8 +388,8 @@ class StageController extends AbstractController
             $lieuStageCommune = $request->request->get('lieu_stage_nom_commune');
             $lieuStageLatitude = $request->request->get('lieu_stage_latitude');
             $lieuStageLongitude= $request->request->get('lieu_stage_longitude');
-            $lieuStageDmsLatitude = $request->request->get('lieu_stage_dms_latitude');
-            $lieuStageDmsLongitude= $request->request->get('lieu_stage_dms_longitude');
+            $lieuStageDmsLatitude = $request->request->get('lieu_stage_dmsLatitude');
+            $lieuStageDmsLongitude= $request->request->get('lieu_stage_dmsLongitude');
             $lieuStageTelephone = $request->request->get('lieu_stage_telephone_stage');
                         
             $nbrs = $repoLieu->counter($lieuStageNom,$lieuStageAgrement);
@@ -408,11 +408,12 @@ class StageController extends AbstractController
                 $lieuStage->setDmsLatitude($lieuStageDmsLatitude);
                 $lieuStage->setDmsLongitude($lieuStageDmsLongitude);
                 $lieuStage->setTelephoneStage($lieuStageTelephone);
-
+dump($lieuStageLatitude);
+die();
 
                 $manager->persist($lieuStage);
-                // var_dump($lieuStage);
-                // die();
+                var_dump($lieuStage);
+                die();
                 $manager->flush();
 
                 $response = new Response();
@@ -608,4 +609,45 @@ class StageController extends AbstractController
     ]);
 }
 
+/**
+    * PDF émargement stage
+     * @Route("/stage/{id}/emargement", name="stage_emargement")
+     */
+    public function emargement(stage $stage, Request $request, ObjectManager $manager)
+    {
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $stage ->getId();
+//    dump($stagiaire);
+//    die();
+  
+   
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stage/pdf_emargement.html.twig', [
+        'stage' => $stage,
+        
+    ]);
+     // Load HTML to Dompdf
+     $dompdf->loadHtml($html);
+    
+     // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+     $dompdf->setPaper('A4', 'portrait');
+ 
+     // Render the HTML as PDF
+     $dompdf->render();
+     $canvas = $dompdf->get_canvas();
+     //$date = date("d-m-Y");
+     // $canvas->page_text(450, 80, "Besançon, le $date", null, 10, array(0, 0, 0));
+     $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(.4, .4, .8));
+     $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(.4, .4, .8));
+     $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(.4, .4, .8));
+     $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(.4, .4, .8));
+     // Output the generated PDF to Browser (force download)
+     $dompdf->stream("emargement_{$stage}.pdf", [
+         "Attachment" => false
+     ]);
+ }
 }

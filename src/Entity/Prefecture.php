@@ -49,10 +49,10 @@ class Prefecture
      */
     private $prefectureAutorite;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="prefecture")
-     */
-    private $stages;
+    // /**
+    //  * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="prefecture")
+    //  */
+    // private $stages;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="prefecture")
@@ -68,7 +68,7 @@ class Prefecture
 
     public function __construct()
     {
-        $this->stages = new ArrayCollection();
+        // $this->stages = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
         $this->licences = new ArrayCollection();
         
@@ -152,34 +152,34 @@ class Prefecture
         return $this;
     }
 
-    /**
-     * @return Collection|Stage[]
-     */
-    public function getStages(): Collection
-    {
-        return $this->stages;
-    }
+    // /**
+    //  * @return Collection|Stage[]
+    //  */
+    // public function getStages(): Collection
+    // {
+    //     return $this->stages;
+    // }
 
-    public function addStage(Stage $stage): self
-    {
-        if (!$this->stages->contains($stage)) {
-            $this->stages[] = $stage;
-            // $stage->addStage($this);
-        }
-        return $this;
-    }
-    public function removeStage(Stage $stage): self
-    {
-        if ($this->stages->contains($stage)) {
-            $this->stages->removeElement($stage);
-             // set the owning side to null (unless already changed)
-        //      if ($relation->getPrefecture() === $this) {
-        //         $relation->setPrefecture(null);
+    // public function addStage(Stage $stage): self
+    // {
+    //     if (!$this->stages->contains($stage)) {
+    //         $this->stages[] = $stage;
+    //         // $stage->addStage($this);
+    //     }
+    //     return $this;
+    // }
+    // public function removeStage(Stage $stage): self
+    // {
+    //     if ($this->stages->contains($stage)) {
+    //         $this->stages->removeElement($stage);
+    //          // set the owning side to null (unless already changed)
+    //     //      if ($relation->getPrefecture() === $this) {
+    //     //         $relation->setPrefecture(null);
            
-        // }
-    }
-        return $this;
-    }
+    //     // }
+    // }
+    //     return $this;
+    // }
 
     /**
      * @return Collection|Stagiaire[]

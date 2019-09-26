@@ -28,11 +28,11 @@
                     {{ cas.intituleCas }}
                     <p>
                 </td>
-                <td class="text-left">{{ cas.tarifs }}</td>
+                <td class="text-left">{{ cas.tarifs.montantTtc|localizedcurrency('EUR')}}</td>
                 <td class="text-center">
-                    <a data-toggle="tooltip" data-placement="top" title="Voir le cas"
+                    {# <a data-toggle="tooltip" data-placement="top" title="Voir le cas"
                         href="{{  path('cas_afficher', {'id': cas.id}) }}"><i
-                            class="far fa-eye eye_color"></i></a>
+                            class="far fa-eye eye_color"></i></a> #}
                     <a data-toggle="tooltip" data-placement="top" title="Modifier le cas"
                         href="{{  path('cas_modifier', {'id': cas.id}) }}"><i
                             class="fas fa-pen pen_color pl-2 pr-2"></i></a>

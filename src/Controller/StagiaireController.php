@@ -93,25 +93,12 @@ class StagiaireController extends AbstractController
                     // On ajoute ce stage
                     $participation->setStagiaire($stagiaire);
                     $participation->setStage($s);
-                    $stagiaire->addParticipation($participation);                  
+                    $stagiaire->addParticipation($participation); 
+                                    
                 }
             }       
 
-            //Suppression des stages du stagiaire
-             //On parcours les stages de la DB
-            foreach($stagiaire->getStage() as $s)
-            {
-                if(!$form->get('stage')->getData()->contains($s))
-                {  
-                // On supprime ce stage
-                    $oldParticipation = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'stage' => $s->getId()));
-                   
-                      $manager->remove($oldParticipation);                     
-                      $manager->flush();
-           
-                }
-            }
-            // Ajout des cas du stagiaire
+                        // Ajout des cas du stagiaire
             // On parcours les cas sélectionnés
             foreach($form->get('cas')->getData() as $c)
             {   
@@ -125,7 +112,21 @@ class StagiaireController extends AbstractController
                         $stagiaire->addParticipation($participation);    
                     }
             }
-                   
+            //Suppression des stages du stagiaire
+             //On parcours les stages de la DB
+             foreach($stagiaire->getStage() as $s)
+             {
+                 if(!$form->get('stage')->getData()->contains($s))
+                 {  
+                 // On supprime ce stage
+                     $oldParticipation = $prepo->findOneBy(array('stagiaire' => $stagiaire->getId(),'stage' => $s->getId()));
+                    
+                       $manager->remove($oldParticipation);                     
+                       $manager->flush();
+            
+                 }
+             } 
+            
             //Suppression des cas du stagiaire
             //On parcours les cas de la DB  
             foreach($stagiaire->getCas() as $cas)
@@ -210,22 +211,6 @@ class StagiaireController extends AbstractController
     }
 
     
-/**
-     * 
-     * @Route("/stagiaire/condamnation", name="stagiaire_condamnation_index")
-     */
-    public function condamnationIndex(StagiaireRepository $repo, Request $request) :Response
-    {
-        $s = $request->query->get('q');
-        $stagiaires = $repo->findAllWithSearch($s);
-
-        return $this->render('stagiaire/condamnation.html.twig', [
-            'controller_name' => 'stagiaireController',
-            'stagiaires' => $stagiaires,
-           
-        ]);
-    }
-
 
 
     /**
@@ -433,10 +418,16 @@ class StagiaireController extends AbstractController
             $lieuInfraction = $request->request->get('infraction_lieuInfraction');
             $dateInfraction = $request->request->get('infraction_dateInfraction');
             $natureInfraction = $request->request->get('infraction_natureInfraction');
-           
+            $dateCondamnation = $request->request->get('infraction_dateCondamnation');
+            $numeroParquet = $request->request->get('infraction_numeroParquet');
+            $tribunal = $request->request->get('infraction_tribunal');
+
+
             $year = substr($dateInfraction, 0, 16);
             $format = 'd-m-Y H:i';
             $date = (\DateTime::createFromFormat($format, $year));
+            $yearcond = substr($dateCondamnation, 0, 10);
+            $datecond = (\DateTime::createFromFormat('d-m-Y', $yearcond));
            
             $natureInfraction = $repoNature->find($natureInfraction);
 
@@ -448,6 +439,9 @@ class StagiaireController extends AbstractController
                 $infraction->setLieuInfraction($lieuInfraction);
                 $infraction->setDateInfraction($date);
                 $infraction->setNatureInfraction($natureInfraction);
+                $infraction->setDateInfraction($datecond);
+                $infraction->setNumeroParquet($numeroParquet);
+                $infraction->setTribunal($tribunal);
               
                 $manager->persist($infraction);
                 $manager->flush();
@@ -517,7 +511,11 @@ class StagiaireController extends AbstractController
                 $lieuInfraction = $infraction->getLieuInfraction();
                 $dateInfraction = $infraction->getDateInfraction();
                 $natureInfraction = $infraction->getNatureInfraction();
-                $nbrs = $repoInfraction->counter($lieuInfraction, $dateInfraction, $natureInfraction);
+                $dateCondamnation = $infraction->getDateCondamnation();
+                $numeroParquet = $infraction->getNumeroParquet();
+                $tribunal = $infraction->getTribunal();
+
+                $nbrs = $repoInfraction->counter($lieuInfraction, $dateInfraction, $natureInfraction, $dateCondamnation, $numeroParquet, $tribunal);
                 $nbr = $nbrs[0][1];
          
                 if($infraction->getId() === null && $nbr === "0"){
@@ -768,6 +766,7 @@ class StagiaireController extends AbstractController
         "Attachment" => false
     ]);
 }
+
     }
 
    

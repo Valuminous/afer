@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class InfractionType extends AbstractType
 {
@@ -20,11 +20,14 @@ class InfractionType extends AbstractType
                 'format'=>'yyyy-MM-dd H:mm',
                 'html5' => true,
             ])
-            
-         
-            
             ->add('natureInfraction')
-          
+            ->add('dateCondamnation', DateType::class, [
+                'widget' => 'choice',
+                'format'=>'yyyy-MM-dd',
+                'html5' => true,
+            ])
+            ->add('numeroParquet')
+            ->add('tribunal')
         ;
     }
 

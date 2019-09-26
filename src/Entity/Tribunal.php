@@ -50,10 +50,10 @@ class Tribunal
      * @ORM\ManyToOne(targetEntity="App\Entity\TribunalAutorite", inversedBy="relation")
      */
     private $tribunalAutorite;
-     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="tribunal")
-     */
-    private $stages;
+    //  /**
+    //  * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="tribunal")
+    //  */
+    // private $stages;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="tribunal")
@@ -61,17 +61,17 @@ class Tribunal
     private $stagiaires;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Condamnation", mappedBy="tribumal")
+     * @ORM\OneToMany(targetEntity="App\Entity\Infraction", mappedBy="tribunal")
      */
-    private $condamnations;
+    private $infractions;
 
     
 
     public function __construct()
     {
-        $this->stage = new ArrayCollection();
+        // $this->stage = new ArrayCollection();
         $this->stagiaires = new ArrayCollection();
-        $this->condamnations = new ArrayCollection();
+        $this->infractions = new ArrayCollection();
        
     }
 
@@ -151,34 +151,34 @@ class Tribunal
         return $this;
     }
     
-   /**
-     * @return Collection|Stage[]
-     */
-    public function getStages(): Collection
-    {
-        return $this->stages;
-    }
+//    /**
+//      * @return Collection|Stage[]
+//      */
+//     public function getStages(): Collection
+//     {
+//         return $this->stages;
+//     }
 
-    public function addStage(Stage $stage): self
-    {
-        if (!$this->stages->contains($stage)) {
-            $this->stages[] = $stage;
-            $stage->addStage($this);
-        }
-        return $this;
-    }
-    public function removeStage(Stage $stage): self
-    {
-        if ($this->stages->contains($stage)) {
-            $this->stages->removeElement($stage);
-             // set the owning side to null (unless already changed)
-             if ($stage->getTribunal() === $this) {
-                $stage->setTribunal(null);
+//     public function addStage(Stage $stage): self
+//     {
+//         if (!$this->stages->contains($stage)) {
+//             $this->stages[] = $stage;
+//             $stage->addStage($this);
+//         }
+//         return $this;
+//     }
+//     public function removeStage(Stage $stage): self
+//     {
+//         if ($this->stages->contains($stage)) {
+//             $this->stages->removeElement($stage);
+//              // set the owning side to null (unless already changed)
+//              if ($stage->getTribunal() === $this) {
+//                 $stage->setTribunal(null);
            
-        }
-    }
-        return $this;
-    }
+//         }
+//     }
+//         return $this;
+//     }
 
     /**
      * @return Collection|Stagiaire[]
@@ -217,30 +217,30 @@ class Tribunal
     }
 
     /**
-     * @return Collection|Condamnation[]
+     * @return Collection|Infraction[]
      */
-    public function getCondamnations(): Collection
+    public function getInfractions(): Collection
     {
-        return $this->condamnations;
+        return $this->infractions;
     }
 
-    public function addCondamnation(Condamnation $condamnation): self
+    public function addInfraction(Infraction $infraction): self
     {
-        if (!$this->condamnations->contains($condamnation)) {
-            $this->condamnations[] = $condamnation;
-            $condamnation->setTribumal($this);
+        if (!$this->infractions->contains($infraction)) {
+            $this->infractions[] = $infraction;
+            $infraction->setTribunal($this);
         }
 
         return $this;
     }
 
-    public function removeCondamnation(Condamnation $condamnation): self
+    public function removeInfraction(Infraction $infraction): self
     {
-        if ($this->condamnations->contains($condamnation)) {
-            $this->condamnations->removeElement($condamnation);
+        if ($this->infractions->contains($infraction)) {
+            $this->infractions->removeElement($infraction);
             // set the owning side to null (unless already changed)
-            if ($condamnation->getTribumal() === $this) {
-                $condamnation->setTribumal(null);
+            if ($infraction->getTribunal() === $this) {
+                $infraction->setTribunal(null);
             }
         }
 

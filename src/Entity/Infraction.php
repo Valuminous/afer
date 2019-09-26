@@ -40,9 +40,19 @@ class Infraction
     private $stagiaire;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Condamnation", mappedBy="infraction", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $condamnation;
+    private $numeroParquet;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCondamnation;
+
+        /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="infractions")
+     */
+    private $tribunal;
 
     
     public function getId(): ?int
@@ -107,25 +117,42 @@ class Infraction
        
     }
 
-    public function getCondamnation(): ?Condamnation
+    public function getNumeroParquet(): ?string
     {
-        return $this->condamnation;
+        return $this->numeroParquet;
     }
 
-    public function setCondamnation(?Condamnation $condamnation): self
+    public function setNumeroParquet(?string $numeroParquet): self
     {
-        $this->condamnation = $condamnation;
+        $this->numeroParquet = $numeroParquet;
 
-        // set (or unset) the owning side of the relation if necessary
-        $newInfraction = $condamnation === null ? null : $this;
-        if ($newInfraction !== $condamnation->getInfraction()) {
-            $condamnation->setInfraction($newInfraction);
-        }
+        return $this;
+    }
+
+    public function getDateCondamnation(): ?\DateTimeInterface
+    {
+        return $this->dateCondamnation;
+    }
+
+    public function setDateCondamnation(?\DateTimeInterface $dateCondamnation): self
+    {
+        $this->dateCondamnation = $dateCondamnation;
 
         return $this;
     }
 
     
+    public function getTribunal(): ?Tribunal
+    {
+        return $this->tribunal;
+    }
+
+    public function setTribunal(?Tribunal $tribunal): self
+    {
+        $this->tribunal = $tribunal;
+
+        return $this;
+    }
  
    
 }

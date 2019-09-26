@@ -808,8 +808,8 @@ function loadFormLieuStage() {
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune').value.length != 0 &&
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_latitude').value.length != 0 &&
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_longitude').value.length != 0 &&
-                                document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_latitude').value.length != 0 &&
-                                document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_longitude').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_dmsLatitude').value.length != 0 &&
+                                document.querySelector('form[name="lieu_stage"] #lieu_stage_dmsLongitude').value.length != 0 &&
                                 document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage').value.length != 0) {
 
                                 let nom = document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_etablissement');
@@ -819,10 +819,11 @@ function loadFormLieuStage() {
                                 let commune = document.querySelector('form[name="lieu_stage"] #lieu_stage_nom_commune');
                                 let latitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_latitude');
                                 let longitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_longitude');
-                                let dmsLatitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_latitude');
-                                let dmsLongitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_dms_longitude');
+                                let dmsLatitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_dmsLatitude');
+                                let dmsLongitude = document.querySelector('form[name="lieu_stage"] #lieu_stage_dmsLongitude');
                                 let telephone = document.querySelector('form[name="lieu_stage"] #lieu_stage_telephone_stage');
                                 let token = document.querySelector('form[name="lieu_stage"] #lieu_stage__token');
+                               
 
                                 let data = new FormData();
                                 data.append("lieu_stage_nom_etablissement", nom.value);
@@ -830,13 +831,14 @@ function loadFormLieuStage() {
                                 data.append("lieu_stage_numero_adresse_stage", numeroAdresse.value);
                                 data.append("lieu_stage_adresse_stage", adresse.value);
                                 data.append("lieu_stage_nom_commune", commune.value);
-                                data.append("lieu_stage_latitude", commune.value);
-                                data.append("lieu_stage_longitude", commune.value);
-                                data.append("lieu_stage_dms_latitude", commune.value);
-                                data.append("lieu_stage_dms_longitude", commune.value);
+                                data.append("lieu_stage_latitude", latitude.value);
+                                data.append("lieu_stage_longitude", longitude.value);
+                                data.append("lieu_stage_dms_latitude", dmsLatitude.value);
+                                data.append("lieu_stage_dms_longitude", dmsLongitude.value);
                                 data.append("lieu_stage_telephone_stage", telephone.value);
                                 data.append("lieu_stage__token", token.value);
 
+                                console.log(dmslongitude.value);
                                 fetch("/admin/stage/loadFormLieuStage", {
                                         method: "POST",
                                         body: data,
@@ -912,8 +914,8 @@ function inputCommuneLieuStage() {
                                     }
 
                                     let p = selection.getElementsByTagName('p');
-                                    let longitude = document.getElementById('lieu_stage_longitude');
-                                    let latitude = document.getElementById('lieu_stage_latitude');
+                                    //let longitude = document.getElementById('lieu_stage_longitude');
+                                    //let latitude = document.getElementById('lieu_stage_latitude');
 
 
                                     for (let i = 0; i < p.length; i++) {
@@ -923,8 +925,8 @@ function inputCommuneLieuStage() {
                                             commune.value = resultat[p[i].id]['nomCommune'] + " (" + resultat[p[i].id]['cp'] + ")";
                                             selection.classList.add('listeHidden');
 
-                                            longitude.value = resultat[p[i].id]['longitude'];
-                                            latitude.value = resultat[p[i].id]['latitude'];
+                                            //longitude.value = resultat[p[i].id]['longitude'];
+                                            //latitude.value = resultat[p[i].id]['latitude'];
                                         })
                                     }
                                 }).catch((error) => {
@@ -1047,7 +1049,12 @@ function loadFormInfraction() {
                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_date_year').value.length != "" &&
                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_hour').value.length != "" &&
                                 document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_minute').value.length != "" &&
-                                document.querySelector('form[name="infraction"] #infraction_natureInfraction').value.length != "")
+                                document.querySelector('form[name="infraction"] #infraction_natureInfraction').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_dateCondamnation_day').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_dateCondamnation_month').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_dateCondamnation_year').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_numeroParquet').value.length != "" &&
+                                document.querySelector('form[name="infraction"] #infraction_tribunal').value.length != 0)
 
                             {
                                 let lieuInfraction = document.querySelector('form[name="infraction"] #infraction_lieuInfraction');
@@ -1057,11 +1064,19 @@ function loadFormInfraction() {
                                     document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_hour').value + ":" +
                                     document.querySelector('form[name="infraction"] #infraction_dateInfraction_time_minute').value;
                                 let natureInfraction = document.querySelector('form[name="infraction"] #infraction_natureInfraction');
+                                let dateCondamnation = document.querySelector('form[name="infraction"] #infraction_dateCondamnation_day').value + "-" +
+                                    document.querySelector('form[name="infraction"] #infraction_dateCondamnation_month').value + "-" +
+                                    document.querySelector('form[name="infraction"] #infraction_dateCondamnation_year').value;                                
+                                let numeroParquet = document.querySelector('form[name="infraction"] #infraction_numeroParquet');
+                                let tribunal = document.querySelector('form[name="infraction"] #infraction_tribunal');
                                 let data = new FormData();
 
                                 data.append("infraction_lieuInfraction", lieuInfraction.value);
                                 data.append("infraction_dateInfraction", dateInfraction);
                                 data.append("infraction_natureInfraction", natureInfraction.value);
+                                data.append("infraction_dateCondamnation", dateCondamnation);
+                                data.append("infraction_numeroParquet", numeroParquet.value);
+                                data.append("infraction_tribunal", tribunal.value);
 
                                 console.log(dateInfraction);
                                 

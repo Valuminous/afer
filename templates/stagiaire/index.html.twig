@@ -30,8 +30,7 @@
             <li class="btn btn-infraction"><a class="onglet"
                     href="{{ path('stagiaire_infraction_index')}}">Infraction</a>
             </li>
-            <li class="btn btn-condamnation"><a class="onglet"
-                    href="{{ path('stagiaire_condamnation_index')}}">Condamnation</a></li>
+            
         </div>
         <div class="text-right">
             <a data-toggle="tooltip" data-placement="top" title="Imprimer cette page" target="_blank"
@@ -76,18 +75,19 @@
                  {% endif %}
                  {% if stagiaire.participations is not empty %}
                 {% for participation in stagiaire.participations %}
-               
+               {% if participation.stage is not empty %}
                 {% if participation.stage.dated < date() %}
-                <td class="text-left">Terminé</td></br>
+                <td class="text-left">Terminé</br></td>
                 {% else %}
                 <td class="text-left">{{ participation.stage.dated|localizeddate('long', 'none', 'fr')}} </td>
                  {% endif %}
+                  {% endif %}
                 {% endfor %}
                 {% else %}
                 <td class="text-left">Aucun stage défini</td>
                 
                 {% endif %}
-               
+                
 
                 <td class="text-center">
                     <a data-toggle="tooltip" data-placement="top" title="Voir le stagiaire"

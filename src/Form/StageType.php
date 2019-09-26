@@ -40,7 +40,9 @@ class StageType extends AbstractType
                 'choices'  => [
                     'Oui' => true,
                     'Non' => false,
+                    
                 ],
+                'expanded' => 'true',
             ])
 
             ->add('lieuStage', EntityType::class, [
@@ -50,16 +52,16 @@ class StageType extends AbstractType
         
             
             ])    
-            ->add('prefecture', EntityType::class, [
-                'class' => Prefecture::class,
-                'choice_label' => 'nomPrefecture',
-                'placeholder' => 'Choisir une préfecture'
-            ])    
-            ->add('tribunal', EntityType::class, [
-                'class' => Tribunal::class,
-                'choice_label' => 'nomTribunal',
-                'placeholder' => 'Choisir un tribunal'
-            ])    
+            // ->add('prefecture', EntityType::class, [
+            //     'class' => Prefecture::class,
+            //     'choice_label' => 'nomPrefecture',
+            //     'placeholder' => 'Choisir une préfecture'
+            // ])    
+            // ->add('tribunal', EntityType::class, [
+            //     'class' => Tribunal::class,
+            //     'choice_label' => 'nomTribunal',
+            //     'placeholder' => 'Choisir un tribunal'
+            // ])    
             ->add('animateurs', EntityType::class, [
                 'class' => Animateur::class,
                 'choice_label' => function (Animateur $animateur) {
@@ -69,9 +71,11 @@ class StageType extends AbstractType
                 'attr' => array('class' => 'animateur-select'),
                 'multiple' => 'true',
                 'expanded' => 'true',
+                'group_by' =>  function (Animateur $animateur) {
+                    return $animateur->getAnimateurFonction()
+                },
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')
-                        ->orderBy('anim.animateurFonction', 'ASC')
                         ->orderBy('anim.nomAnimateur', 'ASC');
                 },
             

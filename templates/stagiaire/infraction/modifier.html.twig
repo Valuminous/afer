@@ -14,12 +14,26 @@
             <div id="selectInfraction" class="listeHidden"></div>
         </div>
         <div class="col">
-            {{ form_row(formInfraction.dateInfraction, {'label': "Date de l'infraction :", 'attr': {'placeholder': "Date de l'infraction"}})}}
+            {{ form_row(formInfraction.dateInfraction, {'label': "Date et heure de l'infraction :", 'attr': {'placeholder': "Date et heure de l'infraction"}})}}
         </div>
     </div>
     <div class="row">
         <div class="col">
             {{ form_row(formInfraction.natureInfraction, {'label': "Nature de l'infraction :", 'attr': {'placeholder': "Nature de l'infraction"}})
+            }}
+        </div>
+        <div class="col">
+            {{ form_row(formInfraction.dateCondamnation, {'label': "Date de la condamnation :", 'attr': {'placeholder': "Date de la condamnation"}})
+            }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(formInfraction.numeroParquet, {'label': "Numéro de parquet :", 'attr': {'placeholder': "Numéro de parquet"}})
+            }}
+        </div>
+        <div class="col">
+            {{ form_row(formInfraction.tribunal, {'label': "Tribunal :", 'attr': {'placeholder': "Tribunal"}})
             }}
         </div>
     </div>

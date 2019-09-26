@@ -33,8 +33,8 @@ class AdminController extends AbstractController
     {
 
         if($request->isMethod('POST')){
-            $homme = 41;
-            $femme = 42;
+            $homme = 11;
+            $femme = 12;
             $nbrHomme = $repoStagiaire->counterCivilite($homme);
             $nbrFemme = $repoStagiaire->counterCivilite($femme);
             
