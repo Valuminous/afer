@@ -25,6 +25,7 @@ use App\Repository\TribunalRepository;
 use App\Repository\AnimateurRepository;
 use App\Repository\LieuStageRepository;
 use App\Repository\StagiaireRepository;
+use App\Repository\InfractionRepository;
 use App\Repository\PrefectureRepository;
 use App\Repository\ParticipationRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -621,10 +622,10 @@ die();
     // Instantiate Dompdf with our options
     $dompdf = new Dompdf($pdfOptions);
     $stage ->getId();
-//    dump($stagiaire);
-//    die();
   
-   
+    
+    dump($stage);
+    die();
     // Retrieve the HTML generated in our twig file
     $html = $this->renderView('stage/pdf_emargement.html.twig', [
         'stage' => $stage,
@@ -647,6 +648,47 @@ die();
      $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(.4, .4, .8));
      // Output the generated PDF to Browser (force download)
      $dompdf->stream("emargement_{$stage}.pdf", [
+         "Attachment" => false
+     ]);
+ }
+
+ /**
+    * PDF bordereau stage
+     * @Route("/stage/{id}/bordereau", name="stage_bordereau")
+     */
+    public function bordereau(StageRepository $repo, Stage $stage, Request $request, ObjectManager $manager)
+    {
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+    $stage ->getId();
+    $stagiaires = $repo->bordereau();
+    //dump($stage);
+    //die();
+    // Retrieve the HTML generated in our twig file
+    $html = $this->renderView('stage/pdf_bordereau.html.twig', [
+        'stage' => $stage,
+        'stagiaires' => $stagiaires,
+    ]);
+     // Load HTML to Dompdf
+     $dompdf->loadHtml($html);
+    
+     // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+     $dompdf->setPaper('A4', 'portrait');
+ 
+     // Render the HTML as PDF
+     $dompdf->render();
+     $canvas = $dompdf->get_canvas();
+     $date = date("d-m-Y");
+     $canvas->page_text(450, 80, "Besançon, le $date", null, 10, array(0, 0, 0));
+     $canvas->page_text(120, 780, "Association Franc-comtoise d’Education Routière – 7 Square Saint Amour 25000 Besançon", null, 10, array(.4, .4, .8));
+     $canvas->page_text(200, 790, "Tél : 06 24 18 32 41 – Courriel : afer.wnr@gmail.com", null, 10, array(.4, .4, .8));
+     $canvas->page_text(240, 800, "N° de SIRET : 820 306 165 00011", null, 10, array(.4, .4, .8));
+     $canvas->page_text(210, 810, "N° de Formation Professionnelle : 27 25 03054 25", null, 10, array(.4, .4, .8));
+     // Output the generated PDF to Browser (force download)
+     $dompdf->stream("bordereau_{$stage}.pdf", [
          "Attachment" => false
      ]);
  }

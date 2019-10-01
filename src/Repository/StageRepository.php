@@ -111,4 +111,24 @@ class StageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function bordereau()
+    {
+        return $this->createQueryBuilder('s')
+        // ->andWhere('s.dated >= :now')
+        ->leftJoin('s.participations', 'p')
+        ->addSelect('p')
+        ->leftJoin('p.stagiaire', 'st')
+        ->addSelect('st')
+        
+        ->leftJoin('st.infraction', 'i')
+        ->addSelect('i')
+        ->leftJoin('i.tribunal', 't')
+        ->addSelect('t')
+        
+       
+        ->getQuery()
+        ->getResult()    
+        ;
+    }
 }

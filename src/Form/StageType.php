@@ -72,7 +72,7 @@ class StageType extends AbstractType
                 'multiple' => 'true',
                 'expanded' => 'true',
                 'group_by' =>  function (Animateur $animateur) {
-                    return $animateur->getAnimateurFonction()
+                    return $animateur->getAnimateurFonction();
                 },
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('anim')

@@ -54,10 +54,10 @@ class Prefecture
     //  */
     // private $stages;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="prefecture")
-     */
-    private $stagiaires;
+    // /**
+    //  * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="prefecture")
+    //  */
+    // private $stagiaires;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Licence", mappedBy="prefecture")
@@ -69,7 +69,7 @@ class Prefecture
     public function __construct()
     {
         // $this->stages = new ArrayCollection();
-        $this->stagiaires = new ArrayCollection();
+        // $this->stagiaires = new ArrayCollection();
         $this->licences = new ArrayCollection();
         
         
@@ -181,36 +181,36 @@ class Prefecture
     //     return $this;
     // }
 
-    /**
-     * @return Collection|Stagiaire[]
-     */
-    public function getStagiaires(): Collection
-    {
-        return $this->stagiaires;
-    }
+    // /**
+    //  * @return Collection|Stagiaire[]
+    //  */
+    // public function getStagiaires(): Collection
+    // {
+    //     return $this->stagiaires;
+    // }
 
-    public function addStagiaire(Stagiaire $stagiaire): self
-    {
-        if (!$this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires[] = $stagiaire;
-            $stagiaire->setPrefecture($this);
-        }
+    // public function addStagiaire(Stagiaire $stagiaire): self
+    // {
+    //     if (!$this->stagiaires->contains($stagiaire)) {
+    //         $this->stagiaires[] = $stagiaire;
+    //         $stagiaire->setPrefecture($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeStagiaire(Stagiaire $stagiaire): self
-    {
-        if ($this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires->removeElement($stagiaire);
-            // set the owning side to null (unless already changed)
-            if ($stagiaire->getPrefecture() === $this) {
-                $stagiaire->setPrefecture(null);
-            }
-        }
+    // public function removeStagiaire(Stagiaire $stagiaire): self
+    // {
+    //     if ($this->stagiaires->contains($stagiaire)) {
+    //         $this->stagiaires->removeElement($stagiaire);
+    //         // set the owning side to null (unless already changed)
+    //         if ($stagiaire->getPrefecture() === $this) {
+    //             $stagiaire->setPrefecture(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     
  /**

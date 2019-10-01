@@ -89,10 +89,10 @@
                     {% endif %}
                 </tr>
                 <tr>
-                
+
                     {% if stagiaire.participations is not empty %}
-                 {% for participation in stagiaire.participations %}
-                 {% if participation.stage.dated < date() %}
+                    {% for participation in stagiaire.participations %}
+                    {% if participation.stage.dated < date() %}
                     <td class="font-weight-bold">Stages précédents</td>
                     <td>{{ participation.stage.numeroStage }}</td>
                     <td class="font-weight-bold">du : </td>
@@ -106,11 +106,11 @@
                     <td>{{ participation.stage.dated|localizeddate('long', 'none', 'fr')}}</td>
                     <td class="font-weight-bold">au : </td>
                     <td>{{ participation.stage.datef|localizeddate('long', 'none', 'fr')}}</td>
-                     {% endif %}
+                    {% endif %}
                     {% endfor %}
                     {% else %}
                     <td class="font-weight-bold">Aucun stage défini</td>
-                      <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -119,13 +119,33 @@
                 </tr>
             </tbody>
         </table>
-        
+
     </div>
     <div class="row d-flex align-items-center">
-     <a href="{{ path('stagiaire_inscription', {'id': stagiaire.id}) }}" target="_blank" class="btn confirm lieustage_button mt-3">Créer l'inscription</a>
-     <a href="{{ path('stagiaire_convocation', {'id': stagiaire.id}) }}" target="_blank" class="btn notice lieustage_button mt-3">Créer la convocation</a>
-    <a href="{{ path('stagiaire_facture', {'id': stagiaire.id}) }}" target="_blank" class="btn bill lieustage_button mt-3">Créer la facture</a>
-</div>
+        {% for participation in stagiaire.participations %}
+        {% if participation.dateInscription is not empty %}
+        <a href="{{ path('stagiaire_inscription', {'id': stagiaire.id}) }}" target="_blank"
+            class="btn confirm lieustage_button mt-3">Voir l'inscription</a>
+        {% else %}
+        <a href="{{ path('stagiaire_inscription', {'id': stagiaire.id}) }}" target="_blank"
+            class="btn confirm lieustage_button mt-3">Créer l'inscription</a>
+        {% endif %}
+        {% if participation.dateConvocation is not empty %}
+        <a href="{{ path('stagiaire_convocation', {'id': stagiaire.id}) }}" target="_blank"
+            class="btn notice lieustage_button mt-3">Voir la convocation</a>
+        {% else %}
+        <a href="{{ path('stagiaire_convocation', {'id': stagiaire.id}) }}" target="_blank"
+            class="btn notice lieustage_button mt-3">Créer la convocation</a>
+        {% endif %}
+        {% if participation.dateFacture is not empty %}
+        <a href="{{ path('stagiaire_facture', {'id': stagiaire.id}) }}" target="_blank"
+            class="btn bill lieustage_button mt-3">Voir la facture</a>
+        {% else %}
+        <a href="{{ path('stagiaire_facture', {'id': stagiaire.id}) }}" target="_blank"
+            class="btn bill lieustage_button mt-3">Créer la facture</a>
+        {% endif %}
+        {% endfor %}
+    </div>
     <a href="{{ path('stagiaire_index') }}" class="btn retour lieustage_button mt-3">Retour</a>
 </div>
 

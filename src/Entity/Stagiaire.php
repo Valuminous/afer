@@ -106,17 +106,17 @@ class Stagiaire
      */
     private $civilite;
      
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stagiaires")
-     * 
-     */
-    private $prefecture;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity="App\Entity\Prefecture", inversedBy="stagiaires")
+    //  * 
+    //  */
+    // private $prefecture;
 
     
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stagiaires")
-     */
-    private $tribunal;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity="App\Entity\Tribunal", inversedBy="stagiaires")
+    //  */
+    // private $tribunal;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Licence", inversedBy="stagiaire")
@@ -317,30 +317,30 @@ class Stagiaire
 
     
 
-    public function getPrefecture(): ?Prefecture
-    {
-        return $this->prefecture;
-    }
+    // public function getPrefecture(): ?Prefecture
+    // {
+    //     return $this->prefecture;
+    // }
 
-    public function setPrefecture(?Prefecture $prefecture): self
-    {
-        $this->prefecture = $prefecture;
+    // public function setPrefecture(?Prefecture $prefecture): self
+    // {
+    //     $this->prefecture = $prefecture;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
    
-    public function getTribunal(): ?Tribunal
-    {
-        return $this->tribunal;
-    }
+    // public function getTribunal(): ?Tribunal
+    // {
+    //     return $this->tribunal;
+    // }
 
-    public function setTribunal(?Tribunal $tribunal): self
-    {
-        $this->tribunal = $tribunal;
+    // public function setTribunal(?Tribunal $tribunal): self
+    // {
+    //     $this->tribunal = $tribunal;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getLicence(): ?Licence
     {

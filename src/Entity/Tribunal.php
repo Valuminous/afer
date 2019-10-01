@@ -55,10 +55,10 @@ class Tribunal
     //  */
     // private $stages;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="tribunal")
-     */
-    private $stagiaires;
+    // /**
+    //  * @ORM\OneToMany(targetEntity="App\Entity\Stagiaire", mappedBy="tribunal")
+    //  */
+    // private $stagiaires;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Infraction", mappedBy="tribunal")
@@ -70,7 +70,7 @@ class Tribunal
     public function __construct()
     {
         // $this->stage = new ArrayCollection();
-        $this->stagiaires = new ArrayCollection();
+        // $this->stagiaires = new ArrayCollection();
         $this->infractions = new ArrayCollection();
        
     }
@@ -180,33 +180,33 @@ class Tribunal
 //         return $this;
 //     }
 
-    /**
-     * @return Collection|Stagiaire[]
-     */
-    public function getStagiaires(): Collection
-    {
-        return $this->stagiaires;
-    }
+    // /**
+    //  * @return Collection|Stagiaire[]
+    //  */
+    // public function getStagiaires(): Collection
+    // {
+    //     return $this->stagiaires;
+    // }
 
-    public function addStagiaire(Stagiaire $stagiaire): self
-    {
-        if (!$this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires[] = $stagiaire;
-            $stagiaire->addTribunal($this);
-        }
+    // public function addStagiaire(Stagiaire $stagiaire): self
+    // {
+    //     if (!$this->stagiaires->contains($stagiaire)) {
+    //         $this->stagiaires[] = $stagiaire;
+    //         $stagiaire->addTribunal($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeStagiaire(Stagiaire $stagiaire): self
-    {
-        if ($this->stagiaires->contains($stagiaire)) {
-            $this->stagiaires->removeElement($stagiaire);
-            $stagiaire->removeTribunal($this);
-        }
+    // public function removeStagiaire(Stagiaire $stagiaire): self
+    // {
+    //     if ($this->stagiaires->contains($stagiaire)) {
+    //         $this->stagiaires->removeElement($stagiaire);
+    //         $stagiaire->removeTribunal($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
       
  /**
